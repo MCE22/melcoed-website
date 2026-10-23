@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Todo from '../components/Todo.astro';
+import { site, quoteHref, fullAddress, mapsUrl } from '../data/site';
+
+const path = '/contact/';
+const breadcrumbs = [{ name: 'Contact', path }];
+// Keyless Google Maps embed; loads lazily so it doesn't slow the page.
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.name}, ${fullAddress}`)}&output=embed`;
+---
+
+<BaseLayout
+  title="Contact Us: Mel-Co-Ed, Inc., Pawtucket, RI"
+  description={`Contact Mel-Co-Ed, Inc. at ${fullAddress}. Call ${site.phone.display} or request a quote for custom metal stamping, badges, medallions and emblems.`}
+  pageType="ContactPage"
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero
+    title="Contact Us"
+    accent="come see the shop"
+    ribbon="Pawtucket, R.I."
+    lead="Call, email or stop by. For pricing, the quote form gets your request to the right person fastest."
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="reach-h">
+    <div class="wrap contact">
+      <div class="contact__details">
+        <h2 id="reach-h" class="visually-hidden">How to reach us</h2>
+
+        <div class="card info">
+          <h3>Phone</h3>
+          <p class="info__big"><a href={`tel:${site.phone.e164}`}>{site.phone.display}</a></p>
+        </div>
+
+        {
+          site.email && (
+            <div class="card info">
+              <h3>Email</h3>
+              <p class="info__big">
+                <a href={`mailto:${site.email}`}>{site.email}</a>
+              </p>
+              <p class="info__note">Quotes, drawings and general questions.</p>
+            </div>
+          )
+        }
+
+        <div class="card info">
+          <h3>Address</h3>
+          <address>
+            {site.name}<br />
+            {site.address.street}<br />
+            {site.address.city}, {site.address.regionName} {site.address.postalCode}
+          </address>
+          <p><a href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a></p>
+        </div>
+
+        <div class="card info">
+          <h3>Hours</h3>
+          {site.openingHours ? <p>{site.openingHours}</p> : <Todo>office and shipping/receiving hours (also add to src/data/site.ts for schema)</Todo>}
+        </div>
+
+        <div class="card info">
+          <h3>Visiting &amp; deliveries</h3>
+          <Todo>parking, which door to use, receiving dock / delivery instructions, and whether visits need an appointment</Todo>
+        </div>
+      </div>
+
+      <figure class="map">
+        <iframe
+          src={mapEmbed}
+          title={`Map: ${site.name}, ${fullAddress}`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+        <figcaption>{fullAddress}</figcaption>
+      </figure>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (min-width: 56rem) {
+    .contact {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 3rem;
+    }
+    .map {
+      position: sticky;
+      top: calc(var(--header-h) + 3rem);
+    }
+  }
+  .contact__details {
+    display: grid;
+    gap: 1rem;
+  }
+  .info {
+    padding: 1.25rem 1.4rem;
+  }
+  .info h3 {
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cherry);
+  }
+  .info p,
+  .info address {
+    margin: 0;
+  }
+  .info address {
+    font-style: normal;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .info__big {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .info__big a {
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .info__big a:hover {
+    color: var(--cherry);
+  }
+  .info__note {
+    margin-top: 0.35rem !important;
+    color: var(--ink-600);
+    font-size: 0.95rem;
+  }
+
+  /* Map in a chrome-rimmed frame */
+  .map {
+    margin: 0;
+    padding: 6px;
+    border-radius: var(--radius-lg);
+    background: var(--paper);
+    border: 1px solid var(--chrome);
+    box-shadow: var(--shadow);
+  }
+  .map iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: 12px;
+    background: var(--cream-100);
+  }
+  .map figcaption {
+    padding: 0.6rem 0.5rem 0.3rem;
+    font-size: 0.85rem;
+    color: var(--ink-600);
+  }
+</style>

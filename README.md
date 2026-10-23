@@ -67,8 +67,8 @@ Run `npm run todos` to see them all. Every TODO must be resolved before launch.
 - [x] Findings, Badges, Medallions, Awards, Industrial Components (shared template: `src/components/ProductPage.astro` + `src/data/products.ts`)
 - [x] Fraternal & Lodge Emblems → served by `/industries/fraternal-lodge/` (avoids two pages competing for the same searches)
 - [x] Capabilities
-- [ ] About
-- [ ] FAQ
+- [x] About
+- [x] FAQ (general + ordering FAQs from `src/data/faqs.ts`; FAQPage markup for those lives only here)
 - [x] Request a Quote (Web3Forms; honeypot spam check; no-JS fallback at /request-a-quote/thank-you/)
 - [x] Industries hub, Fraternal & Lodge, Commemorative & 250th
-- [ ] Contact
+- [x] Contact

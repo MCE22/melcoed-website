@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import { site, quoteHref } from '../data/site';
+import { generalFaqs, orderingFaqs } from '../data/faqs';
+import { faqPageNode } from '../lib/schema';
+import { isLive } from '../lib/routes';
+
+const path = '/faq/';
+const breadcrumbs = [{ name: 'FAQ', path }];
+
+// Topic FAQs live (and are marked up) on their own pages; link rather than duplicate.
+const topics = [
+  { label: 'Quoting & file formats', href: '/request-a-quote/#quote-faq-h' },
+  { label: 'Badges', href: '/badges/#faq-h' },
+  { label: 'Medallions & challenge coins', href: '/medallions/#faq-h' },
+  { label: 'Awards & service pins', href: '/awards/#faq-h' },
+  { label: 'Findings & raw stampings', href: '/findings/#faq-h' },
+  { label: 'Industrial components', href: '/industrial-components/#faq-h' },
+  { label: 'Fraternal & lodge emblems', href: '/industries/fraternal-lodge/#faq-h' },
+  { label: 'Commemorative & 250th', href: '/industries/commemorative/#faq-h' },
+  { label: 'Capabilities, gauges & tolerances', href: '/capabilities/#faq-h' },
+].filter((t) => isLive(t.href));
+---
+
+<BaseLayout
+  title="FAQ: Custom Metal Stamping, Badges, Medallions & Emblems"
+  description="Answers about Mel-Co-Ed, Inc.: what we make, where we are, quoting, tooling, ordering and shipping, plus links to badge, medallion, emblem and industrial stamping FAQs."
+  breadcrumbs={breadcrumbs}
+  schema={[faqPageNode(path, [...generalFaqs, ...orderingFaqs])]}
+>
+  <PageHero
+    title="Frequently Asked Questions"
+    accent="straight answers"
+    ribbon="FAQ"
+    lead="What we make, how ordering works, and where to find detailed answers for each product."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section" aria-labelledby="general-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--navy">About us</span>
+        <h2 id="general-h">General</h2>
+      </div>
+      <FaqList faqs={generalFaqs} />
+    </div>
+  </section>
+
+  <section class="section section--cream" aria-labelledby="ordering-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Working with us</span>
+        <h2 id="ordering-h">Ordering &amp; tooling</h2>
+      </div>
+      <FaqList faqs={orderingFaqs} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="topics-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--navy">By topic</span>
+        <h2 id="topics-h">More answers by product</h2>
+        <p class="lead">Each product and industry page has its own detailed FAQ.</p>
+      </div>
+      <ul class="topics">
+        {
+          topics.map((t) => (
+            <li>
+              <a class="card card--link topic" href={t.href}>
+                <span>{t.label}</span>
+                <span class="topic__arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="ask">
+        Didn't find it? Call <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+        {site.email && <> or email <a href={`mailto:${site.email}`}>{site.email}</a></>}, or{' '}
+        <a href={quoteHref}>send a quote request</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .topics {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 40rem) {
+    .topics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .topics {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .topic {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .topic:hover {
+    color: var(--cherry);
+  }
+  .topic__arrow {
+    color: var(--cherry);
+  }
+  .ask {
+    margin: 0;
+    color: var(--ink-600);
+  }
+</style>

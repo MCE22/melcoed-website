@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Seal from '../components/Seal.astro';
+import Todo from '../components/Todo.astro';
+import { site, divisions, quoteHref } from '../data/site';
+import { liveLinks } from '../lib/routes';
+
+const path = '/about/';
+const breadcrumbs = [{ name: 'About', path }];
+const years = new Date().getFullYear() - site.foundingYear;
+
+// Milestones: only the first and last are confirmed; fill the rest from company records.
+const milestones: { year: string; text?: string; todo?: string }[] = [
+  { year: String(site.foundingYear), text: 'Mel-Co-Ed is founded in Pawtucket, Rhode Island.' },
+  { year: '19__', todo: 'move to 381 Roosevelt Ave (year?)' },
+  { year: '19__', todo: 'second generation takes over (year, name)' },
+  { year: '19__', todo: 'key expansion: new presses, milling division, major product line' },
+  { year: 'Today', text: 'Third generation of the family runs the company, with four divisions under one roof.' },
+];
+
+const principles = [
+  {
+    title: 'Tooling in-house',
+    body: 'We build our own dies, with support from our Precision Milling division. Changes, repairs and reorders happen on our floor, on our schedule.',
+  },
+  {
+    title: 'One supplier, one schedule',
+    body: 'Tooling, stamping and milling happen in one Pawtucket building, so there is one company accountable for your parts.',
+  },
+  {
+    title: 'Family-owned, long-term',
+    body: `Three generations and ${years}+ years in the same city. We plan in decades, and so do our customers' programs.`,
+  },
+];
+---
+
+<BaseLayout
+  title={`About Us: Family-Owned Metal Stamping in Pawtucket, RI Since ${site.foundingYear}`}
+  description={`Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island, founded in ${site.foundingYear}. Our history, divisions and how we work.`}
+  pageType="AboutPage"
+  breadcrumbs={breadcrumbs}
+>
+  <PageHero
+    title="About Mel-Co-Ed"
+    accent={`since ${site.foundingYear}`}
+    ribbon="Family-owned · Third generation"
+    lead={`A family-owned precision metal stamping company in Pawtucket, Rhode Island, striking badges, medallions, emblems, findings and industrial parts since ${site.foundingYear}.`}
+    breadcrumbs={breadcrumbs}
+  />
+
+  <!-- Story -->
+  <section class="section" aria-labelledby="story-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--navy">Our story</span>
+        <h2 id="story-h">Three generations on Roosevelt Avenue</h2>
+        <p class="lead">
+          Mel-Co-Ed has been stamping metal in Pawtucket since {site.foundingYear}, in a state that built its name on
+          jewelry and metalworking. Today the company is run by the third generation of the same family.
+        </p>
+        <Todo block>
+          Founding story, 3&ndash;5 sentences: who founded Mel-Co-Ed, where the name comes from, what the company first
+          made, and how it grew. Real names, dates and products are what make this page rank and get cited by AI search.
+        </Todo>
+        <Todo block>Current leadership: names and roles of the family members running the company today.</Todo>
+      </div>
+      <div class="story-seal">
+        <Seal />
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section section--cream" aria-labelledby="timeline-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">Milestones</span>
+        <h2 id="timeline-h">{years}+ years in Pawtucket</h2>
+      </div>
+      <ol class="milestones">
+        {
+          milestones.map((m) => (
+            <li>
+              <span class="milestones__year">{m.year}</span>
+              <span class="milestones__text">{m.text ?? <Todo>{m.todo}</Todo>}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Place -->
+  <section class="section section--navy" aria-labelledby="place-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Pawtucket, R.I.</span>
+        <h2 id="place-h">Made where American manufacturing started</h2>
+      </div>
+      <div>
+        <p>
+          Pawtucket's Slater Mill, a few minutes from our shop, opened in 1793 and is often called the birthplace of the
+          American Industrial Revolution. Rhode Island went on to become a center of American jewelry and metalworking.
+        </p>
+        <p>
+          Mel-Co-Ed is part of that tradition: die-struck findings, emblems and badges, and the tooling skill to make
+          them, still made here.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work -->
+  <section class="section" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--navy">How we work</span>
+        <h2 id="how-h">What hasn't changed since {site.foundingYear}</h2>
+      </div>
+      <div class="grid grid--3">
+        {
+          principles.map((p) => (
+            <article class="card">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+      <figure class="photo">
+        <Todo block>
+          Photos: the vintage sign, the shop floor, and the family/team (2&ndash;4 images, min. 1600px wide). Save to
+          <code>src/assets/</code> and replace this block with Astro <code>&lt;Image&gt;</code> components.
+        </Todo>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Divisions -->
+  <section class="section section--cream" aria-labelledby="div-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">Four divisions</span>
+        <h2 id="div-h">What we do today</h2>
+      </div>
+      <div class="grid grid--2">
+        {
+          divisions.map((d) => (
+            <article class="card">
+              <h3>{d.name}</h3>
+              <p>{d.summary}</p>
+              <p class="div-links">
+                {liveLinks(d.links).map((l, i) => (
+                  <>
+                    {i > 0 && ' · '}
+                    <a href={l.href}>{l.label}</a>
+                  </>
+                ))}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="btn-row cta-row">
+        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+        <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .story-seal {
+    width: min(16rem, 70vw);
+    justify-self: center;
+    align-self: center;
+  }
+  @media (min-width: 56rem) {
+    .story-seal {
+      width: min(20rem, 100%);
+    }
+  }
+
+  .milestones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--chrome);
+    max-width: 48rem;
+  }
+  .milestones li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1rem 0 1rem 1.5rem;
+    border-bottom: 1px solid var(--chrome-light);
+  }
+  .milestones li::before {
+    content: '';
+    position: absolute;
+    left: -0.55rem;
+    top: 1.35rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--cherry);
+    box-shadow:
+      0 0 0 2px var(--cream-100),
+      0 0 0 3px var(--chrome);
+  }
+  .milestones__year {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--navy);
+  }
+  .milestones__text {
+    color: var(--ink-600);
+  }
+
+  .section--navy p {
+    color: var(--cream-200);
+  }
+
+  .photo {
+    margin: 2rem 0 0;
+  }
+  .div-links {
+    margin: auto 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--chrome-light);
+    font-weight: 650;
+  }
+  .div-links a {
+    text-decoration: none;
+  }
+  .div-links a:hover {
+    text-decoration: underline;
+  }
+  .cta-row {
+    margin-top: 2.5rem;
+  }
+</style>

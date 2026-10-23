@@ -3,10 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Seal from '../components/Seal.astro';
 import Todo from '../components/Todo.astro';
 import FaqList from '../components/FaqList.astro';
-import { site, divisions, quoteHref, fullAddress } from '../data/site';
-import { faqPageNode, type Faq } from '../lib/schema';
+import { site, divisions, quoteHref } from '../data/site';
 import { isLive, liveLinks } from '../lib/routes';
 import { industries } from '../data/industries';
+import { generalFaqs } from '../data/faqs';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
@@ -50,40 +50,14 @@ const steps = [
   { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
 ];
 
-const faqs: Faq[] = [
-  {
-    q: 'What does Mel-Co-Ed, Inc. make?',
-    a: 'Mel-Co-Ed (MCE) is a precision metal stamping company with four divisions: Raw Stampings & Findings, Industrial Components, Finished Goods (die-struck badges, medallions, awards and fraternal emblems) and Precision Milling.',
-  },
-  {
-    q: 'Where is Mel-Co-Ed located?',
-    a: `Our shop is at ${fullAddress}. We have operated in Pawtucket, Rhode Island, since ${site.foundingYear}.`,
-  },
-  {
-    q: 'Is Mel-Co-Ed a family-owned company?',
-    a: `Yes. Mel-Co-Ed was founded in ${site.foundingYear} and is a third-generation, family-owned business.`,
-  },
-  {
-    q: 'How do I request a quote for custom metal stamping?',
-    a: `Use the Request a Quote form or call ${site.phone.display}. Include a drawing or sample, the material, finish, quantity and the date you need parts. Prints, CAD files and photos all help.`,
-  },
-  {
-    q: 'Can you make die-struck police and government badges?',
-    a: 'Yes. Die-struck police, fire, military and government badges are part of our Finished Goods division. Badges are struck from steel dies for sharp, deep detail.',
-  },
-  {
-    q: 'What is your minimum order quantity and typical lead time?',
-    a: 'Minimums and lead times depend on whether new tooling is required, the material and the finish. Contact us with your part details for a specific answer.',
-    todo: true,
-  },
-];
+// Shown here as plain content; the FAQPage markup for these lives on /faq/.
+const faqs = generalFaqs;
 ---
 
 <BaseLayout
   title={`${site.name} | Precision Metal Stamping in Pawtucket, RI Since ${site.foundingYear}`}
   fullTitle
   description={`Third-generation, family-owned metal stamping in Pawtucket, RI since ${site.foundingYear}. Die-struck badges, medallions, awards, fraternal emblems, findings and industrial parts.`}
-  schema={[faqPageNode('/', faqs)]}
 >
   <!-- ============ HERO ============ -->
   <section class="hero">
