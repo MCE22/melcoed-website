@@ -69,7 +69,7 @@ export const divisions: Division[] = [
       { label: 'Badges', href: '/badges/' },
       { label: 'Medallions', href: '/medallions/' },
       { label: 'Awards', href: '/awards/' },
-      { label: 'Fraternal & Lodge', href: '/fraternal-emblems/' },
+      { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' },
     ],
   },
   {
@@ -88,7 +88,7 @@ export const productLinks = [
   { label: 'Badges', href: '/badges/' },
   { label: 'Medallions', href: '/medallions/' },
   { label: 'Awards', href: '/awards/' },
-  { label: 'Fraternal & Lodge Emblems', href: '/fraternal-emblems/' },
+  { label: 'Fraternal & Lodge Emblems', href: '/industries/fraternal-lodge/' },
   { label: 'Industrial Components', href: '/industrial-components/' },
 ];
 

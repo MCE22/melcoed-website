@@ -1,0 +1,373 @@
+// Product page content. Each entry renders through src/components/ProductPage.astro
+// from a one-line page file in src/pages/ (e.g. src/pages/badges.astro).
+//
+// Specs: give `value` once confirmed; until then `todo` renders a visible TODO box.
+// FAQs: `todo: true` keeps an unconfirmed answer out of FAQ schema (see src/lib/schema.ts).
+
+import type { Faq } from '../lib/schema';
+
+export type Spec = { label: string; value?: string; todo?: string };
+export type ProductType = { title: string; body: string; href?: string };
+
+export type Product = {
+  slug: string;
+  name: string; // nav / card name
+  division: string;
+  quoteType: string; // preselects the quote form: /request-a-quote/?type=<quoteType>
+  metaTitle: string;
+  metaDescription: string;
+  h1: string;
+  accent: string;
+  lead: string;
+  intro: string[];
+  typesHeading: string;
+  types: ProductType[];
+  /** TODO note shown above the types grid until the list is confirmed. */
+  typesTodo?: string;
+  audienceHeading: string;
+  audience: string[];
+  /** Short paragraph under the audience list (policies, notes). */
+  audienceNote?: string;
+  audienceNoteTodo?: string;
+  specs: Spec[];
+  photoTodo: string;
+  faqs: Faq[];
+  related: string[]; // hrefs; only rendered if the page exists
+  schemaCategory: string;
+};
+
+const moqFaq = (thing: string): Faq => ({
+  q: `What is the minimum order for ${thing}?`,
+  a: 'Minimums depend on whether new tooling is needed, the material and the finish. Contact us with your design and quantity for a specific answer.',
+  todo: true,
+});
+
+export const products: Record<string, Product> = {
+  findings: {
+    slug: 'findings',
+    name: 'Findings',
+    division: 'Raw Stampings & Findings',
+    quoteType: 'findings',
+    metaTitle: 'Jewelry Findings & Raw Die-Struck Stampings',
+    metaDescription:
+      'Custom stamped jewelry findings and raw die-struck stampings from Mel-Co-Ed in Pawtucket, RI: charms, connectors, blanks and components, unfinished or ready to finish.',
+    h1: 'Jewelry Findings & Raw Stampings',
+    accent: 'stamped in Pawtucket',
+    lead: 'Charms, connectors, blanks and custom components, die-struck to your design and supplied raw for your finisher or ready for plating.',
+    intro: [
+      "Rhode Island built America's jewelry industry, and Mel-Co-Ed has been part of it since 1948. Our Raw Stampings & Findings division supplies the stamped metal components that jewelry and accessory brands build on.",
+      'We strike findings from steel dies we build in-house, so you get consistent parts run after run, and tooling stays available for reorders.',
+    ],
+    typesHeading: 'Findings & stampings we make',
+    typesTodo: 'Confirm this list (add or remove types) and add any stock findings you sell from existing tooling.',
+    types: [
+      { title: 'Charms & drops', body: 'Die-struck charms and drops with detail on one or both sides, struck to your artwork.' },
+      { title: 'Connectors & links', body: 'Stamped connectors, links and spacers for necklaces, bracelets and earrings.' },
+      { title: 'Blanks & discs', body: 'Flat or domed blanks for engraving, stamping, enameling or further finishing.' },
+      { title: 'Custom components', body: 'Bails, caps, settings and other components made to your print or sample.' },
+    ],
+    audienceHeading: 'Who buys our findings',
+    audience: [
+      'Jewelry and accessory brands',
+      'Independent designers',
+      'Platers, finishers and assemblers',
+      'Craft and supply distributors',
+    ],
+    specs: [
+      { label: 'Process', value: 'Die striking, blanking and forming from in-house tooling' },
+      { label: 'Base metals', todo: 'e.g. brass, copper, bronze, nickel silver, sterling' },
+      { label: 'Thickness', todo: 'gauge / thickness range' },
+      { label: 'Supplied as', todo: 'raw / tumbled / plated: which do you offer?' },
+      { label: 'Minimum order', todo: 'MOQ for new and existing tooling' },
+      { label: 'Lead time', todo: 'typical weeks' },
+    ],
+    photoTodo: 'Photos: 3–6 findings shots (raw and finished side by side works well). Min. 1200px wide.',
+    faqs: [
+      {
+        q: 'What are jewelry findings?',
+        a: 'Findings are the metal components used to make and assemble jewelry: charms, connectors, links, bails, caps, blanks and similar parts. Stamped findings are cut and formed from sheet metal with dies, which gives consistent, repeatable parts.',
+      },
+      {
+        q: 'Can you supply raw, unfinished stampings for my own plater?',
+        a: 'Yes. Our Raw Stampings & Findings division supplies unfinished die-struck parts to brands and finishers who plate, polish or assemble them elsewhere.',
+      },
+      {
+        q: 'Can you match an existing finding from a sample?',
+        a: 'Yes. Send the sample or clear photos with dimensions, and we will tell you what new tooling would take.',
+        todo: true,
+      },
+      {
+        q: 'Do you sell stock findings, or only custom work?',
+        a: 'Tell us what you need: some findings can be run from existing tooling, and anything else can be made to your design.',
+        todo: true,
+      },
+      moqFaq('custom findings'),
+    ],
+    related: ['/industrial-components/', '/medallions/', '/capabilities/'],
+    schemaCategory: 'Jewelry findings',
+  },
+
+  badges: {
+    slug: 'badges',
+    name: 'Badges',
+    division: 'Finished Goods',
+    quoteType: 'badges',
+    metaTitle: 'Die-Struck Police, Fire, Military & Government Badges',
+    metaDescription:
+      'Die-struck police, sheriff, fire, EMS, military and government badges made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs, reproductions and retirement badges.',
+    h1: 'Die-Struck Badges',
+    accent: 'police · fire · government',
+    lead: 'Police, sheriff, fire, EMS, military and government badges, struck from steel dies for deep, sharp detail that holds up to years of daily wear.',
+    intro: [
+      'A badge is worn every shift for years. Die-striking stamps the design into solid metal under heavy pressure, giving crisp lettering, deep relief and a piece that stands up to daily wear.',
+      'We strike badges in Pawtucket from tooling built in-house, for agencies, departments and the uniform suppliers who serve them.',
+    ],
+    typesHeading: 'Badges we strike',
+    typesTodo: 'Confirm the badge types you make and whether you offer enamel, hallmarks or serial numbering.',
+    types: [
+      { title: 'Police & sheriff', body: 'Shields, stars and ovals for municipal, county and state agencies.' },
+      { title: 'Fire & EMS', body: 'Maltese cross and custom fire and EMS badges for departments and districts.' },
+      { title: 'Military & government', body: 'Badges and insignia for federal, state and municipal agencies and units.' },
+      { title: 'Corporate & security', body: 'Badges for private security, corporate programs and identification.' },
+      { title: 'Retirement & reproductions', body: 'Retirement and commemorative badges, and reproductions of retired designs.' },
+    ],
+    audienceHeading: 'Who orders badges',
+    audience: [
+      'Police and sheriff departments',
+      'Fire departments and EMS agencies',
+      'Federal, state and municipal agencies',
+      'Uniform and equipment suppliers',
+      'Private security companies',
+    ],
+    audienceNote:
+      'Law enforcement and government badges are issued items. We require authorization from the issuing agency before striking them.',
+    audienceNoteTodo: 'confirm your authorization policy (e.g. order on agency letterhead or PO) before publishing this note',
+    specs: [
+      { label: 'Process', value: 'Die-struck from steel tooling' },
+      { label: 'Base metals', todo: 'e.g. brass, nickel silver, copper' },
+      { label: 'Finishes', todo: 'e.g. gold, silver, two-tone, rhodium' },
+      { label: 'Color', todo: 'enamel options: hard, soft, none' },
+      { label: 'Attachments', todo: 'e.g. pin & safety catch, clip, wallet mount' },
+      { label: 'Typical sizes', todo: 'e.g. 2"–3.5" height' },
+      { label: 'Minimum order', todo: 'MOQ' },
+      { label: 'Lead time', todo: 'typical weeks from art approval' },
+    ],
+    photoTodo: 'Photos: 4–6 badge shots (front and back). Get each agency’s permission before showing its badge.',
+    faqs: [
+      {
+        q: 'What is a die-struck badge?',
+        a: 'A die-struck badge is made by stamping a blank of solid metal between hardened steel dies under heavy pressure. The process produces deep relief and sharp lettering, and a badge that is dense and durable enough for daily duty wear.',
+      },
+      {
+        q: 'Do you need authorization to make police or government badges?',
+        a: 'Yes. Law enforcement and government badges are issued items, so we require authorization from the issuing agency before striking them.',
+        todo: true,
+      },
+      {
+        q: 'Can you reproduce a retired badge design?',
+        a: 'Yes. Send photos of the front, back and edge with dimensions, plus the agency authorization, and we will tell you what new tooling involves.',
+        todo: true,
+      },
+      {
+        q: 'Do you make retirement badges?',
+        a: 'Yes. Retirement and commemorative badges can be struck to match a department’s duty badge with the added retirement wording.',
+        todo: true,
+      },
+      moqFaq('custom badges'),
+    ],
+    related: ['/medallions/', '/awards/', '/industries/'],
+    schemaCategory: 'Badges',
+  },
+
+  medallions: {
+    slug: 'medallions',
+    name: 'Medallions',
+    division: 'Finished Goods',
+    quoteType: 'medallions',
+    metaTitle: 'Custom Struck Medallions & Challenge Coins',
+    metaDescription:
+      'Custom die-struck medallions and challenge coins from Mel-Co-Ed in Pawtucket, RI: commemorative, presentation and award medallions with relief on both sides.',
+    h1: 'Custom Medallions',
+    accent: 'struck on both sides',
+    lead: 'Commemorative, presentation and award medallions and challenge coins, die-struck in solid metal with relief on both sides.',
+    intro: [
+      'A struck medallion carries weight, literally. Struck between two steel dies, it gets sharp relief on both faces and a solid, heavy feel that cast or printed pieces can’t match.',
+      'We cut the dies and strike the medallions in Pawtucket, for anniversaries, organizations, award programs and commemorative events.',
+    ],
+    typesHeading: 'Medallions we strike',
+    typesTodo: 'Confirm the medallion types and sizes you offer.',
+    types: [
+      {
+        title: 'Commemorative',
+        body: "Anniversary and event medallions, including America's 250th and town milestones.",
+        href: '/industries/commemorative/',
+      },
+      { title: 'Challenge coins', body: 'Coin-sized pieces for units, departments, organizations and teams.' },
+      { title: 'Presentation & award', body: 'Medallions presented to honorees, retirees, donors and graduates.' },
+      { title: 'Organizational', body: 'Medallions for lodges, societies, schools and associations.' },
+    ],
+    audienceHeading: 'Who orders medallions',
+    audience: [
+      'Anniversary and 250th committees',
+      'Police, fire and military units',
+      'Schools, colleges and alumni groups',
+      'Lodges and fraternal organizations',
+      'Companies and award programs',
+    ],
+    specs: [
+      { label: 'Process', value: 'Die-struck from steel tooling, two-sided relief' },
+      { label: 'Sizes', todo: 'e.g. 1.5"–3" diameter' },
+      { label: 'Metals', todo: 'e.g. bronze, brass, copper, nickel silver, sterling' },
+      { label: 'Finishes', todo: 'e.g. antique, bright, plated, enamel fill' },
+      { label: 'Edge options', todo: 'e.g. plain, reeded, edge lettering' },
+      { label: 'Packaging', todo: 'e.g. capsules, velvet boxes' },
+      { label: 'Minimum order', todo: 'MOQ' },
+      { label: 'Lead time', todo: 'typical weeks from art approval' },
+    ],
+    photoTodo: 'Photos: 4–6 medallion shots, obverse and reverse, ideally with a coin or ruler for scale.',
+    faqs: [
+      {
+        q: 'What is the difference between a struck and a cast medallion?',
+        a: 'A struck medallion is stamped from a solid metal blank between steel dies, giving sharp detail and a dense, heavy piece. A cast medallion is poured into a mold, which suits very deep or undercut designs but typically shows softer detail.',
+      },
+      {
+        q: 'What is the difference between a medallion and a challenge coin?',
+        a: 'Both are struck metal pieces with relief on both sides. Medallions are usually larger presentation or keepsake pieces. Challenge coins are typically coin-sized, carried by members, and given to mark service or membership.',
+      },
+      {
+        q: 'Can you add edge lettering or serial numbers?',
+        a: 'Tell us what you need on the edge and we will confirm what is possible for your size and quantity.',
+        todo: true,
+      },
+      moqFaq('custom medallions'),
+    ],
+    related: ['/industries/commemorative/', '/awards/', '/badges/'],
+    schemaCategory: 'Medallions',
+  },
+
+  awards: {
+    slug: 'awards',
+    name: 'Awards',
+    division: 'Finished Goods',
+    quoteType: 'awards',
+    metaTitle: 'Custom Service Award Pins, Recognition Medals & Award Components',
+    metaDescription:
+      'Die-struck service award pins, recognition medals and plaque and trophy components from Mel-Co-Ed in Pawtucket, RI. Matched sets for long-running award programs.',
+    h1: 'Awards & Recognition',
+    accent: 'made to be kept',
+    lead: 'Years-of-service pins, recognition medals and struck components for plaques and trophies, made as matched sets for award programs that run for decades.',
+    intro: [
+      'Recognition programs run for years, and every pin in the series has to match the last one. Because we build and keep the tooling in-house, your 5-year pin this year matches the 5-year pin you ordered a decade ago.',
+      'We strike award pieces for companies, organizations, departments and the award suppliers who serve them.',
+    ],
+    typesHeading: 'Award pieces we make',
+    typesTodo: 'Confirm the award products you make. Also confirm the tooling-retention claim in the intro ("build and keep the tooling").',
+    types: [
+      { title: 'Service & years pins', body: 'Years-of-service pins in matched sets, with year or gem variations.' },
+      { title: 'Recognition medals', body: 'Struck medals for achievement, valor, safety and milestone awards.' },
+      { title: 'Plaque & trophy components', body: 'Struck emblems and inserts for plaques, trophies and donor walls.' },
+      { title: 'Organization awards', body: 'Award pieces for lodges, associations, schools and clubs.' },
+    ],
+    audienceHeading: 'Who orders awards',
+    audience: [
+      'HR and employee recognition programs',
+      'Police, fire and public safety agencies',
+      'Associations and fraternal organizations',
+      'Award and trophy suppliers',
+    ],
+    specs: [
+      { label: 'Process', value: 'Die-struck from steel tooling' },
+      { label: 'Metals', todo: 'e.g. brass, bronze, sterling, gold-filled' },
+      { label: 'Finishes', todo: 'e.g. gold or silver plate, enamel, antique' },
+      { label: 'Attachments', todo: 'e.g. clutch back, tie tack, ribbon drape' },
+      { label: 'Minimum order', todo: 'MOQ' },
+      { label: 'Lead time', todo: 'typical weeks from art approval' },
+    ],
+    photoTodo: 'Photos: 3–6 award pieces; a full years-of-service set makes a strong image.',
+    faqs: [
+      {
+        q: 'Can you match pins we have ordered in previous years?',
+        a: 'If we made the original tooling, we can run matching pieces. If another supplier made them, send a sample and we will tell you what matching it involves.',
+        todo: true,
+      },
+      {
+        q: 'Do you work with award and trophy companies?',
+        a: 'Yes. We supply struck emblems, pins and components to award suppliers, made to their designs.',
+      },
+      moqFaq('award pins'),
+    ],
+    related: ['/medallions/', '/badges/', '/industries/fraternal-lodge/'],
+    schemaCategory: 'Awards',
+  },
+
+  'industrial-components': {
+    slug: 'industrial-components',
+    name: 'Industrial Components',
+    division: 'Industrial Components',
+    quoteType: 'industrial',
+    metaTitle: 'Precision Metal Stamping: Industrial Stamped Components Built to Print',
+    metaDescription:
+      'Precision stamped metal components built to print by Mel-Co-Ed in Pawtucket, RI: brackets, clips, contacts, terminals, washers, shims and flat parts, with in-house tooling.',
+    h1: 'Industrial Stamped Components',
+    accent: 'built to print',
+    lead: 'Brackets, clips, contacts, terminals, washers, shims and flat parts, stamped to your print with tooling built and maintained in-house.',
+    intro: [
+      'Our Industrial Components division stamps production parts to your drawing. Tooling is built in-house, and our Precision Milling division supports die work and secondary operations, so engineering changes and repeat orders don’t wait on outside shops.',
+      'Send a print or STEP file with material, quantity and critical dimensions, and we will quote tooling and piece price at your volumes.',
+    ],
+    typesHeading: 'Components we stamp',
+    typesTodo: 'Confirm part families and add industries/OEM types you serve (only where you can name them).',
+    types: [
+      { title: 'Brackets & clips', body: 'Formed brackets, clips and retainers made to your print.' },
+      { title: 'Contacts & terminals', body: 'Stamped electrical contacts and terminals.' },
+      { title: 'Washers, shims & spacers', body: 'Standard and custom washers, shims and spacers held to thickness.' },
+      { title: 'Flat parts & blanks', body: 'Blanked and pierced flat parts, and blanks for further processing.' },
+      { title: 'Formed parts', body: 'Single-hit and multi-stage formed parts made to print.' },
+    ],
+    audienceHeading: 'Who we supply',
+    audience: [
+      'OEMs and product manufacturers',
+      'Contract manufacturers and assemblers',
+      'Electrical and hardware manufacturers',
+      'Buyers needing a second source or tooling transfer',
+    ],
+    specs: [
+      { label: 'Processes', value: 'Blanking, piercing, forming, die striking, CNC milling' },
+      { label: 'Press capacity', todo: 'press count and tonnage range' },
+      { label: 'Materials', todo: 'e.g. CRS, stainless, brass, copper, aluminum, phosphor bronze' },
+      { label: 'Thickness', todo: 'gauge / thickness range' },
+      { label: 'Tolerances', todo: 'typical and best achievable' },
+      { label: 'Max part size', todo: 'largest blank / part' },
+      { label: 'Run sizes', todo: 'e.g. prototype to __ pcs/yr' },
+      { label: 'Quality', todo: 'inspection methods, material certs, certifications (ISO, ITAR?) if any' },
+    ],
+    photoTodo: 'Photos: 4–6 production parts (no customer-identifying parts without permission) and one press-floor shot.',
+    faqs: [
+      {
+        q: 'What do you need to quote a stamped part?',
+        a: 'A drawing or STEP file, the material and thickness, annual or order quantities, any finish or plating, and the dimensions or tolerances that matter most. We quote tooling and piece price separately so you can see both.',
+      },
+      {
+        q: 'Do you build your own tooling?',
+        a: 'Yes. Dies are built in-house, with support from our Precision Milling division, which keeps engineering changes and repairs on our schedule instead of an outside tool shop’s.',
+      },
+      {
+        q: 'Can you run short runs and prototypes?',
+        a: 'Tell us your quantities and we will recommend the most economical tooling approach for them.',
+        todo: true,
+      },
+      {
+        q: 'Can you take over tooling from another supplier?',
+        a: 'Send us the drawings and details of the existing tooling and we will evaluate whether it can run in our presses.',
+        todo: true,
+      },
+      {
+        q: 'Do you provide material certifications and inspection reports?',
+        a: 'Tell us what documentation your quality system requires and we will confirm what we can provide.',
+        todo: true,
+      },
+    ],
+    related: ['/capabilities/', '/findings/', '/industries/'],
+    schemaCategory: 'Metal stampings',
+  },
+};

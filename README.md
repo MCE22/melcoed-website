@@ -64,12 +64,8 @@ Run `npm run todos` to see them all. Every TODO must be resolved before launch.
 ## Page status
 
 - [x] Home
-- [ ] Findings
-- [ ] Badges
-- [ ] Medallions
-- [ ] Awards
-- [ ] Fraternal & Lodge Emblems
-- [ ] Industrial Components
+- [x] Findings, Badges, Medallions, Awards, Industrial Components (shared template: `src/components/ProductPage.astro` + `src/data/products.ts`)
+- [x] Fraternal & Lodge Emblems → served by `/industries/fraternal-lodge/` (avoids two pages competing for the same searches)
 - [ ] Capabilities
 - [ ] About
 - [ ] FAQ

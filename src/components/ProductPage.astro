@@ -1,0 +1,211 @@
+---
+// Shared template for product pages. Content lives in src/data/products.ts;
+// each page file is one line: <ProductPage product={products.badges} />
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import FaqList from './FaqList.astro';
+import Todo from './Todo.astro';
+import { site, quoteHref, productLinks, industryLinks } from '../data/site';
+import { faqPageNode, productNode } from '../lib/schema';
+import { isLive } from '../lib/routes';
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+const { product: p } = Astro.props;
+
+const path = `/${p.slug}/`;
+const breadcrumbs = [{ name: p.name, path }];
+const quote = `${quoteHref}?type=${p.quoteType}`;
+
+// Only confirmed materials go into structured data.
+const materials = p.specs.find((s) => /metal|material/i.test(s.label))?.value;
+
+const labels: Record<string, string> = Object.fromEntries(
+  [
+    ...productLinks,
+    ...industryLinks,
+    { label: 'All Industries', href: '/industries/' },
+    { label: 'Capabilities', href: '/capabilities/' },
+  ].map((l) => [l.href, l.label]),
+);
+const related = p.related.filter(isLive).map((href) => ({ href, label: labels[href] ?? href }));
+---
+
+<BaseLayout
+  title={p.metaTitle}
+  description={p.metaDescription}
+  breadcrumbs={breadcrumbs}
+  schema={[
+    productNode({
+      path,
+      name: p.h1,
+      description: p.metaDescription,
+      category: p.schemaCategory,
+      material: materials ? [materials] : undefined,
+    }),
+    faqPageNode(path, p.faqs),
+  ]}
+>
+  <PageHero title={p.h1} accent={p.accent} ribbon={p.division} lead={p.lead} breadcrumbs={breadcrumbs}>
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quote}>Quote {p.name}</a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <!-- Intro + at a glance -->
+  <section class="section" aria-labelledby="glance-h">
+    <div class="wrap split">
+      <div class="intro">
+        {p.intro.map((para, i) => <p class:list={{ lead: i === 0 }}>{para}</p>)}
+      </div>
+      <div class="glance">
+        <h2 id="glance-h" class="glance__h">At a glance</h2>
+        <dl class="specs">
+          {
+            p.specs.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value ?? <Todo>{s.todo}</Todo>}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types -->
+  <section class="section section--cream" aria-labelledby="types-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">What we make</span>
+        <h2 id="types-h">{p.typesHeading}</h2>
+      </div>
+      {p.typesTodo && <Todo block>{p.typesTodo}</Todo>}
+      <div class="grid grid--3">
+        {
+          p.types.map((t) =>
+            t.href && isLive(t.href) ? (
+              <a class="card card--link type" href={t.href}>
+                <h3>{t.title}</h3>
+                <p>{t.body}</p>
+                <span class="card__more">Learn more &rarr;</span>
+              </a>
+            ) : (
+              <article class="card type">
+                <h3>{t.title}</h3>
+                <p>{t.body}</p>
+              </article>
+            ),
+          )
+        }
+      </div>
+      <figure class="photos">
+        <Todo block>{p.photoTodo} Save to <code>src/assets/</code> and replace this block with Astro <code>&lt;Image&gt;</code> components.</Todo>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Audience -->
+  <section class="section section--ink blueprint" aria-labelledby="aud-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Who we work with</span>
+        <h2 id="aud-h">{p.audienceHeading}</h2>
+        {
+          p.audienceNote && (
+            <p class="aud-note">
+              {p.audienceNote} {p.audienceNoteTodo && <Todo>{p.audienceNoteTodo}</Todo>}
+            </p>
+          )
+        }
+      </div>
+      <ul class="audience">
+        {p.audience.map((a) => <li>{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Questions</span>
+        <h2 id="faq-h">{p.name} FAQ</h2>
+        <a class="btn btn--primary" href={quote}>Request a Quote</a>
+      </div>
+      <FaqList faqs={p.faqs} />
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <nav class="section section--cream related" aria-label="Related pages">
+        <div class="wrap">
+          <h2 class="related__h">Related</h2>
+          <ul class="related__list">
+            {related.map((r) => (
+              <li>
+                <a href={r.href}>{r.label} &rarr;</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .intro p:not(.lead) {
+    color: var(--ink-600);
+  }
+  .glance {
+    padding: 1.25rem;
+    background: var(--ink);
+    color: var(--cream);
+    border-top: 4px solid var(--red);
+  }
+  @media (min-width: 40rem) {
+    .glance {
+      padding: 1.75rem;
+    }
+  }
+  .glance__h {
+    font-size: 1.6rem;
+    color: var(--cream-50);
+  }
+  .type {
+    border-left: 4px solid var(--red);
+  }
+  .photos {
+    margin: 2rem 0 0;
+  }
+  .aud-note {
+    color: var(--cream-200);
+  }
+  .related {
+    padding-block: 2.5rem;
+  }
+  .related__h {
+    font-size: 1.6rem;
+  }
+  .related__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+  }
+  .related__list a {
+    text-decoration: none;
+  }
+  .related__list a:hover {
+    text-decoration: underline;
+  }
+</style>

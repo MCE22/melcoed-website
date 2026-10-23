@@ -433,13 +433,15 @@ h4 {
   margin: 0 0 1.5rem;
 }
 .audience li {
+  display: flex;
+  gap: 0.6rem;
   padding: 0.55rem 0;
   border-bottom: 1px solid var(--steel-dim);
   font-weight: 600;
 }
 .audience li::before {
   content: '\2605';
-  margin-right: 0.6rem;
+  flex: none;
   color: var(--red);
 }
 
