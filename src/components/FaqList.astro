@@ -58,6 +58,9 @@ const H = `h${level}` as 'h2' | 'h3';
     text-transform: none;
     letter-spacing: 0;
   }
+  .faq__q {
+    transition: color var(--dur-fast) var(--ease);
+  }
   summary:hover .faq__q {
     color: var(--red);
   }
@@ -78,7 +81,7 @@ const H = `h${level}` as 'h2' | 'h3';
     height: 2px;
     background: var(--red);
     transform: translate(-50%, -50%);
-    transition: transform 0.2s ease;
+    transition: transform var(--dur) var(--ease);
   }
   .faq__icon::after {
     transform: translate(-50%, -50%) rotate(90deg);

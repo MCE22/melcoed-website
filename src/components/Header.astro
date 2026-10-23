@@ -190,7 +190,7 @@ const items = nav
     height: 2px;
     border-radius: 2px;
     background: currentColor;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
   }
   .menu-toggle__bars {
     position: relative;
@@ -230,9 +230,24 @@ const items = nav
     background: var(--paper);
     border-bottom: 1px solid var(--chrome);
     box-shadow: 0 24px 30px -20px rgb(19 30 49 / 0.45);
+    /* slide/fade open; display transitions discretely so closing animates too */
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease),
+      display var(--dur) allow-discrete;
   }
   :global(html.nav-open) .nav {
     display: block;
+    opacity: 1;
+    transform: none;
+  }
+  @starting-style {
+    :global(html.nav-open) .nav {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
   }
   .nav__list {
     list-style: none;
@@ -265,7 +280,7 @@ const items = nav
     color: var(--cherry);
   }
   .nav__caret {
-    transition: transform 0.2s ease;
+    transition: transform var(--dur) var(--ease);
   }
   .nav__sub-toggle[aria-expanded='true'] .nav__caret {
     transform: rotate(180deg);
@@ -276,9 +291,23 @@ const items = nav
     margin: 0;
     padding: 0 0 0.75rem 0.9rem;
     border-left: 2px solid var(--chrome);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+      opacity var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease),
+      display var(--dur-fast) allow-discrete;
   }
   .nav__sub-toggle[aria-expanded='true'] + .nav__sub {
     display: block;
+    opacity: 1;
+    transform: none;
+  }
+  @starting-style {
+    .nav__sub-toggle[aria-expanded='true'] + .nav__sub {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
   }
   .nav__sub a {
     display: block;
@@ -311,6 +340,9 @@ const items = nav
       border: 0;
       box-shadow: none;
       background: none;
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
     .nav__list {
       display: flex;
@@ -326,7 +358,7 @@ const items = nav
       padding: 0.5rem 0;
       font-size: 0.82rem;
       background: linear-gradient(var(--cherry), var(--cherry)) left bottom / 0 2px no-repeat;
-      transition: background-size 0.2s ease, color 0.15s ease;
+      transition: background-size var(--dur) var(--ease), color var(--dur-fast) var(--ease);
     }
     .nav__link:hover,
     .nav__link[aria-current='page'] {
@@ -346,6 +378,15 @@ const items = nav
     .nav__item--has-sub:hover .nav__sub,
     .nav__item--has-sub:focus-within .nav__sub {
       display: block;
+      opacity: 1;
+      transform: none;
+    }
+    @starting-style {
+      .nav__item--has-sub:hover .nav__sub,
+      .nav__item--has-sub:focus-within .nav__sub {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
     }
     /* hover bridge so the menu doesn't close in the gap */
     .nav__item--has-sub::after {

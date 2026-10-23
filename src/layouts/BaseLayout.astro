@@ -3,6 +3,7 @@ import '@fontsource/yellowtail/400.css';
 import '@fontsource/alfa-slab-one/400.css';
 import '@fontsource-variable/inter/wght.css';
 import '../styles/global.css';
+import '../styles/motion.css';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -95,5 +96,8 @@ const nodes = [
       <slot />
     </main>
     <Footer hideCta={hideFooterCta} />
+    <script>
+      import '../scripts/reveal';
+    </script>
   </body>
 </html>

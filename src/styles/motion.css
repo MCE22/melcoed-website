@@ -1,0 +1,91 @@
+/* Mel-Co-Ed motion system — shared by every page via BaseLayout.
+   Rule: every effect is small and subtle. If one is noticeable on its own, tone it down.
+   - Never hides content without JS (reveal only touches below-the-fold elements; see src/scripts/reveal.ts)
+   - No autoplay, parallax, bounce, spin, count-ups or scroll-jacking
+   - prefers-reduced-motion: everything off
+   Use the tokens below for any new transition so the whole site moves the same way. */
+
+:root {
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1); /* soft ease-out, no overshoot */
+  --dur-fast: 150ms; /* hovers, links, colors */
+  --dur: 250ms; /* reveals, menus, accordions */
+  --shift: 6px; /* reveal travel distance */
+  --lift: -2px; /* card hover lift */
+  --lift-sm: -1px; /* button hover lift */
+}
+
+/* ---------- Links: soft color + underline ---------- */
+a {
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition:
+    color var(--dur-fast) var(--ease),
+    text-decoration-color var(--dur-fast) var(--ease);
+}
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ---------- Reveal on scroll ----------
+   reveal.ts adds .reveal-pending only to elements that start below the fold,
+   then removes it as they scroll into view. */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(var(--shift));
+}
+.reveal {
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+@media print {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Accordions (<details>) ----------
+   Height eases open where the browser supports animating to `auto`
+   (interpolate-size + ::details-content); elsewhere it opens instantly.
+   Transitions never run on initial render, so details open by default stay put. */
+:root {
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow-y: clip;
+  transition:
+    block-size var(--dur) var(--ease),
+    opacity var(--dur) var(--ease),
+    content-visibility var(--dur) allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+/* ---------- Reduced motion: all of it off ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::details-content {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+  .btn:hover,
+  .card--link:hover {
+    transform: none !important;
+  }
+}

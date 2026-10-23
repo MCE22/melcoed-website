@@ -51,6 +51,21 @@ its links appear automatically.
 | `src/styles/global.css` | Design tokens and shared styles (sign red / cream / black). |
 | `src/pages/` | One file per page. |
 
+## Motion
+
+One shared system, loaded by `BaseLayout`, so every page (current and future) gets it:
+
+- `src/styles/motion.css`: timing tokens (`--dur-fast` 150ms, `--dur` 250ms, `--shift`, `--lift`),
+  link transitions, scroll-reveal states, smooth `<details>` (FAQ) expansion, and the
+  `prefers-reduced-motion` kill switch.
+- `src/scripts/reveal.ts`: fades section blocks and grid items in as they scroll into view.
+  It only dims elements that start **below the fold**, so nothing visible is hidden or delayed,
+  and with JavaScript off nothing is dimmed. Opt out with `data-no-reveal`; opt in with `data-reveal`.
+- Header menus fade and slide with CSS `@starting-style` (no JS); older browsers open instantly.
+
+Rule: every effect is small. If one is noticeable on its own, tone it down. No autoplay, parallax,
+bounce, spin, count-ups or scroll-jacking. Use the tokens for any new transition.
+
 ## Placeholder content (TODO)
 
 Anything that needs real information from Mel-Co-Ed is marked **TODO**:
