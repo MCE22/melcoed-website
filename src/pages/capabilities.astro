@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import Todo from '../components/Todo.astro';
+import { site, quoteHref } from '../data/site';
+import { faqPageNode, type Faq } from '../lib/schema';
+
+const path = '/capabilities/';
+const breadcrumbs = [{ name: 'Capabilities', path }];
+
+const sections = [
+  { id: 'stamping', label: 'Stamping' },
+  { id: 'tooling', label: 'Tooling' },
+  { id: 'milling', label: 'Milling' },
+  { id: 'materials', label: 'Materials' },
+  { id: 'gauges', label: 'Gauges' },
+  { id: 'tolerances', label: 'Tolerances' },
+  { id: 'quality', label: 'Quality' },
+];
+
+const flow = [
+  { n: '01', title: 'Design review', body: 'Prints and artwork checked for manufacturability before tooling is cut.' },
+  { n: '02', title: 'Tool & die', body: 'Dies designed and built in-house, with CNC milling for die work.' },
+  { n: '03', title: 'Stamping', body: 'Striking, blanking, piercing and forming on our presses.' },
+  { n: '04', title: 'Secondary & finish', body: 'Milling, trimming and finishing to spec, then inspection and shipping.' },
+];
+
+// Common stamping materials and their usual applications (general reference).
+const materials = [
+  { name: 'Brass', uses: 'Findings, badges, emblems, electrical contacts' },
+  { name: 'Copper', uses: 'Medallions, electrical parts, findings' },
+  { name: 'Bronze', uses: 'Medallions, commemoratives, awards' },
+  { name: 'Nickel silver', uses: 'Badges, jewelry components, emblems' },
+  { name: 'Sterling silver', uses: 'Jewelry, fine medallions and awards' },
+  { name: 'Cold-rolled steel', uses: 'Brackets, clips, structural parts' },
+  { name: 'Stainless steel', uses: 'Corrosion-resistant components, washers' },
+  { name: 'Aluminum', uses: 'Lightweight parts, plates, enclosures' },
+  { name: 'Phosphor bronze', uses: 'Springs, contacts, terminals' },
+];
+
+// Standard gauge-to-decimal values. Brown & Sharpe (AWG) is used for non-ferrous
+// sheet such as brass, copper and nickel silver; Manufacturers' Standard Gauge for carbon steel.
+const gauges: [number, string, string][] = [
+  [10, '0.1019', '0.1345'],
+  [12, '0.0808', '0.1046'],
+  [14, '0.0641', '0.0747'],
+  [16, '0.0508', '0.0598'],
+  [18, '0.0403', '0.0478'],
+  [20, '0.0320', '0.0359'],
+  [22, '0.0253', '0.0299'],
+  [24, '0.0201', '0.0239'],
+  [26, '0.0159', '0.0179'],
+  [28, '0.0126', '0.0149'],
+  [30, '0.0100', '0.0120'],
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'What metal stamping processes does Mel-Co-Ed offer?',
+    a: 'Die striking, blanking, piercing and forming, supported by in-house tool and die making and CNC milling, all at our facility in Pawtucket, Rhode Island.',
+  },
+  {
+    q: 'Do you build your own stamping dies?',
+    a: 'Yes. Tooling is designed and built in-house, with our Precision Milling division handling die work. That keeps engineering changes, repairs and reorders on our schedule.',
+  },
+  {
+    q: 'Should I specify material thickness in gauge or in inches?',
+    a: 'Decimal inches are clearest. The same gauge number means different thicknesses for different metals: 20 gauge is 0.0320 in. in the Brown & Sharpe system used for brass and copper, but 0.0359 in. in the standard gauge for carbon steel. Stainless and aluminum gauges differ again.',
+  },
+  {
+    q: 'What thickness range can you stamp?',
+    a: 'Send your material and thickness with your request and we will confirm it fits our presses and tooling.',
+    todo: true,
+  },
+  {
+    q: 'What tolerances can you hold on stamped parts?',
+    a: 'Achievable tolerances depend on material, thickness and feature size. Call out the critical dimensions on your print and we will tell you what we can hold.',
+    todo: true,
+  },
+];
+---
+
+<BaseLayout
+  title="Capabilities: Metal Stamping, Tool & Die, CNC Milling, Materials & Tolerances"
+  description="Mel-Co-Ed capabilities in Pawtucket, RI: die striking, blanking, piercing and forming, in-house tool and die, CNC milling, materials, gauge reference and tolerances."
+  breadcrumbs={breadcrumbs}
+  schema={[faqPageNode(path, faqs)]}
+>
+  <PageHero
+    title="Capabilities"
+    accent="tooling to finished part"
+    ribbon="Stamping · Tooling · Milling"
+    lead="Tool and die making, die striking, blanking, piercing, forming and CNC milling, in one Pawtucket facility, so a part goes from print to press without leaving the building."
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <nav class="jump" aria-label="On this page">
+    <div class="wrap">
+      <ul>{sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}</ul>
+    </div>
+  </nav>
+
+  <!-- Flow -->
+  <section class="section" aria-labelledby="flow-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">How work flows</span>
+        <h2 id="flow-h">One building, one schedule</h2>
+      </div>
+      <ol class="steps">
+        {
+          flow.map((s) => (
+            <li class="step">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <Todo block>Confirm which finishing operations are in-house (e.g. tumbling, polishing) and which go to partners (e.g. plating).</Todo>
+    </div>
+  </section>
+
+  <!-- Stamping -->
+  <section id="stamping" class="section section--cream cap" aria-labelledby="stamping-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon">Stamping</span>
+        <h2 id="stamping-h">Metal stamping &amp; die striking</h2>
+        <p>
+          Die striking presses a metal blank between engraved steel dies to create relief: the process behind badges,
+          medallions, emblems and findings. Blanking, piercing and forming cut and shape sheet metal into flat and formed
+          industrial parts.
+        </p>
+        <p>We run both kinds of work, from small decorative pieces to production components built to print.</p>
+      </div>
+      <dl class="specs specs--light">
+        <div><dt>Processes</dt><dd>Die striking, blanking, piercing, forming <Todo>add coining, progressive, compound, drawing if applicable</Todo></dd></div>
+        <div><dt>Presses</dt><dd><Todo>number of presses and types (e.g. mechanical, hydraulic, drop hammer)</Todo></dd></div>
+        <div><dt>Tonnage range</dt><dd><Todo>e.g. 20&ndash;300 tons</Todo></dd></div>
+        <div><dt>Max blank size</dt><dd><Todo>largest blank / part</Todo></dd></div>
+        <div><dt>Run sizes</dt><dd><Todo>e.g. prototype to __ pcs/yr</Todo></dd></div>
+      </dl>
+    </div>
+    <div class="wrap">
+      <div class="table-wrap">
+        <table class="eq">
+          <caption>Press equipment</caption>
+          <thead><tr><th scope="col">Press</th><th scope="col">Type</th><th scope="col">Capacity</th><th scope="col">Qty</th></tr></thead>
+          <tbody>
+            <tr><td colspan="4"><Todo>equipment list: make/model, type, tonnage, quantity. A real equipment list is one of the strongest trust signals for industrial buyers.</Todo></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tooling -->
+  <section id="tooling" class="section cap" aria-labelledby="tooling-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--ink">Tooling</span>
+        <h2 id="tooling-h">In-house tool &amp; die</h2>
+        <p>
+          Every job starts with tooling, and ours is designed and built in-house. When an engineering change comes in or
+          a die needs maintenance, it happens on our floor, not in an outside tool shop's queue.
+        </p>
+      </div>
+      <dl class="specs specs--light">
+        <div><dt>Die types</dt><dd><Todo>e.g. striking dies, blanking dies, compound, progressive, forming</Todo></dd></div>
+        <div><dt>Die making</dt><dd>In-house, supported by CNC milling</dd></div>
+        <div><dt>Tool ownership</dt><dd><Todo>who owns tooling the customer pays for</Todo></dd></div>
+        <div><dt>Tool storage</dt><dd><Todo>do you store customer dies, and for how long?</Todo></dd></div>
+        <div><dt>Tooling transfer</dt><dd><Todo>do you accept tooling from other suppliers?</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Milling -->
+  <section id="milling" class="section section--ink blueprint cap" aria-labelledby="milling-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Precision Milling</span>
+        <h2 id="milling-h">CNC milling</h2>
+        <p>
+          Our Precision Milling division cuts the dies that stamping depends on, and handles machined parts and secondary
+          operations on stamped work.
+        </p>
+      </div>
+      <dl class="specs">
+        <div><dt>Machines</dt><dd><Todo>CNC mills: make/model, axes, quantity</Todo></dd></div>
+        <div><dt>Work envelope</dt><dd><Todo>max X / Y / Z travel</Todo></dd></div>
+        <div><dt>Materials machined</dt><dd><Todo>e.g. tool steel, aluminum, brass</Todo></dd></div>
+        <div><dt>Work for others</dt><dd><Todo>do you take standalone machining jobs, or only stamping-related?</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section id="materials" class="section cap" aria-labelledby="materials-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Materials</span>
+        <h2 id="materials-h">Metals we stamp</h2>
+        <p class="lead">Ferrous and non-ferrous sheet and strip, chosen for the job: appearance, strength, conductivity or cost.</p>
+      </div>
+      <Todo block>Confirm this list: remove metals you don't run, add any missing (e.g. gold-filled, titanium, pewter), and note any you stock.</Todo>
+      <div class="table-wrap">
+        <table class="eq">
+          <caption class="visually-hidden">Materials and typical uses</caption>
+          <thead><tr><th scope="col">Material</th><th scope="col">Typical uses</th></tr></thead>
+          <tbody>
+            {materials.map((m) => <tr><th scope="row">{m.name}</th><td>{m.uses}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gauges -->
+  <section id="gauges" class="section section--cream cap" aria-labelledby="gauges-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon">Gauges</span>
+        <h2 id="gauges-h">Thickness &amp; gauge reference</h2>
+        <p>
+          The same gauge number means different thicknesses for different metals, so we quote and build to decimal
+          inches. If your print calls out a gauge, this table shows what it means for the two most common systems.
+        </p>
+        <dl class="specs specs--light">
+          <div><dt>Our range</dt><dd><Todo>min&ndash;max thickness, e.g. .005&Prime;&ndash;.125&Prime;</Todo></dd></div>
+        </dl>
+        <p class="small">
+          Stainless steel and aluminum use their own gauge tables; specify decimal thickness for those metals.
+        </p>
+      </div>
+      <div class="table-wrap">
+        <table class="eq gauge">
+          <caption>Gauge to decimal inches</caption>
+          <thead>
+            <tr>
+              <th scope="col">Gauge</th>
+              <th scope="col">Brass, copper, nickel silver<br /><span class="mono">B&amp;S / AWG</span></th>
+              <th scope="col">Carbon steel<br /><span class="mono">Mfrs. Std.</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {gauges.map(([g, bs, st]) => <tr><th scope="row">{g}</th><td class="mono">{bs}&Prime;</td><td class="mono">{st}&Prime;</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tolerances -->
+  <section id="tolerances" class="section cap" aria-labelledby="tol-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--ink">Tolerances</span>
+        <h2 id="tol-h">What we hold, and what drives it</h2>
+        <p>
+          Tolerance on a stamped part depends on material, thickness, feature size and the type of tooling. Thicker
+          material, tighter hole-to-edge distances and formed features all affect what's achievable.
+        </p>
+        <p>Mark the dimensions that matter on your print. We'll quote to those and tell you up front if any need a different approach.</p>
+      </div>
+      <dl class="specs specs--light">
+        <div><dt>Blanked features</dt><dd><Todo>typical tolerance, e.g. &plusmn;.002&Prime;&ndash;.005&Prime;</Todo></dd></div>
+        <div><dt>Hole locations</dt><dd><Todo>typical tolerance</Todo></dd></div>
+        <div><dt>Formed features</dt><dd><Todo>typical tolerance / bend angle</Todo></dd></div>
+        <div><dt>Flatness</dt><dd><Todo>typical</Todo></dd></div>
+        <div><dt>Machined (milling)</dt><dd><Todo>typical tolerance</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Quality -->
+  <section id="quality" class="section section--ink blueprint cap" aria-labelledby="quality-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Quality</span>
+        <h2 id="quality-h">Inspection &amp; documentation</h2>
+        <p>Parts are inspected before they ship. Tell us what documentation your quality system needs.</p>
+      </div>
+      <dl class="specs">
+        <div><dt>Inspection</dt><dd><Todo>equipment and methods (e.g. calipers, micrometers, optical comparator, CMM)</Todo></dd></div>
+        <div><dt>First article</dt><dd><Todo>do you provide FAI reports?</Todo></dd></div>
+        <div><dt>Material certs</dt><dd><Todo>available on request?</Todo></dd></div>
+        <div><dt>Certifications</dt><dd><Todo>ISO 9001, ITAR registration, etc., or "none"; don't leave blank</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Questions</span>
+        <h2 id="faq-h">Capabilities FAQ</h2>
+        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cap {
+    scroll-margin-top: calc(var(--header-h) + 5.5rem);
+  }
+  .cap .split + .wrap {
+    margin-top: 2.5rem;
+  }
+  .cap h2 {
+    margin-bottom: 1rem;
+  }
+  .small {
+    font-size: 0.9rem;
+    color: var(--ink-600);
+  }
+
+  /* On-this-page nav: horizontal scroll chips on mobile, sticks under the header */
+  .jump {
+    position: sticky;
+    top: calc(var(--header-h) + 2.1rem + 3px);
+    z-index: 40;
+    background: var(--cream-50);
+    border-bottom: 1px solid var(--cream-200);
+  }
+  .jump ul {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.6rem 0;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .jump ul::-webkit-scrollbar {
+    display: none;
+  }
+  .jump a {
+    display: block;
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    color: var(--ink);
+    font-family: var(--font-block);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .jump a:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* Spec lists on light backgrounds */
+  .specs--light dt {
+    color: var(--ink-400);
+  }
+  .specs--light {
+    border-top-color: var(--cream-200);
+  }
+  .specs--light > div {
+    border-bottom-color: var(--cream-200);
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .eq {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--cream-50);
+    font-size: 0.95rem;
+  }
+  .eq caption {
+    caption-side: top;
+    text-align: left;
+    padding-bottom: 0.5rem;
+    font-family: var(--font-block);
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .eq th,
+  .eq td {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid var(--cream-200);
+    vertical-align: top;
+  }
+  .eq thead th {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .eq thead .mono {
+    color: var(--steel);
+    font-size: 0.65rem;
+  }
+  .eq tbody th {
+    font-weight: 650;
+  }
+  .gauge tbody th {
+    font-family: var(--font-block);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--red);
+  }
+  .gauge td {
+    font-size: 0.95rem;
+  }
+</style>

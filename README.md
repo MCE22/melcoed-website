@@ -66,7 +66,7 @@ Run `npm run todos` to see them all. Every TODO must be resolved before launch.
 - [x] Home
 - [x] Findings, Badges, Medallions, Awards, Industrial Components (shared template: `src/components/ProductPage.astro` + `src/data/products.ts`)
 - [x] Fraternal & Lodge Emblems → served by `/industries/fraternal-lodge/` (avoids two pages competing for the same searches)
-- [ ] Capabilities
+- [x] Capabilities
 - [ ] About
 - [ ] FAQ
 - [x] Request a Quote (Web3Forms; honeypot spam check; no-JS fallback at /request-a-quote/thank-you/)
