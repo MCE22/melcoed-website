@@ -1,0 +1,105 @@
+---
+// Interior page header: visible breadcrumbs, ribbon, H1, optional script accent and lead.
+import type { Crumb } from '../lib/schema';
+
+interface Props {
+  title: string;
+  /** Script-font line under the H1, e.g. "since 1948". */
+  accent?: string;
+  ribbon?: string;
+  lead?: string;
+  breadcrumbs?: Crumb[];
+}
+const { title, accent, ribbon, lead, breadcrumbs = [] } = Astro.props;
+---
+
+<section class="page-hero section--ink blueprint">
+  <div class="wrap">
+    {
+      breadcrumbs.length > 0 && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            {breadcrumbs.map((c, i) =>
+              i === breadcrumbs.length - 1 ? (
+                <li aria-current="page">{c.name}</li>
+              ) : (
+                <li><a href={c.path}>{c.name}</a></li>
+              ),
+            )}
+          </ol>
+        </nav>
+      )
+    }
+    {ribbon && <span class="ribbon">{ribbon}</span>}
+    <h1>
+      {title}
+      {accent && <span class="script page-hero__accent">{accent}</span>}
+    </h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding-block: 2rem 2.75rem;
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 6px;
+    background: var(--red);
+  }
+  .page-hero h1 {
+    color: var(--cream-50);
+    font-size: clamp(2.6rem, 10vw, 4.75rem);
+    margin-bottom: 1rem;
+  }
+  .page-hero__accent {
+    display: block;
+    color: var(--red);
+    margin-top: 0.2em;
+    font-size: 0.62em;
+    line-height: 1.1;
+    text-shadow: 0 0 1px var(--cream), 0 2px 0 rgb(0 0 0 / 0.6);
+    transform: rotate(-2deg);
+    transform-origin: left center;
+  }
+  .page-hero .lead {
+    margin-bottom: 0;
+  }
+  @media (min-width: 48rem) {
+    .page-hero {
+      padding-block: 3rem 4rem;
+    }
+  }
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .crumbs li + li::before {
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--ink-400);
+  }
+  .crumbs a {
+    color: var(--cream-200);
+    text-decoration: none;
+  }
+  .crumbs a:hover {
+    color: var(--cream-50);
+    text-decoration: underline;
+  }
+</style>

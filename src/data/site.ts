@@ -6,7 +6,7 @@ export const site = {
   name: 'Mel-Co-Ed, Inc.',
   shortName: 'Mel-Co-Ed',
   abbreviation: 'MCE',
-  url: 'https://melcoed.com', // keep in sync with `site` in astro.config.mjs
+  url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
   tagline: 'Precision Metal Stamping Since 1948',
   description:
     'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with in-house tooling and precision milling.',
@@ -16,14 +16,15 @@ export const site = {
     display: '(401) 724-2160',
     e164: '+14017242160',
   },
-  // TODO: supply the public sales/quote inbox (e.g. sales@melcoed.com). Leave null until confirmed.
-  email: null as string | null,
+  // Quote/sales inbox. Web3Forms delivers form submissions to the address the access key was created with,
+  // so that key must be registered to this address.
+  email: 'quotes@melcoed.com' as string | null,
   address: {
     street: '381 Roosevelt Ave',
     city: 'Pawtucket',
     region: 'RI',
     regionName: 'Rhode Island',
-    postalCode: '02860', // TODO: confirm ZIP for 381 Roosevelt Ave (02860 assumed).
+    postalCode: '02860',
     country: 'US',
   },
   // TODO: supply exact lat/long (copy from Google Business Profile). Left null rather than guessed.
@@ -91,8 +92,20 @@ export const productLinks = [
   { label: 'Industrial Components', href: '/industrial-components/' },
 ];
 
+export const industryLinks = [
+  { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' },
+  { label: 'Commemorative & America250', href: '/industries/commemorative/' },
+];
+
+// Links to pages that don't exist yet are filtered out at build time (see src/lib/routes.ts),
+// so this list can describe the full site while pages are still being built.
 export const nav: NavItem[] = [
   { label: 'Products', href: '/#products', children: productLinks },
+  {
+    label: 'Industries',
+    href: '/industries/',
+    children: [{ label: 'All Industries', href: '/industries/' }, ...industryLinks],
+  },
   { label: 'Capabilities', href: '/capabilities/' },
   { label: 'About', href: '/about/' },
   { label: 'FAQ', href: '/faq/' },

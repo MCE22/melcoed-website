@@ -24,9 +24,21 @@ npm run todos     # list every placeholder that still needs real content
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 | Node version | from `.node-version` (or set env var `NODE_VERSION=22.23.4`) |
+| Env: `PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key registered to quotes@melcoed.com (see `.env.example`) |
+| Env: `PUBLIC_WEB3FORMS_FILE_UPLOADS` | `true` only on a Web3Forms Pro plan (attachments are Pro-only) |
 
 `public/_headers` sets security headers and long-term caching for hashed assets.
-DNS and custom-domain setup are handled outside this repo.
+Canonical host is **https://www.melcoed.com**. The apex `melcoed.com` should 301 to www via a
+Cloudflare redirect rule. DNS and custom-domain setup are handled outside this repo.
+
+`npm run build` also runs `scripts/check-links.mjs`, which fails the build if any page links to an
+internal URL that doesn't exist.
+
+## Navigation and unbuilt pages
+
+`src/data/site.ts` describes the full navigation. `src/lib/routes.ts` checks which page files exist,
+and the header, footer and Home page only show links to pages that exist. Adding a page file makes
+its links appear automatically.
 
 ## Where things live
 
@@ -61,5 +73,6 @@ Run `npm run todos` to see them all. Every TODO must be resolved before launch.
 - [ ] Capabilities
 - [ ] About
 - [ ] FAQ
-- [ ] Request a Quote (form — needs a handler; Cloudflare Pages Function or form service)
+- [x] Request a Quote (Web3Forms; honeypot spam check; no-JS fallback at /request-a-quote/thank-you/)
+- [ ] Industries hub, Fraternal & Lodge, Commemorative & America250
 - [ ] Contact

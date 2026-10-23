@@ -31,6 +31,7 @@ interface Props {
   pageType?: string;
   ogImage?: string;
   noindex?: boolean;
+  hideFooterCta?: boolean;
 }
 
 const {
@@ -42,6 +43,7 @@ const {
   pageType,
   ogImage = '/og-default.png',
   noindex = false,
+  hideFooterCta = false,
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -92,6 +94,6 @@ const nodes = [
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer hideCta={hideFooterCta} />
   </body>
 </html>

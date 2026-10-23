@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://melcoed.com/sitemap-index.xml
+Sitemap: https://www.melcoed.com/sitemap-index.xml

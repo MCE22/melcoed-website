@@ -5,6 +5,7 @@ import Todo from '../components/Todo.astro';
 import FaqList from '../components/FaqList.astro';
 import { site, divisions, quoteHref, fullAddress } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
+import { isLive, liveLinks } from '../lib/routes';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
@@ -48,13 +49,14 @@ const steps = [
   { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
 ];
 
-const industries = [
-  'Law enforcement & public safety',
-  'Military & government',
-  'Fraternal organizations & lodges',
-  'Jewelry & accessory brands',
-  'Awards & recognition programs',
-  'Industrial OEMs & contract manufacturers',
+const industries: { label: string; href?: string }[] = [
+  { label: 'Law enforcement & public safety', href: '/badges/' },
+  { label: 'Military & government', href: '/badges/' },
+  { label: 'Fraternal organizations & lodges', href: '/industries/fraternal-lodge/' },
+  { label: 'Commemorative & America250', href: '/industries/commemorative/' },
+  { label: 'Jewelry & accessory brands', href: '/findings/' },
+  { label: 'Awards & recognition programs', href: '/awards/' },
+  { label: 'Industrial OEMs & contract manufacturers', href: '/industrial-components/' },
 ];
 
 const faqs: Faq[] = [
@@ -107,7 +109,13 @@ const faqs: Faq[] = [
         </p>
         <div class="btn-row">
           <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-          <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
+          {
+            isLive('/capabilities/') ? (
+              <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
+            ) : (
+              <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+            )
+          }
         </div>
       </div>
       <div class="hero__seal">
@@ -143,7 +151,7 @@ const faqs: Faq[] = [
               <h3>{d.name}</h3>
               <p>{d.summary}</p>
               <ul class="division__links">
-                {d.links.map((l) => (
+                {liveLinks(d.links).map((l) => (
                   <li>
                     <a href={l.href}>{l.label} &rarr;</a>
                   </li>
@@ -166,14 +174,22 @@ const faqs: Faq[] = [
       </div>
       <div class="grid grid--3">
         {
-          products.map((p, i) => (
-            <a class="card card--link product" href={p.href}>
-              <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-              <span class="card__more">View {p.title} &rarr;</span>
-            </a>
-          ))
+          products.map((p, i) =>
+            isLive(p.href) ? (
+              <a class="card card--link product" href={p.href}>
+                <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+                <span class="card__more">View {p.title} &rarr;</span>
+              </a>
+            ) : (
+              <article class="card product">
+                <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </article>
+            ),
+          )
         }
       </div>
     </div>
@@ -188,7 +204,7 @@ const faqs: Faq[] = [
         <p class="lead">
           Tool and die making, die striking, blanking, forming and CNC milling in one Pawtucket facility.
         </p>
-        <a class="btn btn--ghost" href="/capabilities/">Full capabilities &amp; specs</a>
+        {isLive('/capabilities/') && <a class="btn btn--ghost" href="/capabilities/">Full capabilities &amp; specs</a>}
       </div>
       <dl class="specs caps__specs">
         <div>
@@ -261,7 +277,7 @@ const faqs: Faq[] = [
           2&ndash;3 sentences of founding story: who started Mel-Co-Ed, where the name comes from, and what the company
           first made. Real names and details here are what make this page rank and get cited.
         </Todo>
-        <a class="btn btn--ghost" href="/about/">Our story</a>
+        {isLive('/about/') && <a class="btn btn--ghost" href="/about/">Our story</a>}
       </div>
       <figure class="heritage__photo">
         <Todo block>
@@ -280,8 +296,15 @@ const faqs: Faq[] = [
         <h2 id="industries-h">Industries served</h2>
       </div>
       <ul class="industries">
-        {industries.map((x) => <li>{x}</li>)}
+        {industries.map((x) => <li>{x.href && isLive(x.href) ? <a href={x.href}>{x.label}</a> : x.label}</li>)}
       </ul>
+      {
+        isLive('/industries/') && (
+          <p class="industries__more">
+            <a class="btn btn--ghost" href="/industries/">All industries</a>
+          </p>
+        )
+      }
     </div>
   </section>
 
@@ -291,7 +314,7 @@ const faqs: Faq[] = [
       <div class="section-head">
         <span class="ribbon">Questions</span>
         <h2 id="faq-h">Frequently asked</h2>
-        <p>More answers on our <a href="/faq/">FAQ page</a>.</p>
+        {isLive('/faq/') && <p>More answers on our <a href="/faq/">FAQ page</a>.</p>}
       </div>
       <FaqList faqs={faqs} />
     </div>
@@ -545,6 +568,18 @@ const faqs: Faq[] = [
     .industries {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  .industries a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .industries a:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+  .industries__more {
+    margin: 2rem 0 0;
   }
 
   /* FAQ */

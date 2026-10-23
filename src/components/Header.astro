@@ -1,9 +1,15 @@
 ---
 import Logo from './Logo.astro';
 import { site, nav, quoteHref } from '../data/site';
+import { isLive, liveLinks } from '../lib/routes';
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => href !== '/' && !href.includes('#') && path.startsWith(href);
+
+// Hide links to pages that don't exist yet; drop a dropdown entirely if none of its pages exist.
+const items = nav
+  .map((item) => (item.children ? { ...item, children: liveLinks(item.children) } : item))
+  .filter((item) => (item.children ? item.children.length > 0 : isLive(item.href)));
 ---
 
 <header class="site-header">
@@ -26,16 +32,16 @@ const isActive = (href: string) => href !== '/' && !href.includes('#') && path.s
       <nav id="site-nav" class="nav" aria-label="Main">
         <ul class="nav__list">
           {
-            nav.map((item) =>
+            items.map((item, i) =>
               item.children ? (
                 <li class="nav__item nav__item--has-sub">
-                  <button class="nav__link nav__sub-toggle" type="button" aria-expanded="false" aria-controls="nav-products">
+                  <button class="nav__link nav__sub-toggle" type="button" aria-expanded="false" aria-controls={`nav-sub-${i}`}>
                     {item.label}
                     <svg class="nav__caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true">
                       <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
                     </svg>
                   </button>
-                  <ul id="nav-products" class="nav__sub">
+                  <ul id={`nav-sub-${i}`} class="nav__sub">
                     {item.children.map((c) => (
                       <li>
                         <a href={c.href} aria-current={isActive(c.href) ? 'page' : undefined}>
@@ -66,12 +72,13 @@ const isActive = (href: string) => href !== '/' && !href.includes('#') && path.s
   // desktop submenu still opens on hover/focus, and every link exists in the footer.
   const header = document.querySelector('.site-header');
   const toggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
-  const subToggle = header?.querySelector<HTMLButtonElement>('.nav__sub-toggle');
+  const subToggles = [...(header?.querySelectorAll<HTMLButtonElement>('.nav__sub-toggle') ?? [])];
 
   const setOpen = (btn: HTMLButtonElement | null | undefined, open: boolean) => {
     if (!btn) return;
     btn.setAttribute('aria-expanded', String(open));
   };
+  const isOpen = (btn: HTMLButtonElement) => btn.getAttribute('aria-expanded') === 'true';
 
   toggle?.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') !== 'true';
@@ -79,13 +86,18 @@ const isActive = (href: string) => href !== '/' && !href.includes('#') && path.s
     document.documentElement.classList.toggle('nav-open', open);
   });
 
-  subToggle?.addEventListener('click', () => {
-    setOpen(subToggle, subToggle.getAttribute('aria-expanded') !== 'true');
-  });
+  for (const btn of subToggles) {
+    btn.addEventListener('click', () => {
+      const open = !isOpen(btn);
+      // One dropdown at a time
+      for (const other of subToggles) setOpen(other, false);
+      setOpen(btn, open);
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    setOpen(subToggle, false);
+    for (const btn of subToggles) setOpen(btn, false);
     if (toggle?.getAttribute('aria-expanded') === 'true') {
       setOpen(toggle, false);
       document.documentElement.classList.remove('nav-open');
@@ -94,8 +106,9 @@ const isActive = (href: string) => href !== '/' && !href.includes('#') && path.s
   });
 
   document.addEventListener('click', (e) => {
-    const sub = subToggle?.parentElement;
-    if (sub && !sub.contains(e.target as Node)) setOpen(subToggle, false);
+    for (const btn of subToggles) {
+      if (!btn.parentElement?.contains(e.target as Node)) setOpen(btn, false);
+    }
   });
 </script>
 

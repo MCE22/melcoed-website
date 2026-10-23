@@ -1,18 +1,29 @@
 ---
 import Logo from './Logo.astro';
-import { site, divisions, productLinks, quoteHref, fullAddress, mapsUrl } from '../data/site';
+import { site, divisions, productLinks, industryLinks, quoteHref, mapsUrl } from '../data/site';
+import { liveLinks } from '../lib/routes';
 
+interface Props {
+  /** Hide the quote call-to-action band (e.g. on the quote page itself). */
+  hideCta?: boolean;
+}
+const { hideCta = false } = Astro.props;
 const year = new Date().getFullYear();
-const company = [
+const products = liveLinks(productLinks);
+const industries = liveLinks([{ label: 'All Industries', href: '/industries/' }, ...industryLinks]);
+const company = liveLinks([
   { label: 'Capabilities', href: '/capabilities/' },
   { label: 'About Us', href: '/about/' },
   { label: 'FAQ', href: '/faq/' },
   { label: 'Request a Quote', href: quoteHref },
   { label: 'Contact', href: '/contact/' },
-];
+]);
+// Division names always show; they link once their landing page exists.
+const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.links)[0]?.href }));
 ---
 
 <footer class="site-footer">
+  {!hideCta && (
   <div class="footer-cta">
     <div class="wrap footer-cta__inner">
       <p class="footer-cta__text">
@@ -25,6 +36,7 @@ const company = [
       </div>
     </div>
   </div>
+  )}
 
   <div class="footer-main blueprint">
     <div class="wrap footer-grid">
@@ -46,17 +58,29 @@ const company = [
         <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
       </div>
 
-      <nav class="footer-col" aria-label="Products">
-        <h2 class="footer-h">Products</h2>
-        <ul>{productLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
-      </nav>
-
       <div class="footer-col">
         <h2 class="footer-h">Divisions</h2>
         <ul>
-          {divisions.map((d) => <li><a href={d.links[0].href}>{d.name}</a></li>)}
+          {divisionItems.map((d) => <li>{d.href ? <a href={d.href}>{d.name}</a> : d.name}</li>)}
         </ul>
+        {
+          products.length > 0 && (
+            <nav aria-label="Products">
+              <h2 class="footer-h footer-h--spaced">Products</h2>
+              <ul>{products.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+            </nav>
+          )
+        }
       </div>
+
+      {
+        industries.length > 0 && (
+          <nav class="footer-col" aria-label="Industries">
+            <h2 class="footer-h">Industries</h2>
+            <ul>{industries.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+          </nav>
+        )
+      }
 
       <nav class="footer-col" aria-label="Company">
         <h2 class="footer-h">Company</h2>
@@ -178,6 +202,9 @@ const company = [
     color: var(--cream);
     border-bottom: 2px solid var(--red);
     display: inline-block;
+  }
+  .footer-h--spaced {
+    margin-top: 1.5rem;
   }
   .footer-col ul {
     list-style: none;

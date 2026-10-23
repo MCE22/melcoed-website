@@ -4,10 +4,11 @@ import sitemap from '@astrojs/sitemap';
 
 // Static output for Cloudflare Pages (build: `npm run build`, output dir: `dist`).
 export default defineConfig({
-  // TODO: confirm canonical host (apex vs. www) before launch; must match Cloudflare redirect rules.
-  site: 'https://melcoed.com',
+  // Canonical host. Apex (melcoed.com) should 301 to www via a Cloudflare redirect rule.
+  site: 'https://www.melcoed.com',
   output: 'static',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
-  integrations: [sitemap()],
+  // Keep utility pages (form confirmations) out of the sitemap; they are also noindex.
+  integrations: [sitemap({ filter: (page) => !page.includes('/thank-you/') })],
 });
