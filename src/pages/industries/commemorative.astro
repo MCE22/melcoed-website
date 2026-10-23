@@ -9,7 +9,7 @@ import { faqPageNode, type Faq } from '../../lib/schema';
 const path = '/industries/commemorative/';
 const breadcrumbs = [
   { name: 'Industries', path: '/industries/' },
-  { name: 'Commemorative & America250', path },
+  { name: 'Commemorative & 250th', path },
 ];
 const quote = `${quoteHref}?type=commemorative`;
 
@@ -76,14 +76,14 @@ const faqs: Faq[] = [
 ---
 
 <BaseLayout
-  title="Commemorative Medallions, Coins & Pins for America250 & Anniversaries"
+  title="Commemorative Medallions, Coins & Pins for 250th Anniversaries"
   description="Custom die-struck commemorative medallions, challenge coins and pins for America's 250th, town anniversaries and historical societies. Made in Pawtucket, RI since 1948."
   pageType="CollectionPage"
   breadcrumbs={breadcrumbs}
   schema={[faqPageNode(path, faqs)]}
 >
   <PageHero
-    title="Commemorative & America250"
+    title="Commemorative & 250th"
     accent="struck for the 250th"
     ribbon="Medallions · Coins · Pins"
     lead="Custom die-struck medallions, challenge coins and pins for America's 250th, town anniversaries, historical societies and every milestone worth putting in metal."
@@ -163,7 +163,7 @@ const faqs: Faq[] = [
           {buyers.map((b) => <li>{b}</li>)}
         </ul>
         <div class="license">
-          <h3>About the America250 name</h3>
+          <h3>Not affiliated with the official America250 program</h3>
           <p>
             America250&trade; is a trademark of the U.S. Semiquincentennial Commission. Its official logos are
             available only through the Commission's licensing program. Mel-Co-Ed is not affiliated with or endorsed by the

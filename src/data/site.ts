@@ -94,7 +94,7 @@ export const productLinks = [
 
 export const industryLinks = [
   { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' },
-  { label: 'Commemorative & America250', href: '/industries/commemorative/' },
+  { label: 'Commemorative & 250th', href: '/industries/commemorative/' },
 ];
 
 // Links to pages that don't exist yet are filtered out at build time (see src/lib/routes.ts),

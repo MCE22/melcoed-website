@@ -18,7 +18,7 @@ export const industries: Industry[] = [
     dedicated: true,
   },
   {
-    name: 'Commemorative & America250',
+    name: 'Commemorative & 250th',
     summary: "Medallions, coins and pins for America's 250th, town anniversaries, historical societies and milestones.",
     href: '/industries/commemorative/',
     dedicated: true,
