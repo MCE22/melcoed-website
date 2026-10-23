@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/check-links.mjs",
     "preview": "astro preview",
-    "todos": "grep -rn --include=*.astro --include=*.ts --include=*.md \"TODO\" src | sed 's/^/  /'"
+    "todos": "grep -rnE \"TODO|<Todo|todo: (true|.)\" src --include=*.astro --include=*.ts | grep -v \"src/components/Todo.astro\""
   },
   "engines": {
     "node": ">=22.23.4"
