@@ -22,23 +22,27 @@ const company = liveLinks([
 const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.links)[0]?.href }));
 ---
 
-<footer class="site-footer">
-  {!hideCta && (
-  <div class="footer-cta">
-    <div class="wrap footer-cta__inner">
-      <p class="footer-cta__text">
-        <span class="script">Got a print, a sketch or an old badge?</span>
-        <span class="footer-cta__sub">Send it over. We'll tell you what it takes to strike it.</span>
-      </p>
-      <div class="btn-row">
-        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-        <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+<footer class:list={['site-footer', { 'site-footer--no-cta': hideCta }]}>
+  {
+    !hideCta && (
+      <div class="footer-cta">
+        <div class="wrap">
+          <div class="sign sign--cherry sign--rivets footer-cta__panel">
+            <p class="footer-cta__text">
+              <span class="script">Got a print, a sketch or an old badge?</span>
+              <span class="footer-cta__sub">Send it over. We'll tell you what it takes to strike it.</span>
+            </p>
+            <div class="btn-row">
+              <a class="btn btn--cream" href={quoteHref}>Request a Quote</a>
+              <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  )}
+    )
+  }
 
-  <div class="footer-main blueprint">
+  <div class="footer-main">
     <div class="wrap footer-grid">
       <div class="footer-brand">
         <Logo tone="cream" size="lg" />
@@ -92,7 +96,7 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
   <div class="footer-base">
     <div class="wrap footer-base__inner">
       <span>&copy; {year} {site.name} All rights reserved.</span>
-      <span class="mono">Made in Pawtucket, R.I. &middot; Est. {site.foundingYear}</span>
+      <span>Made in Pawtucket, R.I. &middot; Est. {site.foundingYear}</span>
     </div>
   </div>
 </footer>
@@ -100,26 +104,25 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
 <style>
   .site-footer {
     color: var(--cream-200);
-    background: var(--ink);
+    background: var(--navy);
   }
   .site-footer a {
-    color: var(--cream);
+    color: var(--cream-100);
     text-decoration: none;
   }
   .site-footer a:not(.btn):hover {
-    color: #fff;
+    color: var(--robin);
     text-decoration: underline;
   }
 
+  /* CTA sign hangs half over the page, half over the footer */
   .footer-cta {
-    background: var(--red);
-    color: var(--cream-50);
-    border-top: 6px double var(--ink);
+    background: linear-gradient(var(--offwhite) 50%, var(--navy) 50%);
+    padding-top: 1rem;
   }
-  .footer-cta__inner {
+  .footer-cta__panel {
     display: grid;
     gap: 1.25rem;
-    padding-block: 2.5rem;
   }
   .footer-cta__text {
     margin: 0;
@@ -128,36 +131,39 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
     display: block;
     font-size: clamp(1.9rem, 6vw, 2.6rem);
     line-height: 1.1;
-    color: var(--cream-50);
+    color: var(--paper);
   }
   .footer-cta__sub {
     display: block;
-    margin-top: 0.35rem;
+    margin-top: 0.4rem;
     color: var(--cream);
   }
-  .footer-cta .btn--primary {
-    background: var(--ink);
+  /* scoped under .site-footer so the footer's link color doesn't override it */
+  .site-footer .btn--cream {
+    background: linear-gradient(180deg, var(--paper), var(--cream));
+    color: var(--cherry-600);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      inset 0 -2px 0 rgb(0 0 0 / 0.1),
+      0 3px 8px -3px rgb(0 0 0 / 0.35);
   }
-  .footer-cta .btn--primary:hover {
-    background: var(--ink-800);
-  }
-  .footer-cta .btn--ghost {
-    color: var(--cream-50);
-  }
-  .footer-cta .btn--ghost:hover {
-    background: var(--cream-50);
-    color: var(--red);
-    border-color: var(--cream-50);
+  .site-footer .btn--cream:hover {
+    background: var(--paper);
+    color: var(--cherry-800);
   }
   @media (min-width: 48rem) {
-    .footer-cta__inner {
+    .footer-cta__panel {
       grid-template-columns: 1fr auto;
       align-items: center;
+      gap: 2rem;
     }
   }
 
   .footer-main {
     padding-block: 3rem;
+  }
+  .site-footer--no-cta .footer-main {
+    border-top: 1px solid var(--chrome-dark);
   }
   .footer-grid {
     display: grid;
@@ -180,12 +186,12 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
     }
   }
   .footer-tag {
-    margin: 0.5rem 0 1rem;
-    font-family: var(--font-block);
-    letter-spacing: 0.12em;
-    font-size: 1.1rem;
+    margin: 0.75rem 0 1rem;
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--steel);
+    color: var(--robin);
   }
   .footer-nap {
     font-style: normal;
@@ -196,12 +202,19 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
     font-size: 0.9rem;
   }
   .footer-h {
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    font-size: 1.4rem;
-    color: var(--cream);
-    border-bottom: 2px solid var(--red);
     display: inline-block;
+    margin: 0 0 0.85rem;
+    padding-bottom: 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--robin);
+    /* chrome pinstripe underline */
+    background:
+      linear-gradient(var(--chrome-dark), var(--chrome-dark)) left bottom / 100% 1px no-repeat,
+      linear-gradient(var(--chrome-dark), var(--chrome-dark)) left calc(100% - 3px) / 100% 1px no-repeat;
   }
   .footer-h--spaced {
     margin-top: 1.5rem;
@@ -216,9 +229,9 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
   }
 
   .footer-base {
-    border-top: 1px solid rgb(255 255 255 / 0.08);
+    border-top: 1px solid rgb(180 186 193 / 0.25);
     font-size: 0.8rem;
-    color: var(--ink-400);
+    color: var(--chrome);
   }
   .footer-base__inner {
     display: flex;

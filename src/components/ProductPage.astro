@@ -110,7 +110,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   </section>
 
   <!-- Audience -->
-  <section class="section section--ink blueprint" aria-labelledby="aud-h">
+  <section class="section section--navy" aria-labelledby="aud-h">
     <div class="wrap split">
       <div>
         <span class="ribbon ribbon--cream">Who we work with</span>
@@ -163,23 +163,31 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   .intro p:not(.lead) {
     color: var(--ink-600);
   }
+  /* At-a-glance spec card: plain and readable, with a chrome-rimmed header */
   .glance {
-    padding: 1.25rem;
-    background: var(--ink);
-    color: var(--cream);
-    border-top: 4px solid var(--red);
+    padding: 1.25rem 1.25rem 0.5rem;
+    background: var(--paper);
+    border: 1px solid var(--chrome-light);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
   }
   @media (min-width: 40rem) {
     .glance {
-      padding: 1.75rem;
+      padding: 1.75rem 1.75rem 0.75rem;
     }
   }
   .glance__h {
-    font-size: 1.6rem;
-    color: var(--cream-50);
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
   }
-  .type {
-    border-left: 4px solid var(--red);
+  .glance .specs {
+    border-top: 0;
+  }
+  .glance .specs > div:last-child {
+    border-bottom: 0;
+  }
+  .type h3 {
+    color: var(--navy);
   }
   .photos {
     margin: 2rem 0 0;
@@ -191,7 +199,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
     padding-block: 2.5rem;
   }
   .related__h {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   .related__list {
     display: flex;

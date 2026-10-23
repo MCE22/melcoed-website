@@ -1,38 +1,88 @@
 ---
-// Circular "die-struck" seal: EST. 1948 · PAWTUCKET, R.I.
-// Pure SVG (no image request); text follows a circular path like a coin legend.
+// "Est. 1948" gas-pump-globe roundel: chrome rim, cherry enamel band with a
+// circular legend, cream face. Pure inline SVG, no image request.
 import { site } from '../data/site';
 interface Props {
   class?: string;
 }
 const { class: className } = Astro.props;
-const id = 'seal-path';
+const uid = 'seal';
 ---
 
 <svg
   class:list={['seal', className]}
-  viewBox="0 0 200 200"
+  viewBox="0 0 240 240"
   role="img"
   aria-label={`Established ${site.foundingYear}, Pawtucket, Rhode Island`}
 >
   <defs>
-    <path id={id} d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"></path>
+    <linearGradient id={`${uid}-chrome`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f6f8"></stop>
+      <stop offset="0.45" stop-color="#a7aeb6"></stop>
+      <stop offset="0.55" stop-color="#e8ebee"></stop>
+      <stop offset="1" stop-color="#7f8790"></stop>
+    </linearGradient>
+    <radialGradient id={`${uid}-face`} cx="0.38" cy="0.32" r="0.8">
+      <stop offset="0" stop-color="#fffdf8"></stop>
+      <stop offset="1" stop-color="#efe4c8"></stop>
+    </radialGradient>
+    <radialGradient id={`${uid}-gloss`} cx="0.35" cy="0.25" r="0.6">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.35"></stop>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+    </radialGradient>
+    <path id={`${uid}-top`} d="M 34 120 A 86 86 0 0 1 206 120"></path>
+    <path id={`${uid}-bottom`} d="M 42 120 A 78 78 0 0 0 198 120"></path>
   </defs>
-  <circle cx="100" cy="100" r="98" fill="var(--red)"></circle>
-  <circle cx="100" cy="100" r="90" fill="none" stroke="var(--cream)" stroke-width="2"></circle>
-  <circle cx="100" cy="100" r="56" fill="none" stroke="var(--cream)" stroke-width="2"></circle>
-  <circle cx="100" cy="100" r="52" fill="var(--cream)"></circle>
-  <text fill="var(--cream)" font-family="var(--font-block)" font-size="19" letter-spacing="4.2">
-    <textPath href={`#${id}`} startOffset="0">PRECISION STAMPING ★ PAWTUCKET R.I. ★</textPath>
+
+  <!-- chrome rim -->
+  <circle cx="120" cy="120" r="118" fill={`url(#${uid}-chrome)`}></circle>
+  <circle cx="120" cy="120" r="110" fill="#1c2b45"></circle>
+  <!-- cherry enamel band -->
+  <circle cx="120" cy="120" r="106" fill="#b8232b"></circle>
+  <circle cx="120" cy="120" r="101" fill="none" stroke="#f2e8d0" stroke-width="1.5" opacity="0.8"></circle>
+  <circle cx="120" cy="120" r="70" fill="none" stroke="#f2e8d0" stroke-width="1.5" opacity="0.8"></circle>
+  <!-- cream face -->
+  <circle cx="120" cy="120" r="66" fill={`url(#${uid}-face)`}></circle>
+
+  <text class="seal__legend" fill="#f7f0df" text-anchor="middle">
+    <textPath href={`#${uid}-top`} startOffset="50%">Precision Stamping</textPath>
   </text>
-  <text x="100" y="92" text-anchor="middle" fill="var(--red)" font-family="var(--font-block)" font-size="18" letter-spacing="3">EST.</text>
-  <text x="100" y="124" text-anchor="middle" fill="var(--ink)" font-family="var(--font-block)" font-size="38" letter-spacing="1">{site.foundingYear}</text>
+  <text class="seal__legend seal__legend--bottom" fill="#f7f0df" text-anchor="middle" dominant-baseline="hanging">
+    <textPath href={`#${uid}-bottom`} startOffset="50%">Pawtucket · R.I.</textPath>
+  </text>
+  <text x="35" y="114" fill="#f7f0df" font-size="13" text-anchor="middle">★</text>
+  <text x="205" y="114" fill="#f7f0df" font-size="13" text-anchor="middle">★</text>
+
+  <text class="seal__est" x="120" y="108" text-anchor="middle" fill="#b8232b">Est.</text>
+  <text class="seal__year" x="120" y="146" text-anchor="middle" fill="#1c2b45">{site.foundingYear}</text>
+
+  <!-- globe gloss -->
+  <circle cx="120" cy="120" r="106" fill={`url(#${uid}-gloss)`} pointer-events="none"></circle>
 </svg>
 
 <style>
   .seal {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.25));
+    filter: drop-shadow(0 14px 18px rgb(19 30 49 / 0.35));
+  }
+  .seal__legend {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+  }
+  .seal__legend--bottom {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+  .seal__est {
+    font-family: var(--font-script);
+    font-size: 30px;
+  }
+  .seal__year {
+    font-family: var(--font-display);
+    font-size: 40px;
   }
 </style>

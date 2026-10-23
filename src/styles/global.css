@@ -1,33 +1,57 @@
-/* Mel-Co-Ed design system — "1950s sign meets modern precision".
-   Palette from the vintage sign: deep red, cream, black.
+/* Mel-Co-Ed design system — 1950s porcelain-enamel signage on a clean modern layout.
+   Restraint rule: sign treatments (panels, rivets, roundels, script) live in the
+   header, heroes, badges, section headers and footer. Body content and forms stay plain.
    Mobile-first: base styles target phones; min-width queries scale up. */
 
 :root {
-  /* Sign palette */
-  --red: #a3191d;
-  --red-700: #82121a;
-  --red-900: #5c0c12;
-  --cream: #f4ead5;
-  --cream-50: #fbf7ee;
-  --cream-200: #e9dbbb;
-  --ink: #141212;
-  --ink-800: #221e1d;
-  --ink-600: #4a4341;
-  --ink-400: #7a716d;
-  /* Modern accent: brushed steel for rules, grids and spec chrome */
-  --steel: #a8adb1;
-  --steel-dim: rgb(168 173 177 / 0.22);
+  /* Enamel palette */
+  --cherry: #b8232b;
+  --cherry-hi: #d8434a;
+  --cherry-600: #9c1c23;
+  --cherry-800: #741419;
+  --cream: #f2e8d0;
+  --cream-100: #f7f0df;
+  --offwhite: #fbf8f2;
+  --paper: #fffdf8;
+  --navy: #1c2b45;
+  --navy-700: #263a5c;
+  --navy-900: #131e31;
+  --teal: #17656c;
+  --teal-700: #0f4d53;
+  --robin: #9fd9d3;
+  --robin-100: #ddf2ef;
+  --chrome: #b4bac1;
+  --chrome-light: #dcdfe3;
+  --chrome-dark: #8a929b;
+  --chrome-sheen: linear-gradient(180deg, #f1f3f5 0%, #b4bac1 45%, #e6e9ec 55%, #9aa1a9 100%);
+  --ink: #1e2533;
+  --ink-600: #4a5263;
+  --ink-400: #737b8a;
+
+  /* Legacy aliases (pages written before the redesign use these names) */
+  --red: var(--cherry);
+  --red-700: var(--cherry-600);
+  --red-900: var(--cherry-800);
+  --cream-50: var(--offwhite);
+  --cream-200: #e6dcc2;
+  --ink-800: var(--navy-900);
+  --steel: var(--chrome);
+  --steel-dim: rgb(180 186 193 / 0.35);
 
   --font-script: 'Yellowtail', 'Brush Script MT', cursive;
-  --font-block: 'Bebas Neue', 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  --font-display: 'Alfa Slab One', 'Rockwell', 'Roboto Slab', Georgia, serif;
   --font-body: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas, monospace;
+  /* Labels, buttons and nav: the body sans, set bold and letterspaced */
+  --font-block: var(--font-body);
+  /* Only for TODO placeholders, so they never look like real content */
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   --gutter: 1rem;
   --max: 72rem;
-  --radius: 4px;
+  --radius: 10px;
+  --radius-lg: 18px;
   --header-h: 4rem;
-  --shadow: 0 1px 0 rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(20 18 18 / 0.25);
+  --shadow: 0 1px 2px rgb(28 43 69 / 0.06), 0 10px 24px -16px rgb(28 43 69 / 0.35);
 
   color-scheme: light;
 }
@@ -35,7 +59,7 @@
 @media (min-width: 48rem) {
   :root {
     --gutter: 2rem;
-    --header-h: 4.75rem;
+    --header-h: 4.5rem;
   }
 }
 
@@ -56,7 +80,7 @@ html {
 }
 body {
   margin: 0;
-  background: var(--cream-50);
+  background: var(--offwhite);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.0625rem;
@@ -72,15 +96,15 @@ video {
   height: auto;
 }
 a {
-  color: var(--red);
+  color: var(--cherry);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
 a:hover {
-  color: var(--red-700);
+  color: var(--cherry-600);
 }
 :focus-visible {
-  outline: 3px solid var(--red);
+  outline: 3px solid var(--cherry);
   outline-offset: 2px;
 }
 p,
@@ -94,33 +118,38 @@ figure {
 
 /* ---------- Type ---------- */
 h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-block);
+h2 {
+  font-family: var(--font-display);
   font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  line-height: 1.08;
+  letter-spacing: 0.005em;
   margin: 0 0 0.75rem;
+  color: var(--navy);
   text-wrap: balance;
 }
 h1 {
-  font-size: clamp(2.75rem, 11vw, 5.75rem);
+  font-size: clamp(2.2rem, 8vw, 3.75rem);
 }
 h2 {
-  font-size: clamp(2.1rem, 7vw, 3.5rem);
+  font-size: clamp(1.7rem, 5.2vw, 2.6rem);
+}
+h3,
+h4 {
+  font-family: var(--font-body);
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.5rem;
+  color: var(--navy);
 }
 h3 {
-  font-size: clamp(1.5rem, 4.5vw, 1.9rem);
-  line-height: 1;
+  font-size: 1.2rem;
 }
 h4 {
-  font-size: 1.25rem;
+  font-size: 1.05rem;
 }
 .script {
   font-family: var(--font-script);
-  text-transform: none;
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -129,10 +158,18 @@ h4 {
   color: var(--ink-600);
   max-width: 40rem;
 }
+/* Formerly monospace; now tabular body figures */
 .mono {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+/* Small letterspaced label (eyebrows, card kickers) */
+.label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cherry);
 }
 
 /* ---------- Layout ---------- */
@@ -151,39 +188,50 @@ h4 {
   }
 }
 .section--cream {
-  background: var(--cream);
+  background: var(--cream-100);
 }
-.section--ink {
-  background: var(--ink);
+/* Dark sections: deep navy or enamel teal — never black */
+.section--ink,
+.section--navy {
+  background: var(--navy);
   color: var(--cream);
 }
-.section--ink .lead {
+.section--teal {
+  background: var(--teal);
+  color: var(--cream);
+}
+:is(.section--ink, .section--navy, .section--teal) :is(h2, h3) {
+  color: var(--paper);
+}
+:is(.section--ink, .section--navy, .section--teal) .lead {
   color: var(--cream-200);
 }
-.section--ink a:not(.btn) {
-  color: var(--cream);
-}
-/* Faint engineering grid — the "modern technology" half of the look */
-.blueprint {
-  background-image:
-    linear-gradient(var(--steel-dim) 1px, transparent 1px),
-    linear-gradient(90deg, var(--steel-dim) 1px, transparent 1px);
-  background-size: 2rem 2rem;
-  background-position: -1px -1px;
+:is(.section--ink, .section--navy, .section--teal) a:not(.btn) {
+  color: var(--robin);
 }
 .section-head {
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
   max-width: 44rem;
+}
+/* Short chrome pinstripe under section headings */
+.section-head > h2::after {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  height: 5px;
+  margin-top: 1rem;
+  background:
+    linear-gradient(var(--chrome), var(--chrome)) top / 100% 1px no-repeat,
+    linear-gradient(var(--chrome), var(--chrome)) bottom / 100% 1px no-repeat;
 }
 .grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 @media (min-width: 40rem) {
-  .grid--2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .grid--3 {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -195,26 +243,23 @@ h4 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-@media (min-width: 40rem) and (max-width: 63.99rem) {
-  .grid--4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons: rounded enamel ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
-  padding: 0.75rem 1.4rem;
+  padding: 0.8rem 1.4rem;
   border: 2px solid transparent;
   border-radius: var(--radius);
-  font-family: var(--font-block);
-  font-size: 1.3rem;
-  letter-spacing: 0.06em;
-  line-height: 1;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
@@ -222,37 +267,41 @@ h4 {
     background-color 0.15s ease,
     color 0.15s ease,
     border-color 0.15s ease,
+    box-shadow 0.15s ease,
     transform 0.15s ease;
 }
 .btn:active {
   transform: translateY(1px);
 }
 .btn--primary {
-  background: var(--red);
-  color: var(--cream-50);
-  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.2);
+  background: linear-gradient(180deg, var(--cherry-hi) 0%, var(--cherry) 52%, var(--cherry-600) 100%);
+  color: var(--cream-100);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    inset 0 -2px 0 rgb(0 0 0 / 0.18),
+    0 3px 8px -3px rgb(116 20 25 / 0.55);
 }
 .btn--primary:hover {
-  background: var(--red-700);
-  color: var(--cream-50);
+  background: linear-gradient(180deg, var(--cherry) 0%, var(--cherry-600) 100%);
+  color: var(--paper);
 }
 .btn--ghost {
   border-color: currentColor;
-  color: var(--ink);
+  color: var(--navy);
   background: transparent;
 }
 .btn--ghost:hover {
-  background: var(--ink);
-  color: var(--cream);
-  border-color: var(--ink);
+  background: var(--navy);
+  color: var(--cream-100);
+  border-color: var(--navy);
 }
-.section--ink .btn--ghost {
-  color: var(--cream);
+:is(.section--ink, .section--navy, .section--teal, .sign) .btn--ghost {
+  color: var(--cream-100);
 }
-.section--ink .btn--ghost:hover {
-  background: var(--cream);
-  color: var(--ink);
-  border-color: var(--cream);
+:is(.section--ink, .section--navy, .section--teal, .sign) .btn--ghost:hover {
+  background: var(--cream-100);
+  color: var(--navy);
+  border-color: var(--cream-100);
 }
 .btn-row {
   display: flex;
@@ -260,59 +309,172 @@ h4 {
   gap: 0.75rem;
 }
 
-/* ---------- Ribbon / banner accent ---------- */
+/* ---------- Enamel tag (section eyebrow). Class name kept from the old ribbon. ---------- */
 .ribbon {
-  --ribbon-bg: var(--red);
-  --ribbon-fg: var(--cream-50);
-  --notch: 0.6em;
+  --tag-bg: var(--cherry);
+  --tag-fg: var(--cream-100);
   display: inline-block;
-  position: relative;
-  padding: 0.35em calc(var(--notch) + 0.7em) 0.3em;
-  margin-bottom: 1rem;
-  background: var(--ribbon-bg);
-  color: var(--ribbon-fg);
-  font-family: var(--font-block);
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
-  line-height: 1;
+  margin-bottom: 0.9rem;
+  padding: 0.42em 1.05em 0.38em;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  /* double inset shadow = the thin rim of an enamel sign */
+  box-shadow:
+    inset 0 0 0 3px var(--tag-bg),
+    inset 0 0 0 4px color-mix(in srgb, var(--tag-fg) 70%, transparent);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
   text-transform: uppercase;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    calc(100% - var(--notch)) 50%,
-    100% 100%,
-    0 100%,
-    var(--notch) 50%
-  );
+}
+.ribbon--ink,
+.ribbon--navy {
+  --tag-bg: var(--navy);
+  --tag-fg: var(--cream-100);
 }
 .ribbon--cream {
-  --ribbon-bg: var(--cream);
-  --ribbon-fg: var(--red-700);
+  --tag-bg: var(--cream);
+  --tag-fg: var(--navy);
 }
-.ribbon--ink {
-  --ribbon-bg: var(--ink);
-  --ribbon-fg: var(--cream);
+.ribbon--teal {
+  --tag-bg: var(--teal);
+  --tag-fg: var(--cream-100);
 }
 
-/* Double pinstripe rule, like sign trim */
+/* ---------- Chrome pinstripe divider ---------- */
 .pinstripe {
-  height: 6px;
+  height: 5px;
   border: 0;
   margin: 0;
   background:
-    linear-gradient(var(--red), var(--red)) top / 100% 2px no-repeat,
-    linear-gradient(var(--red), var(--red)) bottom / 100% 2px no-repeat;
+    linear-gradient(var(--chrome), var(--chrome)) top / 100% 1px no-repeat,
+    linear-gradient(var(--chrome), var(--chrome)) bottom / 100% 1px no-repeat;
 }
 
-/* ---------- Cards ---------- */
+/* ---------- Porcelain sign panel (heroes and callouts only) ---------- */
+.sign {
+  --sign-bg: var(--navy);
+  --sign-fg: var(--cream);
+  --rim: rgb(242 232 208 / 0.55);
+  position: relative;
+  isolation: isolate;
+  padding: 2.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(165deg, rgb(255 255 255 / 0.09) 0%, rgb(255 255 255 / 0) 38%),
+    var(--sign-bg);
+  color: var(--sign-fg);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    inset 0 -3px 0 rgb(0 0 0 / 0.22),
+    0 0 0 1px rgb(0 0 0 / 0.08),
+    0 22px 40px -24px rgb(19 30 49 / 0.7);
+}
+/* Inner rim */
+.sign::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 2px solid var(--rim);
+  border-radius: calc(var(--radius-lg) - 6px);
+  pointer-events: none;
+  z-index: -1;
+}
+/* Optional rivets: four small chrome dots in the corners */
+.sign--rivets::after {
+  --r: 15px;
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--r) var(--r), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
+    radial-gradient(circle at calc(100% - var(--r)) var(--r), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
+    radial-gradient(circle at var(--r) calc(100% - var(--r)), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
+    radial-gradient(circle at calc(100% - var(--r)) calc(100% - var(--r)), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px);
+}
+.sign h1,
+.sign h2 {
+  color: var(--paper);
+}
+.sign--cherry {
+  --sign-bg: var(--cherry);
+}
+.sign--teal {
+  --sign-bg: var(--teal);
+}
+.sign--cream {
+  --sign-bg: var(--cream);
+  --sign-fg: var(--navy);
+  --rim: rgb(28 43 69 / 0.45);
+}
+.sign--cream h1,
+.sign--cream h2 {
+  color: var(--navy);
+}
+@media (min-width: 48rem) {
+  .sign {
+    padding: 3.25rem 3rem;
+  }
+}
+
+/* ---------- Roundel: enamel disc for proof points ---------- */
+.roundel {
+  --disc: var(--navy);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.15rem;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 9.5rem;
+  margin-inline: auto;
+  padding: 0.75rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 55%),
+    var(--disc);
+  color: var(--cream-100);
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 5px var(--disc),
+    inset 0 0 0 7px rgb(242 232 208 / 0.7),
+    0 0 0 3px var(--chrome-light),
+    0 0 0 4px var(--chrome-dark),
+    0 10px 18px -10px rgb(19 30 49 / 0.6);
+}
+.roundel--cherry {
+  --disc: var(--cherry);
+}
+.roundel--teal {
+  --disc: var(--teal);
+}
+.roundel__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 6vw, 2rem);
+  line-height: 1;
+  color: var(--paper);
+}
+.roundel__label {
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-200);
+}
+
+/* ---------- Cards (plain, for body content) ---------- */
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background: var(--cream-50);
-  border: 1px solid var(--cream-200);
-  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--chrome-light);
+  border-radius: 14px;
   box-shadow: var(--shadow);
 }
 .card h3 {
@@ -326,50 +488,64 @@ h4 {
   text-decoration: none;
   transition:
     transform 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .card--link:hover {
   color: inherit;
-  border-color: var(--red);
+  border-color: var(--chrome);
   transform: translateY(-2px);
+  box-shadow: 0 1px 2px rgb(28 43 69 / 0.06), 0 16px 30px -18px rgb(28 43 69 / 0.45);
+}
+.card--link:hover h3 {
+  color: var(--cherry);
 }
 .card__more {
   margin-top: auto;
-  font-family: var(--font-block);
+  font-size: 0.82rem;
+  font-weight: 750;
   letter-spacing: 0.08em;
-  font-size: 1.1rem;
-  color: var(--red);
+  text-transform: uppercase;
+  color: var(--cherry);
 }
 
-/* ---------- Spec list (mono, machine-readable look) ---------- */
+/* ---------- Spec list: body sans, bold labels ---------- */
 .specs {
   display: grid;
-  gap: 0;
   margin: 0;
-  border-top: 1px solid var(--steel-dim);
+  border-top: 1px solid var(--chrome-light);
 }
 .specs > div {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.15rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--steel-dim);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--chrome-light);
 }
 @media (min-width: 40rem) {
   .specs > div {
-    grid-template-columns: 12rem 1fr;
-    gap: 1rem;
+    grid-template-columns: 11rem 1fr;
+    gap: 1.25rem;
   }
 }
 .specs dt {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--steel);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--navy);
 }
 .specs dd {
   margin: 0;
+  color: var(--ink-600);
+}
+:is(.section--ink, .section--navy, .section--teal, .sign) .specs,
+:is(.section--ink, .section--navy, .section--teal, .sign) .specs > div {
+  border-color: rgb(242 232 208 / 0.2);
+}
+:is(.section--ink, .section--navy, .section--teal, .sign) .specs dt {
+  color: var(--paper);
+}
+:is(.section--ink, .section--navy, .section--teal, .sign) .specs dd {
+  color: var(--cream-200);
 }
 
 /* ---------- Shared page patterns ---------- */
@@ -384,9 +560,6 @@ h4 {
     gap: 4rem;
     align-items: start;
   }
-}
-.section--ink h2 {
-  color: var(--cream-50);
 }
 .hero-cta {
   margin-top: 1.75rem;
@@ -411,16 +584,16 @@ h4 {
   }
 }
 .step {
-  padding-top: 1rem;
-  border-top: 2px solid var(--ink);
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--chrome);
 }
 .step__n {
   display: block;
-  font-family: var(--font-block);
-  font-size: 3.5rem;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
   line-height: 1;
-  color: var(--red);
-  margin-bottom: 0.25rem;
+  color: var(--cherry);
+  margin-bottom: 0.5rem;
 }
 .step p {
   color: var(--ink-600);
@@ -435,14 +608,14 @@ h4 {
 .audience li {
   display: flex;
   gap: 0.6rem;
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--steel-dim);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgb(242 232 208 / 0.2);
   font-weight: 600;
 }
 .audience li::before {
   content: '\2605';
   flex: none;
-  color: var(--red);
+  color: var(--robin);
 }
 
 /* FAQ section: heading left, accordion right on desktop */
@@ -465,6 +638,7 @@ h4 {
   color: #6b4100;
   font-family: var(--font-mono);
   font-size: 0.8em;
+  font-weight: 400;
   font-style: normal;
   text-transform: none;
   letter-spacing: 0;
@@ -494,7 +668,7 @@ h4 {
   top: -100px;
   z-index: 100;
   padding: 0.75rem 1rem;
-  background: var(--ink);
+  background: var(--navy);
   color: var(--cream);
 }
 .skip-link:focus {

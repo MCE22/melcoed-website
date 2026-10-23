@@ -29,22 +29,24 @@ const { tone = 'red', size = 'md' } = Astro.props;
     line-height: 0.9;
     padding-bottom: 0.18em;
     /* Sign-style swash underline */
-    background: linear-gradient(currentColor, currentColor) left bottom / 100% 3px no-repeat;
+    background: linear-gradient(currentColor, currentColor) left bottom / 100% 2px no-repeat;
   }
   .logo__inc {
-    font-family: var(--font-block);
-    font-size: 0.95rem;
-    letter-spacing: 0.12em;
-    padding-bottom: 0.45em;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.7em;
   }
   .logo--lg .logo__script {
     font-size: 3rem;
   }
   .logo--red {
-    color: var(--red);
+    color: var(--cherry);
   }
   .logo--red:hover {
-    color: var(--red-700);
+    color: var(--cherry-600);
   }
   .logo--cream,
   .logo--cream:hover {

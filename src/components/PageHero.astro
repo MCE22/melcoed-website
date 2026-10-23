@@ -13,7 +13,7 @@ interface Props {
 const { title, accent, ribbon, lead, breadcrumbs = [] } = Astro.props;
 ---
 
-<section class="page-hero section--ink blueprint">
+<section class="page-hero">
   <div class="wrap">
     {
       breadcrumbs.length > 0 && (
@@ -31,75 +31,66 @@ const { title, accent, ribbon, lead, breadcrumbs = [] } = Astro.props;
         </nav>
       )
     }
-    {ribbon && <span class="ribbon">{ribbon}</span>}
-    <h1>
-      {title}
-      {accent && <span class="script page-hero__accent">{accent}</span>}
-    </h1>
-    {lead && <p class="lead">{lead}</p>}
-    <slot />
+    <div class="sign sign--rivets page-hero__sign">
+      {ribbon && <span class="ribbon">{ribbon}</span>}
+      <h1>
+        {title}
+        {accent && <span class="script page-hero__accent">{accent}</span>}
+      </h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
   </div>
 </section>
 
 <style>
   .page-hero {
-    position: relative;
-    padding-block: 2rem 2.75rem;
+    padding-block: 1rem 0.5rem;
   }
-  .page-hero::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    height: 6px;
-    background: var(--red);
+  @media (min-width: 48rem) {
+    .page-hero {
+      padding-block: 1.5rem 1rem;
+    }
   }
   .page-hero h1 {
-    color: var(--cream-50);
-    font-size: clamp(2.6rem, 10vw, 4.75rem);
+    max-width: 22ch;
     margin-bottom: 1rem;
   }
   .page-hero__accent {
     display: block;
-    color: var(--red);
-    margin-top: 0.2em;
+    margin-top: 0.3em;
+    color: var(--robin);
     font-size: 0.62em;
     line-height: 1.1;
-    text-shadow: 0 0 1px var(--cream), 0 2px 0 rgb(0 0 0 / 0.6);
     transform: rotate(-2deg);
     transform-origin: left center;
   }
   .page-hero .lead {
     margin-bottom: 0;
-  }
-  @media (min-width: 48rem) {
-    .page-hero {
-      padding-block: 3rem 4rem;
-    }
+    color: var(--cream-200);
   }
   .crumbs ol {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem 0.5rem;
     list-style: none;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     padding: 0;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--steel);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-400);
   }
   .crumbs li + li::before {
     content: '/';
     margin-right: 0.5rem;
-    color: var(--ink-400);
+    color: var(--chrome);
   }
   .crumbs a {
-    color: var(--cream-200);
+    color: var(--ink-600);
     text-decoration: none;
   }
   .crumbs a:hover {
-    color: var(--cream-50);
+    color: var(--cherry);
     text-decoration: underline;
   }
 </style>

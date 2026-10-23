@@ -86,41 +86,41 @@ const faqs: Faq[] = [
   schema={[faqPageNode('/', faqs)]}
 >
   <!-- ============ HERO ============ -->
-  <section class="hero section--ink blueprint">
-    <div class="wrap hero__inner">
-      <div class="hero__copy">
-        <span class="ribbon">Est. {site.foundingYear} &middot; Pawtucket, R.I.</span>
-        <h1>
-          Precision Metal Stamping
-          <span class="script hero__script">since {site.foundingYear}</span>
-        </h1>
-        <p class="lead">
-          Mel-Co-Ed is a third-generation, family-owned stamping shop in Pawtucket, Rhode Island. We build the tooling and
-          strike the parts in-house: badges, medallions, emblems, findings and industrial components.
-        </p>
-        <div class="btn-row">
-          <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-          {
-            isLive('/capabilities/') ? (
-              <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
-            ) : (
-              <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
-            )
-          }
+  <section class="hero">
+    <div class="wrap">
+      <div class="sign sign--rivets hero__sign">
+        <div class="hero__copy">
+          <span class="ribbon">Est. {site.foundingYear} &middot; Pawtucket, R.I.</span>
+          <h1>
+            Precision Metal Stamping
+            <span class="script hero__script">since {site.foundingYear}</span>
+          </h1>
+          <p class="lead">
+            Mel-Co-Ed is a third-generation, family-owned stamping shop in Pawtucket, Rhode Island. We build the tooling
+            and strike the parts in-house: badges, medallions, emblems, findings and industrial components.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+            {
+              isLive('/capabilities/') ? (
+                <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
+              ) : (
+                <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+              )
+            }
+          </div>
+        </div>
+        <div class="hero__seal">
+          <Seal />
         </div>
       </div>
-      <div class="hero__seal">
-        <Seal />
-      </div>
-    </div>
 
-    <div class="wrap">
-      <dl class="facts">
-        <div><dt>Founded</dt><dd>{site.foundingYear}</dd></div>
-        <div><dt>In business</dt><dd>{years}+ yrs</dd></div>
-        <div><dt>Ownership</dt><dd>3rd gen.</dd></div>
-        <div><dt>Divisions</dt><dd>{divisions.length}</dd></div>
-      </dl>
+      <ul class="proof" aria-label="Mel-Co-Ed at a glance">
+        <li class="roundel"><span class="roundel__value">{site.foundingYear}</span><span class="roundel__label">Founded</span></li>
+        <li class="roundel roundel--cherry"><span class="roundel__value">{years}+</span><span class="roundel__label">Years in business</span></li>
+        <li class="roundel roundel--teal"><span class="roundel__value">3rd</span><span class="roundel__label">Generation</span></li>
+        <li class="roundel"><span class="roundel__value">{divisions.length}</span><span class="roundel__label">Divisions</span></li>
+      </ul>
     </div>
   </section>
 
@@ -138,7 +138,7 @@ const faqs: Faq[] = [
         {
           divisions.map((d, i) => (
             <article class="card division">
-              <span class="division__num mono">DIV.0{i + 1}</span>
+              <span class="label division__num">Division 0{i + 1}</span>
               <h3>{d.name}</h3>
               <p>{d.summary}</p>
               <ul class="division__links">
@@ -168,14 +168,12 @@ const faqs: Faq[] = [
           products.map((p, i) =>
             isLive(p.href) ? (
               <a class="card card--link product" href={p.href}>
-                <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
                 <span class="card__more">View {p.title} &rarr;</span>
               </a>
             ) : (
               <article class="card product">
-                <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </article>
@@ -187,7 +185,7 @@ const faqs: Faq[] = [
   </section>
 
   <!-- ============ CAPABILITIES SNAPSHOT ============ -->
-  <section class="section section--ink blueprint" aria-labelledby="caps-h">
+  <section class="section section--teal" aria-labelledby="caps-h">
     <div class="wrap caps">
       <div class="caps__intro">
         <span class="ribbon ribbon--cream">Capabilities</span>
@@ -313,127 +311,88 @@ const faqs: Faq[] = [
 </BaseLayout>
 
 <style>
-  /* Hero */
+  /* Hero: one porcelain sign on an off-white field */
   .hero {
-    position: relative;
-    overflow: hidden;
-    padding-block: 3rem 0;
+    padding-block: 1.25rem 3rem;
   }
-  .hero::after {
-    /* red sign-trim stripe along the bottom */
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    height: 6px;
-    background: var(--red);
-  }
-  .hero__inner {
+  .hero__sign {
     display: grid;
     gap: 2rem;
     align-items: center;
+    padding-block: 2.5rem 2.25rem;
   }
   .hero h1 {
-    color: var(--cream-50);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.1rem;
   }
   .hero__script {
     display: block;
-    margin-top: 0.15em;
-    color: var(--red);
-    font-size: 0.72em;
+    margin-top: 0.25em;
+    color: var(--robin);
+    font-size: 0.78em;
     line-height: 1;
-    /* cream outline so red script reads on black, like a neon tube outline */
-    text-shadow:
-      0 0 1px var(--cream),
-      0 2px 0 rgb(0 0 0 / 0.6);
     transform: rotate(-3deg);
     transform-origin: left center;
   }
   .hero .lead {
     margin-bottom: 1.75rem;
+    color: var(--cream-200);
   }
   .hero__seal {
-    width: min(15rem, 62vw);
+    width: min(14rem, 64vw);
     justify-self: center;
   }
   @media (min-width: 56rem) {
     .hero {
-      padding-top: 5rem;
+      padding-block: 2rem 4rem;
     }
-    .hero__inner {
-      grid-template-columns: 1.6fr 1fr;
+    .hero__sign {
+      grid-template-columns: 1.55fr 1fr;
       gap: 3rem;
+      padding: 4rem 3.5rem;
     }
     .hero__seal {
-      width: min(22rem, 100%);
+      width: min(20rem, 100%);
     }
   }
 
-  .facts {
+  /* Proof-point roundels */
+  .proof {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin: 2.5rem 0 0;
-    border-top: 1px solid var(--steel-dim);
+    gap: 1.5rem 1rem;
+    max-width: 44rem;
+    margin: 2.5rem auto 0;
+    padding: 0;
+    list-style: none;
   }
-  .facts > div {
-    padding: 1rem 0.75rem 1.5rem 0;
-    border-right: 1px solid var(--steel-dim);
+  .proof .roundel {
+    max-width: 7.25rem;
   }
-  .facts > div:nth-child(2n) {
-    border-right: 0;
-    padding-left: 1rem;
+  @media (min-width: 40rem) {
+    .proof .roundel {
+      max-width: 8.5rem;
+    }
   }
-  .facts dt {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--steel);
-  }
-  .facts dd {
-    margin: 0.2rem 0 0;
-    font-family: var(--font-block);
-    font-size: 2.4rem;
-    line-height: 1;
-    color: var(--cream-50);
-  }
-  @media (min-width: 48rem) {
-    .facts {
+  @media (min-width: 40rem) {
+    .proof {
       grid-template-columns: repeat(4, 1fr);
-    }
-    .facts > div,
-    .facts > div:nth-child(2n) {
-      padding: 1.25rem 1.25rem 2rem;
-      border-right: 1px solid var(--steel-dim);
-    }
-    .facts > div:first-child {
-      padding-left: 0;
-    }
-    .facts > div:last-child {
-      border-right: 0;
     }
   }
 
   /* Divisions */
-  .division {
-    border-top: 4px solid var(--red);
-  }
-  .division__num,
-  .product__num {
-    margin-bottom: 0.5rem;
-    color: var(--ink-400);
-    font-size: 0.75rem;
+  .division__num {
+    margin-bottom: 0.6rem;
   }
   .division__links {
     list-style: none;
     margin: auto 0 0;
-    padding: 0.75rem 0 0;
-    border-top: 1px dashed var(--cream-200);
-    font-weight: 600;
+    padding: 0.85rem 0 0;
+    border-top: 1px solid var(--chrome-light);
+    font-weight: 650;
     font-size: 0.95rem;
   }
   .division__links li + li {
-    margin-top: 0.25rem;
+    margin-top: 0.3rem;
   }
   .division__links a {
     text-decoration: none;
@@ -442,13 +401,10 @@ const faqs: Faq[] = [
     text-decoration: underline;
   }
 
-  /* Capabilities */
+  /* Capabilities snapshot (teal) */
   .caps {
     display: grid;
     gap: 2.5rem;
-  }
-  .caps h2 {
-    color: var(--cream-50);
   }
   .caps .lead {
     margin-bottom: 1.5rem;
@@ -469,18 +425,23 @@ const faqs: Faq[] = [
   }
   .heritage__script {
     display: block;
-    color: var(--red);
-    font-size: 0.75em;
-    margin-top: 0.1em;
+    margin-top: 0.15em;
+    color: var(--cherry);
+    font-size: 0.8em;
   }
   .heritage__photo {
-    margin: 0;
-    min-height: 14rem;
     display: grid;
     align-items: center;
-    border: 6px double var(--red);
+    min-height: 14rem;
+    margin: 0;
     padding: 1rem;
-    background: var(--cream-50);
+    border-radius: var(--radius-lg);
+    background: var(--paper);
+    border: 1px solid var(--chrome);
+    box-shadow:
+      inset 0 0 0 6px var(--paper),
+      inset 0 0 0 7px var(--chrome-light),
+      var(--shadow);
   }
   @media (min-width: 56rem) {
     .heritage__inner {
@@ -498,21 +459,22 @@ const faqs: Faq[] = [
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0;
-    border-top: 1px solid var(--cream-200);
+    border-top: 1px solid var(--chrome-light);
   }
   .industries li {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--cream-200);
-    font-weight: 600;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--chrome-light);
+    font-weight: 650;
+    color: var(--navy);
   }
   .industries li::before {
     content: '\2605';
-    color: var(--red);
-    font-size: 0.9rem;
+    flex: none;
+    color: var(--cherry);
+    font-size: 0.85rem;
   }
   @media (min-width: 40rem) {
     .industries {
@@ -525,17 +487,15 @@ const faqs: Faq[] = [
       grid-template-columns: repeat(3, 1fr);
     }
   }
-
   .industries a {
     color: inherit;
     text-decoration: none;
   }
   .industries a:hover {
-    color: var(--red);
+    color: var(--cherry);
     text-decoration: underline;
   }
   .industries__more {
     margin: 2rem 0 0;
   }
-
 </style>
