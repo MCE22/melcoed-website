@@ -74,5 +74,5 @@ Run `npm run todos` to see them all. Every TODO must be resolved before launch.
 - [ ] About
 - [ ] FAQ
 - [x] Request a Quote (Web3Forms; honeypot spam check; no-JS fallback at /request-a-quote/thank-you/)
-- [ ] Industries hub, Fraternal & Lodge, Commemorative & America250
+- [x] Industries hub, Fraternal & Lodge, Commemorative & America250
 - [ ] Contact

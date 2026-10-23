@@ -6,6 +6,7 @@ import FaqList from '../components/FaqList.astro';
 import { site, divisions, quoteHref, fullAddress } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
 import { isLive, liveLinks } from '../lib/routes';
+import { industries } from '../data/industries';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
@@ -47,16 +48,6 @@ const steps = [
   { n: '02', title: 'Get a quote', body: 'We review manufacturability, tooling and piece price, and flag anything that could cost you later.' },
   { n: '03', title: 'Tooling', body: 'Dies are built and maintained in-house, so changes and repeat runs don’t wait on an outside shop.' },
   { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
-];
-
-const industries: { label: string; href?: string }[] = [
-  { label: 'Law enforcement & public safety', href: '/badges/' },
-  { label: 'Military & government', href: '/badges/' },
-  { label: 'Fraternal organizations & lodges', href: '/industries/fraternal-lodge/' },
-  { label: 'Commemorative & America250', href: '/industries/commemorative/' },
-  { label: 'Jewelry & accessory brands', href: '/findings/' },
-  { label: 'Awards & recognition programs', href: '/awards/' },
-  { label: 'Industrial OEMs & contract manufacturers', href: '/industrial-components/' },
 ];
 
 const faqs: Faq[] = [
@@ -296,7 +287,7 @@ const faqs: Faq[] = [
         <h2 id="industries-h">Industries served</h2>
       </div>
       <ul class="industries">
-        {industries.map((x) => <li>{x.href && isLive(x.href) ? <a href={x.href}>{x.label}</a> : x.label}</li>)}
+        {industries.map((x) => <li>{isLive(x.href) ? <a href={x.href}>{x.name}</a> : x.name}</li>)}
       </ul>
       {
         isLive('/industries/') && (
@@ -470,41 +461,6 @@ const faqs: Faq[] = [
     }
   }
 
-  /* Process */
-  .steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 1.5rem;
-    counter-reset: none;
-  }
-  @media (min-width: 40rem) {
-    .steps {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 64rem) {
-    .steps {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  .step {
-    padding-top: 1rem;
-    border-top: 2px solid var(--ink);
-  }
-  .step__n {
-    display: block;
-    font-family: var(--font-block);
-    font-size: 3.5rem;
-    line-height: 1;
-    color: var(--red);
-    margin-bottom: 0.25rem;
-  }
-  .step p {
-    color: var(--ink-600);
-  }
-
   /* Heritage */
   .heritage__inner {
     display: grid;
@@ -582,13 +538,4 @@ const faqs: Faq[] = [
     margin: 2rem 0 0;
   }
 
-  /* FAQ */
-  @media (min-width: 56rem) {
-    .faq-wrap {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: start;
-    }
-  }
 </style>

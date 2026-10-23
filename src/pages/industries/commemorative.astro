@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FaqList from '../../components/FaqList.astro';
+import Todo from '../../components/Todo.astro';
+import { site, quoteHref } from '../../data/site';
+import { faqPageNode, type Faq } from '../../lib/schema';
+
+const path = '/industries/commemorative/';
+const breadcrumbs = [
+  { name: 'Industries', path: '/industries/' },
+  { name: 'Commemorative & America250', path },
+];
+const quote = `${quoteHref}?type=commemorative`;
+
+// The 250th doesn't end in 2026: Revolutionary War anniversaries run through 2033.
+const milestones = [
+  { date: 'May 4, 1776', year: 2026, event: 'Rhode Island renounces allegiance to the Crown, two months before the Declaration' },
+  { date: 'July 4, 1776', year: 2026, event: 'Declaration of Independence: the national 250th' },
+  { date: 'Aug. 29, 1778', year: 2028, event: 'Battle of Rhode Island' },
+  { date: 'Oct. 19, 1781', year: 2031, event: 'Surrender at Yorktown' },
+  { date: 'Sept. 3, 1783', year: 2033, event: 'Treaty of Paris ends the Revolutionary War' },
+];
+
+const pieces = [
+  {
+    title: 'Commemorative medallions',
+    body: 'Two-sided, die-struck medallions with your seal, dates and imagery: the centerpiece of an anniversary program.',
+  },
+  {
+    title: 'Challenge coins',
+    body: 'Coins for 250th committees, veterans and heritage groups, police and fire departments, and event volunteers.',
+  },
+  {
+    title: 'Lapel pins',
+    body: 'Low-cost keepsakes for residents, members and donors, struck to match your medallion design.',
+  },
+  {
+    title: 'Plaque & award components',
+    body: 'Struck emblems for dedication plaques, donor walls and recognition awards tied to your anniversary.',
+  },
+];
+
+const buyers = [
+  'Town and city 250th committees',
+  'Historical societies and museums',
+  'Heritage and lineage societies',
+  'Schools, colleges and alumni groups',
+  'Veterans organizations',
+  'Companies marking their own milestones',
+];
+
+const faqs: Faq[] = [
+  {
+    q: "Can you make commemorative medallions for America's 250th anniversary?",
+    a: "Yes. We strike custom medallions, coins and pins for 250th anniversary programs, using your organization's own design: town seals, dates, historical scenes and original artwork.",
+  },
+  {
+    q: 'Can you use the official America250 logo?',
+    a: 'America250 is a trademark of the U.S. Semiquincentennial Commission, and its official logos are available only to licensed manufacturers. Mel-Co-Ed is not affiliated with or endorsed by the Commission. We can strike your own original 250th anniversary designs, which do not require that license.',
+  },
+  {
+    q: 'Is it too late to order for the 250th?',
+    a: 'No. July 4, 2026 marked 250 years since the Declaration of Independence, but 250th anniversaries of Revolutionary War events continue for years, including the Battle of Rhode Island in 2028, Yorktown in 2031 and the Treaty of Paris in 2033. Many towns are also marking their own founding anniversaries.',
+  },
+  {
+    q: 'How far ahead of our event should we order commemorative medallions?',
+    a: 'Work back from your event date: allow time for artwork approval, new tooling, striking and finishing. Contact us with your date and quantity and we will tell you the latest you can approve artwork.',
+    todo: true,
+  },
+  {
+    q: 'What is the difference between a medallion and a challenge coin?',
+    a: 'Both are struck metal pieces with relief on both sides. Medallions are usually larger presentation or keepsake pieces. Challenge coins are typically coin-sized, carried by members, and often given to mark service or membership.',
+  },
+];
+---
+
+<BaseLayout
+  title="Commemorative Medallions, Coins & Pins for America250 & Anniversaries"
+  description="Custom die-struck commemorative medallions, challenge coins and pins for America's 250th, town anniversaries and historical societies. Made in Pawtucket, RI since 1948."
+  pageType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  schema={[faqPageNode(path, faqs)]}
+>
+  <PageHero
+    title="Commemorative & America250"
+    accent="struck for the 250th"
+    ribbon="Medallions · Coins · Pins"
+    lead="Custom die-struck medallions, challenge coins and pins for America's 250th, town anniversaries, historical societies and every milestone worth putting in metal."
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quote}>Quote a Commemorative</a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <!-- The 250th keeps going -->
+  <section class="section" aria-labelledby="timeline-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--ink">America's 250th</span>
+        <h2 id="timeline-h">The 250th didn't end on July 4th</h2>
+        <p class="lead">
+          The Declaration turned 250 in 2026, but the Revolution's 250th anniversaries run through 2033. Battles,
+          founding dates and local firsts all have their own years, and committees are planning programs around each of
+          them.
+        </p>
+        <p>
+          Rhode Island got there first: on May 4, 1776 it became the first colony to renounce allegiance to the King.
+          Pawtucket's Slater Mill, a few minutes from our shop, opened in 1793 and is often called the birthplace of the American Industrial Revolution.
+          We've been striking metal here since {site.foundingYear}.
+        </p>
+      </div>
+      <ol class="timeline" aria-label="250th anniversary milestones">
+        {
+          milestones.map((m) => (
+            <li>
+              <span class="timeline__year">{m.year}</span>
+              <span class="timeline__body">
+                <span class="mono timeline__date">250 years since {m.date}</span>
+                {m.event}
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Pieces -->
+  <section class="section section--cream" aria-labelledby="pieces-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">What we strike</span>
+        <h2 id="pieces-h">Commemoratives that last 250 more</h2>
+        <p class="lead">
+          Die-struck from steel tooling, in solid metal, with relief on both sides. Made to be kept, displayed and
+          handed down.
+        </p>
+      </div>
+      <Todo block>Confirm this list matches what MCE offers for commemorative programs.</Todo>
+      <div class="grid grid--2">
+        {
+          pieces.map((p) => (
+            <article class="card piece">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Who + specs + licensing -->
+  <section class="section section--ink blueprint" aria-labelledby="who-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Who orders</span>
+        <h2 id="who-h">Committees, societies &amp; companies</h2>
+        <ul class="audience">
+          {buyers.map((b) => <li>{b}</li>)}
+        </ul>
+        <div class="license">
+          <h3>About the America250 name</h3>
+          <p>
+            America250&trade; is a trademark of the U.S. Semiquincentennial Commission. Its official logos are
+            available only through the Commission's licensing program. Mel-Co-Ed is not affiliated with or endorsed by the
+            Commission. We strike your organization's own original 250th designs.
+          </p>
+          <Todo>update this note if MCE becomes an official America250 licensee</Todo>
+        </div>
+      </div>
+      <dl class="specs">
+        <div><dt>Process</dt><dd>Die-struck from steel tooling, two-sided relief</dd></div>
+        <div><dt>Medallion sizes</dt><dd><Todo>e.g. 1.5&Prime;&ndash;3&Prime; diameter</Todo></dd></div>
+        <div><dt>Coin sizes</dt><dd><Todo>e.g. 1.5&Prime;&ndash;2&Prime;</Todo></dd></div>
+        <div><dt>Metals</dt><dd><Todo>e.g. bronze, brass, copper, nickel silver, sterling</Todo></dd></div>
+        <div><dt>Finishes</dt><dd><Todo>e.g. antique bronze, bright, plated, enamel color fill</Todo></dd></div>
+        <div><dt>Edge options</dt><dd><Todo>e.g. plain, reeded, edge lettering</Todo></dd></div>
+        <div><dt>Packaging</dt><dd><Todo>e.g. capsules, velvet boxes, display cards</Todo></dd></div>
+        <div><dt>Minimum order</dt><dd><Todo>MOQ</Todo></dd></div>
+        <div><dt>Lead time</dt><dd><Todo>typical weeks from art approval</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Plan back from the date -->
+  <section class="section" aria-labelledby="plan-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Planning</span>
+        <h2 id="plan-h">Work back from your event date</h2>
+        <p class="lead">Anniversary dates don't move. Start with the date and plan backward.</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__n">01</span>
+          <h3>Design</h3>
+          <p>Your seal, dates and imagery. We'll advise on what reads well in relief at your size.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">02</span>
+          <h3>Approve</h3>
+          <p>You approve the proof. Committee sign-off is usually the longest step, so build it into the schedule.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">03</span>
+          <h3>Tooling &amp; strike</h3>
+          <p>Steel dies are cut and pieces are struck in Pawtucket.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">04</span>
+          <h3>Finish &amp; deliver</h3>
+          <p>Finished, packaged and shipped in time for your ceremony.</p>
+        </li>
+      </ol>
+      <Todo block>Add a planning rule of thumb, e.g. "approve artwork at least __ weeks before your event."</Todo>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Questions</span>
+        <h2 id="faq-h">Commemorative FAQ</h2>
+        <a class="btn btn--primary" href={quote}>Request a Quote</a>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+
+  /* Timeline */
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 3px solid var(--red);
+  }
+  .timeline li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.25rem 1fr;
+    gap: 0.75rem;
+    padding: 0.9rem 0 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--cream-200);
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 1.35rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--cream-50);
+    border: 3px solid var(--red);
+  }
+  .timeline__year {
+    font-family: var(--font-block);
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--red);
+  }
+  .timeline__body {
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .timeline__date {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--ink-400);
+    font-weight: 400;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .piece {
+    border-left: 4px solid var(--red);
+  }
+  .license {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--steel-dim);
+    border-left: 4px solid var(--red);
+    font-size: 0.92rem;
+    color: var(--cream-200);
+  }
+  .license h3 {
+    font-size: 1.3rem;
+    color: var(--cream-50);
+  }
+</style>

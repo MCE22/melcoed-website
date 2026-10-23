@@ -16,16 +16,17 @@ const uploadsEnabled = import.meta.env.PUBLIC_WEB3FORMS_FILE_UPLOADS === 'true';
 const maxUploadMb = 10;
 const redirect = new URL('/request-a-quote/thank-you/', Astro.site ?? site.url).toString();
 
+// `key` lets other pages preselect a type: /request-a-quote/?type=fraternal
 const productTypes = [
-  'Badges (police, fire, military, government, corporate)',
-  'Medallions or challenge coins',
-  'Awards or recognition pins',
-  'Fraternal or lodge emblems',
-  'Commemorative / America250',
-  'Findings or raw stampings',
-  'Industrial components',
-  'Milling or machined parts',
-  'Not sure / something else',
+  { key: 'badges', label: 'Badges (police, fire, military, government, corporate)' },
+  { key: 'medallions', label: 'Medallions or challenge coins' },
+  { key: 'awards', label: 'Awards or recognition pins' },
+  { key: 'fraternal', label: 'Fraternal or lodge emblems' },
+  { key: 'commemorative', label: 'Commemorative / America250' },
+  { key: 'findings', label: 'Findings or raw stampings' },
+  { key: 'industrial', label: 'Industrial components' },
+  { key: 'milling', label: 'Milling or machined parts' },
+  { key: 'other', label: 'Not sure / something else' },
 ];
 ---
 
@@ -83,7 +84,7 @@ const productTypes = [
       <label for="qf-type">What do you need?</label>
       <select id="qf-type" name="product_type">
         <option value="">Select one (optional)</option>
-        {productTypes.map((t) => <option>{t}</option>)}
+        {productTypes.map((t) => <option data-key={t.key}>{t.label}</option>)}
       </select>
     </div>
     <div class="qf__row">
@@ -174,6 +175,11 @@ const productTypes = [
     const files = form.querySelector<HTMLInputElement>('#qf-files');
     const maxBytes = Number(form.dataset.maxMb) * 1024 * 1024;
     const phone = '(401) 724-2160';
+
+    // Preselect product type from ?type=<key>
+    const type = new URLSearchParams(location.search).get('type');
+    const option = type && form.querySelector<HTMLOptionElement>(`#qf-type option[data-key="${CSS.escape(type)}"]`);
+    if (option) option.selected = true;
 
     // Deadlines can't be in the past
     if (deadline) deadline.min = new Date().toISOString().slice(0, 10);

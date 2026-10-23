@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site, quoteHref } from '../../data/site';
+import { industries } from '../../data/industries';
+import { isLive } from '../../lib/routes';
+
+const path = '/industries/';
+const breadcrumbs = [{ name: 'Industries', path }];
+const live = industries.filter((i) => isLive(i.href));
+
+// ItemList of the industry pages that exist, so search engines see the hub's structure.
+const itemList = {
+  '@type': 'ItemList',
+  name: 'Industries served by Mel-Co-Ed, Inc.',
+  itemListElement: live.map((i, n) => ({
+    '@type': 'ListItem',
+    position: n + 1,
+    name: i.name,
+    url: new URL(i.href, site.url).toString(),
+  })),
+};
+---
+
+<BaseLayout
+  title="Industries We Serve: Fraternal, Commemorative, Public Safety & More"
+  description="Mel-Co-Ed strikes badges, medallions, emblems, findings and stamped parts for lodges, 250th anniversary committees, police and fire departments, jewelers and OEMs."
+  pageType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  schema={[itemList]}
+>
+  <PageHero
+    title="Industries We Serve"
+    accent={`since ${site.foundingYear}`}
+    ribbon="Who we work with"
+    lead="Lodges, anniversary committees, police departments, jewelers and manufacturers all come to us for the same reason: parts struck right, from tooling we build in-house."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {
+          industries.map((i) =>
+            isLive(i.href) ? (
+              <a class:list={['card card--link ind', { 'ind--feature': i.dedicated }]} href={i.href}>
+                <h2 class="ind__h">{i.name}</h2>
+                <p>{i.summary}</p>
+                <span class="card__more">{i.dedicated ? 'Explore' : 'See products'} &rarr;</span>
+              </a>
+            ) : (
+              <article class="card ind">
+                <h2 class="ind__h">{i.name}</h2>
+                <p>{i.summary}</p>
+              </article>
+            ),
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="wrap not-listed">
+      <div>
+        <span class="ribbon ribbon--ink">Not listed?</span>
+        <h2>If it's stamped metal, ask.</h2>
+        <p class="lead">
+          Plenty of our work doesn't fit a category: a replacement part for a discontinued product, a one-off emblem, a
+          short run for a prototype. Send us what you have and we'll tell you whether it's a fit.
+        </p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+        <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ind {
+    border-top: 4px solid var(--ink);
+  }
+  .ind--feature {
+    border-top-color: var(--red);
+  }
+  .ind__h {
+    font-size: clamp(1.5rem, 4.5vw, 1.9rem);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .not-listed {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  @media (min-width: 56rem) {
+    .not-listed {
+      grid-template-columns: 1.5fr auto;
+      gap: 3rem;
+    }
+  }
+</style>

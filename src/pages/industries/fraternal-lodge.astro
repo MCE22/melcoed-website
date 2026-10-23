@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FaqList from '../../components/FaqList.astro';
+import Todo from '../../components/Todo.astro';
+import { site, quoteHref } from '../../data/site';
+import { faqPageNode, type Faq } from '../../lib/schema';
+
+const path = '/industries/fraternal-lodge/';
+const breadcrumbs = [
+  { name: 'Industries', path: '/industries/' },
+  { name: 'Fraternal & Lodge', path },
+];
+const quote = `${quoteHref}?type=fraternal`;
+
+const products = [
+  {
+    title: 'Lapel pins',
+    body: 'Square and compasses, lodge name and number, founding year. Die-struck for crisp lettering that stays legible at lapel size.',
+  },
+  {
+    title: 'Emblems & insignia',
+    body: 'Stamped emblems for regalia, aprons, collars, hats and banners, supplied finished or as raw stampings for your finisher.',
+  },
+  {
+    title: 'Anniversary medallions',
+    body: "Two-sided medallions for a lodge's 100th, 150th or 200th, a Grand Lodge session or a cornerstone ceremony.",
+  },
+  {
+    title: 'Service & membership pins',
+    body: 'Years-of-service pins and recognition pieces, run in matched sets so every year in the program looks the same.',
+  },
+];
+
+const audiences = [
+  'Masonic lodges',
+  'Grand Lodges',
+  'Appendant and concordant bodies',
+  'Regalia suppliers and distributors',
+  'Fraternal and service organizations',
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'Do you make custom Masonic lapel pins?',
+    a: 'Yes. We strike custom Masonic lapel pins from your lodge artwork: square and compasses, lodge name and number, founding date or anniversary year. Pins are die-struck from steel tooling for sharp detail at small sizes.',
+  },
+  {
+    q: 'What is the difference between die-struck and die-cast pins?',
+    a: 'Die-struck pins are stamped from sheet metal under a press, which gives crisp, sharp detail and fine lettering. Die-cast pins are made by pouring molten metal into a mold, which suits pieces with deep 3D shapes or open cut-outs. For most lodge emblems with lettering and fine lines, die-struck gives the cleaner result.',
+  },
+  {
+    q: 'Can you reproduce an old lodge pin or emblem from a sample?',
+    a: 'Yes. Send photos of the front, back and edge with the overall size, or tell us you have a physical sample. We will tell you what it takes to make new tooling that matches the original.',
+    todo: true,
+  },
+  {
+    q: 'Can you make emblems that belong to a trademarked fraternal organization?',
+    a: "Some fraternal organizations control their emblems through trademark licensing. For those emblems we need your organization's written authorization, or the order should come through a licensed supplier, before we strike.",
+  },
+  {
+    q: 'What is the minimum order for lodge pins?',
+    a: 'Minimums depend on whether new tooling is needed and on the finish. Contact us with your design and quantity for a specific answer.',
+    todo: true,
+  },
+  {
+    q: 'Do you work with regalia companies and distributors?',
+    a: 'Yes. We supply stamped emblems, raw stampings and finished pieces to regalia suppliers and distributors, made to their designs and shipped to their schedule.',
+  },
+];
+---
+
+<BaseLayout
+  title="Masonic & Fraternal Lodge Emblems, Lapel Pins & Insignia"
+  description="Die-struck Masonic lapel pins, lodge emblems, insignia and anniversary medallions, made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs and reproductions."
+  pageType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  schema={[faqPageNode(path, faqs)]}
+>
+  <PageHero
+    title="Fraternal & Lodge Emblems"
+    accent="struck for the lodge"
+    ribbon="Masonic · Pins · Insignia"
+    lead="Lapel pins, emblems, insignia and anniversary medallions for Masonic lodges, Grand Lodges and fraternal organizations, die-struck in Pawtucket, Rhode Island."
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quote}>Quote Lodge Emblems</a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <!-- What we make -->
+  <section class="section" aria-labelledby="make-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">What we make</span>
+        <h2 id="make-h">Emblems that outlast the meeting</h2>
+        <p class="lead">
+          Fraternal pieces get worn for decades and handed down. They're struck from steel dies, so the square and
+          compasses, lodge number and lettering stay crisp.
+        </p>
+      </div>
+      <Todo block>
+        Confirm this product list against what MCE actually makes for lodges (e.g. add officer or Past Master jewels,
+        remove anything you don't offer).
+      </Todo>
+      <div class="grid grid--2">
+        {
+          products.map((p) => (
+            <article class="card make">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Who + specs -->
+  <section class="section section--ink blueprint" aria-labelledby="specs-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--cream">Who we work with</span>
+        <h2 id="specs-h">Lodges, Grand Lodges &amp; suppliers</h2>
+        <ul class="audience">
+          {audiences.map((a) => <li>{a}</li>)}
+        </ul>
+        <p class="note">
+          Some fraternal organizations license their emblems. For those, we strike with the organization's written
+          authorization or through a licensed supplier.
+        </p>
+        <Todo>list the specific orders and bodies you serve (e.g. Scottish Rite, York Rite, Eastern Star), only where licensing allows</Todo>
+      </div>
+      <dl class="specs">
+        <div><dt>Process</dt><dd>Die-struck from steel tooling</dd></div>
+        <div><dt>Typical pin size</dt><dd><Todo>e.g. 5/8&Prime;&ndash;1&Prime;</Todo></dd></div>
+        <div><dt>Base metals</dt><dd><Todo>e.g. brass, copper, bronze</Todo></dd></div>
+        <div><dt>Finishes</dt><dd><Todo>e.g. gold or silver plate, antique, enamel fill</Todo></dd></div>
+        <div><dt>Attachments</dt><dd><Todo>e.g. clutch back, tie tack, screw back</Todo></dd></div>
+        <div><dt>Minimum order</dt><dd><Todo>MOQ for new tooling / existing tooling</Todo></dd></div>
+        <div><dt>Lead time</dt><dd><Todo>typical weeks from art approval</Todo></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- How ordering works -->
+  <section class="section" aria-labelledby="order-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Ordering</span>
+        <h2 id="order-h">From lodge seal to finished pin</h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__n">01</span>
+          <h3>Send your artwork</h3>
+          <p>Lodge seal, an old pin, a sketch or a scan from the minute book. Include lodge name, number and dates.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">02</span>
+          <h3>Approve the proof</h3>
+          <p>We prepare the design for striking and send it back for the Worshipful Master or committee to approve.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">03</span>
+          <h3>Tooling &amp; strike</h3>
+          <p>Steel dies are cut and parts are struck. The tooling is kept, so reorders for new members don't start over.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">04</span>
+          <h3>Finish &amp; ship</h3>
+          <p>Pieces are finished, fitted with their backs and shipped to the lodge or your supplier.</p>
+        </li>
+      </ol>
+      <Todo block>
+        Confirm the tooling-retention statement in step 03: does MCE store customer dies, and for how long?
+      </Todo>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Questions</span>
+        <h2 id="faq-h">Lodge emblem FAQ</h2>
+        <a class="btn btn--primary" href={quote}>Request a Quote</a>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .make {
+    border-left: 4px solid var(--red);
+  }
+  .note {
+    color: var(--cream-200);
+    font-size: 0.95rem;
+  }
+</style>
