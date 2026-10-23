@@ -1,0 +1,203 @@
+---
+import Logo from './Logo.astro';
+import { site, divisions, productLinks, quoteHref, fullAddress, mapsUrl } from '../data/site';
+
+const year = new Date().getFullYear();
+const company = [
+  { label: 'Capabilities', href: '/capabilities/' },
+  { label: 'About Us', href: '/about/' },
+  { label: 'FAQ', href: '/faq/' },
+  { label: 'Request a Quote', href: quoteHref },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-cta">
+    <div class="wrap footer-cta__inner">
+      <p class="footer-cta__text">
+        <span class="script">Got a print, a sketch or an old badge?</span>
+        <span class="footer-cta__sub">Send it over. We'll tell you what it takes to strike it.</span>
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+        <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-main blueprint">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <Logo tone="cream" size="lg" />
+        <p class="footer-tag">{site.tagline}</p>
+        <address class="footer-nap">
+          <strong>{site.name}</strong><br />
+          {site.address.street}<br />
+          {site.address.city}, {site.address.region} {site.address.postalCode}<br />
+          <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+          {site.email && (
+            <>
+              <br />
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </>
+          )}
+        </address>
+        <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
+      </div>
+
+      <nav class="footer-col" aria-label="Products">
+        <h2 class="footer-h">Products</h2>
+        <ul>{productLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      </nav>
+
+      <div class="footer-col">
+        <h2 class="footer-h">Divisions</h2>
+        <ul>
+          {divisions.map((d) => <li><a href={d.links[0].href}>{d.name}</a></li>)}
+        </ul>
+      </div>
+
+      <nav class="footer-col" aria-label="Company">
+        <h2 class="footer-h">Company</h2>
+        <ul>{company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="footer-base">
+    <div class="wrap footer-base__inner">
+      <span>&copy; {year} {site.name} All rights reserved.</span>
+      <span class="mono">Made in Pawtucket, R.I. &middot; Est. {site.foundingYear}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    color: var(--cream-200);
+    background: var(--ink);
+  }
+  .site-footer a {
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .site-footer a:not(.btn):hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .footer-cta {
+    background: var(--red);
+    color: var(--cream-50);
+    border-top: 6px double var(--ink);
+  }
+  .footer-cta__inner {
+    display: grid;
+    gap: 1.25rem;
+    padding-block: 2.5rem;
+  }
+  .footer-cta__text {
+    margin: 0;
+  }
+  .footer-cta__text .script {
+    display: block;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    line-height: 1.1;
+    color: var(--cream-50);
+  }
+  .footer-cta__sub {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--cream);
+  }
+  .footer-cta .btn--primary {
+    background: var(--ink);
+  }
+  .footer-cta .btn--primary:hover {
+    background: var(--ink-800);
+  }
+  .footer-cta .btn--ghost {
+    color: var(--cream-50);
+  }
+  .footer-cta .btn--ghost:hover {
+    background: var(--cream-50);
+    color: var(--red);
+    border-color: var(--cream-50);
+  }
+  @media (min-width: 48rem) {
+    .footer-cta__inner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  .footer-main {
+    padding-block: 3rem;
+  }
+  .footer-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 40rem) {
+    .footer-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (min-width: 64rem) {
+    .footer-grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: auto;
+    }
+  }
+  .footer-tag {
+    margin: 0.5rem 0 1rem;
+    font-family: var(--font-block);
+    letter-spacing: 0.12em;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .footer-nap {
+    font-style: normal;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  .footer-map {
+    font-size: 0.9rem;
+  }
+  .footer-h {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.4rem;
+    color: var(--cream);
+    border-bottom: 2px solid var(--red);
+    display: inline-block;
+  }
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-col li {
+    padding: 0.3rem 0;
+  }
+
+  .footer-base {
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+    font-size: 0.8rem;
+    color: var(--ink-400);
+  }
+  .footer-base__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding-block: 1.25rem;
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+// Circular "die-struck" seal: EST. 1948 · PAWTUCKET, R.I.
+// Pure SVG (no image request); text follows a circular path like a coin legend.
+import { site } from '../data/site';
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const id = 'seal-path';
+---
+
+<svg
+  class:list={['seal', className]}
+  viewBox="0 0 200 200"
+  role="img"
+  aria-label={`Established ${site.foundingYear}, Pawtucket, Rhode Island`}
+>
+  <defs>
+    <path id={id} d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"></path>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="var(--red)"></circle>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="var(--cream)" stroke-width="2"></circle>
+  <circle cx="100" cy="100" r="56" fill="none" stroke="var(--cream)" stroke-width="2"></circle>
+  <circle cx="100" cy="100" r="52" fill="var(--cream)"></circle>
+  <text fill="var(--cream)" font-family="var(--font-block)" font-size="19" letter-spacing="4.2">
+    <textPath href={`#${id}`} startOffset="0">PRECISION STAMPING ★ PAWTUCKET R.I. ★</textPath>
+  </text>
+  <text x="100" y="92" text-anchor="middle" fill="var(--red)" font-family="var(--font-block)" font-size="18" letter-spacing="3">EST.</text>
+  <text x="100" y="124" text-anchor="middle" fill="var(--ink)" font-family="var(--font-block)" font-size="38" letter-spacing="1">{site.foundingYear}</text>
+</svg>
+
+<style>
+  .seal {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.25));
+  }
+</style>

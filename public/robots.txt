@@ -1,0 +1,5 @@
+# Search engines and AI crawlers are welcome; this is a public marketing site.
+User-agent: *
+Allow: /
+
+Sitemap: https://melcoed.com/sitemap-index.xml

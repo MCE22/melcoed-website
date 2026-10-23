@@ -1,0 +1,11 @@
+---
+// Visible placeholder for content the owner must supply.
+// Find them all with `npm run todos`. Remove before launch.
+interface Props {
+  block?: boolean;
+}
+const { block = false } = Astro.props;
+const Tag = block ? 'div' : 'span';
+---
+
+<Tag class:list={['todo', { 'todo--block': block }]} data-todo><strong>TODO:</strong> <slot /></Tag>

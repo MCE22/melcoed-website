@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, quoteHref } from '../data/site';
+---
+
+<BaseLayout title="Page Not Found" description="The page you were looking for isn't here." noindex>
+  <section class="section">
+    <div class="wrap">
+      <span class="ribbon">Error 404</span>
+      <h1>Off the die.</h1>
+      <p class="lead">That page doesn't exist, or it moved when we rebuilt the site.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/">Back to Home</a>
+        <a class="btn btn--ghost" href={quoteHref}>Request a Quote</a>
+      </div>
+      <p style="margin-top:2rem">Or call us at <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

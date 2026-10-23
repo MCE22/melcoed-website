@@ -1,0 +1,96 @@
+---
+// Accordion FAQ. Answers stay in the HTML (closed <details>), so Google and AI
+// crawlers read them. Pair with faqPageNode() in the page's schema prop.
+import Todo from './Todo.astro';
+import type { Faq } from '../lib/schema';
+
+interface Props {
+  faqs: Faq[];
+  /** Heading level for questions; use 3 under an h2 section heading. */
+  level?: 2 | 3;
+}
+const { faqs, level = 3 } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3';
+---
+
+<div class="faq">
+  {
+    faqs.map((f, i) => (
+      <details class="faq__item" open={i === 0}>
+        <summary>
+          <H class="faq__q">{f.q}</H>
+          <span class="faq__icon" aria-hidden="true" />
+        </summary>
+        <div class="faq__a">
+          {f.todo && <Todo>confirm this answer; it is excluded from FAQ schema until the flag is removed.</Todo>}
+          <p>{f.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-top: 2px solid var(--ink);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--cream-200);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__q {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 650;
+    line-height: 1.35;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  summary:hover .faq__q {
+    color: var(--red);
+  }
+  .faq__icon {
+    position: relative;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 2px solid var(--red);
+    border-radius: 50%;
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 0.7rem;
+    height: 2px;
+    background: var(--red);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }
+  .faq__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  details[open] .faq__icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .faq__a {
+    padding: 0 2.75rem 1.25rem 0;
+    color: var(--ink-600);
+  }
+  .faq__a p:last-child {
+    margin-bottom: 0;
+  }
+</style>

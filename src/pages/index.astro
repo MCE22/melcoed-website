@@ -1,0 +1,559 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Seal from '../components/Seal.astro';
+import Todo from '../components/Todo.astro';
+import FaqList from '../components/FaqList.astro';
+import { site, divisions, quoteHref, fullAddress } from '../data/site';
+import { faqPageNode, type Faq } from '../lib/schema';
+
+const years = new Date().getFullYear() - site.foundingYear;
+
+const products = [
+  {
+    title: 'Findings',
+    href: '/findings/',
+    body: 'Stamped jewelry findings and raw die-struck blanks: charms, connectors, bails, caps and custom components, supplied unfinished or ready to plate.',
+  },
+  {
+    title: 'Badges',
+    href: '/badges/',
+    body: 'Die-struck police, fire, military and government badges, plus corporate and security badges. Struck from steel dies for crisp, deep detail.',
+  },
+  {
+    title: 'Medallions',
+    href: '/medallions/',
+    body: 'Commemorative, challenge and presentation medallions, struck in solid metal with relief on both sides.',
+  },
+  {
+    title: 'Awards',
+    href: '/awards/',
+    body: 'Service awards, recognition pins and stamped components for plaques and trophies, from small runs to program quantities.',
+  },
+  {
+    title: 'Fraternal & Lodge Emblems',
+    href: '/fraternal-emblems/',
+    body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, grand lodges and regalia suppliers.',
+  },
+  {
+    title: 'Industrial Components',
+    href: '/industrial-components/',
+    body: 'Precision stamped parts built to your print: brackets, clips, contacts, terminals, washers, shims and flat parts.',
+  },
+];
+
+const steps = [
+  { n: '01', title: 'Send your print', body: 'A drawing, CAD file, sketch or a physical sample. Tell us material, finish and quantity.' },
+  { n: '02', title: 'Get a quote', body: 'We review manufacturability, tooling and piece price, and flag anything that could cost you later.' },
+  { n: '03', title: 'Tooling', body: 'Dies are built and maintained in-house, so changes and repeat runs don’t wait on an outside shop.' },
+  { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
+];
+
+const industries = [
+  'Law enforcement & public safety',
+  'Military & government',
+  'Fraternal organizations & lodges',
+  'Jewelry & accessory brands',
+  'Awards & recognition programs',
+  'Industrial OEMs & contract manufacturers',
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'What does Mel-Co-Ed, Inc. make?',
+    a: 'Mel-Co-Ed (MCE) is a precision metal stamping company with four divisions: Raw Stampings & Findings, Industrial Components, Finished Goods (die-struck badges, medallions, awards and fraternal emblems) and Precision Milling.',
+  },
+  {
+    q: 'Where is Mel-Co-Ed located?',
+    a: `Our shop is at ${fullAddress}. We have operated in Pawtucket, Rhode Island, since ${site.foundingYear}.`,
+  },
+  {
+    q: 'Is Mel-Co-Ed a family-owned company?',
+    a: `Yes. Mel-Co-Ed was founded in ${site.foundingYear} and is a third-generation, family-owned business.`,
+  },
+  {
+    q: 'How do I request a quote for custom metal stamping?',
+    a: `Use the Request a Quote form or call ${site.phone.display}. Include a drawing or sample, the material, finish, quantity and the date you need parts. Prints, CAD files and photos all help.`,
+  },
+  {
+    q: 'Can you make die-struck police and government badges?',
+    a: 'Yes. Die-struck police, fire, military and government badges are part of our Finished Goods division. Badges are struck from steel dies for sharp, deep detail.',
+  },
+  {
+    q: 'What is your minimum order quantity and typical lead time?',
+    a: 'Minimums and lead times depend on whether new tooling is required, the material and the finish. Contact us with your part details for a specific answer.',
+    todo: true,
+  },
+];
+---
+
+<BaseLayout
+  title={`${site.name} | Precision Metal Stamping in Pawtucket, RI Since ${site.foundingYear}`}
+  fullTitle
+  description={`Third-generation, family-owned metal stamping in Pawtucket, RI since ${site.foundingYear}. Die-struck badges, medallions, awards, fraternal emblems, findings and industrial parts.`}
+  schema={[faqPageNode('/', faqs)]}
+>
+  <!-- ============ HERO ============ -->
+  <section class="hero section--ink blueprint">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <span class="ribbon">Est. {site.foundingYear} &middot; Pawtucket, R.I.</span>
+        <h1>
+          Precision Metal Stamping
+          <span class="script hero__script">since {site.foundingYear}</span>
+        </h1>
+        <p class="lead">
+          Mel-Co-Ed is a third-generation, family-owned stamping shop in Pawtucket, Rhode Island. We build the tooling and
+          strike the parts in-house: badges, medallions, emblems, findings and industrial components.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
+          <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
+        </div>
+      </div>
+      <div class="hero__seal">
+        <Seal />
+      </div>
+    </div>
+
+    <div class="wrap">
+      <dl class="facts">
+        <div><dt>Founded</dt><dd>{site.foundingYear}</dd></div>
+        <div><dt>In business</dt><dd>{years}+ yrs</dd></div>
+        <div><dt>Ownership</dt><dd>3rd gen.</dd></div>
+        <div><dt>Divisions</dt><dd>{divisions.length}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ DIVISIONS ============ -->
+  <section class="section" id="divisions" aria-labelledby="divisions-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Four divisions</span>
+        <h2 id="divisions-h">One shop. Raw blank to finished part.</h2>
+        <p class="lead">
+          Because tooling, stamping and milling happen in-house, you deal with one supplier and one schedule.
+        </p>
+      </div>
+      <div class="grid grid--4">
+        {
+          divisions.map((d, i) => (
+            <article class="card division">
+              <span class="division__num mono">DIV.0{i + 1}</span>
+              <h3>{d.name}</h3>
+              <p>{d.summary}</p>
+              <ul class="division__links">
+                {d.links.map((l) => (
+                  <li>
+                    <a href={l.href}>{l.label} &rarr;</a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS ============ -->
+  <section class="section section--cream" id="products" aria-labelledby="products-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">What we strike</span>
+        <h2 id="products-h">Products</h2>
+        <p class="lead">Custom work to your design, in short runs or long production quantities.</p>
+      </div>
+      <div class="grid grid--3">
+        {
+          products.map((p, i) => (
+            <a class="card card--link product" href={p.href}>
+              <span class="product__num mono">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+              <span class="card__more">View {p.title} &rarr;</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAPABILITIES SNAPSHOT ============ -->
+  <section class="section section--ink blueprint" aria-labelledby="caps-h">
+    <div class="wrap caps">
+      <div class="caps__intro">
+        <span class="ribbon ribbon--cream">Capabilities</span>
+        <h2 id="caps-h">Built to print. Held to spec.</h2>
+        <p class="lead">
+          Tool and die making, die striking, blanking, forming and CNC milling in one Pawtucket facility.
+        </p>
+        <a class="btn btn--ghost" href="/capabilities/">Full capabilities &amp; specs</a>
+      </div>
+      <dl class="specs caps__specs">
+        <div>
+          <dt>Processes</dt>
+          <dd>Die striking, blanking, piercing, forming, CNC milling, in-house tool &amp; die <Todo>confirm list; add coining, progressive dies, etc. if applicable</Todo></dd>
+        </div>
+        <div>
+          <dt>Press capacity</dt>
+          <dd><Todo>press count and tonnage range, e.g. "12 presses, 20&ndash;300 tons"</Todo></dd>
+        </div>
+        <div>
+          <dt>Materials</dt>
+          <dd><Todo>confirm list, e.g. brass, copper, bronze, nickel silver, steel, stainless, aluminum, sterling</Todo></dd>
+        </div>
+        <div>
+          <dt>Material thickness</dt>
+          <dd><Todo>gauge / thickness range, e.g. ".005&Prime;&ndash;.125&Prime;"</Todo></dd>
+        </div>
+        <div>
+          <dt>Tolerances</dt>
+          <dd><Todo>typical and best-achievable tolerances, e.g. "&plusmn;.002&Prime; typical"</Todo></dd>
+        </div>
+        <div>
+          <dt>Max part / blank size</dt>
+          <dd><Todo>largest part or blank you can run</Todo></dd>
+        </div>
+        <div>
+          <dt>Finishing</dt>
+          <dd><Todo>in-house vs. outsourced finishes: plating, enamel, antiquing, polishing, etc.</Todo></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="section" aria-labelledby="process-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">How a job runs</span>
+        <h2 id="process-h">From print to parts</h2>
+      </div>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li class="step">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ HERITAGE ============ -->
+  <section class="section section--cream heritage" aria-labelledby="heritage-h">
+    <div class="wrap heritage__inner">
+      <div class="heritage__copy">
+        <span class="ribbon">Since {site.foundingYear}</span>
+        <h2 id="heritage-h">
+          Three generations
+          <span class="script heritage__script">on Roosevelt Avenue</span>
+        </h2>
+        <p>
+          Mel-Co-Ed has been stamping metal in Pawtucket, Rhode Island, since {site.foundingYear}, in a region that built
+          its name on jewelry and metalworking. Today the company is run by the third generation of the same family.
+        </p>
+        <Todo block>
+          2&ndash;3 sentences of founding story: who started Mel-Co-Ed, where the name comes from, and what the company
+          first made. Real names and details here are what make this page rank and get cited.
+        </Todo>
+        <a class="btn btn--ghost" href="/about/">Our story</a>
+      </div>
+      <figure class="heritage__photo">
+        <Todo block>
+          Photo: the vintage Mel-Co-Ed sign or a press-floor shot (min. 1600&times;1200, landscape). Save to
+          <code>src/assets/</code> and swap this block for an Astro <code>&lt;Image&gt;</code>.
+        </Todo>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ INDUSTRIES ============ -->
+  <section class="section" aria-labelledby="industries-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Who we work with</span>
+        <h2 id="industries-h">Industries served</h2>
+      </div>
+      <ul class="industries">
+        {industries.map((x) => <li>{x}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Questions</span>
+        <h2 id="faq-h">Frequently asked</h2>
+        <p>More answers on our <a href="/faq/">FAQ page</a>.</p>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: 3rem 0;
+  }
+  .hero::after {
+    /* red sign-trim stripe along the bottom */
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 6px;
+    background: var(--red);
+  }
+  .hero__inner {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .hero h1 {
+    color: var(--cream-50);
+    margin-bottom: 1.25rem;
+  }
+  .hero__script {
+    display: block;
+    margin-top: 0.15em;
+    color: var(--red);
+    font-size: 0.72em;
+    line-height: 1;
+    /* cream outline so red script reads on black, like a neon tube outline */
+    text-shadow:
+      0 0 1px var(--cream),
+      0 2px 0 rgb(0 0 0 / 0.6);
+    transform: rotate(-3deg);
+    transform-origin: left center;
+  }
+  .hero .lead {
+    margin-bottom: 1.75rem;
+  }
+  .hero__seal {
+    width: min(15rem, 62vw);
+    justify-self: center;
+  }
+  @media (min-width: 56rem) {
+    .hero {
+      padding-top: 5rem;
+    }
+    .hero__inner {
+      grid-template-columns: 1.6fr 1fr;
+      gap: 3rem;
+    }
+    .hero__seal {
+      width: min(22rem, 100%);
+    }
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 2.5rem 0 0;
+    border-top: 1px solid var(--steel-dim);
+  }
+  .facts > div {
+    padding: 1rem 0.75rem 1.5rem 0;
+    border-right: 1px solid var(--steel-dim);
+  }
+  .facts > div:nth-child(2n) {
+    border-right: 0;
+    padding-left: 1rem;
+  }
+  .facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .facts dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-block);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--cream-50);
+  }
+  @media (min-width: 48rem) {
+    .facts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .facts > div,
+    .facts > div:nth-child(2n) {
+      padding: 1.25rem 1.25rem 2rem;
+      border-right: 1px solid var(--steel-dim);
+    }
+    .facts > div:first-child {
+      padding-left: 0;
+    }
+    .facts > div:last-child {
+      border-right: 0;
+    }
+  }
+
+  /* Divisions */
+  .division {
+    border-top: 4px solid var(--red);
+  }
+  .division__num,
+  .product__num {
+    margin-bottom: 0.5rem;
+    color: var(--ink-400);
+    font-size: 0.75rem;
+  }
+  .division__links {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0.75rem 0 0;
+    border-top: 1px dashed var(--cream-200);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .division__links li + li {
+    margin-top: 0.25rem;
+  }
+  .division__links a {
+    text-decoration: none;
+  }
+  .division__links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Capabilities */
+  .caps {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .caps h2 {
+    color: var(--cream-50);
+  }
+  .caps .lead {
+    margin-bottom: 1.5rem;
+  }
+  @media (min-width: 56rem) {
+    .caps {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  /* Process */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.5rem;
+    counter-reset: none;
+  }
+  @media (min-width: 40rem) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .step {
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+  }
+  .step__n {
+    display: block;
+    font-family: var(--font-block);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 0.25rem;
+  }
+  .step p {
+    color: var(--ink-600);
+  }
+
+  /* Heritage */
+  .heritage__inner {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .heritage__script {
+    display: block;
+    color: var(--red);
+    font-size: 0.75em;
+    margin-top: 0.1em;
+  }
+  .heritage__photo {
+    margin: 0;
+    min-height: 14rem;
+    display: grid;
+    align-items: center;
+    border: 6px double var(--red);
+    padding: 1rem;
+    background: var(--cream-50);
+  }
+  @media (min-width: 56rem) {
+    .heritage__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .heritage__photo {
+      min-height: 22rem;
+    }
+  }
+
+  /* Industries */
+  .industries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--cream-200);
+  }
+  .industries li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--cream-200);
+    font-weight: 600;
+  }
+  .industries li::before {
+    content: '\2605';
+    color: var(--red);
+    font-size: 0.9rem;
+  }
+  @media (min-width: 40rem) {
+    .industries {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .industries {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* FAQ */
+  @media (min-width: 56rem) {
+    .faq-wrap {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+</style>
