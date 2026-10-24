@@ -75,7 +75,7 @@ Anything that needs real information from Mel-Co-Ed is marked **TODO**:
 - In data/config files it is a `// TODO:` comment.
 - FAQ answers with `todo: true` show on the page but are **excluded from FAQ schema** until confirmed.
 
-Run `npm run todos` to see them all. Every TODO must be resolved before launch.
+Run `npm run checklist` to regenerate **docs/CONTENT-CHECKLIST.md**, a page-by-page list of everything still to fill in (specs, facts, FAQ answers, photos). `npm run todos` shows the raw source lines. Every TODO must be resolved before launch.
 
 ## Page status
 
