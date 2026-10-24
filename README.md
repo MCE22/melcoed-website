@@ -24,7 +24,7 @@ npm run todos     # list every placeholder that still needs real content
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 | Node version | from `.node-version` (or set env var `NODE_VERSION=22.23.4`) |
-| Env: `PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key registered to quotes@melcoed.com (see `.env.example`) |
+| Env: `PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key registered to sales@melcoed.com (see `.env.example`) |
 | Env: `PUBLIC_WEB3FORMS_FILE_UPLOADS` | `true` only on a Web3Forms Pro plan (attachments are Pro-only) |
 
 `public/_headers` sets security headers and long-term caching for hashed assets.

@@ -18,7 +18,7 @@ export const site = {
   },
   // Quote/sales inbox. Web3Forms delivers form submissions to the address the access key was created with,
   // so that key must be registered to this address.
-  email: 'quotes@melcoed.com' as string | null,
+  email: 'sales@melcoed.com' as string | null,
   address: {
     street: '381 Roosevelt Ave',
     city: 'Pawtucket',
