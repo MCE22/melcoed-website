@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import MediaSlot from '../components/MediaSlot.astro';
+import { site, quoteHref } from '../data/site';
+import { productIndex } from '../data/products';
+import { isLive } from '../lib/routes';
+
+const path = '/products/';
+const breadcrumbs = [{ name: 'Products', path }];
+
+const itemList = {
+  '@type': 'ItemList',
+  name: 'Products made by Mel-Co-Ed, Inc.',
+  itemListElement: productIndex
+    .filter((p) => isLive(p.href))
+    .map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: new URL(p.href, site.url).toString() })),
+};
+---
+
+<BaseLayout
+  title="Products: Badges, Medallions, Awards, Emblems, Findings & Stamped Components"
+  description="Die-struck badges, medallions, awards, fraternal emblems, jewelry findings and precision stamped industrial components, made by Mel-Co-Ed in Pawtucket, Rhode Island."
+  pageType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  schema={[itemList]}
+>
+  <PageHero
+    title="Products"
+    accent="struck to your design"
+    ribbon="What we strike"
+    lead="Custom work to your design, in short runs or long production quantities, from tooling we build in-house."
+    breadcrumbs={breadcrumbs}
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="products">
+        {
+          productIndex.map((p) => {
+            const body = (
+              <>
+                <MediaSlot slot={p.slot} aspect="4 / 3" sizes="(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw" todo="Photo" />
+                <div class="products__text">
+                  <h2 class="products__h">{p.title}</h2>
+                  <p>{p.body}</p>
+                  {isLive(p.href) && <span class="card__more">View {p.title} &rarr;</span>}
+                </div>
+              </>
+            );
+            return <li>{isLive(p.href) ? <a class="products__item" href={p.href}>{body}</a> : <div class="products__item">{body}</div>}</li>;
+          })
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .products {
+    display: grid;
+    gap: 2.5rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 40rem) {
+    .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .products__item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  .products__item :global(.media) {
+    border: 1px solid var(--rule);
+    transition: border-color var(--dur) var(--ease);
+  }
+  a.products__item:hover :global(.media) {
+    border-color: var(--brass);
+  }
+  .products__text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--brass);
+  }
+  .products__h {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.03em;
+  }
+  .products__h::after {
+    display: none;
+  }
+  .products__text p {
+    color: var(--ink-600);
+  }
+  a.products__item:hover .products__h {
+    color: var(--oxblood);
+  }
+</style>

@@ -59,7 +59,7 @@
   --max: 76rem;
   --radius: 2px;
   --radius-lg: 2px;
-  --header-h: 4.25rem;
+  --header-h: 6.4rem; /* full header with the large plate; condenses on scroll */
   --shadow: 0 1px 0 rgb(27 24 21 / 0.04);
 
   color-scheme: light;
@@ -68,7 +68,12 @@
 @media (min-width: 48rem) {
   :root {
     --gutter: 2rem;
-    --header-h: 5.25rem;
+    --header-h: 7.4rem;
+  }
+}
+@media (min-width: 80rem) {
+  :root {
+    --header-h: 9rem;
   }
 }
 @media (min-width: 90rem) {
@@ -85,7 +90,7 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--header-h) + 1rem);
+  scroll-padding-top: calc(var(--header-live, var(--header-h)) + 1rem);
 }
 @media (prefers-reduced-motion: no-preference) {
   html {

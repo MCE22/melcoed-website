@@ -5,6 +5,7 @@
 // FAQs: `todo: true` keeps an unconfirmed answer out of FAQ schema (see src/lib/schema.ts).
 
 import type { Faq } from '../lib/schema';
+import type { PhotoSlotName } from './photos';
 
 export type Spec = { label: string; value?: string; todo?: string };
 export type ProductType = { title: string; body: string; href?: string };
@@ -371,3 +372,43 @@ export const products: Record<string, Product> = {
     schemaCategory: 'Metal stampings',
   },
 };
+
+// Cards for the /products/ index (fraternal emblems live on their industry page).
+export const productIndex: { title: string; href: string; slot: PhotoSlotName; body: string }[] = [
+  {
+    title: 'Findings',
+    slot: 'findings',
+    href: '/findings/',
+    body: 'Stamped jewelry findings and raw die-struck blanks: charms, connectors, bails, caps and custom components, supplied unfinished or ready to plate.',
+  },
+  {
+    title: 'Badges',
+    slot: 'badges',
+    href: '/badges/',
+    body: 'Die-struck police, fire, military and government badges, plus corporate and security badges. Struck from steel dies for crisp, deep detail.',
+  },
+  {
+    title: 'Medallions',
+    slot: 'medallions',
+    href: '/medallions/',
+    body: 'Commemorative, challenge and presentation medallions, struck in solid metal with relief on both sides.',
+  },
+  {
+    title: 'Awards',
+    slot: 'awards',
+    href: '/awards/',
+    body: 'Service awards, recognition pins and stamped components for plaques and trophies, from small runs to program quantities.',
+  },
+  {
+    title: 'Fraternal & Lodge Emblems',
+    slot: 'industries-fraternal',
+    href: '/industries/fraternal-lodge/',
+    body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, grand lodges and regalia suppliers.',
+  },
+  {
+    title: 'Industrial Components',
+    slot: 'industrial-components',
+    href: '/industrial-components/',
+    body: 'Precision stamped parts built to your print: brackets, clips, contacts, terminals, washers, shims and flat parts.',
+  },
+];

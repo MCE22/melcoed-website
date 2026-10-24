@@ -98,7 +98,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.nam
     }
     .map {
       position: sticky;
-      top: calc(var(--header-h) + 3rem);
+      top: calc(var(--header-live, var(--header-h)) + 2rem);
     }
   }
   .contact__details {

@@ -17,7 +17,7 @@ const hasSearch = isLive('/search/');
   <div class="wrap bar">
     <p class="est" aria-hidden="true">Est. {site.foundingYear}<br />{site.address.city}, {site.address.region}</p>
 
-    <Logo width={148} />
+    <Logo width={290} />
 
     <nav id="site-nav" class="nav" aria-label="Main">
       <ul class="nav__list">
@@ -126,6 +126,32 @@ const hasSearch = isLive('/search/');
       if (!btn.parentElement?.contains(e.target as Node)) setOpen(btn, false);
     }
   });
+
+  // Condense the header (smaller plate) once the page has scrolled a little.
+  let ticking = false;
+  const condense = () => {
+    ticking = false;
+    header?.classList.toggle('is-condensed', window.scrollY > 40);
+  };
+  addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(condense);
+      }
+    },
+    { passive: true },
+  );
+  condense();
+
+  // Publish the header's live height (it changes when condensed) for sticky offsets
+  // and anchor scroll padding elsewhere: var(--header-live).
+  if (header) {
+    new ResizeObserver(([entry]) => {
+      document.documentElement.style.setProperty('--header-live', `${Math.round(entry.borderBoxSize[0].blockSize)}px`);
+    }).observe(header);
+  }
 </script>
 
 <style>
@@ -137,18 +163,41 @@ const hasSearch = isLive('/search/');
     backdrop-filter: saturate(1.2) blur(8px);
     border-bottom: 1px solid var(--rule);
   }
+  /* the header runs a little wider than body content so the large plate, nav and CTA fit */
+  .bar.wrap {
+    max-width: 92rem;
+  }
   .bar {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    min-height: var(--header-h);
   }
+  /* Plate is the hero of the header; it eases to a compact size once the page scrolls. */
   .bar :global(.logo) {
-    width: 118px;
+    width: 188px;
+    padding-block: 0.6rem;
+    transition:
+      width var(--dur) var(--ease),
+      padding var(--dur) var(--ease);
   }
   @media (min-width: 48rem) {
     .bar :global(.logo) {
-      width: 148px;
+      width: 240px;
+    }
+  }
+  @media (min-width: 80rem) {
+    .bar :global(.logo) {
+      width: 290px;
+      padding-block: 0.75rem;
+    }
+  }
+  :global(.site-header.is-condensed) .bar :global(.logo) {
+    width: 140px;
+    padding-block: 0.45rem;
+  }
+  @media (min-width: 80rem) {
+    :global(.site-header.is-condensed) .bar :global(.logo) {
+      width: 180px;
     }
   }
 
@@ -230,7 +279,7 @@ const hasSearch = isLive('/search/');
     left: 0;
     right: 0;
     top: 100%;
-    max-height: calc(100dvh - var(--header-h));
+    max-height: calc(100dvh - var(--header-live, var(--header-h)));
     overflow-y: auto;
     padding: 0.5rem var(--gutter) 1.75rem;
     background: var(--cream);
@@ -337,7 +386,7 @@ const hasSearch = isLive('/search/');
   }
 
   /* Desktop */
-  @media (min-width: 72rem) {
+  @media (min-width: 80rem) {
     .bar {
       gap: 2rem;
     }
@@ -359,7 +408,7 @@ const hasSearch = isLive('/search/');
     }
     .nav__list {
       display: flex;
-      gap: 1.9rem;
+      gap: 1.6rem;
       margin: 0;
     }
     .nav__item {
@@ -435,13 +484,13 @@ const hasSearch = isLive('/search/');
   .nav__search {
     display: none;
   }
-  @media (min-width: 72rem) {
+  @media (min-width: 80rem) {
     .nav__search {
       display: grid;
       margin-right: -0.75rem;
     }
   }
-  @media (min-width: 85rem) {
+  @media (min-width: 90rem) {
     .est {
       display: block;
     }

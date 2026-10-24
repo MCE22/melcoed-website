@@ -11,7 +11,7 @@ interface Props {
 }
 const { hideCta = false } = Astro.props;
 const year = new Date().getFullYear();
-const products = liveLinks(productLinks);
+const products = liveLinks([{ label: 'All Products', href: '/products/' }, ...productLinks]);
 const industries = liveLinks([{ label: 'All Industries', href: '/industries/' }, ...industryLinks]);
 const company = liveLinks([
   { label: 'Capabilities', href: '/capabilities/' },

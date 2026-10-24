@@ -16,6 +16,21 @@
   <radialGradient id="m-rivet" cx=".35" cy=".3" r=".75">
     <stop offset="0" stop-color="#fbf0c8"/><stop offset=".45" stop-color="#c9a75e"/><stop offset="1" stop-color="#5e4518"/>
   </radialGradient>
+  <linearGradient id="m-face" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/>
+  </linearGradient>
+  <linearGradient id="m-bevel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fffbe6" stop-opacity=".95"/><stop offset=".45" stop-color="#fffbe6" stop-opacity="0"/>
+    <stop offset=".55" stop-color="#2a1d06" stop-opacity="0"/><stop offset="1" stop-color="#2a1d06" stop-opacity=".9"/>
+  </linearGradient>
+  <linearGradient id="m-recessV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".12" stop-color="#000" stop-opacity="0"/>
+    <stop offset=".93" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".12"/>
+  </linearGradient>
+  <linearGradient id="m-recessH" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset=".06" stop-color="#000" stop-opacity="0"/>
+  </linearGradient>
   <filter id="m-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
   <filter id="m-grain" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
@@ -42,8 +57,11 @@
   <circle cx="200" cy="200" r="111" fill="#000" filter="url(#m-grain)"/>
   <circle cx="200" cy="200" r="100" fill="none" stroke="url(#m-brass)" stroke-width="2"/>
   
-  <use href="#m-center" fill="#1c0606" opacity=".7" transform="translate(1.6 2.2)" filter="url(#m-soft)"/>
-  <use href="#m-center" fill="#fff4cf" opacity=".55" transform="translate(-0.7 -0.9)"/>
-  <use href="#m-center" fill="url(#m-brass)" stroke="#4f3a12" stroke-width="0.7" stroke-opacity=".7"/>
+  <use href="#m-center" fill="#140404" opacity=".75" transform="translate(2.2 3.2)" filter="url(#m-soft)"/>
+  <use href="#m-center" fill="#2a0a08" opacity=".9" transform="translate(0.9 1.4)"/>
+  <use href="#m-center" fill="#fff7dc" opacity=".85" transform="translate(-0.8 -1.1)"/>
+  <use href="#m-center" fill="url(#m-brass)"/>
+  <use href="#m-center" fill="url(#m-face)"/>
+  <use href="#m-center" fill="none" stroke="#3f2d0c" stroke-width="0.6" stroke-opacity=".8"/>
   <ellipse cx="160" cy="130" rx="90" ry="44" fill="#fff" opacity=".06"/>
 </svg>

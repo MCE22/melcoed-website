@@ -14,38 +14,6 @@ import type { PhotoSlotName } from '../data/photos';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
-const products = [
-  {
-    title: 'Findings',
-    href: '/findings/',
-    body: 'Stamped jewelry findings and raw die-struck blanks: charms, connectors, bails, caps and custom components, supplied unfinished or ready to plate.',
-  },
-  {
-    title: 'Badges',
-    href: '/badges/',
-    body: 'Die-struck police, fire, military and government badges, plus corporate and security badges. Struck from steel dies for crisp, deep detail.',
-  },
-  {
-    title: 'Medallions',
-    href: '/medallions/',
-    body: 'Commemorative, challenge and presentation medallions, struck in solid metal with relief on both sides.',
-  },
-  {
-    title: 'Awards',
-    href: '/awards/',
-    body: 'Service awards, recognition pins and stamped components for plaques and trophies, from small runs to program quantities.',
-  },
-  {
-    title: 'Fraternal & Lodge Emblems',
-    href: '/industries/fraternal-lodge/',
-    body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, grand lodges and regalia suppliers.',
-  },
-  {
-    title: 'Industrial Components',
-    href: '/industrial-components/',
-    body: 'Precision stamped parts built to your print: brackets, clips, contacts, terminals, washers, shims and flat parts.',
-  },
-];
 
 const steps = [
   { n: '01', title: 'Send your print', body: 'A drawing, CAD file, sketch or a physical sample. Tell us material, finish and quantity.' },
@@ -245,35 +213,6 @@ const faqs = generalFaqs;
               </ul>
             </article>
           ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PRODUCTS ============ -->
-  <section class="section section--cream" id="products" aria-labelledby="products-h">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">What we strike</p>
-        <h2 id="products-h">Products</h2>
-        <p class="lead">Custom work to your design, in short runs or long production quantities.</p>
-      </div>
-      <div class="grid grid--3">
-        {
-          products.map((p) =>
-            isLive(p.href) ? (
-              <a class="card card--link" href={p.href}>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-                <span class="card__more">View {p.title} &rarr;</span>
-              </a>
-            ) : (
-              <article class="card">
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </article>
-            ),
-          )
         }
       </div>
     </div>

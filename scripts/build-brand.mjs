@@ -81,6 +81,21 @@ const defs = (id) => `
   <radialGradient id="${id}-rivet" cx=".35" cy=".3" r=".75">
     <stop offset="0" stop-color="#fbf0c8"/><stop offset=".45" stop-color="#c9a75e"/><stop offset="1" stop-color="#5e4518"/>
   </radialGradient>
+  <linearGradient id="${id}-face" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/>
+  </linearGradient>
+  <linearGradient id="${id}-bevel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fffbe6" stop-opacity=".95"/><stop offset=".45" stop-color="#fffbe6" stop-opacity="0"/>
+    <stop offset=".55" stop-color="#2a1d06" stop-opacity="0"/><stop offset="1" stop-color="#2a1d06" stop-opacity=".9"/>
+  </linearGradient>
+  <linearGradient id="${id}-recessV" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".12" stop-color="#000" stop-opacity="0"/>
+    <stop offset=".93" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".12"/>
+  </linearGradient>
+  <linearGradient id="${id}-recessH" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset=".06" stop-color="#000" stop-opacity="0"/>
+  </linearGradient>
   <filter id="${id}-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
   <filter id="${id}-grain" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
@@ -91,9 +106,12 @@ const defs = (id) => `
 
 /** Raised brass lettering: drop shadow, top highlight, brass face, thin dark edge. */
 const raised = (id, ref, k = 1) => `
-  <use href="#${ref}" fill="#1c0606" opacity=".7" transform="translate(${f(1.6 * k)} ${f(2.2 * k)})" filter="url(#${id}-soft)"/>
-  <use href="#${ref}" fill="#fff4cf" opacity=".55" transform="translate(${f(-0.7 * k)} ${f(-0.9 * k)})"/>
-  <use href="#${ref}" fill="url(#${id}-brass)" stroke="#4f3a12" stroke-width="${f(0.7 * k)}" stroke-opacity=".7"/>`;
+  <use href="#${ref}" fill="#140404" opacity=".75" transform="translate(${f(2.2 * k)} ${f(3.2 * k)})" filter="url(#${id}-soft)"/>
+  <use href="#${ref}" fill="#2a0a08" opacity=".9" transform="translate(${f(0.9 * k)} ${f(1.4 * k)})"/>
+  <use href="#${ref}" fill="#fff7dc" opacity=".85" transform="translate(${f(-0.8 * k)} ${f(-1.1 * k)})"/>
+  <use href="#${ref}" fill="url(#${id}-brass)"/>
+  <use href="#${ref}" fill="url(#${id}-face)"/>
+  <use href="#${ref}" fill="none" stroke="#3f2d0c" stroke-width="${f(0.6 * k)}" stroke-opacity=".8"/>`;
 
 const rivet = (id, x, y, r) => `
   <circle cx="${f(x + r * 0.15)}" cy="${f(y + r * 0.25)}" r="${f(r)}" fill="#1c0606" opacity=".45" filter="url(#${id}-soft)"/>
@@ -103,7 +121,8 @@ const rivet = (id, x, y, r) => `
 /** Rectangular enamel plate with brass rim, inner rule and rivets. */
 function plate({ id, w, h, rim, rivetR, mainSize, mainBase, incSize, incBase, ruleY, title }) {
   // Fit the name inside the raised border with breathing room on both sides.
-  const inner = w - 2 * (rim + rim + rivetR * 0.9) - 2 * rivetR * 3.2;
+  // Rivets sit in the corners, so the name can run close to the raised inner border.
+  const inner = w - 2 * (rim + rim + rivetR * 0.9) - 2 * rivetR * 1.6;
   let main = word(BLACK, 'MEL-CO-ED', mainSize, w / 2, mainBase, 0.04);
   if (main.width > inner) main = word(BLACK, 'MEL-CO-ED', mainSize * (inner / main.width), w / 2, mainBase, 0.04);
   const inc = word(BOLD, 'INC.', incSize, w / 2, incBase, 0.32);
@@ -123,10 +142,16 @@ function plate({ id, w, h, rim, rivetR, mainSize, mainBase, incSize, incBase, ru
   <!-- cast brass frame -->
   <rect x="0" y="0" width="${w}" height="${h}" rx="${f(rim * 0.5)}" fill="url(#${id}-rim)"/>
   <rect x="${f(rim * 0.35)}" y="${f(rim * 0.35)}" width="${f(w - rim * 0.7)}" height="${f(h - rim * 0.7)}" rx="${f(rim * 0.35)}" fill="none" stroke="#fff3c8" stroke-opacity=".45" stroke-width="${f(rim * 0.12)}"/>
+  <!-- bevelled frame edges: lit from the upper left -->
+  <rect x="${f(rim * 0.08)}" y="${f(rim * 0.08)}" width="${f(w - rim * 0.16)}" height="${f(h - rim * 0.16)}" rx="${f(rim * 0.45)}" fill="none" stroke="url(#${id}-bevel)" stroke-width="${f(rim * 0.16)}"/>
+  <rect x="${f(rim * 0.82)}" y="${f(rim * 0.82)}" width="${f(w - rim * 1.64)}" height="${f(h - rim * 1.64)}" rx="2" fill="none" stroke="url(#${id}-bevel)" stroke-width="${f(rim * 0.14)}" transform="rotate(180 ${w / 2} ${h / 2})"/>
   <!-- enamel field -->
   <rect x="${rim}" y="${rim}" width="${w - 2 * rim}" height="${h - 2 * rim}" rx="2" fill="url(#${id}-enamel)"/>
   <rect x="${rim}" y="${rim}" width="${w - 2 * rim}" height="${h - 2 * rim}" rx="2" fill="#000" filter="url(#${id}-grain)"/>
   <rect x="${rim}" y="${rim}" width="${w - 2 * rim}" height="${h - 2 * rim}" rx="2" fill="none" stroke="#2a0808" stroke-opacity=".55" stroke-width="${f(rim * 0.25)}"/>
+  <!-- enamel sits below the frame: shadow along the top and left inner edges -->
+  <rect x="${rim}" y="${rim}" width="${w - 2 * rim}" height="${h - 2 * rim}" fill="url(#${id}-recessV)"/>
+  <rect x="${rim}" y="${rim}" width="${w - 2 * rim}" height="${h - 2 * rim}" fill="url(#${id}-recessH)"/>
   <!-- raised inner border -->
   <rect x="${f(rim + inset)}" y="${f(rim + inset * 0.85)}" width="${f(w - 2 * (rim + inset))}" height="${f(h - 2 * (rim + inset * 0.85))}" rx="1.5" fill="none" stroke="url(#${id}-brass)" stroke-width="${f(Math.max(1.2, rim * 0.18))}"/>
   ${raised(id, `${id}-main`, mainSize / 90)}
@@ -189,7 +214,7 @@ writeFileSync(
 );
 writeFileSync(
   `${root}public/brand/plate-compact.svg`,
-  plate({ id: 'pc', w: 300, h: 124, rim: 7, rivetR: 4.2, mainSize: 54, mainBase: 72, incSize: 17, incBase: 101, ruleY: 95, title: 'Mel-Co-Ed, Inc.' }),
+  plate({ id: 'pc', w: 300, h: 124, rim: 7, rivetR: 4.2, mainSize: 60, mainBase: 74, incSize: 17, incBase: 103, ruleY: 97, title: 'Mel-Co-Ed, Inc.' }),
 );
 
 const est = word(BOLD, 'EST.', 30, 200, 172, 0.3).d;

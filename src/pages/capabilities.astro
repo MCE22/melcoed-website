@@ -325,7 +325,7 @@ const faqs: Faq[] = [
     margin-bottom: 1.5rem;
   }
   .cap {
-    scroll-margin-top: calc(var(--header-h) + 5.5rem);
+    scroll-margin-top: calc(var(--header-live, var(--header-h)) + 4rem);
   }
   .cap .split + .wrap {
     margin-top: 2.5rem;
@@ -341,7 +341,7 @@ const faqs: Faq[] = [
   /* On-this-page nav: horizontal scroll chips on mobile, sticks under the header */
   .jump {
     position: sticky;
-    top: calc(var(--header-h) + 2.1rem + 3px);
+    top: var(--header-live, var(--header-h));
     z-index: 40;
     background: var(--cream-50);
     border-bottom: 1px solid var(--cream-200);

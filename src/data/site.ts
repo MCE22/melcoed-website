@@ -101,7 +101,7 @@ export const industryLinks = [
 // so this list can describe the full site while pages are still being built.
 export const nav: NavItem[] = [
   { label: 'Capabilities', href: '/capabilities/' },
-  { label: 'Products', href: '/#products', children: productLinks },
+  { label: 'Products', href: '/products/', children: [{ label: 'All Products', href: '/products/' }, ...productLinks] },
   {
     label: 'Industries',
     href: '/industries/',
