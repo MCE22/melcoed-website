@@ -45,6 +45,16 @@ import packingOrders from '../assets/photos/packing-orders.jpg';
 import assemblyBenches from '../assets/photos/assembly-benches.jpg';
 import shopFloorDesk from '../assets/photos/shop-floor-desk.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
+// From the 2026 Pattern & Banding catalog (public/catalogs/)
+import patternDiscs from '../assets/photos/pattern-discs-catalog-cover.jpg';
+import bandingFloral from '../assets/photos/banding-sheet-floral-greek-key.jpg';
+import bandingScenic from '../assets/photos/banding-sheet-scenic-scroll.jpg';
+import patternSheet from '../assets/photos/pattern-stock-sheet-c201-c521.jpg';
+// From the 2026 Findings & Stampings catalog (public/catalogs/)
+import findingsFloral from '../assets/photos/findings-floral-stampings-catalog-cover.jpg';
+import findingsBirds from '../assets/photos/findings-sheet-birds-shells-hearts.jpg';
+import findingsMarcasite from '../assets/photos/findings-sheet-marcasite-silver.jpg';
+import findingsMasks from '../assets/photos/findings-sheet-masks-medallions.jpg';
 
 export type Photo = { src: ImageMetadata; alt: string };
 
@@ -73,6 +83,10 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
   ],
   findings: [
+    { src: findingsFloral, alt: 'Six embossed brass floral stampings, a fan leaf, iris, rose, lilies and an ivy leaf, on a dark background' },
+    { src: findingsBirds, alt: 'Catalog sheet of brass findings: birds in flight, shells, figure charms, a filigree oval and a heart blank, each with its part number' },
+    { src: findingsMarcasite, alt: 'Catalog sheet of silver-tone findings with set stones: crescent moons, stars, drops, frames and buckles, each with its part number' },
+    { src: findingsMasks, alt: 'Catalog sheet of small stamped charms in brass and copper: theater masks, crests and round medallions, each with its part number' },
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
     { src: cuffsTextured, alt: 'Three stamped cuff bracelets with textured and hammered patterns in a silver finish' },
     { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
@@ -80,7 +94,13 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: cufflinksFootball, alt: 'A pair of football-shaped cufflinks in an antique brass finish' },
     { src: cufflinksWorn, alt: 'A square cufflink fastened on a French cuff under a navy suit jacket' },
   ],
-  'pattern-stock': [{ src: patternStock, alt: 'Strips of embossed brass pattern stock with a finished cuff made from it' }],
+  'pattern-stock': [
+    { src: patternDiscs, alt: 'Five embossed brass pattern stock discs with hammered, diamond, ribbed and striped textures, on a dark background' },
+    { src: bandingFloral, alt: 'Catalog sheet of embossed banding patterns, including floral scrollwork, Greek key and ribbed borders, each with its part number' },
+    { src: bandingScenic, alt: 'Catalog sheet of embossed banding patterns with scenic, scrolled, rose and floral designs, each with its part number' },
+    { src: patternSheet, alt: 'Catalog page of embossed pattern stock discs in brass and silver tones, part numbers C201 to C521' },
+    { src: patternStock, alt: 'Strips of embossed brass pattern stock with a finished cuff made from it' },
+  ],
   medallions: [
     { src: medallionsAssortment, alt: 'An assortment of die-struck medallions and pendants in gold and antique finishes' },
     { src: pendantsDogTags, alt: 'Die-struck pendants on ball chains in silver and gold finishes, displayed on black velvet' },

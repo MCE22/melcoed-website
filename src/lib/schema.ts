@@ -38,7 +38,8 @@ export function organizationNode(): Node {
       addressCountry: site.address.country,
     },
     areaServed: { '@type': 'Country', name: 'United States' },
-    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/logo.svg') },
+    // Official plate logo (public copy of src/assets/brand/mce-plate.png for a stable URL)
+    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/mce-plate.png'), width: 794, height: 316 },
     image: abs('/og-default.png'),
     knowsAbout: [
       'Precision metal stamping',

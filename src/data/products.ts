@@ -344,6 +344,10 @@ export const products: Record<string, Product> = {
       { title: 'Recognition', body: 'Recognition pins and items, nameplates and badges, and ball markers.' },
       { title: 'Gifts & keepsakes', body: 'Bookmarks, ornaments, money clips, card cases, letter openers and paper weights.' },
       { title: 'Architectural & lighting', body: 'Embossed metal for architectural applications and the lighting industry.' },
+      {
+        title: 'Any shape',
+        body: 'Every pattern can be made into pendants, bracelets, earrings or any other shape: rounds in any size, with or without a hole, tags, bars or your own design.',
+      },
     ],
     audienceHeading: 'Who uses pattern stock',
     audience: ['Jewelry and accessory brands', 'Recognition and awards suppliers', 'Gift and ad specialty companies', 'Architectural and lighting manufacturers'],
@@ -365,6 +369,10 @@ export const products: Record<string, Product> = {
       {
         q: 'Can you emboss my own flat stock?',
         a: 'Yes. Bring your flat stock and we will emboss it with one of our patterns. Have dies or metal already? We’ll run yours.',
+      },
+      {
+        q: 'How do I order a pattern or banding?',
+        a: 'Call or email with the part number from our Pattern & Banding catalog, the metal and the quantity.',
       },
       {
         q: 'Do I pay for tooling to use a stock pattern?',
