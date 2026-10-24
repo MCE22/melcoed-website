@@ -5,6 +5,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from './PageHero.astro';
 import FaqList from './FaqList.astro';
 import Todo from './Todo.astro';
+import PhotoSlot from './PhotoSlot.astro';
+import type { PhotoSlotName } from '../data/photos';
 import { site, quoteHref, productLinks, industryLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
 import { isLive } from '../lib/routes';
@@ -103,9 +105,9 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
           )
         }
       </div>
-      <figure class="photos">
-        <Todo block>{p.photoTodo} Save to <code>src/assets/</code> and replace this block with Astro <code>&lt;Image&gt;</code> components.</Todo>
-      </figure>
+      <div class="photos">
+        <PhotoSlot slot={p.slug as PhotoSlotName} todo={p.photoTodo} />
+      </div>
     </div>
   </section>
 

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, type Faq } from '../../lib/schema';
 
@@ -115,6 +116,9 @@ const faqs: Faq[] = [
           ))
         }
       </div>
+      <div class="ind-photos">
+        <PhotoSlot slot="industries-fraternal" todo="Photos: lodge lapel pins, emblems and anniversary medallions MCE has made (3–6 images; get the lodge’s OK before showing its emblem)." />
+      </div>
     </div>
   </section>
 
@@ -194,6 +198,9 @@ const faqs: Faq[] = [
 </BaseLayout>
 
 <style>
+  .ind-photos {
+    margin-top: 2rem;
+  }
   .make {
     border-left: 4px solid var(--red);
   }

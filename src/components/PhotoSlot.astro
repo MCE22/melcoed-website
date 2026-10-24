@@ -1,0 +1,83 @@
+---
+// Renders a page's photos from src/data/photos.ts, or a TODO box when the slot is empty.
+// One photo: a single framed image. Two or more: a responsive gallery grid.
+import { Image } from 'astro:assets';
+import Todo from './Todo.astro';
+import { photos, type PhotoSlotName } from '../data/photos';
+
+interface Props {
+  slot: PhotoSlotName;
+  /** What photo(s) the slot needs; shown in the TODO box while empty. */
+  todo: string;
+  /** Load immediately (above-the-fold images only). */
+  eager?: boolean;
+  class?: string;
+}
+const { slot, todo, eager = false, class: className } = Astro.props;
+const list = photos[slot] ?? [];
+const gallery = list.length > 1;
+const widths = [480, 800, 1200, 1600];
+const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
+---
+
+{
+  list.length === 0 ? (
+    <Todo block>
+      {todo} Save to <code>src/assets/photos/</code> and add to the <code>{slot}</code> slot in
+      <code>src/data/photos.ts</code>.
+    </Todo>
+  ) : (
+    <div class:list={['photo-slot', { 'photo-slot--gallery': gallery }, className]}>
+      {list.map((p, i) => (
+        <figure class="photo-slot__frame">
+          <Image
+            src={p.src}
+            alt={p.alt}
+            widths={widths.filter((w) => w <= p.src.width)}
+            sizes={sizes}
+            format="webp"
+            quality={78}
+            loading={eager && i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={eager && i === 0 ? 'high' : undefined}
+          />
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .photo-slot {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .photo-slot--gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .photo-slot--gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  /* Chrome-rimmed frame, matching the map and heritage frames */
+  .photo-slot__frame {
+    margin: 0;
+    padding: 6px;
+    border-radius: var(--radius-lg);
+    background: var(--paper);
+    border: 1px solid var(--chrome);
+    box-shadow: var(--shadow);
+  }
+  .photo-slot__frame :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .photo-slot--gallery .photo-slot__frame :global(img) {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+</style>

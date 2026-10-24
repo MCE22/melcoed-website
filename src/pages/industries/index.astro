@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { industries } from '../../data/industries';
 import { isLive } from '../../lib/routes';
@@ -57,6 +58,12 @@ const itemList = {
           )
         }
       </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Our work">
+    <div class="wrap">
+      <PhotoSlot slot="industries" todo="Photos: a spread of finished work across industries (badges, emblems, medallions, industrial parts), 3–6 images." />
     </div>
   </section>
 
