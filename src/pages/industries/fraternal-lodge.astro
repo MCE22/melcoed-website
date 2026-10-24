@@ -109,7 +109,7 @@ const faqs: Faq[] = [
       <div class="grid grid--2">
         {
           products.map((p) => (
-            <article class="card make">
+            <article class="card">
               <h3>{p.title}</h3>
               <p>{p.body}</p>
             </article>
@@ -200,9 +200,6 @@ const faqs: Faq[] = [
 <style>
   .ind-photos {
     margin-top: 2rem;
-  }
-  .make {
-    border-left: 4px solid var(--red);
   }
   .note {
     color: var(--cream-200);

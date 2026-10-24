@@ -140,7 +140,7 @@ const faqs: Faq[] = [
       <div class="grid grid--2">
         {
           pieces.map((p) => (
-            <article class="card piece">
+            <article class="card">
               <h3>{p.title}</h3>
               <p>{p.body}</p>
             </article>
@@ -243,7 +243,7 @@ const faqs: Faq[] = [
     list-style: none;
     margin: 0;
     padding: 0;
-    border-left: 3px solid var(--red);
+    border-left: 2px solid var(--chrome);
   }
   .timeline li {
     position: relative;
@@ -251,24 +251,26 @@ const faqs: Faq[] = [
     grid-template-columns: 4.25rem 1fr;
     gap: 0.75rem;
     padding: 0.9rem 0 0.9rem 1.25rem;
-    border-bottom: 1px solid var(--cream-200);
+    border-bottom: 1px solid var(--chrome-light);
   }
   .timeline li::before {
     content: '';
     position: absolute;
-    left: -0.5rem;
-    top: 1.35rem;
-    width: 0.75rem;
-    height: 0.75rem;
+    left: -0.55rem;
+    top: 1.3rem;
+    width: 0.9rem;
+    height: 0.9rem;
     border-radius: 50%;
-    background: var(--cream-50);
-    border: 3px solid var(--red);
+    background: var(--cherry);
+    box-shadow:
+      0 0 0 2px var(--offwhite),
+      0 0 0 3px var(--chrome);
   }
   .timeline__year {
-    font-family: var(--font-block);
-    font-size: 2.1rem;
-    line-height: 1;
-    color: var(--red);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    color: var(--navy);
   }
   .timeline__body {
     font-weight: 600;
@@ -283,18 +285,15 @@ const faqs: Faq[] = [
     text-transform: uppercase;
   }
 
-  .piece {
-    border-left: 4px solid var(--red);
-  }
   .license {
     padding: 1rem 1.1rem;
-    border: 1px solid var(--steel-dim);
-    border-left: 4px solid var(--red);
+    border: 1px solid rgb(242 232 208 / 0.3);
+    border-radius: 12px;
     font-size: 0.92rem;
     color: var(--cream-200);
   }
   .license h3 {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     color: var(--cream-50);
   }
 </style>

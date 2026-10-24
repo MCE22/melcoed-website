@@ -63,7 +63,7 @@ const faqs: Faq[] = [
           </ol>
         </div>
 
-        <div class="aside-block aside-block--ink">
+        <div class="aside-block sign sign--rivets aside-call">
           <h2 class="aside-h">Rather talk it through?</h2>
           <p><a class="aside-phone" href={`tel:${site.phone.e164}`}>{site.phone.display}</a></p>
           {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
@@ -126,19 +126,29 @@ const faqs: Faq[] = [
     gap: 1.25rem;
   }
   .aside-block {
-    padding: 1.25rem;
-    border-top: 4px solid var(--red);
-    background: var(--cream);
+    padding: 1.25rem 1.4rem;
+    border-radius: 14px;
+    background: var(--cream-100);
+    border: 1px solid var(--chrome-light);
   }
-  .aside-block--ink {
-    background: var(--ink);
+  /* restore the sign's navy enamel (the .aside-block cream background would otherwise win) */
+  .aside-call {
+    padding: 1.75rem 1.5rem;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(165deg, rgb(255 255 255 / 0.09) 0%, rgb(255 255 255 / 0) 38%),
+      var(--navy);
     color: var(--cream-200);
   }
-  .aside-block--ink a {
-    color: var(--cream);
+  .aside-call a {
+    color: var(--cream-100);
   }
-  .aside-block--ink .aside-h {
-    color: var(--cream-50);
+  .aside-call a:hover {
+    color: var(--robin);
+  }
+  .aside-call .aside-h {
+    color: var(--paper);
   }
   .aside-block address {
     font-style: normal;
@@ -151,13 +161,12 @@ const faqs: Faq[] = [
     margin-bottom: 0;
   }
   .aside-h {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 0.75rem;
   }
   .aside-phone {
-    font-family: var(--font-block);
-    font-size: 2rem;
-    letter-spacing: 0.03em;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
     text-decoration: none;
   }
   .next,
@@ -170,7 +179,7 @@ const faqs: Faq[] = [
     margin-top: 0.4rem;
   }
   .next li::marker {
-    font-family: var(--font-block);
+    font-weight: 800;
     color: var(--red);
   }
 </style>

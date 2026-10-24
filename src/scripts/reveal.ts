@@ -7,6 +7,10 @@
 //   - each direct child of a `.section > .wrap` block
 //   - for card grids and step lists, each item instead of the whole container
 // Opt out with data-no-reveal; opt any other element in with data-reveal.
+//
+// Uses a rAF-throttled scroll check (not IntersectionObserver): an element counts as
+// revealed once its top passes 94% of the viewport height, including when the visitor
+// jumps past it, so nothing can be left dimmed.
 
 const GROUPS = '.grid, .steps, .topics';
 const STAGGER_MS = 40; // per item in a grid, capped below
@@ -29,27 +33,46 @@ function targets(): HTMLElement[] {
 }
 
 function init() {
-  if (!('IntersectionObserver' in window)) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        e.target.classList.remove('reveal-pending');
-        io.unobserve(e.target);
-      }
-    },
-    { rootMargin: '0px 0px -8% 0px' },
-  );
-
   const fold = window.innerHeight;
+  let pending: HTMLElement[] = [];
   for (const el of targets()) {
     // Already on screen (or above it): leave untouched.
     if (el.getBoundingClientRect().top < fold) continue;
     el.classList.add('reveal', 'reveal-pending');
-    io.observe(el);
+    pending.push(el);
   }
+  if (!pending.length) return;
+
+  // Reveal anything that is on screen OR already scrolled past. Checking "above the
+  // viewport" too means fast scrolls and anchor jumps can never leave content dimmed.
+  let queued = false;
+  const check = () => {
+    queued = false;
+    const line = window.innerHeight * 0.94;
+    pending = pending.filter((el) => {
+      if (el.getBoundingClientRect().top < line) {
+        el.classList.remove('reveal-pending');
+        return false;
+      }
+      return true;
+    });
+    if (!pending.length) {
+      removeEventListener('scroll', onScroll);
+      removeEventListener('resize', onScroll);
+    }
+  };
+  const onScroll = () => {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(check);
+    }
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  // Catch scroll position restored after load (back/forward, #anchor links).
+  addEventListener('load', onScroll, { once: true });
 }
 
 init();

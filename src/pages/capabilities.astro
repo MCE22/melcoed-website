@@ -358,29 +358,31 @@ const faqs: Faq[] = [
   .jump a {
     display: block;
     padding: 0.35rem 0.85rem;
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--chrome);
     border-radius: 999px;
-    color: var(--ink);
-    font-family: var(--font-block);
-    font-size: 1.05rem;
-    letter-spacing: 0.06em;
+    background: var(--paper);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      background-color var(--dur-fast) var(--ease),
+      color var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease);
     text-decoration: none;
     white-space: nowrap;
   }
   .jump a:hover {
-    background: var(--ink);
-    color: var(--cream);
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--cream-100);
   }
 
   /* Spec lists on light backgrounds */
-  .specs--light dt {
-    color: var(--ink-400);
-  }
   .specs--light {
-    border-top-color: var(--cream-200);
-  }
-  .specs--light > div {
-    border-bottom-color: var(--cream-200);
+    border-top-color: var(--chrome-light);
   }
 
   /* Tables */
@@ -391,31 +393,33 @@ const faqs: Faq[] = [
   .eq {
     width: 100%;
     border-collapse: collapse;
-    background: var(--cream-50);
+    background: var(--paper);
     font-size: 0.95rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--chrome-light);
   }
   .eq caption {
     caption-side: top;
     text-align: left;
     padding-bottom: 0.5rem;
-    font-family: var(--font-block);
-    font-size: 1.4rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--navy);
   }
   .eq th,
   .eq td {
     padding: 0.65rem 0.85rem;
     text-align: left;
-    border-bottom: 1px solid var(--cream-200);
+    border-bottom: 1px solid var(--chrome-light);
     vertical-align: top;
   }
   .eq thead th {
-    background: var(--ink);
-    color: var(--cream);
+    background: var(--navy);
+    color: var(--cream-100);
     font-family: var(--font-body);
     font-size: 0.72rem;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -424,11 +428,12 @@ const faqs: Faq[] = [
     font-size: 0.65rem;
   }
   .eq tbody th {
-    font-weight: 650;
+    font-weight: 700;
+    color: var(--navy);
   }
   .gauge tbody th {
-    font-family: var(--font-block);
-    font-size: 1.3rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
     font-weight: 400;
     color: var(--red);
   }

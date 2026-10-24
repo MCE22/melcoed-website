@@ -60,7 +60,8 @@ One shared system, loaded by `BaseLayout`, so every page (current and future) ge
   `prefers-reduced-motion` kill switch.
 - `src/scripts/reveal.ts`: fades section blocks and grid items in as they scroll into view.
   It only dims elements that start **below the fold**, so nothing visible is hidden or delayed,
-  and with JavaScript off nothing is dimmed. Opt out with `data-no-reveal`; opt in with `data-reveal`.
+  and with JavaScript off nothing is dimmed. Anything scrolled past (fast scrolls, anchor jumps)
+  is revealed too, so content can never be left dimmed. Opt out with `data-no-reveal`; opt in with `data-reveal`.
 - Header menus fade and slide with CSS `@starting-style` (no JS); older browsers open instantly.
 
 Rule: every effect is small. If one is noticeable on its own, tone it down. No autoplay, parallax,
