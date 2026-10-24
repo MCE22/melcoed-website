@@ -11,17 +11,20 @@ interface Props {
   todo: string;
   /** Load immediately (above-the-fold images only). */
   eager?: boolean;
+  /** Skip the first N photos (e.g. 1 when the page hero already shows photo 0). */
+  skip?: number;
   class?: string;
 }
-const { slot, todo, eager = false, class: className } = Astro.props;
-const list = photos[slot] ?? [];
+const { slot, todo, eager = false, skip = 0, class: className } = Astro.props;
+const all = photos[slot] ?? [];
+const list = all.slice(skip);
 const gallery = list.length > 1;
 const widths = [480, 800, 1200, 1600];
 const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
 ---
 
 {
-  list.length === 0 ? (
+  all.length > 0 && list.length === 0 ? null : list.length === 0 ? (
     <Todo block>
       {todo} Save to <code>src/assets/photos/</code> and add to the <code>{slot}</code> slot in
       <code>src/data/photos.ts</code>.
@@ -62,19 +65,17 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
     }
   }
   /* Chrome-rimmed frame, matching the map and heritage frames */
+  /* Dark frame with a brass hairline: suits moody shots on wood or steel */
   .photo-slot__frame {
     margin: 0;
-    padding: 6px;
-    border-radius: var(--radius-lg);
-    background: var(--paper);
-    border: 1px solid var(--chrome);
-    box-shadow: var(--shadow);
+    padding: 0;
+    background: #14110e;
+    border: 1px solid var(--rule);
   }
   .photo-slot__frame :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 12px;
   }
   .photo-slot--gallery .photo-slot__frame :global(img) {
     aspect-ratio: 4 / 3;

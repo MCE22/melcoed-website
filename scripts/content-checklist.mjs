@@ -37,6 +37,7 @@ const PAGE_NAMES = {
   'industries/commemorative.astro': 'Commemorative & 250th',
   'request-a-quote/index.astro': 'Request a Quote',
   'request-a-quote/thank-you.astro': 'Request a Quote',
+  'search.astro': 'Search',
 };
 
 const groups = new Map(); // page -> {specs:[], copy:[], faq:[], photos:[]}
@@ -73,8 +74,11 @@ for (const file of walk(join(src, 'pages')).filter((f) => f.endsWith('.astro')))
     else add(page, kindOf(t), t);
   }
   for (const m of s.matchAll(/todo: '([^']+)'/g)) add(page, 'copy', clean(m[1]));
-  for (const m of s.matchAll(/<PhotoSlot[\s\S]*?slot="([a-z-]+)"[\s\S]*?todo="([^"]+)"/g))
+  for (const m of s.matchAll(/<(?:PhotoSlot|MediaSlot)\s[^>]*?slot="([a-z-]+)"[^>]*?todo="([^"]+)"/g))
     if (!filledSlots.has(m[1])) add(page, 'photos', clean(m[2]));
+  // page-header photos: <PageHero photo="slot" photoTodo="...">
+  for (const m of s.matchAll(/photo="([a-z-]+)"\s+photoTodo="([^"]+)"/g))
+    if (!filledSlots.has(m[1])) add(page, 'photos', `${clean(m[2])} (page header)`);
   for (const m of s.matchAll(/\{\s*q: (['"`])(.+?)\1,\s*a:[^}]*?todo: true/g)) add(page, 'faq', clean(m[2]));
 }
 
@@ -119,7 +123,7 @@ const allSlots = [...photosSrc.matchAll(/\| '([a-z-]+)'/g)].map((m) => m[1]);
 const pageSrc = walk(join(src, 'pages')).map((f) => readFileSync(f, 'utf8')).join('\n');
 const productSlugs = [...products.matchAll(/slug: '([a-z-]+)'/g)].map((m) => m[1]);
 for (const slot of allSlots) {
-  if (filledSlots.has(slot) || productSlugs.includes(slot) || pageSrc.includes(`slot="${slot}"`)) continue;
+  if (filledSlots.has(slot) || productSlugs.includes(slot) || pageSrc.includes(`slot="${slot}"`) || pageSrc.includes(`photo="${slot}"`)) continue;
   add(slot.startsWith('home') ? 'Home' : 'Sitewide / business info', 'photos', `\`${slot}\` photo slot (not placed on the page yet; layout will be designed around the chosen photo)`);
 }
 

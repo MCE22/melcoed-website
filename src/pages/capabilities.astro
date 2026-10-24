@@ -94,6 +94,9 @@ const faqs: Faq[] = [
     ribbon="Stamping · Tooling · Milling"
     lead="Tool and die making, die striking, blanking, piercing, forming and CNC milling, in one Pawtucket facility, so a part goes from print to press without leaving the building."
     breadcrumbs={breadcrumbs}
+  
+    photo="capabilities"
+    photoTodo="Capabilities hero photo: press, tool room or die close-up"
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
@@ -126,7 +129,7 @@ const faqs: Faq[] = [
         }
       </ol>
       <PhotoSlot
-        slot="capabilities"
+        slot="capabilities" skip={1}
         todo="Photos: press floor, tool room / die work, CNC mill, and a finished part on the bench (3–6 images, landscape)."
         class="cap-photos"
       />
@@ -359,7 +362,7 @@ const faqs: Faq[] = [
     display: block;
     padding: 0.35rem 0.85rem;
     border: 1px solid var(--chrome);
-    border-radius: 999px;
+    border-radius: var(--radius);
     background: var(--paper);
     color: var(--navy);
     font-family: var(--font-body);
@@ -395,7 +398,7 @@ const faqs: Faq[] = [
     border-collapse: collapse;
     background: var(--paper);
     font-size: 0.95rem;
-    border-radius: 12px;
+    border-radius: var(--radius);
     overflow: hidden;
     box-shadow: 0 0 0 1px var(--chrome-light);
   }

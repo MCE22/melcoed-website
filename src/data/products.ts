@@ -116,7 +116,7 @@ export const products: Record<string, Product> = {
     metaDescription:
       'Die-struck police, sheriff, fire, EMS, military and government badges made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs, reproductions and retirement badges.',
     h1: 'Die-Struck Badges',
-    accent: 'police · fire · government',
+    accent: 'police, fire, government',
     lead: 'Police, sheriff, fire, EMS, military and government badges, struck from steel dies for deep, sharp detail that holds up to years of daily wear.',
     intro: [
       'A badge is worn every shift for years. Die-striking stamps the design into solid metal under heavy pressure, giving crisp lettering, deep relief and a piece that stands up to daily wear.',

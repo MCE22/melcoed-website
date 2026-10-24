@@ -1,57 +1,66 @@
-/* Mel-Co-Ed design system — 1950s porcelain-enamel signage on a clean modern layout.
-   Restraint rule: sign treatments (panels, rivets, roundels, script) live in the
-   header, heroes, badges, section headers and footer. Body content and forms stay plain.
-   Mobile-first: base styles target phones; min-width queries scale up. */
+/* Mel-Co-Ed design system — editorial, converted-factory studio.
+   Warm cream paper, near-black type, oxblood accents, aged-brass labels and rules,
+   brushed steel. Square corners, thin brass hairlines, generous space, crisp grid.
+   No script fonts. Mobile-first: base styles target phones; min-width queries scale up. */
 
 :root {
-  /* Enamel palette */
-  --cherry: #b8232b;
-  --cherry-hi: #d8434a;
-  --cherry-600: #9c1c23;
-  --cherry-800: #741419;
-  --cream: #f2e8d0;
-  --cream-100: #f7f0df;
-  --offwhite: #fbf8f2;
-  --paper: #fffdf8;
-  --navy: #1c2b45;
-  --navy-700: #263a5c;
-  --navy-900: #131e31;
-  --teal: #17656c;
-  --teal-700: #0f4d53;
-  --robin: #9fd9d3;
-  --robin-100: #ddf2ef;
-  --chrome: #b4bac1;
-  --chrome-light: #dcdfe3;
-  --chrome-dark: #8a929b;
-  --chrome-sheen: linear-gradient(180deg, #f1f3f5 0%, #b4bac1 45%, #e6e9ec 55%, #9aa1a9 100%);
-  --ink: #1e2533;
-  --ink-600: #4a5263;
-  --ink-400: #737b8a;
+  /* Palette */
+  --cream: #f4efe6; /* page */
+  --paper: #faf7f1; /* cards, inputs */
+  --bone: #ebe4d7; /* alternate sections */
+  --ink: #1b1815; /* near-black text */
+  --ink-600: #4a443e;
+  --ink-400: #7a7168;
+  --char: #181512; /* dark sections */
+  --char-700: #24201c;
+  --oxblood: #7a1f1f;
+  --oxblood-700: #631818;
+  --oxblood-300: #a6413a;
+  --brass: #a8843f; /* rules, icons, decorative */
+  --brass-light: #cdb27a; /* brass on dark */
+  --brass-text: #7d6028; /* brass for small text on cream (AA) */
+  --navy: #1c2533; /* rare accent */
+  --steel: #8e9399;
+  --steel-light: #cfccc5;
+  --rule: #dcd2c1; /* hairlines on cream */
+  --rule-dark: rgb(205 178 122 / 0.28); /* hairlines on dark */
 
-  /* Legacy aliases (pages written before the redesign use these names) */
-  --red: var(--cherry);
-  --red-700: var(--cherry-600);
-  --red-900: var(--cherry-800);
-  --cream-50: var(--offwhite);
-  --cream-200: #e6dcc2;
-  --ink-800: var(--navy-900);
-  --steel: var(--chrome);
-  --steel-dim: rgb(180 186 193 / 0.35);
+  /* Legacy names → new palette (pages written for earlier designs use these) */
+  --red: var(--oxblood);
+  --red-700: var(--oxblood-700);
+  --red-900: var(--oxblood-700);
+  --cherry: var(--oxblood);
+  --cherry-hi: var(--oxblood-300);
+  --cherry-600: var(--oxblood-700);
+  --cherry-800: var(--oxblood-700);
+  --cream-50: var(--cream);
+  --cream-100: var(--paper);
+  --cream-200: #ddd4c4;
+  --offwhite: var(--cream);
+  --ink-800: var(--char);
+  --navy-700: var(--char-700);
+  --navy-900: var(--char);
+  --teal: var(--char);
+  --teal-700: var(--char);
+  --robin: var(--brass-light);
+  --robin-100: var(--bone);
+  --chrome: var(--rule);
+  --chrome-light: var(--rule);
+  --chrome-dark: var(--steel);
+  --steel-dim: var(--rule-dark);
 
-  --font-script: 'Yellowtail', 'Brush Script MT', cursive;
-  --font-display: 'Alfa Slab One', 'Rockwell', 'Roboto Slab', Georgia, serif;
+  --font-display: 'Playfair Display Variable', 'Playfair Display', 'DM Serif Display', Georgia, 'Times New Roman', serif;
   --font-body: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* Labels, buttons and nav: the body sans, set bold and letterspaced */
   --font-block: var(--font-body);
-  /* Only for TODO placeholders, so they never look like real content */
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-script: var(--font-display); /* no script faces anywhere */
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; /* TODO boxes only */
 
   --gutter: 1rem;
-  --max: 72rem;
-  --radius: 10px;
-  --radius-lg: 18px;
-  --header-h: 4rem;
-  --shadow: 0 1px 2px rgb(28 43 69 / 0.06), 0 10px 24px -16px rgb(28 43 69 / 0.35);
+  --max: 76rem;
+  --radius: 2px;
+  --radius-lg: 2px;
+  --header-h: 4.25rem;
+  --shadow: 0 1px 0 rgb(27 24 21 / 0.04);
 
   color-scheme: light;
 }
@@ -59,7 +68,12 @@
 @media (min-width: 48rem) {
   :root {
     --gutter: 2rem;
-    --header-h: 4.5rem;
+    --header-h: 5.25rem;
+  }
+}
+@media (min-width: 90rem) {
+  :root {
+    --gutter: 3rem;
   }
 }
 
@@ -80,11 +94,11 @@ html {
 }
 body {
   margin: 0;
-  background: var(--offwhite);
+  background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.0625rem;
-  line-height: 1.6;
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -96,16 +110,16 @@ video {
   height: auto;
 }
 a {
-  color: var(--cherry);
-  text-underline-offset: 0.18em;
+  color: var(--oxblood);
+  text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
 a:hover {
-  color: var(--cherry-600);
+  color: var(--oxblood-700);
 }
 :focus-visible {
-  outline: 3px solid var(--cherry);
-  outline-offset: 2px;
+  outline: 2px solid var(--oxblood);
+  outline-offset: 3px;
 }
 p,
 ul,
@@ -120,56 +134,106 @@ figure {
 h1,
 h2 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.08;
+  font-weight: 600;
+  line-height: 1.04;
   letter-spacing: 0.005em;
-  margin: 0 0 0.75rem;
-  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  color: var(--ink);
   text-wrap: balance;
 }
 h1 {
-  font-size: clamp(2.2rem, 8vw, 3.75rem);
+  font-size: clamp(2.3rem, 7.4vw, 4.6rem);
 }
 h2 {
-  font-size: clamp(1.7rem, 5.2vw, 2.6rem);
+  font-size: clamp(1.7rem, 4.6vw, 2.75rem);
+}
+/* Key words in oxblood: <h1>American craftsmanship <em>builds brands.</em></h1> */
+h1 em,
+h2 em,
+.accent {
+  font-style: normal;
+  color: var(--oxblood);
 }
 h3,
 h4 {
-  font-family: var(--font-body);
-  font-weight: 750;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   margin: 0 0 0.5rem;
-  color: var(--navy);
+  color: var(--ink);
 }
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.12rem;
 }
 h4 {
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 .script {
-  font-family: var(--font-script);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-family: var(--font-display);
 }
 .lead {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
+  line-height: 1.7;
   color: var(--ink-600);
-  max-width: 40rem;
+  max-width: 38rem;
 }
-/* Formerly monospace; now tabular body figures */
 .mono {
   font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
 }
-/* Small letterspaced label (eyebrows, card kickers) */
+
+/* Brass eyebrow: widely letter-spaced uppercase sans with a short brass rule.
+   `.ribbon` is the class name earlier pages use; `.eyebrow` and `.label` are aliases. */
+.eyebrow,
+.ribbon,
 .label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  --eyebrow: var(--brass-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--eyebrow);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  line-height: 1.3;
   text-transform: uppercase;
-  color: var(--cherry);
+}
+.eyebrow::before,
+.ribbon::before {
+  content: '';
+  flex: none;
+  width: 1.75rem;
+  height: 1px;
+  background: var(--brass);
+}
+.label {
+  margin-bottom: 0.6rem;
+  font-size: 0.66rem;
+}
+@media (max-width: 39.99rem) {
+  .eyebrow,
+  .ribbon {
+    gap: 0.65rem;
+    letter-spacing: 0.2em;
+  }
+  .eyebrow::before,
+  .ribbon::before {
+    width: 1.1rem;
+  }
+}
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) :is(.eyebrow, .ribbon, .label) {
+  --eyebrow: var(--brass-light);
+}
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) :is(.eyebrow, .ribbon)::before {
+  background: var(--brass-light);
 }
 
 /* ---------- Layout ---------- */
@@ -180,49 +244,63 @@ h4 {
   padding-inline: var(--gutter);
 }
 .section {
-  padding-block: 3.5rem;
+  padding-block: 4rem;
 }
 @media (min-width: 48rem) {
   .section {
-    padding-block: 5.5rem;
+    padding-block: 6.5rem;
   }
 }
 .section--cream {
-  background: var(--cream-100);
+  background: var(--bone);
 }
-/* Dark sections: deep navy or enamel teal — never black */
+/* Dark sections: charcoal (navy only as a rare accent) */
 .section--ink,
+.section--teal {
+  background: var(--char);
+  color: var(--cream);
+}
 .section--navy {
   background: var(--navy);
   color: var(--cream);
 }
-.section--teal {
-  background: var(--teal);
-  color: var(--cream);
-}
-:is(.section--ink, .section--navy, .section--teal) :is(h2, h3) {
+:is(.section--ink, .section--navy, .section--teal, .dark) :is(h1, h2, h3) {
   color: var(--paper);
 }
-:is(.section--ink, .section--navy, .section--teal) .lead {
+:is(.section--ink, .section--navy, .section--teal, .dark) :is(h1, h2) em {
+  color: var(--oxblood-300);
+}
+:is(.section--ink, .section--navy, .section--teal, .dark) .lead,
+:is(.section--ink, .section--navy, .section--teal, .dark) p {
   color: var(--cream-200);
 }
-:is(.section--ink, .section--navy, .section--teal) a:not(.btn) {
-  color: var(--robin);
+:is(.section--ink, .section--navy, .section--teal, .dark) a:not(.btn) {
+  color: var(--brass-light);
 }
 .section-head {
-  margin-bottom: 2.25rem;
-  max-width: 44rem;
+  margin-bottom: 2.75rem;
+  max-width: 46rem;
 }
-/* Short chrome pinstripe under section headings */
+/* thin brass rule under section headings */
 .section-head > h2::after {
   content: '';
   display: block;
-  width: 4.5rem;
-  height: 5px;
-  margin-top: 1rem;
-  background:
-    linear-gradient(var(--chrome), var(--chrome)) top / 100% 1px no-repeat,
-    linear-gradient(var(--chrome), var(--chrome)) bottom / 100% 1px no-repeat;
+  width: 3rem;
+  height: 1px;
+  margin-top: 1.25rem;
+  background: var(--brass);
+}
+.rule {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--brass);
+}
+.pinstripe {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--rule);
 }
 .grid {
   display: grid;
@@ -244,21 +322,21 @@ h4 {
   }
 }
 
-/* ---------- Buttons: rounded enamel ---------- */
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  min-height: 3rem;
-  padding: 0.8rem 1.4rem;
-  border: 2px solid transparent;
+  gap: 0.75rem;
+  min-height: 3.1rem;
+  padding: 0.9rem 1.6rem;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -267,8 +345,17 @@ h4 {
     background-color var(--dur-fast) var(--ease),
     color var(--dur-fast) var(--ease),
     border-color var(--dur-fast) var(--ease),
-    box-shadow var(--dur-fast) var(--ease),
     transform var(--dur-fast) var(--ease);
+}
+/* Trailing arrow on primary actions: <a class="btn btn--primary">Request a quote <span class="arr">→</span></a> */
+.btn .arr {
+  display: inline-block;
+  font-size: 1.05em;
+  letter-spacing: 0;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.btn:hover .arr {
+  transform: translateX(2px);
 }
 .btn:hover {
   transform: translateY(var(--lift-sm));
@@ -277,34 +364,29 @@ h4 {
   transform: translateY(0);
 }
 .btn--primary {
-  background: linear-gradient(180deg, var(--cherry-hi) 0%, var(--cherry) 52%, var(--cherry-600) 100%);
-  color: var(--cream-100);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.35),
-    inset 0 -2px 0 rgb(0 0 0 / 0.18),
-    0 3px 8px -3px rgb(116 20 25 / 0.55);
+  background: var(--oxblood);
+  color: var(--paper);
 }
 .btn--primary:hover {
-  background: linear-gradient(180deg, var(--cherry) 0%, var(--cherry-600) 100%);
+  background: var(--oxblood-700);
   color: var(--paper);
 }
 .btn--ghost {
-  border-color: currentColor;
-  color: var(--navy);
+  border-color: var(--ink);
+  color: var(--ink);
   background: transparent;
 }
 .btn--ghost:hover {
-  background: var(--navy);
-  color: var(--cream-100);
-  border-color: var(--navy);
+  background: var(--ink);
+  color: var(--paper);
 }
-:is(.section--ink, .section--navy, .section--teal, .sign) .btn--ghost {
-  color: var(--cream-100);
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .btn--ghost {
+  border-color: var(--cream-200);
+  color: var(--paper);
 }
-:is(.section--ink, .section--navy, .section--teal, .sign) .btn--ghost:hover {
-  background: var(--cream-100);
-  color: var(--navy);
-  border-color: var(--cream-100);
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .btn--ghost:hover {
+  background: var(--paper);
+  color: var(--ink);
 }
 .btn-row {
   display: flex;
@@ -312,176 +394,67 @@ h4 {
   gap: 0.75rem;
 }
 
-/* ---------- Enamel tag (section eyebrow). Class name kept from the old ribbon. ---------- */
-.ribbon {
-  --tag-bg: var(--cherry);
-  --tag-fg: var(--cream-100);
-  display: inline-block;
-  margin-bottom: 0.9rem;
-  padding: 0.42em 1.05em 0.38em;
-  border-radius: 999px;
-  background: var(--tag-bg);
-  color: var(--tag-fg);
-  /* double inset shadow = the thin rim of an enamel sign */
-  box-shadow:
-    inset 0 0 0 3px var(--tag-bg),
-    inset 0 0 0 4px color-mix(in srgb, var(--tag-fg) 70%, transparent);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.16em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-.ribbon--ink,
-.ribbon--navy {
-  --tag-bg: var(--navy);
-  --tag-fg: var(--cream-100);
-}
-.ribbon--cream {
-  --tag-bg: var(--cream);
-  --tag-fg: var(--navy);
-}
-.ribbon--teal {
-  --tag-bg: var(--teal);
-  --tag-fg: var(--cream-100);
-}
-
-/* ---------- Chrome pinstripe divider ---------- */
-.pinstripe {
-  height: 5px;
-  border: 0;
-  margin: 0;
-  background:
-    linear-gradient(var(--chrome), var(--chrome)) top / 100% 1px no-repeat,
-    linear-gradient(var(--chrome), var(--chrome)) bottom / 100% 1px no-repeat;
-}
-
-/* ---------- Porcelain sign panel (heroes and callouts only) ---------- */
+/* ---------- Dark panel (callouts). `.sign` kept as the class name from earlier pages. ---------- */
 .sign {
-  --sign-bg: var(--navy);
-  --sign-fg: var(--cream);
-  --rim: rgb(242 232 208 / 0.55);
   position: relative;
   isolation: isolate;
   padding: 2.25rem 1.5rem;
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(165deg, rgb(255 255 255 / 0.09) 0%, rgb(255 255 255 / 0) 38%),
-    var(--sign-bg);
-  color: var(--sign-fg);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    inset 0 -3px 0 rgb(0 0 0 / 0.22),
-    0 0 0 1px rgb(0 0 0 / 0.08),
-    0 22px 40px -24px rgb(19 30 49 / 0.7);
+  border-radius: var(--radius);
+  background: var(--char);
+  color: var(--cream);
 }
-/* Inner rim */
 .sign::before {
   content: '';
   position: absolute;
-  inset: 7px;
-  border: 2px solid var(--rim);
-  border-radius: calc(var(--radius-lg) - 6px);
+  inset: 6px;
+  border: 1px solid var(--rule-dark);
   pointer-events: none;
   z-index: -1;
 }
-/* Optional rivets: four small chrome dots in the corners */
+/* Optional brass rivets in the corners (hero and callout panels only) */
 .sign--rivets::after {
-  --r: 15px;
+  --r: 14px;
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at var(--r) var(--r), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
-    radial-gradient(circle at calc(100% - var(--r)) var(--r), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
-    radial-gradient(circle at var(--r) calc(100% - var(--r)), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px),
-    radial-gradient(circle at calc(100% - var(--r)) calc(100% - var(--r)), #f4f6f8 0 1.2px, #9aa1a9 2.6px, rgb(0 0 0 / 0.35) 3.3px, transparent 3.8px);
+    radial-gradient(circle at var(--r) var(--r), #f3e3ae 0 0.8px, #a8843f 1.9px, rgb(0 0 0 / 0.4) 2.6px, transparent 3px),
+    radial-gradient(circle at calc(100% - var(--r)) var(--r), #f3e3ae 0 0.8px, #a8843f 1.9px, rgb(0 0 0 / 0.4) 2.6px, transparent 3px),
+    radial-gradient(circle at var(--r) calc(100% - var(--r)), #f3e3ae 0 0.8px, #a8843f 1.9px, rgb(0 0 0 / 0.4) 2.6px, transparent 3px),
+    radial-gradient(circle at calc(100% - var(--r)) calc(100% - var(--r)), #f3e3ae 0 0.8px, #a8843f 1.9px, rgb(0 0 0 / 0.4) 2.6px, transparent 3px);
 }
-.sign h1,
-.sign h2 {
+.sign :is(h1, h2, h3) {
   color: var(--paper);
 }
-.sign--cherry {
-  --sign-bg: var(--cherry);
+.sign p {
+  color: var(--cream-200);
 }
-.sign--teal {
-  --sign-bg: var(--teal);
+.sign--cherry {
+  background: var(--oxblood);
 }
 .sign--cream {
-  --sign-bg: var(--cream);
-  --sign-fg: var(--navy);
-  --rim: rgb(28 43 69 / 0.45);
-}
-.sign--cream h1,
-.sign--cream h2 {
-  color: var(--navy);
+  background: var(--paper);
+  color: var(--ink);
 }
 @media (min-width: 48rem) {
   .sign {
-    padding: 3.25rem 3rem;
+    padding: 3rem;
   }
 }
 
-/* ---------- Roundel: enamel disc for proof points ---------- */
-.roundel {
-  --disc: var(--navy);
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.15rem;
-  aspect-ratio: 1;
-  width: 100%;
-  max-width: 9.5rem;
-  margin-inline: auto;
-  padding: 0.75rem;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 28%, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 55%),
-    var(--disc);
-  color: var(--cream-100);
-  text-align: center;
-  box-shadow:
-    inset 0 0 0 5px var(--disc),
-    inset 0 0 0 7px rgb(242 232 208 / 0.7),
-    0 0 0 3px var(--chrome-light),
-    0 0 0 4px var(--chrome-dark),
-    0 10px 18px -10px rgb(19 30 49 / 0.6);
-}
-.roundel--cherry {
-  --disc: var(--cherry);
-}
-.roundel--teal {
-  --disc: var(--teal);
-}
-.roundel__value {
-  font-family: var(--font-display);
-  font-size: clamp(1.45rem, 6vw, 2rem);
-  line-height: 1;
-  color: var(--paper);
-}
-.roundel__label {
-  font-size: 0.65rem;
-  font-weight: 750;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--cream-200);
-}
-
-/* ---------- Cards (plain, for body content) ---------- */
+/* ---------- Cards and tiles ---------- */
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1.6rem;
   background: var(--paper);
-  border: 1px solid var(--chrome-light);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
 }
 .card h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 .card p {
   color: var(--ink-600);
@@ -491,42 +464,56 @@ h4 {
   text-decoration: none;
   transition:
     transform var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    box-shadow var(--dur) var(--ease);
+    border-color var(--dur) var(--ease);
 }
 .card--link:hover {
   color: inherit;
-  border-color: var(--chrome);
+  border-color: var(--brass);
   transform: translateY(var(--lift));
-  box-shadow: 0 1px 2px rgb(28 43 69 / 0.06), 0 16px 30px -18px rgb(28 43 69 / 0.45);
 }
 .card--link h3 {
   transition: color var(--dur-fast) var(--ease);
 }
 .card--link:hover h3 {
-  color: var(--cherry);
+  color: var(--oxblood);
 }
 .card__more {
   margin-top: auto;
-  font-size: 0.82rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  padding-top: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--cherry);
+  color: var(--oxblood);
 }
 
-/* ---------- Spec list: body sans, bold labels ---------- */
+/* Photo placeholder: dark, so the eventual moody product shots sit naturally.
+   Used inside tiles and hero media while a photo slot is empty. */
+.ph {
+  position: relative;
+  display: grid;
+  place-items: end start;
+  width: 100%;
+  height: 100%;
+  min-height: 10rem;
+  padding: 1rem;
+  background:
+    radial-gradient(120% 90% at 70% 30%, #3a332b 0%, #1d1915 55%, #110f0d 100%);
+  color: var(--cream-200);
+}
+
+/* ---------- Spec list ---------- */
 .specs {
   display: grid;
   margin: 0;
-  border-top: 1px solid var(--chrome-light);
+  border-top: 1px solid var(--rule);
 }
 .specs > div {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.15rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--chrome-light);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
 }
 @media (min-width: 40rem) {
   .specs > div {
@@ -535,27 +522,54 @@ h4 {
   }
 }
 .specs dt {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--navy);
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--ink);
 }
 .specs dd {
   margin: 0;
   color: var(--ink-600);
 }
-:is(.section--ink, .section--navy, .section--teal, .sign) .specs,
-:is(.section--ink, .section--navy, .section--teal, .sign) .specs > div {
-  border-color: rgb(242 232 208 / 0.2);
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .specs,
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .specs > div {
+  border-color: var(--rule-dark);
 }
-:is(.section--ink, .section--navy, .section--teal, .sign) .specs dt {
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .specs dt {
   color: var(--paper);
 }
-:is(.section--ink, .section--navy, .section--teal, .sign) .specs dd {
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .specs dd {
   color: var(--cream-200);
 }
 
+/* ---------- Roundel (proof points) ---------- */
+.roundel {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.2rem;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 9rem;
+  margin-inline: auto;
+  border-radius: 50%;
+  border: 1px solid var(--brass);
+  box-shadow: inset 0 0 0 5px var(--cream), inset 0 0 0 6px var(--rule);
+  text-align: center;
+}
+.roundel__value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.roundel__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+}
+
 /* ---------- Shared page patterns ---------- */
-/* Two-column content split (stacks on mobile) */
 .split {
   display: grid;
   gap: 2.5rem;
@@ -563,21 +577,19 @@ h4 {
 @media (min-width: 56rem) {
   .split {
     grid-template-columns: 1fr 1.15fr;
-    gap: 4rem;
+    gap: 5rem;
     align-items: start;
   }
 }
 .hero-cta {
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
-
-/* Numbered process steps */
 .steps {
   list-style: none;
   padding: 0;
   margin: 0 0 1.5rem;
   display: grid;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 @media (min-width: 40rem) {
   .steps {
@@ -590,22 +602,20 @@ h4 {
   }
 }
 .step {
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--chrome);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--brass);
 }
 .step__n {
   display: block;
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1;
-  color: var(--cherry);
-  margin-bottom: 0.5rem;
+  color: var(--oxblood);
+  margin-bottom: 0.75rem;
 }
 .step p {
   color: var(--ink-600);
 }
-
-/* Starred audience list (on dark sections) */
 .audience {
   list-style: none;
   padding: 0;
@@ -613,23 +623,24 @@ h4 {
 }
 .audience li {
   display: flex;
-  gap: 0.6rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid rgb(242 232 208 / 0.2);
-  font-weight: 600;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule-dark);
+  font-weight: 500;
 }
 .audience li::before {
-  content: '\2605';
+  content: '';
   flex: none;
-  color: var(--robin);
+  width: 0.9rem;
+  height: 1px;
+  margin-top: 0.85em;
+  background: var(--brass-light);
 }
-
-/* FAQ section: heading left, accordion right on desktop */
 @media (min-width: 56rem) {
   .faq-wrap {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 4rem;
+    gap: 5rem;
     align-items: start;
   }
 }
@@ -639,11 +650,11 @@ h4 {
   display: inline;
   padding: 0.05em 0.35em;
   border: 1px dashed #c47a00;
-  border-radius: 3px;
+  border-radius: 2px;
   background: #fff4d6;
   color: #6b4100;
   font-family: var(--font-mono);
-  font-size: 0.8em;
+  font-size: 0.78em;
   font-weight: 400;
   font-style: normal;
   text-transform: none;
@@ -674,10 +685,10 @@ h4 {
   top: -100px;
   z-index: 100;
   padding: 0.75rem 1rem;
-  background: var(--navy);
-  color: var(--cream);
+  background: var(--ink);
+  color: var(--paper);
 }
 .skip-link:focus {
   top: 1rem;
-  color: var(--cream);
+  color: var(--paper);
 }

@@ -1,96 +1,141 @@
 ---
-// Interior page header: visible breadcrumbs, ribbon, H1, optional script accent and lead.
+// Interior page header: breadcrumbs, brass eyebrow, uppercase serif title with an
+// oxblood second line, lead, optional actions (slot), and an optional photo that
+// fades into the background. `variant="dark"` is the charcoal version (About page).
+import MediaSlot from './MediaSlot.astro';
 import type { Crumb } from '../lib/schema';
+import type { PhotoSlotName } from '../data/photos';
 
 interface Props {
   title: string;
-  /** Script-font line under the H1, e.g. "since 1948". */
+  /** Second headline line, set in oxblood. */
   accent?: string;
+  /** Brass eyebrow above the title. (Named `ribbon` for compatibility with earlier pages.) */
   ribbon?: string;
   lead?: string;
   breadcrumbs?: Crumb[];
+  photo?: PhotoSlotName;
+  photoTodo?: string;
+  variant?: 'light' | 'dark';
 }
-const { title, accent, ribbon, lead, breadcrumbs = [] } = Astro.props;
+const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = 'Hero photo: dark, moody product shot', variant = 'light' } = Astro.props;
+const accentText = accent ? accent.replace(/[.!?]?$/, '.') : undefined;
+// Never break the company name across lines (U+2011 non-breaking hyphen).
+const nb = (s: string) => s.replace(/Mel-Co-Ed/g, 'Mel\u2011Co\u2011Ed');
+const titleText = nb(title);
 ---
 
-<section class="page-hero">
-  <div class="wrap">
-    {
-      breadcrumbs.length > 0 && (
-        <nav class="crumbs" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Home</a></li>
-            {breadcrumbs.map((c, i) =>
-              i === breadcrumbs.length - 1 ? (
-                <li aria-current="page">{c.name}</li>
-              ) : (
-                <li><a href={c.path}>{c.name}</a></li>
-              ),
-            )}
-          </ol>
-        </nav>
-      )
-    }
-    <div class="sign sign--rivets page-hero__sign">
-      {ribbon && <span class="ribbon">{ribbon}</span>}
+<section class:list={['page-hero', `page-hero--${variant}`, { 'page-hero--media': photo, dark: variant === 'dark' }]}>
+  <div class="wrap page-hero__grid">
+    <div class="page-hero__text">
+      {
+        breadcrumbs.length > 0 && (
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              {breadcrumbs.map((c, i) =>
+                i === breadcrumbs.length - 1 ? (
+                  <li aria-current="page">{c.name}</li>
+                ) : (
+                  <li><a href={c.path}>{c.name}</a></li>
+                ),
+              )}
+            </ol>
+          </nav>
+        )
+      }
+      {ribbon && <p class="eyebrow">{ribbon}</p>}
       <h1>
-        {title}
-        {accent && <span class="script page-hero__accent">{accent}</span>}
+        {titleText}
+        {accentText && <em class="page-hero__accent">{accentText}</em>}
       </h1>
       {lead && <p class="lead">{lead}</p>}
       <slot />
     </div>
+    {
+      photo && (
+        <MediaSlot
+          slot={photo}
+          aspect="4 / 3"
+          fade="left"
+          eager
+          sizes="(min-width: 64rem) 50vw, 100vw"
+          todo={photoTodo}
+          class="page-hero__media"
+        />
+      )
+    }
   </div>
 </section>
 
 <style>
   .page-hero {
-    padding-block: 1rem 0.5rem;
+    padding-block: 2rem 3rem;
+    border-bottom: 1px solid var(--rule);
   }
-  @media (min-width: 48rem) {
+  .page-hero--dark {
+    background: var(--char);
+    border-bottom-color: var(--brass);
+  }
+  .page-hero__grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 64rem) {
     .page-hero {
-      padding-block: 1.5rem 1rem;
+      padding-block: 3rem 4.5rem;
+    }
+    .page-hero--media .page-hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .page-hero--media :global(.page-hero__media) {
+      margin-right: calc(var(--gutter) * -1);
     }
   }
   .page-hero h1 {
-    max-width: 22ch;
-    margin-bottom: 1rem;
+    max-width: 18ch;
+    font-size: clamp(2.2rem, 6.6vw, 4.1rem);
+    margin-bottom: 1.25rem;
   }
   .page-hero__accent {
     display: block;
-    margin-top: 0.3em;
-    color: var(--robin);
-    font-size: 0.62em;
-    line-height: 1.1;
-    transform: rotate(-2deg);
-    transform-origin: left center;
   }
   .page-hero .lead {
     margin-bottom: 0;
+  }
+  .page-hero--dark .lead {
     color: var(--cream-200);
   }
+
   .crumbs ol {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 0.5rem;
+    gap: 0.25rem 0.6rem;
     list-style: none;
-    margin: 0 0 1rem;
+    margin: 0 0 2rem;
     padding: 0;
-    font-size: 0.78rem;
+    font-size: 0.66rem;
     font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     color: var(--ink-400);
   }
   .crumbs li + li::before {
     content: '/';
-    margin-right: 0.5rem;
-    color: var(--chrome);
+    margin-right: 0.6rem;
+    color: var(--brass);
   }
   .crumbs a {
     color: var(--ink-600);
     text-decoration: none;
   }
   .crumbs a:hover {
-    color: var(--cherry);
-    text-decoration: underline;
+    color: var(--oxblood);
+  }
+  .page-hero--dark .crumbs,
+  .page-hero--dark .crumbs a {
+    color: var(--cream-200);
   }
 </style>

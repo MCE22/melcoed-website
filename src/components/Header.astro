@@ -10,66 +10,83 @@ const isActive = (href: string) => href !== '/' && !href.includes('#') && path.s
 const items = nav
   .map((item) => (item.children ? { ...item, children: liveLinks(item.children) } : item))
   .filter((item) => (item.children ? item.children.length > 0 : isLive(item.href)));
+const hasSearch = isLive('/search/');
 ---
 
 <header class="site-header">
-  <div class="topbar">
-    <div class="wrap topbar__inner">
-      <span class="topbar__since">Family-owned &middot; Pawtucket, R.I. &middot; Since {site.foundingYear}</span>
-      <a class="topbar__phone" href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
-    </div>
-  </div>
+  <div class="wrap bar">
+    <p class="est" aria-hidden="true">Est. {site.foundingYear}<br />{site.address.city}, {site.address.region}</p>
 
-  <div class="mainbar">
-    <div class="wrap mainbar__inner">
-      <Logo />
+    <Logo width={148} />
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <ul class="nav__list">
+        {
+          items.map((item, i) =>
+            item.children ? (
+              <li class="nav__item nav__item--has-sub">
+                <button class="nav__link nav__sub-toggle" type="button" aria-expanded="false" aria-controls={`nav-sub-${i}`}>
+                  {item.label}
+                  <svg class="nav__caret" viewBox="0 0 10 6" width="9" height="6" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.3" />
+                  </svg>
+                </button>
+                <ul id={`nav-sub-${i}`} class="nav__sub">
+                  {item.children.map((c) => (
+                    <li>
+                      <a href={c.href} aria-current={isActive(c.href) ? 'page' : undefined}>
+                        {c.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li class="nav__item">
+                <a class="nav__link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )
+        }
+      </ul>
+      {
+        hasSearch && (
+          <a class="icon-btn nav__search" href="/search/" aria-label="Search the site">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+            </svg>
+          </a>
+        )
+      }
+      <a class="nav__phone" href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+      <a class="btn btn--primary nav__cta" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+    </nav>
+
+    <div class="tools">
+      {
+        hasSearch && (
+          <a class="icon-btn tools__search" href="/search/" aria-label="Search the site">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+            </svg>
+          </a>
+        )
+      }
+      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="menu-toggle__bars" aria-hidden="true"></span>
         <span class="visually-hidden">Menu</span>
       </button>
-
-      <nav id="site-nav" class="nav" aria-label="Main">
-        <ul class="nav__list">
-          {
-            items.map((item, i) =>
-              item.children ? (
-                <li class="nav__item nav__item--has-sub">
-                  <button class="nav__link nav__sub-toggle" type="button" aria-expanded="false" aria-controls={`nav-sub-${i}`}>
-                    {item.label}
-                    <svg class="nav__caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true">
-                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
-                    </svg>
-                  </button>
-                  <ul id={`nav-sub-${i}`} class="nav__sub">
-                    {item.children.map((c) => (
-                      <li>
-                        <a href={c.href} aria-current={isActive(c.href) ? 'page' : undefined}>
-                          {c.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ) : (
-                <li class="nav__item">
-                  <a class="nav__link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-                    {item.label}
-                  </a>
-                </li>
-              ),
-            )
-          }
-        </ul>
-        <a class="btn btn--primary nav__cta" href={quoteHref}>Request a Quote</a>
-      </nav>
     </div>
   </div>
 </header>
 
 <script>
-  // Mobile menu + Products submenu. Progressive enhancement: without JS the
-  // desktop submenu still opens on hover/focus, and every link exists in the footer.
+  // Mobile menu + dropdowns. Progressive enhancement: without JS the desktop
+  // dropdowns still open on hover/focus, and every link exists in the footer.
   const header = document.querySelector('.site-header');
   const toggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
   const subToggles = [...(header?.querySelectorAll<HTMLButtonElement>('.nav__sub-toggle') ?? [])];
@@ -89,7 +106,6 @@ const items = nav
   for (const btn of subToggles) {
     btn.addEventListener('click', () => {
       const open = !isOpen(btn);
-      // One dropdown at a time
       for (const other of subToggles) setOpen(other, false);
       setOpen(btn, open);
     });
@@ -117,78 +133,68 @@ const items = nav
     position: sticky;
     top: 0;
     z-index: 50;
+    background: color-mix(in srgb, var(--cream) 94%, transparent);
+    backdrop-filter: saturate(1.2) blur(8px);
+    border-bottom: 1px solid var(--rule);
   }
-
-  /* Utility bar */
-  .topbar {
-    background: var(--navy);
-    color: var(--cream-200);
-    font-size: 0.8rem;
-  }
-  .topbar__inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    min-height: 2.1rem;
-  }
-  .topbar__since {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .topbar__phone {
-    color: var(--cream-100);
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .topbar__phone:hover {
-    color: var(--robin);
-    text-decoration: underline;
-  }
-
-  /* Main bar: off-white with a double chrome pinstripe beneath */
-  .mainbar {
-    background: var(--paper);
-    border-bottom: 1px solid var(--chrome);
-    box-shadow:
-      0 3px 0 var(--paper),
-      0 4px 0 var(--chrome),
-      0 12px 20px -18px rgb(19 30 49 / 0.5);
-  }
-  .mainbar__inner {
+  .bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 1.5rem;
     min-height: var(--header-h);
-    gap: 1rem;
+  }
+  .bar :global(.logo) {
+    width: 118px;
+  }
+  @media (min-width: 48rem) {
+    .bar :global(.logo) {
+      width: 148px;
+    }
   }
 
-  /* Mobile toggle */
-  .menu-toggle {
+  .est {
+    display: none;
+    margin: 0;
+    padding-right: 1.5rem;
+    border-right: 1px solid var(--rule);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    line-height: 1.7;
+    text-transform: uppercase;
+    color: var(--brass-text);
+    white-space: nowrap;
+  }
+
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: auto;
+  }
+  .icon-btn {
     display: grid;
     place-items: center;
-    width: 3rem;
-    height: 3rem;
-    margin-right: -0.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border: 0;
     background: none;
-    color: var(--navy);
+    color: var(--ink);
     cursor: pointer;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .icon-btn:hover {
+    color: var(--oxblood);
+  }
+  .menu-toggle {
+    margin-right: -0.6rem;
   }
   .menu-toggle__bars,
   .menu-toggle__bars::before,
   .menu-toggle__bars::after {
     display: block;
-    width: 1.5rem;
-    height: 2px;
-    border-radius: 2px;
+    width: 1.4rem;
+    height: 1.5px;
     background: currentColor;
     transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
   }
@@ -202,35 +208,33 @@ const items = nav
     left: 0;
   }
   .menu-toggle__bars::before {
-    top: -7px;
+    top: -6px;
   }
   .menu-toggle__bars::after {
-    top: 7px;
+    top: 6px;
   }
   .menu-toggle[aria-expanded='true'] .menu-toggle__bars {
     background: transparent;
   }
   .menu-toggle[aria-expanded='true'] .menu-toggle__bars::before {
-    transform: translateY(7px) rotate(45deg);
+    transform: translateY(6px) rotate(45deg);
   }
   .menu-toggle[aria-expanded='true'] .menu-toggle__bars::after {
-    transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-6px) rotate(-45deg);
   }
 
-  /* Nav — mobile panel */
+  /* Nav: mobile panel */
   .nav {
     display: none;
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(100% + 4px);
-    max-height: calc(100dvh - var(--header-h) - 2.1rem);
+    top: 100%;
+    max-height: calc(100dvh - var(--header-h));
     overflow-y: auto;
-    padding: 0.5rem var(--gutter) 1.5rem;
-    background: var(--paper);
-    border-bottom: 1px solid var(--chrome);
-    box-shadow: 0 24px 30px -20px rgb(19 30 49 / 0.45);
-    /* slide/fade open; display transitions discretely so closing animates too */
+    padding: 0.5rem var(--gutter) 1.75rem;
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
     opacity: 0;
     transform: translateY(-6px);
     transition:
@@ -251,33 +255,34 @@ const items = nav
   }
   .nav__list {
     list-style: none;
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
     padding: 0;
   }
   .nav__item {
-    border-bottom: 1px solid var(--chrome-light);
+    border-bottom: 1px solid var(--rule);
   }
   .nav__link {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 0.95rem 0;
+    padding: 1rem 0;
     border: 0;
     background: none;
-    color: var(--navy);
+    color: var(--ink);
     font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 750;
-    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     line-height: 1.2;
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
+    transition: color var(--dur-fast) var(--ease);
   }
   .nav__link:hover,
   .nav__link[aria-current='page'] {
-    color: var(--cherry);
+    color: var(--oxblood);
   }
   .nav__caret {
     transition: transform var(--dur) var(--ease);
@@ -289,8 +294,8 @@ const items = nav
     display: none;
     list-style: none;
     margin: 0;
-    padding: 0 0 0.75rem 0.9rem;
-    border-left: 2px solid var(--chrome);
+    padding: 0 0 0.9rem 1rem;
+    border-left: 1px solid var(--brass);
     opacity: 0;
     transform: translateY(-4px);
     transition:
@@ -313,32 +318,40 @@ const items = nav
     display: block;
     padding: 0.5rem 0;
     color: var(--ink-600);
-    font-weight: 500;
     text-decoration: none;
   }
   .nav__sub a:hover,
   .nav__sub a[aria-current='page'] {
-    color: var(--cherry);
+    color: var(--oxblood);
+  }
+  .nav__phone {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-decoration: none;
   }
   .nav__cta {
     width: 100%;
   }
 
-  /* Nav — desktop */
+  /* Desktop */
   @media (min-width: 72rem) {
-    .menu-toggle {
-      display: none;
+    .bar {
+      gap: 2rem;
     }
     .nav {
       display: flex;
       align-items: center;
       gap: 1.75rem;
       position: static;
+      flex: 1;
+      justify-content: flex-end;
       max-height: none;
       overflow: visible;
       padding: 0;
       border: 0;
-      box-shadow: none;
       background: none;
       opacity: 1;
       transform: none;
@@ -346,7 +359,7 @@ const items = nav
     }
     .nav__list {
       display: flex;
-      gap: 1.6rem;
+      gap: 1.9rem;
       margin: 0;
     }
     .nav__item {
@@ -354,26 +367,36 @@ const items = nav
       border: 0;
     }
     .nav__link {
-      gap: 0.4rem;
-      padding: 0.5rem 0;
-      font-size: 0.82rem;
-      background: linear-gradient(var(--cherry), var(--cherry)) left bottom / 0 2px no-repeat;
-      transition: background-size var(--dur) var(--ease), color var(--dur-fast) var(--ease);
+      gap: 0.45rem;
+      padding: 0.6rem 0;
+      font-size: 0.7rem;
+      background: linear-gradient(var(--brass), var(--brass)) left bottom / 0 1px no-repeat;
+      transition:
+        background-size var(--dur) var(--ease),
+        color var(--dur-fast) var(--ease);
     }
     .nav__link:hover,
     .nav__link[aria-current='page'] {
-      background-size: 100% 2px;
+      background-size: 100% 1px;
     }
     .nav__sub {
       position: absolute;
-      top: calc(100% + 0.25rem);
-      left: -1rem;
+      top: calc(100% + 0.6rem);
+      left: -1.25rem;
       min-width: 16rem;
-      padding: 0.5rem;
+      padding: 0.6rem 0;
       background: var(--paper);
-      border: 1px solid var(--chrome-light);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--rule);
+      border-top: 1px solid var(--brass);
+      box-shadow: 0 18px 30px -24px rgb(27 24 21 / 0.45);
+    }
+    .nav__item--has-sub::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 0.8rem;
     }
     .nav__item--has-sub:hover .nav__sub,
     .nav__item--has-sub:focus-within .nav__sub {
@@ -388,28 +411,39 @@ const items = nav
         transform: translateY(-4px);
       }
     }
-    /* hover bridge so the menu doesn't close in the gap */
-    .nav__item--has-sub::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      height: 0.5rem;
-    }
     .nav__sub a {
-      padding: 0.55rem 0.75rem;
-      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.92rem;
     }
     .nav__sub a:hover {
-      background: var(--cream-100);
+      background: var(--cream);
+    }
+    .nav__phone {
+      display: none;
     }
     .nav__cta {
       width: auto;
+      min-height: 2.75rem;
+      padding: 0.7rem 1.15rem;
+      font-size: 0.66rem;
       white-space: nowrap;
-      min-height: 2.6rem;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.8rem;
+    }
+    .tools {
+      display: none;
+    }
+  }
+  .nav__search {
+    display: none;
+  }
+  @media (min-width: 72rem) {
+    .nav__search {
+      display: grid;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 85rem) {
+    .est {
+      display: block;
     }
   }
 </style>

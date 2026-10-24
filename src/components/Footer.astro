@@ -1,6 +1,8 @@
 ---
 import Logo from './Logo.astro';
+import Seal from './Seal.astro';
 import { site, divisions, productLinks, industryLinks, quoteHref, mapsUrl } from '../data/site';
+import { madeIn } from '../data/brand';
 import { liveLinks } from '../lib/routes';
 
 interface Props {
@@ -17,35 +19,39 @@ const company = liveLinks([
   { label: 'FAQ', href: '/faq/' },
   { label: 'Request a Quote', href: quoteHref },
   { label: 'Contact', href: '/contact/' },
+  { label: 'Search', href: '/search/' },
 ]);
 // Division names always show; they link once their landing page exists.
 const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.links)[0]?.href }));
 ---
 
-<footer class:list={['site-footer', { 'site-footer--no-cta': hideCta }]}>
+<footer class="site-footer">
   {
     !hideCta && (
       <div class="footer-cta">
-        <div class="wrap">
-          <div class="sign sign--cherry sign--rivets footer-cta__panel">
-            <p class="footer-cta__text">
-              <span class="script">Got a print, a sketch or an old badge?</span>
-              <span class="footer-cta__sub">Send it over. We'll tell you what it takes to strike it.</span>
+        <div class="wrap footer-cta__inner">
+          <div>
+            <p class="eyebrow">Start a project</p>
+            <p class="footer-cta__h">
+              Got a print, a sketch <em>or an old badge?</em>
             </p>
-            <div class="btn-row">
-              <a class="btn btn--cream" href={quoteHref}>Request a Quote</a>
-              <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
-            </div>
+            <p class="footer-cta__sub">Send it over. We'll tell you what it takes to strike it.</p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={quoteHref}>
+              Request a Quote <span class="arr" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
           </div>
         </div>
       </div>
     )
   }
 
-  <div class="footer-main">
+  <div class="footer-main dark">
     <div class="wrap footer-grid">
       <div class="footer-brand">
-        <Logo tone="cream" size="lg" />
+        <Logo variant="primary" width={240} eager={false} />
         <p class="footer-tag">{site.tagline}</p>
         <address class="footer-nap">
           <strong>{site.name}</strong><br />
@@ -91,83 +97,84 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
         <ul>{company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
       </nav>
     </div>
+
+    <div class="wrap footer-marks">
+      <div class="footer-seals">
+        <Seal size={96} />
+        <Seal mark="madeIn" size={96} />
+      </div>
+      <p class="footer-made">
+        <span class="footer-made__primary">{madeIn.primary}</span>
+        <span class="footer-made__secondary">{madeIn.secondary}</span>
+      </p>
+    </div>
   </div>
 
   <div class="footer-base">
     <div class="wrap footer-base__inner">
       <span>&copy; {year} {site.name} All rights reserved.</span>
-      <span>Made in Pawtucket, R.I. &middot; Est. {site.foundingYear}</span>
+      <span>Est. {site.foundingYear} &middot; {site.address.city}, {site.address.regionName}</span>
     </div>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    color: var(--cream-200);
-    background: var(--navy);
-  }
   .site-footer a {
-    color: var(--cream-100);
     text-decoration: none;
   }
-  .site-footer a:not(.btn):hover {
-    color: var(--robin);
-    text-decoration: underline;
-  }
 
-  /* CTA sign hangs half over the page, half over the footer */
+  /* CTA band on cream */
   .footer-cta {
-    background: linear-gradient(var(--offwhite) 50%, var(--navy) 50%);
-    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
   }
-  .footer-cta__panel {
+  .footer-cta__inner {
     display: grid;
-    gap: 1.25rem;
+    gap: 1.75rem;
+    padding-block: 3.5rem;
   }
-  .footer-cta__text {
-    margin: 0;
+  .footer-cta__h {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4.6vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.08;
+    text-transform: uppercase;
+    color: var(--ink);
   }
-  .footer-cta__text .script {
-    display: block;
-    font-size: clamp(1.9rem, 6vw, 2.6rem);
-    line-height: 1.1;
-    color: var(--paper);
+  .footer-cta__h em {
+    font-style: normal;
+    color: var(--oxblood);
   }
   .footer-cta__sub {
-    display: block;
-    margin-top: 0.4rem;
-    color: var(--cream);
+    margin: 0;
+    color: var(--ink-600);
   }
-  /* scoped under .site-footer so the footer's link color doesn't override it */
-  .site-footer .btn--cream {
-    background: linear-gradient(180deg, var(--paper), var(--cream));
-    color: var(--cherry-600);
-    box-shadow:
-      inset 0 1px 0 #fff,
-      inset 0 -2px 0 rgb(0 0 0 / 0.1),
-      0 3px 8px -3px rgb(0 0 0 / 0.35);
-  }
-  .site-footer .btn--cream:hover {
-    background: var(--paper);
-    color: var(--cherry-800);
-  }
-  @media (min-width: 48rem) {
-    .footer-cta__panel {
+  @media (min-width: 56rem) {
+    .footer-cta__inner {
       grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 2rem;
+      align-items: end;
+      gap: 3rem;
+      padding-block: 5rem;
     }
   }
 
+  /* Main footer: charcoal with brass hairlines */
   .footer-main {
-    padding-block: 3rem;
+    padding-block: 3.5rem 2rem;
+    background: var(--char);
+    color: var(--cream-200);
+    border-top: 1px solid var(--brass);
   }
-  .site-footer--no-cta .footer-main {
-    border-top: 1px solid var(--chrome-dark);
+  .footer-main a {
+    color: var(--cream);
+  }
+  .footer-main a:hover {
+    color: var(--brass-light);
+    text-decoration: underline;
   }
   .footer-grid {
     display: grid;
-    gap: 2rem;
+    gap: 2.25rem;
   }
   @media (min-width: 40rem) {
     .footer-grid {
@@ -179,45 +186,45 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
   }
   @media (min-width: 64rem) {
     .footer-grid {
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
     }
     .footer-brand {
       grid-column: auto;
     }
   }
+  .footer-brand :global(.logo) {
+    width: 210px;
+  }
   .footer-tag {
-    margin: 0.75rem 0 1rem;
-    font-size: 0.72rem;
-    font-weight: 750;
-    letter-spacing: 0.16em;
+    margin: 1.25rem 0 1rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: var(--robin);
+    color: var(--brass-light);
   }
   .footer-nap {
     font-style: normal;
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 0.5rem;
   }
   .footer-map {
     font-size: 0.9rem;
   }
   .footer-h {
-    display: inline-block;
-    margin: 0 0 0.85rem;
-    padding-bottom: 0.55rem;
+    margin: 0 0 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--rule-dark);
     font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 750;
-    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: var(--robin);
-    /* chrome pinstripe underline */
-    background:
-      linear-gradient(var(--chrome-dark), var(--chrome-dark)) left bottom / 100% 1px no-repeat,
-      linear-gradient(var(--chrome-dark), var(--chrome-dark)) left calc(100% - 3px) / 100% 1px no-repeat;
+    color: var(--brass-light);
   }
   .footer-h--spaced {
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
   }
   .footer-col ul {
     list-style: none;
@@ -226,12 +233,51 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
   }
   .footer-col li {
     padding: 0.3rem 0;
+    font-size: 0.95rem;
+  }
+
+  .footer-marks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule-dark);
+  }
+  .footer-seals {
+    display: flex;
+    gap: 1rem;
+  }
+  .footer-seals :global(.seal) {
+    width: 84px;
+  }
+  .footer-made {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+  }
+  .footer-made__primary {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .footer-made__secondary {
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brass-light);
   }
 
   .footer-base {
-    border-top: 1px solid rgb(180 186 193 / 0.25);
-    font-size: 0.8rem;
-    color: var(--chrome);
+    background: var(--char);
+    border-top: 1px solid var(--rule-dark);
+    font-size: 0.78rem;
+    color: var(--steel);
   }
   .footer-base__inner {
     display: flex;

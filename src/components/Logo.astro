@@ -1,63 +1,42 @@
 ---
-// Script wordmark modeled on the vintage sign.
-// TODO: replace with a vector trace of the actual sign logo (SVG) once supplied;
-// keep the <a> wrapper and aria-label so header/footer don't need changes.
+// Brass plate logo. Files and sizes come from src/data/brand.ts, so swapping the
+// generated SVG for a photo of a real struck plate is a one-line change there.
+import { brand } from '../data/brand';
+
 interface Props {
-  tone?: 'red' | 'cream';
-  size?: 'md' | 'lg';
+  variant?: 'compact' | 'primary';
+  /** Rendered width in px (height follows the mark's proportions). */
+  width?: number;
+  link?: boolean;
+  eager?: boolean;
 }
-const { tone = 'red', size = 'md' } = Astro.props;
+const { variant = 'compact', width = 150, link = true, eager = true } = Astro.props;
+const mark = variant === 'primary' ? brand.plate : brand.plateCompact;
+const height = Math.round((width * mark.height) / mark.width);
+const img = { src: mark.src, width, height, alt: link ? `${mark.alt} home` : mark.alt };
 ---
 
-<a href="/" class:list={['logo', `logo--${tone}`, `logo--${size}`]} aria-label="Mel-Co-Ed, Inc. home">
-  <span class="logo__script" aria-hidden="true">Mel-Co-Ed</span>
-  <span class="logo__inc" aria-hidden="true">Inc.</span>
-</a>
+{
+  link ? (
+    <a href="/" class="logo" aria-label={img.alt}>
+      <img {...img} alt="" decoding="async" loading={eager ? 'eager' : 'lazy'} />
+    </a>
+  ) : (
+    <img class="logo" {...img} decoding="async" loading={eager ? 'eager' : 'lazy'} />
+  )
+}
 
 <style>
   .logo {
-    display: inline-flex;
-    align-items: flex-end;
-    gap: 0.3rem;
-    text-decoration: none;
-    line-height: 1;
-    white-space: nowrap;
+    display: inline-block;
+    flex: none;
+    line-height: 0;
   }
-  .logo__script {
-    font-family: var(--font-script);
-    font-size: 2.1rem;
-    line-height: 0.9;
-    padding-bottom: 0.18em;
-    /* Sign-style swash underline */
-    background: linear-gradient(currentColor, currentColor) left bottom / 100% 2px no-repeat;
-  }
-  .logo__inc {
-    font-family: var(--font-body);
-    font-size: 0.68rem;
-    font-weight: 750;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding-bottom: 0.7em;
-  }
-  .logo--lg .logo__script {
-    font-size: 3rem;
-  }
-  .logo--red {
-    color: var(--cherry);
-  }
-  .logo--red:hover {
-    color: var(--cherry-600);
-  }
-  .logo--cream,
-  .logo--cream:hover {
-    color: var(--cream);
-  }
-  @media (min-width: 48rem) {
-    .logo__script {
-      font-size: 2.5rem;
-    }
-    .logo--lg .logo__script {
-      font-size: 3.5rem;
-    }
+  .logo img,
+  img.logo {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    filter: drop-shadow(0 2px 3px rgb(27 24 21 / 0.25));
   }
 </style>

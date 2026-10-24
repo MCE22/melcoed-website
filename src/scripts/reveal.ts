@@ -9,7 +9,7 @@
 // Opt out with data-no-reveal; opt any other element in with data-reveal.
 //
 // Uses a rAF-throttled scroll check (not IntersectionObserver): an element counts as
-// revealed once its top passes 94% of the viewport height, including when the visitor
+// revealed as soon as any part of it enters the viewport, including when the visitor
 // jumps past it, so nothing can be left dimmed.
 
 const GROUPS = '.grid, .steps, .topics';
@@ -48,9 +48,10 @@ function init() {
   // Reveal anything that is on screen OR already scrolled past. Checking "above the
   // viewport" too means fast scrolls and anchor jumps can never leave content dimmed.
   let queued = false;
+  let stop = () => {};
   const check = () => {
     queued = false;
-    const line = window.innerHeight * 0.94;
+    const line = window.innerHeight;
     pending = pending.filter((el) => {
       if (el.getBoundingClientRect().top < line) {
         el.classList.remove('reveal-pending');
@@ -61,6 +62,7 @@ function init() {
     if (!pending.length) {
       removeEventListener('scroll', onScroll);
       removeEventListener('resize', onScroll);
+      stop();
     }
   };
   const onScroll = () => {
@@ -71,8 +73,14 @@ function init() {
   };
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
-  // Catch scroll position restored after load (back/forward, #anchor links).
+  // Re-check when the scroll position is restored after load (back/forward, #anchor
+  // links) and when late layout shifts (web fonts, images) move content into view
+  // without any scrolling.
   addEventListener('load', onScroll, { once: true });
+  document.fonts?.ready.then(onScroll);
+  const ro = new ResizeObserver(onScroll);
+  ro.observe(document.body);
+  stop = () => ro.disconnect();
 }
 
 init();

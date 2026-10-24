@@ -1,13 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Seal from '../components/Seal.astro';
 import Todo from '../components/Todo.astro';
-import PhotoSlot from '../components/PhotoSlot.astro';
+import MediaSlot from '../components/MediaSlot.astro';
+import Icon from '../components/Icon.astro';
+import Seal from '../components/Seal.astro';
 import FaqList from '../components/FaqList.astro';
 import { site, divisions, quoteHref } from '../data/site';
+import { madeIn } from '../data/brand';
 import { isLive, liveLinks } from '../lib/routes';
 import { industries } from '../data/industries';
 import { generalFaqs } from '../data/faqs';
+import type { PhotoSlotName } from '../data/photos';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
@@ -51,6 +54,39 @@ const steps = [
   { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
 ];
 
+
+// The four featured tiles under the hero (photos come from each product's slot).
+const tiles: { label: string; href: string; slot: PhotoSlotName }[] = [
+  { label: 'Awards & Recognition', href: '/awards/', slot: 'awards' },
+  { label: 'Jewelry Findings', href: '/findings/', slot: 'findings' },
+  { label: 'Badges & Insignia', href: '/badges/', slot: 'badges' },
+  { label: 'Industrial Components', href: '/industrial-components/', slot: 'industrial-components' },
+];
+
+const approach = [
+  {
+    icon: 'die' as const,
+    title: 'In-House Tooling',
+    body: 'Dies are designed, built and maintained in our own shop, with CNC milling support. Changes and repeat runs stay on our schedule.',
+  },
+  {
+    icon: 'caliper' as const,
+    title: 'Consistent Quality',
+    body: 'Parts are inspected before they ship. Tell us what documentation your quality system needs.',
+  },
+  {
+    icon: 'pin' as const,
+    title: madeIn.primary,
+    sub: madeIn.secondary,
+    body: `Struck in Pawtucket, Rhode Island, since ${site.foundingYear}.`,
+  },
+  {
+    icon: 'hand' as const,
+    title: 'A Partner You Can Count On',
+    body: 'Third-generation and family-owned, in the same city for more than seven decades.',
+  },
+];
+
 // Shown here as plain content; the FAQPage markup for these lives on /faq/.
 const faqs = generalFaqs;
 ---
@@ -62,49 +98,133 @@ const faqs = generalFaqs;
 >
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="wrap">
-      <div class="sign sign--rivets hero__sign">
-        <div class="hero__copy">
-          <span class="ribbon">Est. {site.foundingYear} &middot; Pawtucket, R.I.</span>
-          <h1>
-            Precision Metal Stamping
-            <span class="script hero__script">since {site.foundingYear}</span>
-          </h1>
-          <p class="lead">
-            Mel-Co-Ed is a third-generation, family-owned stamping shop in Pawtucket, Rhode Island. We build the tooling
-            and strike the parts in-house: badges, medallions, emblems, findings and industrial components.
-          </p>
-          <div class="btn-row">
-            <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-            {
-              isLive('/capabilities/') ? (
-                <a class="btn btn--ghost" href="/capabilities/">Our Capabilities</a>
-              ) : (
-                <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
-              )
-            }
-          </div>
-        </div>
-        <div class="hero__seal">
-          <Seal />
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Precision metal stamping &middot; Since {site.foundingYear}</p>
+        <h1>American craftsmanship <em>builds brands.</em></h1>
+        <p class="lead">
+          Mel-Co-Ed is a third-generation, family-owned stamping shop in Pawtucket, Rhode Island. We build the tooling
+          and strike the parts in-house: badges, medallions, emblems, findings and industrial components.
+        </p>
+        <div class="btn-row hero-cta">
+          {
+            isLive('/capabilities/') ? (
+              <a class="btn btn--primary" href="/capabilities/">
+                Explore our capabilities <span class="arr" aria-hidden="true">→</span>
+              </a>
+            ) : (
+              <a class="btn btn--primary" href={quoteHref}>
+                Request a quote <span class="arr" aria-hidden="true">→</span>
+              </a>
+            )
+          }
         </div>
       </div>
+      <MediaSlot
+        slot="home-hero"
+        aspect="5 / 4"
+        fade="left"
+        eager
+        sizes="(min-width: 64rem) 55vw, 100vw"
+        todo="Hero photo: dark, moody product shot on wood or steel (min. 2000px wide)"
+        class="hero__media"
+      />
+      <p class="hero__tagline" aria-hidden="true">People. Precision. Possibilities. Since {site.foundingYear}.</p>
+    </div>
+  </section>
 
-      <ul class="proof" aria-label="Mel-Co-Ed at a glance">
-        <li class="roundel"><span class="roundel__value">{site.foundingYear}</span><span class="roundel__label">Founded</span></li>
-        <li class="roundel roundel--cherry"><span class="roundel__value">{years}+</span><span class="roundel__label">Years in business</span></li>
-        <li class="roundel roundel--teal"><span class="roundel__value">3rd</span><span class="roundel__label">Generation</span></li>
-        <li class="roundel"><span class="roundel__value">{divisions.length}</span><span class="roundel__label">Divisions</span></li>
+  <!-- ============ FEATURED TILES ============ -->
+  <section class="tiles-wrap" aria-label="Featured products">
+    <div class="wrap">
+      <ul class="tiles">
+        {
+          tiles.map((t) => {
+            const inner = (
+              <>
+                <MediaSlot slot={t.slot} aspect="4 / 5" sizes="(min-width: 64rem) 25vw, 50vw" todo="Photo" />
+                <span class="tile__label">
+                  {t.label} <span class="tile__arrow" aria-hidden="true">→</span>
+                </span>
+              </>
+            );
+            return <li>{isLive(t.href) ? <a class="tile" href={t.href}>{inner}</a> : <div class="tile">{inner}</div>}</li>;
+          })
+        }
       </ul>
+    </div>
+  </section>
+
+  <!-- ============ TRUSTED ACROSS INDUSTRIES ============ -->
+  <section class="trusted" aria-labelledby="trusted-h">
+    <div class="wrap">
+      <h2 id="trusted-h" class="eyebrow trusted__h">Trusted across industries</h2>
+      <ul class="trusted__list">
+        {
+          industries.map((x) => (
+            <li>
+              {isLive(x.href) ? (
+                <a href={x.href}>
+                  <Icon name={x.icon} />
+                  <span>{x.name}</span>
+                </a>
+              ) : (
+                <span class="trusted__item">
+                  <Icon name={x.icon} />
+                  <span>{x.name}</span>
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ OUR APPROACH ============ -->
+  <section class="section section--cream approach" aria-labelledby="approach-h">
+    <div class="wrap approach__grid">
+      <MediaSlot
+        slot="home-approach"
+        aspect="4 / 5"
+        sizes="(min-width: 64rem) 40vw, 100vw"
+        todo="Photo: brick shop exterior or press floor"
+        class="approach__media"
+      />
+      <div>
+        <p class="eyebrow">Our approach</p>
+        <h2 id="approach-h">Tradition, capability, <em>what's next.</em></h2>
+        <p class="lead">
+          Since {site.foundingYear} we've paired old-school tool-and-die craft with modern equipment, so the parts you
+          designed come back exactly the way you drew them.
+        </p>
+        <ul class="pillars">
+          {
+            approach.map((a) => (
+              <li>
+                <Icon name={a.icon} size={32} />
+                <h3>{a.title}</h3>
+                {a.sub && <p class="pillars__sub">{a.sub}</p>}
+                <p>{a.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- ============ DIVISIONS ============ -->
   <section class="section" id="divisions" aria-labelledby="divisions-h">
     <div class="wrap">
+      <dl class="stats">
+        <div><dt>Founded</dt><dd>{site.foundingYear}</dd></div>
+        <div><dt>Years in business</dt><dd>{years}+</dd></div>
+        <div><dt>Generation</dt><dd>3rd</dd></div>
+        <div><dt>Divisions</dt><dd>{divisions.length}</dd></div>
+      </dl>
       <div class="section-head">
-        <span class="ribbon ribbon--ink">Four divisions</span>
-        <h2 id="divisions-h">One shop. Raw blank to finished part.</h2>
+        <p class="eyebrow">Four divisions</p>
+        <h2 id="divisions-h">One shop. <em>Raw blank to finished part.</em></h2>
         <p class="lead">
           Because tooling, stamping and milling happen in-house, you deal with one supplier and one schedule.
         </p>
@@ -113,7 +233,7 @@ const faqs = generalFaqs;
         {
           divisions.map((d, i) => (
             <article class="card division">
-              <span class="label division__num">Division 0{i + 1}</span>
+              <span class="label">Division 0{i + 1}</span>
               <h3>{d.name}</h3>
               <p>{d.summary}</p>
               <ul class="division__links">
@@ -134,21 +254,21 @@ const faqs = generalFaqs;
   <section class="section section--cream" id="products" aria-labelledby="products-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon">What we strike</span>
+        <p class="eyebrow">What we strike</p>
         <h2 id="products-h">Products</h2>
         <p class="lead">Custom work to your design, in short runs or long production quantities.</p>
       </div>
       <div class="grid grid--3">
         {
-          products.map((p, i) =>
+          products.map((p) =>
             isLive(p.href) ? (
-              <a class="card card--link product" href={p.href}>
+              <a class="card card--link" href={p.href}>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
                 <span class="card__more">View {p.title} &rarr;</span>
               </a>
             ) : (
-              <article class="card product">
+              <article class="card">
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </article>
@@ -160,17 +280,21 @@ const faqs = generalFaqs;
   </section>
 
   <!-- ============ CAPABILITIES SNAPSHOT ============ -->
-  <section class="section section--teal" aria-labelledby="caps-h">
-    <div class="wrap caps">
-      <div class="caps__intro">
-        <span class="ribbon ribbon--cream">Capabilities</span>
-        <h2 id="caps-h">Built to print. Held to spec.</h2>
-        <p class="lead">
-          Tool and die making, die striking, blanking, forming and CNC milling in one Pawtucket facility.
-        </p>
-        {isLive('/capabilities/') && <a class="btn btn--ghost" href="/capabilities/">Full capabilities &amp; specs</a>}
+  <section class="section section--ink" aria-labelledby="caps-h">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Capabilities</p>
+        <h2 id="caps-h">Built to print. <em>Held to spec.</em></h2>
+        <p class="lead">Tool and die making, die striking, blanking, forming and CNC milling in one Pawtucket facility.</p>
+        {
+          isLive('/capabilities/') && (
+            <a class="btn btn--ghost" href="/capabilities/">
+              Full capabilities &amp; specs <span class="arr" aria-hidden="true">→</span>
+            </a>
+          )
+        }
       </div>
-      <dl class="specs caps__specs">
+      <dl class="specs">
         <div>
           <dt>Processes</dt>
           <dd>Die striking, blanking, piercing, forming, CNC milling, in-house tool &amp; die <Todo>confirm list; add coining, progressive dies, etc. if applicable</Todo></dd>
@@ -207,8 +331,8 @@ const faqs = generalFaqs;
   <section class="section" aria-labelledby="process-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">How a job runs</span>
-        <h2 id="process-h">From print to parts</h2>
+        <p class="eyebrow">How a job runs</p>
+        <h2 id="process-h">From print <em>to parts</em></h2>
       </div>
       <ol class="steps">
         {
@@ -225,53 +349,45 @@ const faqs = generalFaqs;
   </section>
 
   <!-- ============ HERITAGE ============ -->
-  <section class="section section--cream heritage" aria-labelledby="heritage-h">
-    <div class="wrap heritage__inner">
-      <div class="heritage__copy">
-        <span class="ribbon">Since {site.foundingYear}</span>
-        <h2 id="heritage-h">
-          Three generations
-          <span class="script heritage__script">on Roosevelt Avenue</span>
-        </h2>
+  <section class="section section--cream" aria-labelledby="heritage-h">
+    <div class="wrap split heritage">
+      <div>
+        <p class="eyebrow">Since {site.foundingYear}</p>
+        <h2 id="heritage-h">Three generations <em>on Roosevelt Avenue</em></h2>
         <p>
-          Mel-Co-Ed has been stamping metal in Pawtucket, Rhode Island, since {site.foundingYear}, in a region that built
+          Mel-Co-Ed has been stamping metal in Pawtucket, Rhode Island, since {site.foundingYear}, in a state that built
           its name on jewelry and metalworking. Today the company is run by the third generation of the same family.
         </p>
         <Todo block>
           2&ndash;3 sentences of founding story: who started Mel-Co-Ed, where the name comes from, and what the company
           first made. Real names and details here are what make this page rank and get cited.
         </Todo>
-        {isLive('/about/') && <a class="btn btn--ghost" href="/about/">Our story</a>}
+        <div class="heritage__marks">
+          <Seal size={120} />
+          <Seal mark="madeIn" size={120} />
+        </div>
+        {
+          isLive('/about/') && (
+            <a class="btn btn--ghost" href="/about/">
+              Our story <span class="arr" aria-hidden="true">→</span>
+            </a>
+          )
+        }
       </div>
-      <PhotoSlot slot="home-heritage" todo="Photo: the vintage Mel-Co-Ed sign or a press-floor shot (min. 1600×1200, landscape)." />
-    </div>
-  </section>
-
-  <!-- ============ INDUSTRIES ============ -->
-  <section class="section" aria-labelledby="industries-h">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="ribbon ribbon--ink">Who we work with</span>
-        <h2 id="industries-h">Industries served</h2>
-      </div>
-      <ul class="industries">
-        {industries.map((x) => <li>{isLive(x.href) ? <a href={x.href}>{x.name}</a> : x.name}</li>)}
-      </ul>
-      {
-        isLive('/industries/') && (
-          <p class="industries__more">
-            <a class="btn btn--ghost" href="/industries/">All industries</a>
-          </p>
-        )
-      }
+      <MediaSlot
+        slot="home-heritage"
+        aspect="4 / 3"
+        sizes="(min-width: 56rem) 50vw, 100vw"
+        todo="Photo: the vintage Mel-Co-Ed sign or a press-floor shot (min. 1600×1200)"
+      />
     </div>
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="section section--cream" aria-labelledby="faq-h">
+  <section class="section" aria-labelledby="faq-h">
     <div class="wrap faq-wrap">
       <div class="section-head">
-        <span class="ribbon">Questions</span>
+        <p class="eyebrow">Questions</p>
         <h2 id="faq-h">Frequently asked</h2>
         {isLive('/faq/') && <p>More answers on our <a href="/faq/">FAQ page</a>.</p>}
       </div>
@@ -281,85 +397,292 @@ const faqs = generalFaqs;
 </BaseLayout>
 
 <style>
-  /* Hero: one porcelain sign on an off-white field */
+  /* ---------- Hero ---------- */
   .hero {
-    padding-block: 1.25rem 3rem;
+    position: relative;
+    padding-block: 2.5rem 3rem;
+    overflow: hidden;
   }
-  .hero__sign {
+  .hero__grid {
+    position: relative;
     display: grid;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
-    padding-block: 2.5rem 2.25rem;
   }
   .hero h1 {
-    margin-bottom: 1.1rem;
-  }
-  .hero__script {
-    display: block;
-    margin-top: 0.25em;
-    color: var(--robin);
-    font-size: 0.78em;
+    /* sized so the longest word ("craftsmanship") always fits its column */
+    font-size: clamp(2.1rem, 8.6vw, 3.4rem);
     line-height: 1;
-    transform: rotate(-3deg);
-    transform-origin: left center;
+    letter-spacing: -0.005em;
+  }
+  .hero h1 em {
+    display: block;
   }
   .hero .lead {
-    margin-bottom: 1.75rem;
-    color: var(--cream-200);
+    margin-bottom: 0;
   }
-  .hero__seal {
-    width: min(14rem, 64vw);
-    justify-self: center;
+  .hero__tagline {
+    display: none;
   }
-  @media (min-width: 56rem) {
+  @media (min-width: 64rem) {
     .hero {
-      padding-block: 2rem 4rem;
+      padding-block: 4.5rem 5rem;
     }
-    .hero__sign {
-      grid-template-columns: 1.55fr 1fr;
-      gap: 3rem;
-      padding: 4rem 3.5rem;
+    .hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
-    .hero__seal {
-      width: min(20rem, 100%);
+    .hero h1 {
+      font-size: clamp(3.4rem, 4.15vw, 4.35rem);
+    }
+    .hero__text {
+      position: relative;
+      z-index: 1;
+      padding-right: 1rem;
+    }
+    /* photo bleeds to the right edge and fades into the cream on its left */
+    .hero :global(.hero__media) {
+      margin-right: calc(var(--gutter) * -1 - 2.5rem);
+    }
+    .hero__tagline {
+      display: block;
+      position: absolute;
+      right: calc(var(--gutter) * -1 + 0.25rem);
+      top: 50%;
+      margin: 0;
+      writing-mode: vertical-rl;
+      transform: translateY(-50%) rotate(180deg);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--brass-text);
+      white-space: nowrap;
+    }
+  }
+  @media (min-width: 90rem) {
+    .hero :global(.hero__media) {
+      margin-right: -3rem;
     }
   }
 
-  /* Proof-point roundels */
-  .proof {
+  /* ---------- Tiles ---------- */
+  .tiles-wrap {
+    padding-bottom: 3.5rem;
+  }
+  .tiles {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem 1rem;
-    max-width: 44rem;
-    margin: 2.5rem auto 0;
+    gap: 1rem;
+    margin: 0;
     padding: 0;
     list-style: none;
   }
-  .proof .roundel {
-    max-width: 7.25rem;
-  }
-  @media (min-width: 40rem) {
-    .proof .roundel {
-      max-width: 8.5rem;
+  @media (min-width: 64rem) {
+    .tiles {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
     }
   }
-  @media (min-width: 40rem) {
-    .proof {
-      grid-template-columns: repeat(4, 1fr);
+  .tile {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .tile :global(.media) {
+    border: 1px solid var(--rule);
+    transition: border-color var(--dur) var(--ease);
+  }
+  .tile :global(.media img) {
+    transition: transform 600ms var(--ease);
+  }
+  a.tile:hover :global(.media) {
+    border-color: var(--brass);
+  }
+  a.tile:hover :global(.media img) {
+    transform: scale(1.02);
+  }
+  .tile__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.85rem 0 0;
+    border-top: 1px solid var(--brass);
+    margin-top: 0.85rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+  .tile__arrow {
+    color: var(--oxblood);
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  a.tile:hover .tile__label {
+    color: var(--oxblood);
+  }
+  a.tile:hover .tile__arrow {
+    transform: translateX(2px);
+  }
+  @media (min-width: 48rem) {
+    .tile__label {
+      font-size: 1.02rem;
     }
   }
 
-  /* Divisions */
-  .division__num {
-    margin-bottom: 0.6rem;
+  /* ---------- Trusted strip ---------- */
+  .trusted {
+    padding-block: 2.75rem 3.25rem;
+    border-top: 1px solid var(--rule);
   }
+  .trusted__h {
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .trusted__h::after {
+    content: '';
+    flex: none;
+    width: 1.75rem;
+    height: 1px;
+    background: var(--brass);
+  }
+  .trusted__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+  @media (min-width: 40rem) {
+    .trusted__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 72rem) {
+    .trusted__list {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+  .trusted__list a,
+  .trusted__item {
+    display: grid;
+    justify-items: center;
+    gap: 0.7rem;
+    color: var(--ink-600);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .trusted__list :global(.icon) {
+    color: var(--brass);
+  }
+  .trusted__list a:hover {
+    color: var(--oxblood);
+  }
+
+  /* ---------- Approach ---------- */
+  .approach__grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 64rem) {
+    .approach__grid {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 5rem;
+    }
+  }
+  .pillars {
+    display: grid;
+    gap: 2rem 2.5rem;
+    margin: 2.5rem 0 0;
+    padding: 2rem 0 0;
+    list-style: none;
+    border-top: 1px solid var(--brass);
+  }
+  @media (min-width: 40rem) {
+    .pillars {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .pillars :global(.icon) {
+    color: var(--brass);
+    margin-bottom: 0.9rem;
+  }
+  .pillars h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .pillars p {
+    margin: 0;
+    color: var(--ink-600);
+    font-size: 0.97rem;
+  }
+  .pillars .pillars__sub {
+    margin: -0.1rem 0 0.4rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--brass-text);
+  }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 0 4.5rem;
+    border-top: 1px solid var(--brass);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stats > div {
+    padding: 1.25rem 1rem 1.4rem 0;
+  }
+  .stats dt {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--brass-text);
+  }
+  .stats dd {
+    margin: 0.35rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1;
+  }
+  @media (min-width: 48rem) {
+    .stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stats > div + div {
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  /* ---------- Divisions ---------- */
   .division__links {
     list-style: none;
     margin: auto 0 0;
-    padding: 0.85rem 0 0;
-    border-top: 1px solid var(--chrome-light);
-    font-weight: 650;
-    font-size: 0.95rem;
+    padding: 0.9rem 0 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.92rem;
+    font-weight: 600;
   }
   .division__links li + li {
     margin-top: 0.3rem;
@@ -371,84 +694,16 @@ const faqs = generalFaqs;
     text-decoration: underline;
   }
 
-  /* Capabilities snapshot (teal) */
-  .caps {
-    display: grid;
-    gap: 2.5rem;
-  }
-  .caps .lead {
-    margin-bottom: 1.5rem;
-  }
-  @media (min-width: 56rem) {
-    .caps {
-      grid-template-columns: 1fr 1.4fr;
-      gap: 4rem;
-      align-items: start;
-    }
-  }
-
-  /* Heritage */
-  .heritage__inner {
-    display: grid;
-    gap: 2rem;
+  /* ---------- Heritage ---------- */
+  .heritage {
     align-items: center;
   }
-  .heritage__script {
-    display: block;
-    margin-top: 0.15em;
-    color: var(--cherry);
-    font-size: 0.8em;
-  }
-  @media (min-width: 56rem) {
-    .heritage__inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  /* Industries */
-  .industries {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    border-top: 1px solid var(--chrome-light);
-  }
-  .industries li {
+  .heritage__marks {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.95rem 0;
-    border-bottom: 1px solid var(--chrome-light);
-    font-weight: 650;
-    color: var(--navy);
+    gap: 1rem;
+    margin: 0.5rem 0 1.75rem;
   }
-  .industries li::before {
-    content: '\2605';
-    flex: none;
-    color: var(--cherry);
-    font-size: 0.85rem;
-  }
-  @media (min-width: 40rem) {
-    .industries {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 2rem;
-    }
-  }
-  @media (min-width: 64rem) {
-    .industries {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  .industries a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .industries a:hover {
-    color: var(--cherry);
-    text-decoration: underline;
-  }
-  .industries__more {
-    margin: 2rem 0 0;
+  .heritage__marks :global(.seal) {
+    width: 104px;
   }
 </style>

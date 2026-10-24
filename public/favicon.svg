@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#a3191d"/><circle cx="32" cy="32" r="26" fill="none" stroke="#f4ead5" stroke-width="2"/><text x="32" y="41" text-anchor="middle" font-family="Impact,'Arial Narrow Bold',sans-serif" font-size="24" fill="#f4ead5" letter-spacing="1">MCE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs>
+  <linearGradient id="f-brass" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f3e3ae"/><stop offset=".22" stop-color="#d4b46a"/>
+    <stop offset=".5" stop-color="#a8843f"/><stop offset=".72" stop-color="#c9a75e"/>
+    <stop offset="1" stop-color="#6e531f"/>
+  </linearGradient>
+  <linearGradient id="f-rim" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f0dca0"/><stop offset=".35" stop-color="#a8843f"/>
+    <stop offset=".6" stop-color="#d9bd7a"/><stop offset="1" stop-color="#5e4518"/>
+  </linearGradient>
+  <radialGradient id="f-enamel" cx=".45" cy=".35" r=".85">
+    <stop offset="0" stop-color="#93302b"/><stop offset=".6" stop-color="#7a1f1f"/><stop offset="1" stop-color="#541313"/>
+  </radialGradient>
+  <radialGradient id="f-rivet" cx=".35" cy=".3" r=".75">
+    <stop offset="0" stop-color="#fbf0c8"/><stop offset=".45" stop-color="#c9a75e"/><stop offset="1" stop-color="#5e4518"/>
+  </radialGradient>
+  <filter id="f-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
+  <filter id="f-grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope=".09"/></feComponentTransfer>
+    <feComposite operator="in" in2="SourceGraphic"/>
+  </filter><g id="f-m"><path d="M360.53 175.16L360.53 179.76Q353.63 179.99 350.07 181.48Q346.50 182.98 345.36 187Q344.20 191.03 344.20 199.54L344.20 313.62Q344.20 321.90 345.47 326.04Q346.74 330.18 350.18 331.56Q353.63 332.94 360.53 333.40L360.53 338Q353.40 337.54 342.37 337.43Q331.32 337.31 319.82 337.31Q307.40 337.31 296.48 337.43Q285.55 337.54 278.88 338L278.88 333.40Q286.70 332.94 290.73 331.56Q294.75 330.18 296.13 326.04Q297.51 321.90 297.51 313.62L297.51 196.09L242.08 337.77L238.40 337.77L173.54 190.11L173.54 292.92Q173.54 308.33 174.81 316.50Q176.07 324.66 181.02 328.23Q185.96 331.79 196.77 333.40L196.77 338Q192.17 337.54 184.81 337.43Q177.45 337.31 171.01 337.31Q165.95 337.31 160.66 337.43Q155.37 337.54 151.92 338L151.92 333.40Q159.05 331.79 162.50 328.45Q165.95 325.12 167.10 317.76Q168.25 310.40 168.25 297.52L168.25 199.54Q168.25 191.03 167.10 187Q165.95 182.98 162.39 181.48Q158.82 179.99 151.92 179.76L151.92 175.16Q155.37 175.39 160.66 175.62Q165.95 175.85 171.01 175.85Q184.35 175.85 196.54 175.62Q208.73 175.39 218.63 175.16L262.09 272.91L299.81 175.85L319.82 175.85Q331.32 175.85 342.37 175.62Q353.40 175.39 360.53 175.16"/></g></defs>
+  <circle cx="256" cy="256" r="252" fill="url(#f-rim)"/><circle cx="256" cy="256" r="214" fill="url(#f-enamel)"/>
+  <circle cx="256" cy="256" r="196" fill="none" stroke="url(#f-brass)" stroke-width="6"/>
+  <use href="#f-m" fill="#1c0606" opacity=".7" transform="translate(3.84 5.28)" filter="url(#f-soft)"/>
+  <use href="#f-m" fill="#fff4cf" opacity=".55" transform="translate(-1.68 -2.16)"/>
+  <use href="#f-m" fill="url(#f-brass)" stroke="#4f3a12" stroke-width="1.68" stroke-opacity=".7"/></svg>

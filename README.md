@@ -51,6 +51,27 @@ its links appear automatically.
 | `src/styles/global.css` | Design tokens and shared styles (sign red / cream / black). |
 | `src/pages/` | One file per page. |
 
+## Design and brand
+
+- **Look:** editorial, converted-factory studio. Cream paper, near-black type, oxblood accents,
+  aged-brass labels and hairline rules, square corners. Tokens live in `src/styles/global.css`.
+- **Type:** Playfair Display (uppercase serif headlines; key words in oxblood via `<em>`), Inter for
+  body and the letter-spaced brass eyebrows. No script faces.
+- **Marks:** `npm run brand` regenerates the SVG logos in `public/brand/` (enamel plate, compact header
+  plate, round seal, Made-in seal) plus `public/favicon.svg` and `public/logo.svg`. Lettering is
+  converted to outlines, so the files need no fonts. To use a photo of a real struck plate instead,
+  change the paths in `src/data/brand.ts`.
+- **Origin claim:** "Made in Rhode Island, USA" / "Pawtucket Proud" (`src/data/brand.ts`), shown in
+  the footer and Home and included in the Organization schema and `/llms.txt`.
+- **Photos:** `src/data/photos.ts` slots. Hero and tile images use `<MediaSlot>` (dark frame, optional fade
+  into the background, built for moody product shots); galleries use `<PhotoSlot>`.
+
+## Search and AI summaries
+
+- **Search:** `/search/` uses [Pagefind](https://pagefind.app). `npm run build` runs `pagefind --site dist`
+  after Astro, indexing only `<main data-pagefind-body>` content (utility pages are excluded).
+- **`/llms.txt`:** a plain-text company summary for AI assistants, generated from `src/data/` at build.
+
 ## Motion
 
 One shared system, loaded by `BaseLayout`, so every page (current and future) gets it:

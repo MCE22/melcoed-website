@@ -48,6 +48,9 @@ const principles = [
     ribbon="Family-owned · Third generation"
     lead={`A family-owned precision metal stamping company in Pawtucket, Rhode Island, striking badges, medallions, emblems, findings and industrial parts since ${site.foundingYear}.`}
     breadcrumbs={breadcrumbs}
+    photo="about"
+    photoTodo="About hero photo: the shop, the sign or the family at work"
+    variant="dark"
   />
 
   <!-- Story -->
@@ -130,7 +133,7 @@ const principles = [
         }
       </div>
       <div class="photo">
-        <PhotoSlot slot="about" todo="Photos: the vintage sign, the shop floor, and the family/team (2–4 images, min. 1600px wide)." />
+        <PhotoSlot slot="about" skip={1} todo="Photos: the vintage sign, the shop floor, and the family/team (2–4 images, min. 1600px wide)." />
       </div>
     </div>
   </section>

@@ -74,7 +74,7 @@ const faqs: Faq[] = [
 
 <BaseLayout
   title="Commemorative Medallions, Coins & Pins for 250th Anniversaries"
-  description="Custom die-struck commemorative medallions, challenge coins and pins for America's 250th, town anniversaries and historical societies. Made in Pawtucket, RI since 1948."
+  description="Custom die-struck commemorative medallions, challenge coins and pins for America's 250th, town anniversaries and historical societies. Made in Rhode Island, USA, since 1948."
   pageType="CollectionPage"
   breadcrumbs={breadcrumbs}
   schema={[faqPageNode(path, faqs)]}
@@ -85,6 +85,9 @@ const faqs: Faq[] = [
     ribbon="Medallions · Coins · Pins"
     lead="Custom die-struck medallions, challenge coins and pins for America's 250th, town anniversaries, historical societies and every milestone worth putting in metal."
     breadcrumbs={breadcrumbs}
+  
+    photo="industries-commemorative"
+    photoTodo="Hero photo: commemorative medallion, obverse"
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quote}>Quote a Commemorative</a>
@@ -148,7 +151,7 @@ const faqs: Faq[] = [
         }
       </div>
       <div class="ind-photos">
-        <PhotoSlot slot="industries-commemorative" todo="Photos: commemorative medallions, coins and pins, obverse and reverse (3–6 images)." />
+        <PhotoSlot slot="industries-commemorative" skip={1} todo="Photos: commemorative medallions, coins and pins, obverse and reverse (3–6 images)." />
       </div>
     </div>
   </section>
@@ -288,7 +291,7 @@ const faqs: Faq[] = [
   .license {
     padding: 1rem 1.1rem;
     border: 1px solid rgb(242 232 208 / 0.3);
-    border-radius: 12px;
+    border-radius: var(--radius);
     font-size: 0.92rem;
     color: var(--cream-200);
   }

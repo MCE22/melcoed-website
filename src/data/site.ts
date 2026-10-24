@@ -9,7 +9,7 @@ export const site = {
   url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
   tagline: 'Precision Metal Stamping Since 1948',
   description:
-    'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with in-house tooling and precision milling.',
+    'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with in-house tooling and precision milling. Our products are made in Rhode Island, USA.',
   foundingYear: 1948,
   generation: 'third-generation',
   phone: {
@@ -100,15 +100,14 @@ export const industryLinks = [
 // Links to pages that don't exist yet are filtered out at build time (see src/lib/routes.ts),
 // so this list can describe the full site while pages are still being built.
 export const nav: NavItem[] = [
+  { label: 'Capabilities', href: '/capabilities/' },
   { label: 'Products', href: '/#products', children: productLinks },
   {
     label: 'Industries',
     href: '/industries/',
     children: [{ label: 'All Industries', href: '/industries/' }, ...industryLinks],
   },
-  { label: 'Capabilities', href: '/capabilities/' },
   { label: 'About', href: '/about/' },
-  { label: 'FAQ', href: '/faq/' },
   { label: 'Contact', href: '/contact/' },
 ];
 

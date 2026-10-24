@@ -15,6 +15,7 @@ export type Photo = { src: ImageMetadata; alt: string };
 export type PhotoSlotName =
   | 'home-hero'
   | 'home-heritage'
+  | 'home-approach'
   | 'findings'
   | 'badges'
   | 'medallions'

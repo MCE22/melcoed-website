@@ -4,6 +4,7 @@
 // search engines and AI crawlers resolve them to a single business entity.
 
 import { site } from '../data/site';
+import { madeIn } from '../data/brand';
 
 const abs = (path: string) => new URL(path, site.url).toString();
 
@@ -24,6 +25,7 @@ export function organizationNode(): Node {
     alternateName: [site.shortName, site.abbreviation, 'Mel Co Ed', 'Melcoed'],
     url: abs('/'),
     description: site.description,
+    slogan: `${madeIn.primary}. ${madeIn.secondary}.`,
     foundingDate: String(site.foundingYear),
     foundingLocation: { '@type': 'Place', name: 'Pawtucket, Rhode Island' },
     telephone: site.phone.e164,

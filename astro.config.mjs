@@ -10,5 +10,5 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   // Keep utility pages (form confirmations) out of the sitemap; they are also noindex.
-  integrations: [sitemap({ filter: (page) => !page.includes('/thank-you/') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/thank-you/') && !page.includes('/search/') })],
 });

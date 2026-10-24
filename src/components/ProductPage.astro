@@ -50,9 +50,17 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
     faqPageNode(path, p.faqs),
   ]}
 >
-  <PageHero title={p.h1} accent={p.accent} ribbon={p.division} lead={p.lead} breadcrumbs={breadcrumbs}>
+  <PageHero
+    title={p.h1}
+    accent={p.accent}
+    ribbon={p.division}
+    lead={p.lead}
+    breadcrumbs={breadcrumbs}
+    photo={p.slug as PhotoSlotName}
+    photoTodo={`${p.name} hero photo: dark, moody product shot`}
+  >
     <div class="btn-row hero-cta">
-      <a class="btn btn--primary" href={quote}>Quote {p.name}</a>
+      <a class="btn btn--primary" href={quote}>Quote {p.name} <span class="arr" aria-hidden="true">→</span></a>
       <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
     </div>
   </PageHero>
@@ -106,7 +114,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
         }
       </div>
       <div class="photos">
-        <PhotoSlot slot={p.slug as PhotoSlotName} todo={p.photoTodo} />
+        <PhotoSlot slot={p.slug as PhotoSlotName} todo={p.photoTodo} skip={1} />
       </div>
     </div>
   </section>
@@ -137,7 +145,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
       <div class="section-head">
         <span class="ribbon ribbon--ink">Questions</span>
         <h2 id="faq-h">{p.name} FAQ</h2>
-        <a class="btn btn--primary" href={quote}>Request a Quote</a>
+        <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <FaqList faqs={p.faqs} />
     </div>
@@ -170,7 +178,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
     padding: 1.25rem 1.25rem 0.5rem;
     background: var(--paper);
     border: 1px solid var(--chrome-light);
-    border-radius: 14px;
+    border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
   @media (min-width: 40rem) {
