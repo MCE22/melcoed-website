@@ -11,16 +11,13 @@ import { isLive, liveLinks } from '../lib/routes';
 import { industries } from '../data/industries';
 import { generalFaqs } from '../data/faqs';
 import type { PhotoSlotName } from '../data/photos';
+import CatalogLinks from '../components/CatalogLinks.astro';
+import { tagline, waysToBuy, ordering, process, processesLine, materialsLine, finishesLine, dieStrikingLine } from '../data/facts';
 
 const years = new Date().getFullYear() - site.foundingYear;
 
 
-const steps = [
-  { n: '01', title: 'Send your print', body: 'A drawing, CAD file, sketch or a physical sample. Tell us material, finish and quantity.' },
-  { n: '02', title: 'Get a quote', body: 'We review manufacturability, tooling and piece price, and flag anything that could cost you later.' },
-  { n: '03', title: 'Tooling', body: 'Dies are built and maintained in-house, so changes and repeat runs don’t wait on an outside shop.' },
-  { n: '04', title: 'Strike, finish, ship', body: 'Parts are struck, trimmed and inspected in Pawtucket, finished to spec, then shipped to you.' },
-];
+const steps = process;
 
 
 // The four featured tiles under the hero (photos come from each product's slot).
@@ -161,9 +158,10 @@ const faqs = generalFaqs;
       <div>
         <p class="eyebrow">Our approach</p>
         <h2 id="approach-h">Tradition, capability, <em>what's next.</em></h2>
+        <p class="approach__tagline">{tagline}</p>
         <p class="lead">
-          Since {site.foundingYear} we've paired old-school tool-and-die craft with modern equipment, so the parts you
-          designed come back exactly the way you drew them.
+          Since {site.foundingYear} we've paired old-school tool-and-die craft with modern equipment, with a full tool room
+          on site in Southern New England, the historic jewelry capital of the world.
         </p>
         <ul class="pillars">
           {
@@ -177,6 +175,37 @@ const faqs = generalFaqs;
             ))
           }
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TWO WAYS TO BUY ============ -->
+  <section class="section ways" aria-labelledby="ways-h">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Two ways to buy</p>
+        <h2 id="ways-h">Off the line, <em>or entirely yours.</em></h2>
+      </div>
+      <div class="ways__grid">
+        {
+          waysToBuy.map((w, i) => (
+            <article class="ways__card">
+              <span class="ways__n">0{i + 1}</span>
+              <h3>{w.name}</h3>
+              <p>{w.summary}</p>
+            </article>
+          ))
+        }
+      </div>
+      <dl class="terms">
+        <div><dt>Minimum</dt><dd>{ordering.minimum}. {ordering.smallRuns}</dd></div>
+        <div><dt>Precious metals</dt><dd>{ordering.noMinimum}</dd></div>
+        <div><dt>Lead time</dt><dd>{ordering.leadTime}</dd></div>
+        <div><dt>Pricing</dt><dd>{ordering.pricing} {ordering.custom}</dd></div>
+      </dl>
+      <div class="btn-row ways__cta">
+        <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+        <CatalogLinks todo />
       </div>
     </div>
   </section>
@@ -234,34 +263,13 @@ const faqs = generalFaqs;
         }
       </div>
       <dl class="specs">
-        <div>
-          <dt>Processes</dt>
-          <dd>Die striking, blanking, piercing, forming, CNC milling, in-house tool &amp; die <Todo>confirm list; add coining, progressive dies, etc. if applicable</Todo></dd>
-        </div>
-        <div>
-          <dt>Press capacity</dt>
-          <dd><Todo>press count and tonnage range, e.g. "12 presses, 20&ndash;300 tons"</Todo></dd>
-        </div>
-        <div>
-          <dt>Materials</dt>
-          <dd><Todo>confirm list, e.g. brass, copper, bronze, nickel silver, steel, stainless, aluminum, sterling</Todo></dd>
-        </div>
-        <div>
-          <dt>Material thickness</dt>
-          <dd><Todo>gauge / thickness range, e.g. ".005&Prime;&ndash;.125&Prime;"</Todo></dd>
-        </div>
-        <div>
-          <dt>Tolerances</dt>
-          <dd><Todo>typical and best-achievable tolerances, e.g. "&plusmn;.002&Prime; typical"</Todo></dd>
-        </div>
-        <div>
-          <dt>Max part / blank size</dt>
-          <dd><Todo>largest part or blank you can run</Todo></dd>
-        </div>
-        <div>
-          <dt>Finishing</dt>
-          <dd><Todo>in-house vs. outsourced finishes: plating, enamel, antiquing, polishing, etc.</Todo></dd>
-        </div>
+        <div><dt>Processes</dt><dd>{processesLine}</dd></div>
+        <div><dt>Materials</dt><dd>{materialsLine}</dd></div>
+        <div><dt>Die striking</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Finishing</dt><dd>In-house. {finishesLine}</dd></div>
+        <div><dt>Press capacity</dt><dd><Todo>press count and tonnage range</Todo></dd></div>
+        <div><dt>Stamping gauge</dt><dd><Todo>stamping gauge range</Todo></dd></div>
+        <div><dt>Tolerances</dt><dd><Todo>typical and best-achievable tolerances</Todo></dd></div>
       </dl>
     </div>
   </section>
@@ -270,8 +278,8 @@ const faqs = generalFaqs;
   <section class="section" aria-labelledby="process-h">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">How a job runs</p>
-        <h2 id="process-h">From print <em>to parts</em></h2>
+        <p class="eyebrow">How it's made</p>
+        <h2 id="process-h">From design <em>to delivery</em></h2>
       </div>
       <ol class="steps">
         {
@@ -506,9 +514,14 @@ const faqs = generalFaqs;
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  @media (min-width: 72rem) {
+  @media (min-width: 64rem) {
     .trusted__list {
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  @media (min-width: 80rem) {
+    .trusted__list {
+      grid-template-columns: repeat(9, 1fr);
     }
   }
   .trusted__list a,
@@ -577,6 +590,79 @@ const faqs = generalFaqs;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--brass-text);
+  }
+
+  .approach__tagline {
+    margin: -0.25rem 0 1rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+  }
+
+  /* ---------- Two ways to buy ---------- */
+  .ways__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 48rem) {
+    .ways__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .ways__card {
+    padding: 2rem 1.75rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--brass);
+  }
+  .ways__n {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--oxblood);
+  }
+  .ways__card h3 {
+    font-size: 1.4rem;
+  }
+  .ways__card p {
+    margin: 0;
+    color: var(--ink-600);
+    font-size: 1.05rem;
+  }
+  .terms {
+    display: grid;
+    gap: 0;
+    margin: 2rem 0 0;
+    border-top: 1px solid var(--rule);
+  }
+  .terms > div {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .terms dt {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--brass-text);
+  }
+  .terms dd {
+    margin: 0.3rem 0 0;
+    color: var(--ink-600);
+  }
+  @media (min-width: 56rem) {
+    .terms {
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 1.5rem;
+    }
+  }
+  .ways__cta {
+    margin-top: 2rem;
+    align-items: flex-start;
   }
 
   /* ---------- Stats ---------- */

@@ -7,6 +7,8 @@ import '../styles/motion.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
+import { getImage } from 'astro:assets';
+import { sealPng } from '../data/brand';
 import {
   organizationNode,
   websiteNode,
@@ -54,6 +56,10 @@ const pageTitle = fullTitle ? title : `${title} | ${site.name}`;
 const canonical = new URL(path, Astro.site ?? site.url).toString();
 const ogImageUrl = new URL(ogImage, Astro.site ?? site.url).toString();
 
+// Favicon: from the official seal image when present, else the generated SVG.
+const favicon32 = sealPng ? await getImage({ src: sealPng, width: 32, height: 32, format: 'png' }) : undefined;
+const appleIcon = sealPng ? await getImage({ src: sealPng, width: 180, height: 180, format: 'png' }) : undefined;
+
 const nodes = [
   organizationNode(),
   websiteNode(),
@@ -73,7 +79,16 @@ const nodes = [
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {
+      favicon32 ? (
+        <>
+          <link rel="icon" href={favicon32.src} type="image/png" sizes="32x32" />
+          <link rel="apple-touch-icon" href={appleIcon?.src} />
+        </>
+      ) : (
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      )
+    }
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#f4efe6" />
 

@@ -6,6 +6,7 @@
 
 import type { Faq } from '../lib/schema';
 import type { PhotoSlotName } from './photos';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine } from './facts';
 
 export type Spec = { label: string; value?: string; todo?: string };
 export type ProductType = { title: string; body: string; href?: string };
@@ -34,13 +35,14 @@ export type Product = {
   photoTodo: string;
   faqs: Faq[];
   related: string[]; // hrefs; only rendered if the page exists
+  /** Show catalog download(s) whose title contains this text. */
+  catalog?: string;
   schemaCategory: string;
 };
 
 const moqFaq = (thing: string): Faq => ({
   q: `What is the minimum order for ${thing}?`,
-  a: 'Minimums depend on whether new tooling is needed, the material and the finish. Contact us with your design and quantity for a specific answer.',
-  todo: true,
+  a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}, and pricing is quoted at the time of order based on current metal prices.`,
 });
 
 export const products: Record<string, Product> = {
@@ -51,21 +53,41 @@ export const products: Record<string, Product> = {
     quoteType: 'findings',
     metaTitle: 'Jewelry Findings & Raw Die-Struck Stampings',
     metaDescription:
-      'Custom stamped jewelry findings and raw die-struck stampings from Mel-Co-Ed in Pawtucket, RI: charms, connectors, blanks and components, unfinished or ready to finish.',
+      'Jewelry findings and stampings from Mel-Co-Ed in Pawtucket, RI: 30,000+ stock findings with no tooling cost, or custom on your own die. Supplied raw or finished in-house.',
     h1: 'Jewelry Findings & Raw Stampings',
     accent: 'stamped in Pawtucket',
-    lead: 'Charms, connectors, blanks and custom components, die-struck to your design and supplied raw for your finisher or ready for plating.',
+    lead: 'More than 30,000 stock findings on our Open Line, from charms to men’s and women’s accessories, or struck to your design on your own exclusive die. Supplied raw or finished in-house.',
     intro: [
       "Rhode Island built America's jewelry industry, and Mel-Co-Ed has been part of it since 1948. Our Raw Stampings & Findings division supplies the stamped metal components that jewelry and accessory brands build on.",
       'We strike findings from steel dies we build in-house, so you get consistent parts run after run, and tooling stays available for reorders.',
     ],
     typesHeading: 'Findings & stampings we make',
-    typesTodo: 'Confirm this list (add or remove types) and add any stock findings you sell from existing tooling.',
     types: [
-      { title: 'Charms & drops', body: 'Die-struck charms and drops with detail on one or both sides, struck to your artwork.' },
-      { title: 'Connectors & links', body: 'Stamped connectors, links and spacers for necklaces, bracelets and earrings.' },
-      { title: 'Blanks & discs', body: 'Flat or domed blanks for engraving, stamping, enameling or further finishing.' },
-      { title: 'Custom components', body: 'Bails, caps, settings and other components made to your print or sample.' },
+      {
+        title: 'Novelty & charms',
+        body: 'More than 30,000 ornamental findings on our Open Line, from heart charms and animal pendants to planes and automobiles.',
+      },
+      {
+        title: 'Men’s jewelry & accessories',
+        body: 'Tie bars, tie tacks, cufflinks, collar clips, money clips, bracelets and necklaces.',
+      },
+      {
+        title: 'Women’s jewelry & accessories',
+        body: 'Cuff bracelets, earrings, necklaces and pendants, from the Open Line or made to your design.',
+      },
+      {
+        title: 'Ad specialty',
+        body: 'Custom and imprinted pieces, including items that can be screen or pad printed: divot tools, key tags, money clips.',
+      },
+      {
+        title: 'Functional stampings',
+        body: 'Shoe horns, letter openers, butter spreaders, bookmarks, card cases, bottle openers and more.',
+      },
+      {
+        title: 'Pattern stock',
+        body: 'Several hundred embossed patterns for texturing findings, from floral and hammered to stone.',
+        href: '/pattern-stock/',
+      },
     ],
     audienceHeading: 'Who buys our findings',
     audience: [
@@ -76,11 +98,12 @@ export const products: Record<string, Product> = {
     ],
     specs: [
       { label: 'Process', value: 'Die striking, blanking and forming from in-house tooling' },
-      { label: 'Base metals', todo: 'e.g. brass, copper, bronze, nickel silver, sterling' },
-      { label: 'Thickness', todo: 'gauge / thickness range' },
-      { label: 'Supplied as', todo: 'raw / tumbled / plated: which do you offer?' },
-      { label: 'Minimum order', todo: 'MOQ for new and existing tooling' },
-      { label: 'Lead time', todo: 'typical weeks' },
+      { label: 'Ways to buy', value: 'Open Line: 30,000+ stock findings, no tooling cost. Confined & Custom: your design on your own exclusive die.' },
+      { label: 'Metals', value: materialsLine },
+      { label: 'Thickness', todo: 'stamping gauge range' },
+      { label: 'Finishes', value: `Supplied raw or finished in-house. ${finishesLine}` },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
     ],
     photoTodo: 'Photos: 3–6 findings shots (raw and finished side by side works well). Min. 1200px wide.',
     faqs: [
@@ -99,12 +122,12 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Do you sell stock findings, or only custom work?',
-        a: 'Tell us what you need: some findings can be run from existing tooling, and anything else can be made to your design.',
-        todo: true,
+        a: 'Both. Our Open Line has more than 30,000 stock findings, stampings and pattern stock with no tooling cost. Confined & Custom work puts your design on your own exclusive die, run only for you.',
       },
       moqFaq('custom findings'),
     ],
-    related: ['/industrial-components/', '/medallions/', '/capabilities/'],
+    related: ['/pattern-stock/', '/industrial-components/', '/medallions/', '/capabilities/'],
+    catalog: 'Findings',
     schemaCategory: 'Jewelry findings',
   },
 
@@ -124,7 +147,7 @@ export const products: Record<string, Product> = {
       'We strike badges in Pawtucket from tooling built in-house, for agencies, departments and the uniform suppliers who serve them.',
     ],
     typesHeading: 'Badges we strike',
-    typesTodo: 'Confirm the badge types you make and whether you offer enamel, hallmarks or serial numbering.',
+    typesTodo: 'Confirm the badge types you make and whether you offer hard or soft enamel, hallmarks or serial numbering (color fill is confirmed).',
     types: [
       { title: 'Police & sheriff', body: 'Shields, stars and ovals for municipal, county and state agencies.' },
       { title: 'Fire & EMS', body: 'Maltese cross and custom fire and EMS badges for departments and districts.' },
@@ -145,13 +168,12 @@ export const products: Record<string, Product> = {
     audienceNoteTodo: 'confirm your authorization policy (e.g. order on agency letterhead or PO) before publishing this note',
     specs: [
       { label: 'Process', value: 'Die-struck from steel tooling' },
-      { label: 'Base metals', todo: 'e.g. brass, nickel silver, copper' },
-      { label: 'Finishes', todo: 'e.g. gold, silver, two-tone, rhodium' },
-      { label: 'Color', todo: 'enamel options: hard, soft, none' },
+      { label: 'Metals', value: materialsLine },
+      { label: 'Finishes', value: finishesLine },
       { label: 'Attachments', todo: 'e.g. pin & safety catch, clip, wallet mount' },
-      { label: 'Typical sizes', todo: 'e.g. 2"–3.5" height' },
-      { label: 'Minimum order', todo: 'MOQ' },
-      { label: 'Lead time', todo: 'typical weeks from art approval' },
+      { label: 'Size', value: dieStrikingLine },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
     ],
     photoTodo: 'Photos: 4–6 badge shots (front and back). Get each agency’s permission before showing its badge.',
     faqs: [
@@ -217,13 +239,13 @@ export const products: Record<string, Product> = {
     ],
     specs: [
       { label: 'Process', value: 'Die-struck from steel tooling, two-sided relief' },
-      { label: 'Sizes', todo: 'e.g. 1.5"–3" diameter' },
-      { label: 'Metals', todo: 'e.g. bronze, brass, copper, nickel silver, sterling' },
-      { label: 'Finishes', todo: 'e.g. antique, bright, plated, enamel fill' },
+      { label: 'Size', value: dieStrikingLine },
+      { label: 'Metals', value: materialsLine },
+      { label: 'Finishes', value: finishesLine },
       { label: 'Edge options', todo: 'e.g. plain, reeded, edge lettering' },
       { label: 'Packaging', todo: 'e.g. capsules, velvet boxes' },
-      { label: 'Minimum order', todo: 'MOQ' },
-      { label: 'Lead time', todo: 'typical weeks from art approval' },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
     ],
     photoTodo: 'Photos: 4–6 medallion shots, obverse and reverse, ideally with a coin or ruler for scale.',
     faqs: [
@@ -258,11 +280,11 @@ export const products: Record<string, Product> = {
     accent: 'made to be kept',
     lead: 'Years-of-service pins, recognition medals and struck components for plaques and trophies, made as matched sets for award programs that run for decades.',
     intro: [
-      'Recognition programs run for years, and every pin in the series has to match the last one. Because we build and keep the tooling in-house, your 5-year pin this year matches the 5-year pin you ordered a decade ago.',
+      'Recognition programs run for years, and every pin in the series has to match the last one. Because we build and maintain the tooling in our own tool room, your 5-year pin this year matches the 5-year pin you ordered before.',
       'We strike award pieces for companies, organizations, departments and the award suppliers who serve them.',
     ],
     typesHeading: 'Award pieces we make',
-    typesTodo: 'Confirm the award products you make. Also confirm the tooling-retention claim in the intro ("build and keep the tooling").',
+    typesTodo: 'Confirm the award products you make.',
     types: [
       { title: 'Service & years pins', body: 'Years-of-service pins in matched sets, with year or gem variations.' },
       { title: 'Recognition medals', body: 'Struck medals for achievement, valor, safety and milestone awards.' },
@@ -278,11 +300,11 @@ export const products: Record<string, Product> = {
     ],
     specs: [
       { label: 'Process', value: 'Die-struck from steel tooling' },
-      { label: 'Metals', todo: 'e.g. brass, bronze, sterling, gold-filled' },
-      { label: 'Finishes', todo: 'e.g. gold or silver plate, enamel, antique' },
+      { label: 'Metals', value: materialsLine },
+      { label: 'Finishes', value: finishesLine },
       { label: 'Attachments', todo: 'e.g. clutch back, tie tack, ribbon drape' },
-      { label: 'Minimum order', todo: 'MOQ' },
-      { label: 'Lead time', todo: 'typical weeks from art approval' },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
     ],
     photoTodo: 'Photos: 3–6 award pieces; a full years-of-service set makes a strong image.',
     faqs: [
@@ -299,6 +321,60 @@ export const products: Record<string, Product> = {
     ],
     related: ['/medallions/', '/badges/', '/industries/fraternal-lodge/'],
     schemaCategory: 'Awards',
+  },
+
+  'pattern-stock': {
+    slug: 'pattern-stock',
+    name: 'Pattern Stock & Banding',
+    division: 'Raw Stampings & Findings',
+    quoteType: 'pattern',
+    metaTitle: 'Embossed Pattern Stock & Banding for Jewelry and Accessories',
+    metaDescription:
+      'Embossed metal pattern stock and banding from Mel-Co-Ed in Pawtucket, RI: several hundred patterns, from floral and hammered to stone, on the Open Line with no tooling cost.',
+    h1: 'Pattern Stock & Banding',
+    accent: 'texture by the strip',
+    lead: 'Several hundred embossed patterns on flat stock and banding, from floral and hammered to stone, ready to blank, form and finish into your pieces.',
+    intro: [
+      'Embossed pattern stock adds texture to findings, cuffs, tie bars and recognition pieces without engraving each part. Choose one of our popular patterns or one of the more unusual ones, or bring your own flat stock to be embossed.',
+      'Pattern stock is part of our Open Line: stock patterns with no tooling cost. Need something no one else has? Put your pattern on your own exclusive die.',
+    ],
+    typesHeading: 'Made from pattern stock',
+    types: [
+      { title: 'Jewelry & accessories', body: 'Cuff bracelets, bracelets, tie bars, lapel pins and collar stays.' },
+      { title: 'Recognition', body: 'Recognition pins and items, nameplates and badges, and ball markers.' },
+      { title: 'Gifts & keepsakes', body: 'Bookmarks, ornaments, money clips, card cases, letter openers and paper weights.' },
+      { title: 'Architectural & lighting', body: 'Embossed metal for architectural applications and the lighting industry.' },
+    ],
+    audienceHeading: 'Who uses pattern stock',
+    audience: ['Jewelry and accessory brands', 'Recognition and awards suppliers', 'Gift and ad specialty companies', 'Architectural and lighting manufacturers'],
+    specs: [
+      { label: 'Patterns', value: 'Several hundred, including floral, hammered and stone' },
+      { label: 'Metals', value: materialsLine },
+      { label: 'Banding widths', todo: 'available banding widths' },
+      { label: 'Thickness', todo: 'stamping gauge range' },
+      { label: 'Finishes', value: finishesLine },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
+    ],
+    photoTodo: 'Photos: close-ups of 4–6 embossed patterns and banding, plus a finished piece made from each.',
+    faqs: [
+      {
+        q: 'What is embossed pattern stock?',
+        a: 'Flat metal strip or sheet with a decorative pattern pressed into its surface. It is blanked, formed and finished into jewelry, accessories and recognition pieces, giving every part the same texture without engraving.',
+      },
+      {
+        q: 'Can you emboss my own flat stock?',
+        a: 'Yes. Bring your flat stock and we will emboss it with one of our patterns. Have dies or metal already? We’ll run yours.',
+      },
+      {
+        q: 'Do I pay for tooling to use a stock pattern?',
+        a: 'No. Stock patterns are part of our Open Line, with no tooling cost. A custom pattern is cut on your own exclusive die and quoted per job.',
+      },
+      moqFaq('pattern stock'),
+    ],
+    related: ['/findings/', '/products/', '/capabilities/'],
+    catalog: 'Pattern',
+    schemaCategory: 'Embossed metal pattern stock',
   },
 
   'industrial-components': {
@@ -333,13 +409,14 @@ export const products: Record<string, Product> = {
       'Buyers needing a second source or tooling transfer',
     ],
     specs: [
-      { label: 'Processes', value: 'Blanking, piercing, forming, die striking, CNC milling' },
+      { label: 'Processes', value: `${processesLine}; blanking, piercing, forming and CNC milling` },
       { label: 'Press capacity', todo: 'press count and tonnage range' },
-      { label: 'Materials', todo: 'e.g. CRS, stainless, brass, copper, aluminum, phosphor bronze' },
+      { label: 'Materials', value: materialsLine },
       { label: 'Thickness', todo: 'gauge / thickness range' },
       { label: 'Tolerances', todo: 'typical and best achievable' },
       { label: 'Max part size', todo: 'largest blank / part' },
-      { label: 'Run sizes', todo: 'e.g. prototype to __ pcs/yr' },
+      { label: 'Minimum order', value: minimumLine },
+      { label: 'Lead time', value: leadTimeLine },
       { label: 'Quality', todo: 'inspection methods, material certs, certifications (ISO, ITAR?) if any' },
     ],
     photoTodo: 'Photos: 4–6 production parts (no customer-identifying parts without permission) and one press-floor shot.',
@@ -354,13 +431,11 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you run short runs and prototypes?',
-        a: 'Tell us your quantities and we will recommend the most economical tooling approach for them.',
-        todo: true,
+        a: `Yes. Our standard minimum is ${ordering.minimum}; smaller runs are available at a higher price. Tell us your quantities and we will recommend the most economical tooling approach.`,
       },
       {
         q: 'Can you take over tooling from another supplier?',
-        a: 'Send us the drawings and details of the existing tooling and we will evaluate whether it can run in our presses.',
-        todo: true,
+        a: 'Yes. Have dies or metal already? We’ll run yours. Send details of the existing tooling and we will confirm the fit with our presses.',
       },
       {
         q: 'Do you provide material certifications and inspection reports?',
@@ -379,7 +454,13 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     title: 'Findings',
     slot: 'findings',
     href: '/findings/',
-    body: 'Stamped jewelry findings and raw die-struck blanks: charms, connectors, bails, caps and custom components, supplied unfinished or ready to plate.',
+    body: 'More than 30,000 stock findings on our Open Line, from charms and novelty pieces to men’s and women’s accessories, or custom on your own die.',
+  },
+  {
+    title: 'Pattern Stock & Banding',
+    slot: 'pattern-stock',
+    href: '/pattern-stock/',
+    body: 'Several hundred embossed patterns on flat stock and banding, from floral and hammered to stone. Open Line, no tooling cost.',
   },
   {
     title: 'Badges',

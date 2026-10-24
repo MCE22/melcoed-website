@@ -5,7 +5,7 @@
 export type Industry = {
   name: string;
   /** Line icon name (src/components/Icon.astro) for the Home "Trusted across industries" strip. */
-  icon: 'shield' | 'star' | 'columns' | 'medal' | 'gem' | 'ribbon' | 'gear';
+  icon: 'shield' | 'star' | 'columns' | 'medal' | 'gem' | 'ribbon' | 'gear' | 'cross' | 'golf';
   summary: string;
   href: string;
   /** Has its own page under /industries/ */
@@ -50,6 +50,18 @@ export const industries: Industry[] = [
     icon: 'ribbon',
     summary: 'Service awards, recognition pins and stamped components for award programs.',
     href: '/awards/',
+  },
+  {
+    name: 'Religious Goods',
+    icon: 'cross',
+    summary: 'Die-struck and stamped pieces made to order for religious goods suppliers.',
+    href: '/products/',
+  },
+  {
+    name: 'Golf & Sports',
+    icon: 'golf',
+    summary: 'Ball markers, divot tools, money clips and team and event pieces.',
+    href: '/products/',
   },
   {
     name: 'Industrial OEMs',

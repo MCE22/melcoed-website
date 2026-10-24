@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, type Faq } from '../../lib/schema';
@@ -66,8 +67,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'How far ahead of our event should we order commemorative medallions?',
-    a: 'Work back from your event date: allow time for artwork approval, new tooling, striking and finishing. Contact us with your date and quantity and we will tell you the latest you can approve artwork.',
-    todo: true,
+    a: `Lead time is typically ${ordering.leadTime} after artwork approval, so start with your event date and work back, leaving time for your committee to approve the design. Tell us your date and quantity and we will confirm the schedule.`,
   },
 ];
 ---
@@ -177,14 +177,13 @@ const faqs: Faq[] = [
       </div>
       <dl class="specs">
         <div><dt>Process</dt><dd>Die-struck from steel tooling, two-sided relief</dd></div>
-        <div><dt>Medallion sizes</dt><dd><Todo>e.g. 1.5&Prime;&ndash;3&Prime; diameter</Todo></dd></div>
-        <div><dt>Coin sizes</dt><dd><Todo>e.g. 1.5&Prime;&ndash;2&Prime;</Todo></dd></div>
-        <div><dt>Metals</dt><dd><Todo>e.g. bronze, brass, copper, nickel silver, sterling</Todo></dd></div>
-        <div><dt>Finishes</dt><dd><Todo>e.g. antique bronze, bright, plated, enamel color fill</Todo></dd></div>
+        <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Metals</dt><dd>{materialsLine}</dd></div>
+        <div><dt>Finishes</dt><dd>{finishesLine}</dd></div>
         <div><dt>Edge options</dt><dd><Todo>e.g. plain, reeded, edge lettering</Todo></dd></div>
         <div><dt>Packaging</dt><dd><Todo>e.g. capsules, velvet boxes, display cards</Todo></dd></div>
-        <div><dt>Minimum order</dt><dd><Todo>MOQ</Todo></dd></div>
-        <div><dt>Lead time</dt><dd><Todo>typical weeks from art approval</Todo></dd></div>
+        <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
+        <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
       </dl>
     </div>
   </section>

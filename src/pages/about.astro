@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Seal from '../components/Seal.astro';
+import Logo from '../components/Logo.astro';
 import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, divisions, quoteHref } from '../data/site';
@@ -51,7 +52,9 @@ const principles = [
     photo="about"
     photoTodo="About hero photo: the shop, the sign or the family at work"
     variant="dark"
-  />
+  >
+    <div class="about-plate"><Logo variant="primary" link={false} width={320} /></div>
+  </PageHero>
 
   <!-- Story -->
   <section class="section" aria-labelledby="story-h">
@@ -172,6 +175,13 @@ const principles = [
 </BaseLayout>
 
 <style>
+  .about-plate {
+    width: min(320px, 80%);
+    margin-top: 2rem;
+  }
+  .about-plate :global(.logo) {
+    width: 100%;
+  }
   .story-seal {
     width: min(16rem, 70vw);
     justify-self: center;

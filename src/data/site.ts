@@ -7,9 +7,9 @@ export const site = {
   shortName: 'Mel-Co-Ed',
   abbreviation: 'MCE',
   url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
-  tagline: 'Precision Metal Stamping Since 1948',
+  tagline: 'Coined. Die struck. Stamped. Finished in-house.',
   description:
-    'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with in-house tooling and precision milling. Our products are made in Rhode Island, USA.',
+    'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with a full tool room on site and finishing in-house. Our products are made in Rhode Island, USA.',
   foundingYear: 1948,
   generation: 'third-generation',
   phone: {
@@ -51,7 +51,10 @@ export const divisions: Division[] = [
     name: 'Raw Stampings & Findings',
     summary:
       'Unfinished die-struck blanks, jewelry findings and stamped components supplied to jewelers, craft brands and finishers.',
-    links: [{ label: 'Findings', href: '/findings/' }],
+    links: [
+      { label: 'Findings', href: '/findings/' },
+      { label: 'Pattern Stock & Banding', href: '/pattern-stock/' },
+    ],
   },
   {
     slug: 'industrial-components',
@@ -85,6 +88,7 @@ export type NavItem = { label: string; href: string; children?: { label: string;
 
 export const productLinks = [
   { label: 'Findings', href: '/findings/' },
+  { label: 'Pattern Stock & Banding', href: '/pattern-stock/' },
   { label: 'Badges', href: '/badges/' },
   { label: 'Medallions', href: '/medallions/' },
   { label: 'Awards', href: '/awards/' },

@@ -6,6 +6,7 @@ import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
+import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering } from '../data/facts';
 
 const path = '/capabilities/';
 const breadcrumbs = [{ name: 'Capabilities', path }];
@@ -20,25 +21,22 @@ const sections = [
   { id: 'quality', label: 'Quality' },
 ];
 
-const flow = [
-  { n: '01', title: 'Design review', body: 'Prints and artwork checked for manufacturability before tooling is cut.' },
-  { n: '02', title: 'Tool & die', body: 'Dies designed and built in-house, with CNC milling for die work.' },
-  { n: '03', title: 'Stamping', body: 'Striking, blanking, piercing and forming on our presses.' },
-  { n: '04', title: 'Secondary & finish', body: 'Milling, trimming and finishing to spec, then inspection and shipping.' },
-];
+const flow = process;
 
 // Common stamping materials and their usual applications (general reference).
-const materials = [
-  { name: 'Brass', uses: 'Findings, badges, emblems, electrical contacts' },
-  { name: 'Copper', uses: 'Medallions, electrical parts, findings' },
-  { name: 'Bronze', uses: 'Medallions, commemoratives, awards' },
-  { name: 'Nickel silver', uses: 'Badges, jewelry components, emblems' },
-  { name: 'Sterling silver', uses: 'Jewelry, fine medallions and awards' },
-  { name: 'Cold-rolled steel', uses: 'Brackets, clips, structural parts' },
-  { name: 'Stainless steel', uses: 'Corrosion-resistant components, washers' },
-  { name: 'Aluminum', uses: 'Lightweight parts, plates, enclosures' },
-  { name: 'Phosphor bronze', uses: 'Springs, contacts, terminals' },
-];
+const materialUses: Record<string, string> = {
+  'Brass (230/260)': 'Findings, emblems, badges, pattern stock',
+  Copper: 'Medallions, findings, emblems',
+  'Nickel silver': 'Badges, jewelry components, emblems',
+  'Sterling silver': 'Fine jewelry, medallions, awards (no minimum)',
+  'Fine silver': 'Fine jewelry and keepsakes',
+  'Gold & gold filled': 'Fine jewelry and recognition pieces (no minimum on gold)',
+  'Stainless steel': 'Tie bars, money clips, durable components',
+  Aluminum: 'Lightweight parts, tags and plates',
+  'Cold-rolled steel': 'Industrial parts, brackets and clips',
+  Zinc: 'Economical decorative parts',
+};
+const materials = materialList.map((name) => ({ name, uses: materialUses[name] ?? '' }));
 
 // Standard gauge-to-decimal values. Brown & Sharpe (AWG) is used for non-ferrous
 // sheet such as brass, copper and nickel silver; Manufacturers' Standard Gauge for carbon steel.
@@ -71,8 +69,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What thickness range can you stamp?',
-    a: 'Send your material and thickness with your request and we will confirm it fits our presses and tooling.',
-    todo: true,
+    a: `${dieStrikingLine}. For stamped parts, send your material and thickness and we will confirm the fit with our presses and tooling.`,
   },
   {
     q: 'What tolerances can you hold on stamped parts?',
@@ -133,7 +130,7 @@ const faqs: Faq[] = [
         todo="Photos: press floor, tool room / die work, CNC mill, and a finished part on the bench (3–6 images, landscape)."
         class="cap-photos"
       />
-      <Todo block>Confirm which finishing operations are in-house (e.g. tumbling, polishing) and which go to partners (e.g. plating).</Todo>
+      <p class="finish-note"><strong>Finished in-house:</strong> {finishes.join(', ').toLowerCase()}; plating in {plating.join(', ').toLowerCase()}. Assembled, packed and shipped from Pawtucket.</p>
     </div>
   </section>
 
@@ -151,11 +148,11 @@ const faqs: Faq[] = [
         <p>We run both kinds of work, from small decorative pieces to production components built to print.</p>
       </div>
       <dl class="specs specs--light">
-        <div><dt>Processes</dt><dd>Die striking, blanking, piercing, forming <Todo>add coining, progressive, compound, drawing if applicable</Todo></dd></div>
+        <div><dt>Processes</dt><dd>{processesLine}; blanking, piercing and forming</dd></div>
         <div><dt>Presses</dt><dd><Todo>number of presses and types (e.g. mechanical, hydraulic, drop hammer)</Todo></dd></div>
         <div><dt>Tonnage range</dt><dd><Todo>e.g. 20&ndash;300 tons</Todo></dd></div>
-        <div><dt>Max blank size</dt><dd><Todo>largest blank / part</Todo></dd></div>
-        <div><dt>Run sizes</dt><dd><Todo>e.g. prototype to __ pcs/yr</Todo></dd></div>
+        <div><dt>Die striking size</dt><dd>{dieStrikingLine}</dd></div><div><dt>Max stamped part</dt><dd><Todo>largest stamped blank / part</Todo></dd></div>
+        <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div><div><dt>Lead time</dt><dd>Typically {ordering.leadTime}</dd></div>
       </dl>
     </div>
     <div class="wrap">
@@ -183,11 +180,11 @@ const faqs: Faq[] = [
         </p>
       </div>
       <dl class="specs specs--light">
-        <div><dt>Die types</dt><dd><Todo>e.g. striking dies, blanking dies, compound, progressive, forming</Todo></dd></div>
-        <div><dt>Die making</dt><dd>In-house, supported by CNC milling</dd></div>
+        <div><dt>Die types</dt><dd>Coining and striking dies, progressive and transfer dies <Todo>add blanking, compound or forming dies if applicable</Todo></dd></div>
+        <div><dt>Die making</dt><dd>Built and maintained in our own tool room, supported by CNC milling</dd></div>
         <div><dt>Tool ownership</dt><dd><Todo>who owns tooling the customer pays for</Todo></dd></div>
         <div><dt>Tool storage</dt><dd><Todo>do you store customer dies, and for how long?</Todo></dd></div>
-        <div><dt>Tooling transfer</dt><dd><Todo>do you accept tooling from other suppliers?</Todo></dd></div>
+        <div><dt>Your tooling</dt><dd>Have dies or metal already? We’ll run yours.</dd></div>
       </dl>
     </div>
   </section>
@@ -220,7 +217,7 @@ const faqs: Faq[] = [
         <h2 id="materials-h">Metals we stamp</h2>
         <p class="lead">Ferrous and non-ferrous sheet and strip, chosen for the job: appearance, strength, conductivity or cost.</p>
       </div>
-      <Todo block>Confirm this list: remove metals you don't run, add any missing (e.g. gold-filled, titanium, pewter), and note any you stock.</Todo>
+      <p class="finish-note"><strong>{materialsNote}</strong></p>
       <div class="table-wrap">
         <table class="eq">
           <caption class="visually-hidden">Materials and typical uses</caption>
@@ -244,7 +241,7 @@ const faqs: Faq[] = [
           inches. If your print calls out a gauge, this table shows what it means for the two most common systems.
         </p>
         <dl class="specs specs--light">
-          <div><dt>Our range</dt><dd><Todo>min&ndash;max thickness, e.g. .005&Prime;&ndash;.125&Prime;</Todo></dd></div>
+          <div><dt>Die striking</dt><dd>Up to .250&Prime; thick</dd></div><div><dt>Stamping range</dt><dd><Todo>stamping gauge range</Todo></dd></div><div><dt>Banding widths</dt><dd><Todo>available banding widths</Todo></dd></div>
         </dl>
         <p class="small">
           Stainless steel and aluminum use their own gauge tables; specify decimal thickness for those metals.
@@ -321,6 +318,13 @@ const faqs: Faq[] = [
 </BaseLayout>
 
 <style>
+  .finish-note {
+    margin: 0 0 1.5rem;
+    color: var(--ink-600);
+  }
+  .finish-note strong {
+    color: var(--ink);
+  }
   :global(.cap-photos) {
     margin-bottom: 1.5rem;
   }

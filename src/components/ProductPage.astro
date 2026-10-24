@@ -6,6 +6,7 @@ import PageHero from './PageHero.astro';
 import FaqList from './FaqList.astro';
 import Todo from './Todo.astro';
 import PhotoSlot from './PhotoSlot.astro';
+import CatalogLinks from './CatalogLinks.astro';
 import type { PhotoSlotName } from '../data/photos';
 import { site, quoteHref, productLinks, industryLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
@@ -29,6 +30,7 @@ const labels: Record<string, string> = Object.fromEntries(
     ...productLinks,
     ...industryLinks,
     { label: 'All Industries', href: '/industries/' },
+    { label: 'All Products', href: '/products/' },
     { label: 'Capabilities', href: '/capabilities/' },
   ].map((l) => [l.href, l.label]),
 );
@@ -63,6 +65,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
       <a class="btn btn--primary" href={quote}>Quote {p.name} <span class="arr" aria-hidden="true">→</span></a>
       <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
     </div>
+    {p.catalog && <div class="hero-catalog"><CatalogLinks only={p.catalog} todo /></div>}
   </PageHero>
 
   <!-- Intro + at a glance -->
@@ -170,6 +173,9 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
 </BaseLayout>
 
 <style>
+  .hero-catalog {
+    margin-top: 1rem;
+  }
   .intro p:not(.lead) {
     color: var(--ink-600);
   }

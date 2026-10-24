@@ -5,6 +5,7 @@
 
 import { site, fullAddress } from './site';
 import type { Faq } from '../lib/schema';
+import { ordering, materials, materialsNote, waysToBuy } from './facts';
 
 export const generalFaqs: Faq[] = [
   {
@@ -29,8 +30,19 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: 'What is your minimum order quantity and typical lead time?',
-    a: 'Minimums and lead times depend on whether new tooling is required, the material and the finish. Contact us with your part details for a specific answer.',
-    todo: true,
+    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}.`,
+  },
+  {
+    q: 'How is pricing set?',
+    a: `${ordering.pricing} ${ordering.custom}`,
+  },
+  {
+    q: 'What are the two ways to buy from Mel-Co-Ed?',
+    a: waysToBuy.map((w) => `${w.name}: ${w.summary}`).join(' '),
+  },
+  {
+    q: 'What metals do you work with?',
+    a: `${materials.join(', ')}. ${materialsNote}`,
   },
 ];
 

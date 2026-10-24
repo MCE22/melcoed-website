@@ -1,6 +1,10 @@
 ---
-// Round brass seal (secondary mark) or the Made-in badge. Files from src/data/brand.ts.
-import { brand } from '../data/brand';
+// Round seal. Uses the official image (src/assets/brand/mce-seal.png) when present,
+// as WebP with a PNG fallback; otherwise the generated SVG seal or Made-in badge.
+// With the official seal in place, the separate Made-in badge is not shown (the seal
+// stands in for both), so callers that render both end up with a single seal.
+import { Picture } from 'astro:assets';
+import { brand, sealPng, brandAlt } from '../data/brand';
 
 interface Props {
   mark?: 'seal' | 'madeIn';
@@ -11,10 +15,24 @@ const { mark = 'seal', class: className, size = 400 } = Astro.props;
 const m = brand[mark];
 ---
 
-<img class:list={['seal', className]} src={m.src} width={size} height={size} alt={m.alt} loading="lazy" decoding="async" />
+{
+  sealPng ? (
+    mark === 'seal' && (
+      <Picture pictureAttributes={{ class: ['seal', className].filter(Boolean).join(' ') }} src={sealPng} formats={['webp']} fallbackFormat="png" widths={[size, size * 2].filter((w) => w <= sealPng.width)} sizes={`${size}px`} alt={brandAlt} loading="lazy" />
+    )
+  ) : (
+    <img class:list={['seal', className]} src={m.src} width={size} height={size} alt={m.alt} loading="lazy" decoding="async" />
+  )
+}
 
 <style>
-  .seal {
+  :global(picture.seal) {
+    display: block;
+    width: 100%;
+  }
+  .seal,
+  :global(picture.seal) img {
+    display: block;
     width: 100%;
     height: auto;
     filter: drop-shadow(0 8px 14px rgb(27 24 21 / 0.28));

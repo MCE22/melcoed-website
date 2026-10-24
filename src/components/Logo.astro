@@ -1,28 +1,39 @@
 ---
-// Brass plate logo. Files and sizes come from src/data/brand.ts, so swapping the
-// generated SVG for a photo of a real struck plate is a one-line change there.
-import { brand } from '../data/brand';
+// Plate logo. Uses the official image (src/assets/brand/mce-plate.png) when present,
+// served as WebP with a PNG fallback; otherwise the generated SVG plate.
+import { Picture } from 'astro:assets';
+import { brand, platePng, brandAlt } from '../data/brand';
 
 interface Props {
   variant?: 'compact' | 'primary';
-  /** Rendered width in px (height follows the mark's proportions). */
+  /** Largest rendered width in px (CSS may show it smaller; height follows proportions). */
   width?: number;
   link?: boolean;
   eager?: boolean;
 }
 const { variant = 'compact', width = 150, link = true, eager = true } = Astro.props;
-const mark = variant === 'primary' ? brand.plate : brand.plateCompact;
-const height = Math.round((width * mark.height) / mark.width);
-const img = { src: mark.src, width, height, alt: link ? `${mark.alt} home` : mark.alt };
+const svg = variant === 'primary' ? brand.plate : brand.plateCompact;
+const svgHeight = Math.round((width * svg.height) / svg.width);
+const loading = eager ? 'eager' : 'lazy';
 ---
 
 {
-  link ? (
-    <a href="/" class="logo" aria-label={img.alt}>
-      <img {...img} alt="" decoding="async" loading={eager ? 'eager' : 'lazy'} />
+  platePng ? (
+    link ? (
+      <a href="/" class="logo">
+        <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={[width, width * 2].filter((w) => w <= platePng.width)} sizes={`${width}px`} alt={`${brandAlt} (home)`} loading={loading} />
+      </a>
+    ) : (
+      <span class="logo">
+        <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={[width, width * 2].filter((w) => w <= platePng.width)} sizes={`${width}px`} alt={brandAlt} loading={loading} />
+      </span>
+    )
+  ) : link ? (
+    <a href="/" class="logo" aria-label={`${svg.alt} home`}>
+      <img src={svg.src} width={width} height={svgHeight} alt="" decoding="async" loading={loading} />
     </a>
   ) : (
-    <img class="logo" {...img} decoding="async" loading={eager ? 'eager' : 'lazy'} />
+    <img class="logo" src={svg.src} width={width} height={svgHeight} alt={svg.alt} decoding="async" loading={loading} />
   )
 }
 
@@ -32,11 +43,11 @@ const img = { src: mark.src, width, height, alt: link ? `${mark.alt} home` : mar
     flex: none;
     line-height: 0;
   }
-  .logo img,
+  .logo :global(img),
   img.logo {
-    width: auto;
+    display: block;
+    width: 100%;
     height: auto;
-    max-width: 100%;
     filter: drop-shadow(0 2px 3px rgb(27 24 21 / 0.25));
   }
 </style>

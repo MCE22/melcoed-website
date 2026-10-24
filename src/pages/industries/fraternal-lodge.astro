@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, type Faq } from '../../lib/schema';
@@ -61,8 +62,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the minimum order for lodge pins?',
-    a: 'Minimums depend on whether new tooling is needed and on the finish. Contact us with your design and quantity for a specific answer.',
-    todo: true,
+    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}.`,
   },
   {
     q: 'Do you work with regalia companies and distributors?',
@@ -142,12 +142,12 @@ const faqs: Faq[] = [
       </div>
       <dl class="specs">
         <div><dt>Process</dt><dd>Die-struck from steel tooling</dd></div>
-        <div><dt>Typical pin size</dt><dd><Todo>e.g. 5/8&Prime;&ndash;1&Prime;</Todo></dd></div>
-        <div><dt>Base metals</dt><dd><Todo>e.g. brass, copper, bronze</Todo></dd></div>
-        <div><dt>Finishes</dt><dd><Todo>e.g. gold or silver plate, antique, enamel fill</Todo></dd></div>
+        <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Metals</dt><dd>{materialsLine}</dd></div>
+        <div><dt>Finishes</dt><dd>{finishesLine}</dd></div>
         <div><dt>Attachments</dt><dd><Todo>e.g. clutch back, tie tack, screw back</Todo></dd></div>
-        <div><dt>Minimum order</dt><dd><Todo>MOQ for new tooling / existing tooling</Todo></dd></div>
-        <div><dt>Lead time</dt><dd><Todo>typical weeks from art approval</Todo></dd></div>
+        <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
+        <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
       </dl>
     </div>
   </section>

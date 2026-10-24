@@ -1,0 +1,63 @@
+---
+// "Download Catalog (PDF)" links for every catalog present in public/catalogs/.
+// Renders nothing (or a TODO, with `todo`) while the PDFs are missing.
+import Todo from './Todo.astro';
+import { catalogs, missingCatalogs } from '../data/catalogs';
+
+interface Props {
+  /** Only show catalogs whose title matches (e.g. "Pattern"). */
+  only?: string;
+  /** Show a TODO note for missing PDFs (use on one or two pages, not everywhere). */
+  todo?: boolean;
+  variant?: 'buttons' | 'links';
+}
+const { only, todo = false, variant = 'buttons' } = Astro.props;
+const list = only ? catalogs.filter((c) => c.title.includes(only)) : catalogs;
+const missing = only ? missingCatalogs.filter((c) => c.title.includes(only)) : missingCatalogs;
+---
+
+{
+  list.length > 0 && (
+    <ul class:list={['catalogs', `catalogs--${variant}`]}>
+      {list.map((c) => (
+        <li>
+          <a class={variant === 'buttons' ? 'btn btn--ghost' : undefined} href={c.href} download>
+            Download Catalog (PDF)<span class="catalogs__meta">{c.title} &middot; {c.sizeMb} MB</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+{todo && missing.length > 0 && <Todo block>Add catalog PDF{missing.length > 1 ? 's' : ''} to <code>public/catalogs/</code>: {missing.map((c) => c.href.split('/').pop()).join(', ')}</Todo>}
+
+<style>
+  .catalogs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .catalogs--buttons a {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .catalogs__meta {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    opacity: 0.75;
+  }
+  .catalogs--links {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .catalogs--links .catalogs__meta {
+    display: block;
+    letter-spacing: 0;
+  }
+</style>

@@ -4,6 +4,8 @@ import PageHero from '../components/PageHero.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { productIndex } from '../data/products';
+import CatalogLinks from '../components/CatalogLinks.astro';
+import { waysToBuy } from '../data/facts';
 import { isLive } from '../lib/routes';
 
 const path = '/products/';
@@ -34,8 +36,22 @@ const itemList = {
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+      <CatalogLinks todo />
     </div>
   </PageHero>
+
+  <section class="section ways-strip" aria-label="Two ways to buy">
+    <div class="wrap ways-strip__grid">
+      {
+        waysToBuy.map((w) => (
+          <div>
+            <p class="eyebrow">{w.name}</p>
+            <p>{w.summary}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
 
   <section class="section">
     <div class="wrap">
@@ -61,6 +77,24 @@ const itemList = {
 </BaseLayout>
 
 <style>
+  .ways-strip {
+    padding-block: 2.5rem;
+    background: var(--bone);
+  }
+  .ways-strip__grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 48rem) {
+    .ways-strip__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+  .ways-strip p:not(.eyebrow) {
+    margin: 0;
+    color: var(--ink-600);
+  }
   .products {
     display: grid;
     gap: 2.5rem 1.5rem;

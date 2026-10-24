@@ -66,6 +66,18 @@ its links appear automatically.
 - **Photos:** `src/data/photos.ts` slots. Hero and tile images use `<MediaSlot>` (dark frame, optional fade
   into the background, built for moody product shots); galleries use `<PhotoSlot>`.
 
+## Confirmed facts, catalogs and official logos
+
+- **`src/data/facts.ts`:** confirmed facts from the 2026 sell sheet (tagline, materials, finishes, sizes,
+  minimums, lead time, pricing, two ways to buy, process). Pages, specs and FAQ answers read from here.
+- **Catalogs:** put the PDFs in `public/catalogs/` as `mce-findings-stampings-catalog-2026.pdf` and
+  `mce-pattern-banding-catalog-2026.pdf`. "Download Catalog (PDF)" links then appear on Home, Products,
+  Findings, Pattern Stock & Banding and in the footer (hidden while a file is missing).
+- **Official logos:** put `mce-plate.png` and `mce-seal.png` in `src/assets/brand/`. They replace the
+  generated SVG marks (header, footer, About, seal, favicon) as WebP with a PNG fallback.
+- **Photos:** from the old site's media library. The raw import, with a manifest, is on the
+  `photo-import` branch (not merged into `main`).
+
 ## Search and AI summaries
 
 - **Search:** `/search/` uses [Pagefind](https://pagefind.app). `npm run build` runs `pagefind --site dist`

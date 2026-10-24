@@ -4,6 +4,7 @@ import Seal from './Seal.astro';
 import { site, divisions, productLinks, industryLinks, quoteHref, mapsUrl } from '../data/site';
 import { madeIn } from '../data/brand';
 import { liveLinks } from '../lib/routes';
+import CatalogLinks from './CatalogLinks.astro';
 
 interface Props {
   /** Hide the quote call-to-action band (e.g. on the quote page itself). */
@@ -66,6 +67,7 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
           )}
         </address>
         <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
+        <div class="footer-catalogs"><CatalogLinks variant="links" /></div>
       </div>
 
       <div class="footer-col">
@@ -210,6 +212,10 @@ const divisionItems = divisions.map((d) => ({ name: d.name, href: liveLinks(d.li
     margin-bottom: 0.5rem;
   }
   .footer-map {
+    font-size: 0.9rem;
+  }
+  .footer-catalogs {
+    margin-top: 1rem;
     font-size: 0.9rem;
   }
   .footer-h {
