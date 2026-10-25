@@ -51,6 +51,12 @@ const kindOf = (t) => (/^photo/i.test(t) ? 'photos' : 'copy');
 // --- data: photo slots that are filled ---
 const photosSrc = read('src/data/photos.ts');
 const filledSlots = new Set([...photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[\s*\{/gm)].map((m) => m[1]));
+// Slots filled with labeled illustrations still need real house-sample photos.
+const ILLUS_PAGES = { badges: 'Badges', 'industries-fraternal': 'Fraternal & Lodge' };
+for (const m of photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[([\s\S]*?)^\s*\],/gm)) {
+  if (m[2].includes('illustration: true'))
+    add(ILLUS_PAGES[m[1]] ?? 'Sitewide / business info', 'photos', `Replace the labeled illustrations in the \`${m[1]}\` slot with house-sample photos (keep the illustration flag off for real photos)`);
+}
 
 // --- .astro pages ---
 function walk(dir) {

@@ -1,0 +1,51 @@
+---
+// "Your die. Your design. Nobody else's." Drop-in section for Home, Badges,
+// Fraternal & Lodge and (when it exists) Product Development.
+import { confidential as c } from '../data/confidential';
+import { quoteHref } from '../data/site';
+
+interface Props {
+  /** Quote link (e.g. with ?type=badges). */
+  quote?: string;
+}
+const { quote = quoteHref } = Astro.props;
+---
+
+<section class="section section--navy confidential" aria-labelledby="confidential-h">
+  <div class="wrap confidential__grid">
+    <div>
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h2 id="confidential-h">{c.heading} <em>{c.accent}</em></h2>
+    </div>
+    <div>
+      <p class="confidential__body">{c.body}</p>
+      <a class="btn btn--ghost" href={quote}>Ask for an NDA with your quote <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .confidential__grid {
+    display: grid;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  @media (min-width: 56rem) {
+    .confidential__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+  .confidential h2 {
+    margin: 0;
+  }
+  .confidential h2 em {
+    display: block;
+    color: var(--brass-light);
+  }
+  .confidential__body {
+    margin: 0 0 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.65;
+  }
+</style>

@@ -4,6 +4,7 @@
 import { Image } from 'astro:assets';
 import Todo from './Todo.astro';
 import { photos, type PhotoSlotName } from '../data/photos';
+import { confidential } from '../data/confidential';
 
 interface Props {
   slot: PhotoSlotName;
@@ -19,6 +20,7 @@ const { slot, todo, eager = false, skip = 0, class: className } = Astro.props;
 const all = photos[slot] ?? [];
 const list = all.slice(skip);
 const gallery = list.length > 1;
+const illustrated = list.some((p) => p.illustration);
 const widths = [480, 800, 1200, 1600];
 const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
 ---
@@ -30,9 +32,10 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
       <code>src/data/photos.ts</code>.
     </Todo>
   ) : (
-    <div class:list={['photo-slot', { 'photo-slot--gallery': gallery }, className]}>
+    <div class:list={['photo-slot', { 'photo-slot--gallery': gallery, 'photo-slot--pairs': list.length % 3 !== 0 && list.length % 2 === 0 }, className]}>
       {list.map((p, i) => (
-        <figure class="photo-slot__frame">
+        <figure class:list={['photo-slot__frame', { 'photo-slot__frame--illus': p.illustration }]}>
+          {p.illustration && <span class="illus-tag">Illustration</span>}
           <Image
             src={p.src}
             alt={p.alt}
@@ -45,6 +48,14 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
           />
         </figure>
       ))}
+      {
+        illustrated && (
+          <div class="illus-notes">
+            <p class="illus-notes__label">{confidential.illustrationLabel}</p>
+            <p class="illus-notes__line">{confidential.galleryLine}</p>
+          </div>
+        )
+      }
     </div>
   )
 }
@@ -63,6 +74,10 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
     .photo-slot--gallery {
       grid-template-columns: repeat(3, 1fr);
     }
+    /* 2 or 4 photos: two columns, so no orphan tile */
+    .photo-slot--pairs {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   /* Chrome-rimmed frame, matching the map and heritage frames */
   /* Dark frame with a brass hairline: suits moody shots on wood or steel */
@@ -76,6 +91,45 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
     display: block;
     width: 100%;
     height: auto;
+  }
+  .photo-slot__frame--illus {
+    position: relative;
+  }
+  /* Visible label on every illustration */
+  .illus-tag {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 1;
+    padding: 0.3rem 0.55rem;
+    background: rgb(20 17 14 / 0.82);
+    border: 1px solid var(--brass);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass-light);
+  }
+  .illus-notes {
+    grid-column: 1 / -1;
+    padding-top: 0.25rem;
+  }
+  .illus-notes p {
+    margin: 0;
+  }
+  .illus-notes__label {
+    font-size: 0.85rem;
+    color: var(--ink-600);
+  }
+  .illus-notes__line {
+    margin-top: 0.75rem !important;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--brass);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--oxblood);
   }
   .photo-slot--gallery .photo-slot__frame :global(img) {
     aspect-ratio: 4 / 3;

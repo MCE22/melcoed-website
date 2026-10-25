@@ -7,6 +7,7 @@ import FaqList from './FaqList.astro';
 import Todo from './Todo.astro';
 import PhotoSlot from './PhotoSlot.astro';
 import CatalogLinks from './CatalogLinks.astro';
+import ConfidentialBand from './ConfidentialBand.astro';
 import type { PhotoSlotName } from '../data/photos';
 import { site, quoteHref, productLinks, industryLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
@@ -121,6 +122,8 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
       </div>
     </div>
   </section>
+
+  {p.confidential && <ConfidentialBand quote={quote} />}
 
   <!-- Audience -->
   <section class="section section--navy" aria-labelledby="aud-h">

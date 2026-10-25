@@ -5,6 +5,7 @@ import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
 import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
+import ConfidentialBand from '../../components/ConfidentialBand.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, type Faq } from '../../lib/schema';
 
@@ -124,6 +125,8 @@ const faqs: Faq[] = [
       </div>
     </div>
   </section>
+
+  <ConfidentialBand quote={quote} />
 
   <!-- Who + specs -->
   <section class="section section--ink" aria-labelledby="specs-h">

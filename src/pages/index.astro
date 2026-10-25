@@ -11,6 +11,7 @@ import { isLive, liveLinks } from '../lib/routes';
 import { industries } from '../data/industries';
 import { generalFaqs } from '../data/faqs';
 import type { PhotoSlotName } from '../data/photos';
+import ConfidentialBand from '../components/ConfidentialBand.astro';
 import CatalogLinks from '../components/CatalogLinks.astro';
 import { tagline, waysToBuy, ordering, process, processesLine, materialsLine, finishesLine, dieStrikingLine } from '../data/facts';
 
@@ -209,6 +210,8 @@ const faqs = generalFaqs;
       </div>
     </div>
   </section>
+
+  <ConfidentialBand />
 
   <!-- ============ DIVISIONS ============ -->
   <section class="section" id="divisions" aria-labelledby="divisions-h">

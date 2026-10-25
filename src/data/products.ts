@@ -37,6 +37,8 @@ export type Product = {
   related: string[]; // hrefs; only rendered if the page exists
   /** Show catalog download(s) whose title contains this text. */
   catalog?: string;
+  /** Show the "Your die. Your design." confidentiality section. */
+  confidential?: boolean;
   schemaCategory: string;
 };
 
@@ -134,6 +136,7 @@ export const products: Record<string, Product> = {
   badges: {
     slug: 'badges',
     name: 'Badges',
+    confidential: true,
     division: 'Finished Goods',
     quoteType: 'badges',
     metaTitle: 'Die-Struck Police, Fire, Military & Government Badges',

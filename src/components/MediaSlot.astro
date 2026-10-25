@@ -6,6 +6,7 @@
 import { Image } from 'astro:assets';
 import Todo from './Todo.astro';
 import { photos, type PhotoSlotName } from '../data/photos';
+import { confidential } from '../data/confidential';
 
 interface Props {
   slot: PhotoSlotName;
@@ -38,7 +39,17 @@ const widths = [480, 800, 1200, 1600, 2000];
         loading={eager ? 'eager' : 'lazy'}
         fetchpriority={eager ? 'high' : undefined}
       />
-    ) : (
+    ) : null
+  }
+  {
+    photo?.illustration && (
+      <figcaption class="media__illus">
+        <strong>Illustration</strong>{confidential.illustrationLabel.replace(/^Illustration/, '')}
+      </figcaption>
+    )
+  }
+  {
+    !photo && (
       <div class="ph">
         <Todo>{todo} (slot <code>{slot}</code>)</Todo>
       </div>
@@ -66,6 +77,28 @@ const widths = [480, 800, 1200, 1600, 2000];
   .media--fade-bottom {
     -webkit-mask-image: linear-gradient(to top, transparent 0, #000 22%);
     mask-image: linear-gradient(to top, transparent 0, #000 22%);
+  }
+  /* Visible label on illustrations, kept inside the un-faded part of the frame */
+  .media__illus {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 22%;
+    padding: 0.7rem 0.9rem;
+    background: rgb(20 17 14 / 0.84);
+    border-top: 1px solid var(--brass);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--cream-200);
+  }
+  .media__illus strong {
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-light);
+  }
+  .media--fade-none .media__illus {
+    left: 0;
   }
   .media .ph {
     position: absolute;
