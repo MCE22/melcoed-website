@@ -38,8 +38,6 @@ import dieStorageRacks from '../assets/photos/die-storage-racks.jpg';
 import footPresses from '../assets/photos/foot-presses.jpg';
 import partsConveyor from '../assets/photos/parts-conveyor.jpg';
 import finishedGoods from '../assets/photos/finished-goods-assortment.jpg';
-import libertasObverse from '../assets/photos/libertas-americana-obverse.jpg';
-import libertasReverse from '../assets/photos/libertas-americana-reverse.jpg';
 import pressAisle from '../assets/photos/press-aisle-operator.jpg';
 import team from '../assets/photos/team.jpg';
 import packingOrders from '../assets/photos/packing-orders.jpg';
@@ -87,6 +85,7 @@ export type PhotoSlotName =
   | 'awards'
   | 'industrial-components'
   | 'capabilities'
+  | 'product-development'
   | 'industries'
   | 'industries-fraternal'
   | 'industries-commemorative'
@@ -160,15 +159,18 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: footPresses, alt: 'A row of blue foot presses for secondary operations' },
     { src: partsConveyor, alt: 'A parts conveyor running alongside a stairway on the shop floor' },
   ],
+  // Shop and tool-room photos only: development work is customer work, so none of it is shown.
+  'product-development': [
+    { src: dieSetBench, alt: 'A stamping die set clamped on the bench in the tool room, with freshly struck sample parts below it' },
+    { src: toolRoomCnc, alt: 'A computer-controlled machining station in the tool room, where new dies are cut' },
+    { src: toolRoomEdm, alt: 'An electrical discharge machine used to cut fine die detail in the tool room' },
+    { src: dieBlockCloseup, alt: 'Close-up of a finished stamping die block with guide posts and fasteners' },
+  ],
   industries: [
     {
       src: finishedGoods,
       alt: 'Finished pieces built from stamped components: cuffs, bangles, bracelets, cufflinks, tie bars and flag pins',
     },
-  ],
-  'industries-commemorative': [
-    { src: libertasObverse, alt: 'Antique-silver Libertas Americana medal reading "Tribute to 1783, Princeton, NJ, 2008"' },
-    { src: libertasReverse, alt: 'Reverse of the Libertas Americana medal, inscribed "Non sine diis animosus infans" with the dates 1777 and 1781' },
   ],
   about: [
     { src: pressAisle, alt: 'An operator at a stamping press in an aisle lined with tooling shelves' },

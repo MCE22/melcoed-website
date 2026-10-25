@@ -1,0 +1,207 @@
+---
+// Custom product development: sketch, drawing or sample → engineered for production →
+// die built in our tool room → sample strikes → production, on an exclusive die.
+// Same URL as the old site's page (/capabilities/product-development/).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FaqList from '../../components/FaqList.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
+import ConfidentialBand from '../../components/ConfidentialBand.astro';
+import { site, quoteHref } from '../../data/site';
+import { faqPageNode, serviceNode, type Faq } from '../../lib/schema';
+import { waysToBuy, ordering, materialsLine, finishesLine, dieStrikingLine, minimumLine, leadTimeLine } from '../../data/facts';
+
+const path = '/capabilities/product-development/';
+const breadcrumbs = [
+  { name: 'Capabilities', path: '/capabilities/' },
+  { name: 'Product Development', path },
+];
+const quote = `${quoteHref}?type=custom`;
+const confined = waysToBuy.find((w) => w.name === 'Confined & Custom')!;
+
+const description =
+  'Custom product development for jewelry manufacturers: send a sketch, drawing or sample and Mel-Co-Ed engineers it, builds the die in-house and strikes it on an exclusive die in Pawtucket, RI.';
+
+const starts = [
+  {
+    title: 'A sketch',
+    body: 'A drawing on a napkin is enough to start. We work out the size, metal and construction with you.',
+  },
+  {
+    title: 'A drawing or CAD file',
+    body: 'Engineering prints, CAD files and artwork. PDF, DXF, DWG, STEP, IGES, Illustrator and EPS all work.',
+  },
+  {
+    title: 'A sample',
+    body: 'A pre-production sample, a prototype or a piece you want to improve on. We engineer the die from it.',
+  },
+];
+
+const steps = [
+  { n: '01', title: 'Send it over', body: 'A sketch, a drawing or a sample, with the metal, finish and quantity you have in mind.' },
+  {
+    n: '02',
+    title: 'Engineer for production',
+    body: 'We work out how the piece is struck, blanked and formed, and what it takes to make it repeatable at volume.',
+  },
+  { n: '03', title: 'Build the die', body: 'Your die is designed and cut in our own tool room, so changes stay on our schedule.' },
+  { n: '04', title: 'Sample strikes', body: 'We strike samples from the new die for you to check and approve before production.' },
+  { n: '05', title: 'Production', body: 'Approved parts are run, finished in-house if you need it, and shipped from Pawtucket.' },
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'Do you offer custom product development for jewelry manufacturers?',
+    a: `Yes. Jewelry manufacturers and designers send us a sketch, drawing or sample; we engineer it for production, build the die in our own tool room, strike samples for approval and then run production. We have made jewelry findings and stampings in Pawtucket, Rhode Island since ${site.foundingYear}.`,
+  },
+  {
+    q: 'What do I need to start a custom product?',
+    a: 'Whatever you have: a sketch, an engineering drawing or CAD file, or a physical sample. Tell us the metal, finish and quantity you have in mind, and we will tell you what it takes to make it.',
+  },
+  {
+    q: 'How long does custom product development take?',
+    a: `Lead time is typically ${ordering.leadTime}, depending on the piece, the tooling and the quantity. We confirm the schedule in your quote.`,
+  },
+  {
+    q: 'Do I approve samples before production?',
+    a: 'Yes. We strike samples from the new die for you to check and approve before production runs.',
+  },
+  {
+    q: 'What does Confined & Custom mean?',
+    a: `${confined.summary} The die is used only for your orders, and the design is never added to our Open Line.`,
+  },
+  {
+    q: 'What is the minimum order for a custom product?',
+    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum}`,
+  },
+];
+---
+
+<BaseLayout
+  title="Custom Product Development for Jewelry Manufacturers"
+  description={description}
+  breadcrumbs={breadcrumbs}
+  schema={[
+    serviceNode({
+      path,
+      name: 'Custom product development',
+      description,
+      serviceType: 'Custom jewelry component and metal stamping product development',
+      audience: 'Jewelry manufacturers and designers',
+    }),
+    faqPageNode(path, faqs),
+  ]}
+>
+  <PageHero
+    title="Custom Product Development"
+    accent="for jewelry manufacturers"
+    ribbon="Capabilities · Confined & Custom"
+    lead="Bring us a napkin sketch, an engineering drawing or a pre-production sample. We engineer it for production, build the die in our own tool room, strike samples for your approval, then run it on a die that is yours alone."
+    breadcrumbs={breadcrumbs}
+    photo="product-development"
+    photoTodo="Product development hero photo: tool room or die on the bench"
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quote}>Start a Custom Project <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <!-- Start with what you have -->
+  <section class="section" aria-labelledby="start-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon ribbon--ink">Start with what you have</span>
+        <h2 id="start-h">From a napkin to a production die</h2>
+        <p class="lead">
+          Since {site.foundingYear} we have turned ideas into jewelry findings and stamped components, with a full tool
+          room in the same building as the presses. Whatever stage your design is at, we take it from there.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {
+          starts.map((s) => (
+            <article class="card">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section section--cream" aria-labelledby="process-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="ribbon">How it works</span>
+        <h2 id="process-h">Five steps, one building</h2>
+      </div>
+      <ol class="steps pd-steps">
+        {
+          steps.map((s) => (
+            <li class="step">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="pd-photos">
+        <PhotoSlot slot="product-development" skip={1} todo="Photos: tool room, die work and sample strikes (3–6 images, landscape)." />
+      </div>
+    </div>
+  </section>
+
+  <!-- Confined & Custom -->
+  <section class="section" aria-labelledby="confined-h">
+    <div class="wrap split">
+      <div>
+        <span class="ribbon ribbon--ink">{confined.name}</span>
+        <h2 id="confined-h">An exclusive die, run only for you</h2>
+        <p class="lead">{confined.summary}</p>
+        <p>
+          Your design never joins our Open Line of stock findings. It is struck on its own die, for your orders only.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <dl class="specs">
+        <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
+        <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
+        <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Metals</dt><dd>{materialsLine}</dd></div>
+        <div><dt>Finishes</dt><dd>{finishesLine}</dd></div>
+        <div><dt>Tooling</dt><dd>Designed and built in our own tool room</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <ConfidentialBand quote={quote} />
+
+  <!-- FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="ribbon">Questions</span>
+        <h2 id="faq-h">Product development FAQ</h2>
+        <a class="btn btn--primary" href={quote}>Start a Custom Project</a>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pd-photos {
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 64rem) {
+    .pd-steps {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+</style>

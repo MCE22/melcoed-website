@@ -194,6 +194,9 @@ const faqs = generalFaqs;
               <span class="ways__n">0{i + 1}</span>
               <h3>{w.name}</h3>
               <p>{w.summary}</p>
+              {w.name === 'Confined & Custom' && isLive('/capabilities/product-development/') && (
+                <a class="ways__more" href="/capabilities/product-development/">How custom development works &rarr;</a>
+              )}
             </article>
           ))
         }
@@ -626,6 +629,12 @@ const faqs = generalFaqs;
     margin-bottom: 0.75rem;
     font-family: var(--font-display);
     font-size: 1.6rem;
+    color: var(--oxblood);
+  }
+  .ways__more {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 600;
     color: var(--oxblood);
   }
   .ways__card h3 {

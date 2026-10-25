@@ -18,6 +18,7 @@ const redirect = new URL('/request-a-quote/thank-you/', Astro.site ?? site.url).
 
 // `key` lets other pages preselect a type: /request-a-quote/?type=fraternal
 const productTypes = [
+  { key: 'custom', label: 'Custom product development (your design, exclusive die)' },
   { key: 'badges', label: 'Badges (police, fire, military, government, corporate)' },
   { key: 'medallions', label: 'Medallions or challenge coins' },
   { key: 'awards', label: 'Awards or recognition pins' },

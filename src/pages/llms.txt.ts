@@ -36,6 +36,7 @@ ${links([{ label: 'All industries', href: '/industries/' }, ...industryLinks])}
 
 ${links([
   { label: 'Capabilities (processes, materials, gauges, tolerances)', href: '/capabilities/' },
+  { label: 'Custom product development (sketch, drawing or sample to production, on an exclusive die)', href: '/capabilities/product-development/' },
   { label: 'About', href: '/about/' },
   { label: 'FAQ', href: '/faq/' },
   { label: 'Contact', href: '/contact/' },

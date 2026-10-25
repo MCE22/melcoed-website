@@ -147,6 +147,21 @@ export function productNode(opts: {
   };
 }
 
+// A service we offer (e.g. custom product development), provided by the organization.
+export function serviceNode(opts: { path: string; name: string; description: string; serviceType: string; audience?: string }): Node {
+  return {
+    '@type': 'Service',
+    '@id': abs(opts.path) + '#service',
+    name: opts.name,
+    description: opts.description,
+    serviceType: opts.serviceType,
+    url: abs(opts.path),
+    provider: { '@id': ids.organization },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    ...(opts.audience ? { audience: { '@type': 'BusinessAudience', name: opts.audience } } : {}),
+  };
+}
+
 export function graph(nodes: Node[]): string {
   // Escape `<` so no string value can close the surrounding <script> tag.
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes }).replace(/</g, '\\u003c');
