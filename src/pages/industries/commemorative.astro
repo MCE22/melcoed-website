@@ -91,7 +91,7 @@ const faqs: Faq[] = [
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quote}>Quote a Commemorative</a>
-      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
     </div>
   </PageHero>
 
@@ -270,6 +270,7 @@ const faqs: Faq[] = [
   }
   .timeline__year {
     font-family: var(--font-display);
+    font-weight: 800;
     font-size: 1.5rem;
     line-height: 1.1;
     color: var(--navy);

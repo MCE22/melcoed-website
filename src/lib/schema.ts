@@ -42,7 +42,10 @@ export function organizationNode(): Node {
     logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/mce-plate.png'), width: 794, height: 316 },
     image: abs('/og-default.png'),
     knowsAbout: [
-      'Precision metal stamping',
+      'Metal stamping',
+      'Progressive die stamping',
+      'Transfer stamping',
+      'Coining',
       'Die striking',
       'Tool and die making',
       'CNC milling',

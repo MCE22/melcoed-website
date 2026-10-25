@@ -1,7 +1,9 @@
 // /llms.txt: a plain-text summary of the business for AI assistants and LLM crawlers
 // (https://llmstxt.org). Generated from the same data as the site, so it can't drift.
 import type { APIRoute } from 'astro';
-import { site, fullAddress, divisions, productLinks, industryLinks } from '../data/site';
+import { site, fullAddress, productLinks } from '../data/site';
+import { services } from '../data/services';
+import { industries } from '../data/industries';
 import { madeIn } from '../data/brand';
 import { isLive } from '../lib/routes';
 
@@ -20,9 +22,9 @@ export const GET: APIRoute = () => {
 - Phone: ${site.phone.display}${site.email ? `\n- Email: ${site.email}` : ''}
 - Quotes: ${abs('/request-a-quote/')}
 
-## Divisions
+## Services
 
-${divisions.map((d) => `- ${d.name}: ${d.summary}`).join('\n')}
+${services.filter((x) => isLive(x.href)).map((x) => `- [${x.label}](${abs(x.href)}): ${x.summary}`).join('\n')}
 
 ## Products
 
@@ -30,7 +32,9 @@ ${links(productLinks)}
 
 ## Industries
 
-${links([{ label: 'All industries', href: '/industries/' }, ...industryLinks])}
+Metal stamping for every industry: ${industries.map((i) => i.name).join(', ')}.
+
+${links([{ label: 'All industries', href: '/industries/' }, { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }, { label: 'Commemorative & 250th', href: '/industries/commemorative/' }])}
 
 ## Company
 

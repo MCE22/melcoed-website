@@ -20,8 +20,10 @@ interface Props {
   /** Short note shown on the placeholder while the slot is empty. */
   todo: string;
   class?: string;
+  /** Skip the overlaid illustration label when the caller shows the label itself (small tiles). */
+  labelOutside?: boolean;
 }
-const { slot, index = 0, aspect, sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, fade = 'none', todo, class: className } = Astro.props;
+const { labelOutside = false, slot, index = 0, aspect, sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, fade = 'none', todo, class: className } = Astro.props;
 const photo = photos[slot]?.[index];
 const widths = [480, 800, 1200, 1600, 2000];
 ---
@@ -42,7 +44,7 @@ const widths = [480, 800, 1200, 1600, 2000];
     ) : null
   }
   {
-    photo?.illustration && (
+    photo?.illustration && !labelOutside && (
       <figcaption class="media__illus">
         <strong>Illustration</strong>{confidential.illustrationLabel.replace(/^Illustration/, '')}
       </figcaption>

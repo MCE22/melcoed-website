@@ -1,50 +1,39 @@
 ---
-// Plate logo. Uses the official image (src/assets/brand/mce-plate.png) when present,
-// served as WebP with a PNG fallback; otherwise the generated SVG plate.
+// Plate logo: the official image (src/assets/brand/mce-plate.png), served as WebP with a PNG fallback.
 import { Picture } from 'astro:assets';
-import { brand, platePng, brandAlt } from '../data/brand';
+import { platePng, brandAlt } from '../data/brand';
 
 interface Props {
+  /** Kept for callers; both variants use the same plate image. */
   variant?: 'compact' | 'primary';
   /** Largest rendered width in px (CSS may show it smaller; height follows proportions). */
   width?: number;
   link?: boolean;
   eager?: boolean;
 }
-const { variant = 'compact', width = 150, link = true, eager = true } = Astro.props;
-const svg = variant === 'primary' ? brand.plate : brand.plateCompact;
-const svgHeight = Math.round((width * svg.height) / svg.width);
+const { width = 150, link = true, eager = true } = Astro.props;
 const loading = eager ? 'eager' : 'lazy';
+const widths = [width, width * 2].filter((w) => w <= platePng.width);
 ---
 
 {
-  platePng ? (
-    link ? (
-      <a href="/" class="logo">
-        <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={[width, width * 2].filter((w) => w <= platePng.width)} sizes={`${width}px`} alt={`${brandAlt} (home)`} loading={loading} />
-      </a>
-    ) : (
-      <span class="logo">
-        <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={[width, width * 2].filter((w) => w <= platePng.width)} sizes={`${width}px`} alt={brandAlt} loading={loading} />
-      </span>
-    )
-  ) : link ? (
-    <a href="/" class="logo" aria-label={`${svg.alt} home`}>
-      <img src={svg.src} width={width} height={svgHeight} alt="" decoding="async" loading={loading} />
+  link ? (
+    <a href="/" class="logo">
+      <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={widths} sizes={`${width}px`} alt={`${brandAlt} (home)`} loading={loading} />
     </a>
   ) : (
-    <img class="logo" src={svg.src} width={width} height={svgHeight} alt={svg.alt} decoding="async" loading={loading} />
+    <span class="logo">
+      <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={widths} sizes={`${width}px`} alt={brandAlt} loading={loading} />
+    </span>
   )
 }
-
 <style>
   .logo {
     display: inline-block;
     flex: none;
     line-height: 0;
   }
-  .logo :global(img),
-  img.logo {
+  .logo :global(img) {
     display: block;
     width: 100%;
     height: auto;

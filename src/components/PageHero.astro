@@ -1,5 +1,5 @@
 ---
-// Interior page header: breadcrumbs, brass eyebrow, uppercase serif title with an
+// Interior page header: breadcrumbs, brass eyebrow, uppercase block-sans title with an
 // oxblood second line, lead, optional actions (slot), and an optional photo that
 // fades into the background. `variant="dark"` is the charcoal version (About page).
 import MediaSlot from './MediaSlot.astro';
@@ -96,7 +96,7 @@ const titleText = nb(title);
   }
   .page-hero h1 {
     max-width: 18ch;
-    font-size: clamp(2.2rem, 6.6vw, 4.1rem);
+    font-size: var(--fs-h1);
     margin-bottom: 1.25rem;
   }
   .page-hero__accent {

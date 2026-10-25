@@ -12,8 +12,9 @@ const path = '/capabilities/';
 const breadcrumbs = [{ name: 'Capabilities', path }];
 
 const sections = [
-  { id: 'stamping', label: 'Stamping' },
+  { id: 'die-striking', label: 'Die Striking' },
   { id: 'tooling', label: 'Tooling' },
+  { id: 'finishing', label: 'Finishing' },
   { id: 'milling', label: 'Milling' },
   { id: 'materials', label: 'Materials' },
   { id: 'gauges', label: 'Gauges' },
@@ -56,10 +57,6 @@ const gauges: [number, string, string][] = [
 
 const faqs: Faq[] = [
   {
-    q: 'What metal stamping processes does Mel-Co-Ed offer?',
-    a: 'Die striking, blanking, piercing and forming, supported by in-house tool and die making and CNC milling, all at our facility in Pawtucket, Rhode Island.',
-  },
-  {
     q: 'Do you build your own stamping dies?',
     a: 'Yes. Tooling is designed and built in-house, with our Precision Milling division handling die work. That keeps engineering changes, repairs and reorders on our schedule.',
   },
@@ -97,7 +94,7 @@ const faqs: Faq[] = [
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
     </div>
   </PageHero>
 
@@ -130,41 +127,29 @@ const faqs: Faq[] = [
         todo="Photos: press floor, tool room / die work, CNC mill, and a finished part on the bench (3–6 images, landscape)."
         class="cap-photos"
       />
-      <p class="finish-note"><strong>Finished in-house:</strong> {finishes.join(', ').toLowerCase()}; plating in {plating.join(', ').toLowerCase()}. Assembled, packed and shipped from Pawtucket.</p>
     </div>
   </section>
 
-  <!-- Stamping -->
-  <section id="stamping" class="section section--cream cap" aria-labelledby="stamping-h">
+  <!-- Die striking & coining -->
+  <section id="die-striking" class="section section--cream cap" aria-labelledby="striking-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon">Stamping</span>
-        <h2 id="stamping-h">Metal stamping &amp; die striking</h2>
+        <h2 id="striking-h">Die striking &amp; coining</h2>
         <p>
-          Die striking presses a metal blank between engraved steel dies to create relief: the process behind badges,
-          medallions, emblems and findings. Blanking, piercing and forming cut and shape sheet metal into flat and formed
-          industrial parts.
+          A blank is struck between engraved steel dies to raise sharp relief: the process behind badges, medallions,
+          emblems and findings.
         </p>
-        <p>We run both kinds of work, from small decorative pieces to production components built to print.</p>
+        <p>
+          Production stamping (progressive, transfer and automatic, plus blanking and forming) has its own page:
+          <a href="/metal-stamping/">Metal Stamping &rarr;</a>
+        </p>
       </div>
-      <dl class="specs specs--light">
-        <div><dt>Processes</dt><dd>{processesLine}; blanking, piercing and forming</dd></div>
-        <div><dt>Presses</dt><dd><Todo>number of presses and types (e.g. mechanical, hydraulic, drop hammer)</Todo></dd></div>
-        <div><dt>Tonnage range</dt><dd><Todo>e.g. 20&ndash;300 tons</Todo></dd></div>
-        <div><dt>Die striking size</dt><dd>{dieStrikingLine}</dd></div><div><dt>Max stamped part</dt><dd><Todo>largest stamped blank / part</Todo></dd></div>
-        <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div><div><dt>Lead time</dt><dd>Typically {ordering.leadTime}</dd></div>
+      <dl class="specs">
+        <div><dt>Processes</dt><dd>Coining and die striking</dd></div>
+        <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div>
+        <div><dt>Lead time</dt><dd>Typically {ordering.leadTime}</dd></div>
       </dl>
-    </div>
-    <div class="wrap">
-      <div class="table-wrap">
-        <table class="eq">
-          <caption>Press equipment</caption>
-          <thead><tr><th scope="col">Press</th><th scope="col">Type</th><th scope="col">Capacity</th><th scope="col">Qty</th></tr></thead>
-          <tbody>
-            <tr><td colspan="4"><Todo>equipment list: make/model, type, tonnage, quantity. A real equipment list is one of the strongest trust signals for industrial buyers.</Todo></td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -194,6 +179,21 @@ const faqs: Faq[] = [
         <p>We engineer it for production, build the die in our tool room, strike samples for approval, then run it on a die that is yours alone.</p>
         <span class="card__more">Custom product development &rarr;</span>
       </a>
+    </div>
+  </section>
+
+  <!-- Finishing -->
+  <section id="finishing" class="section section--cream cap" aria-labelledby="finishing-h">
+    <div class="wrap split">
+      <div>
+        <h2 id="finishing-h">Finishing</h2>
+        <p>Parts are finished in-house, then assembled, packed and shipped from Pawtucket. Or we ship them raw to your finisher.</p>
+      </div>
+      <dl class="specs">
+        <div><dt>Finishes</dt><dd>{finishes.join(', ')}</dd></div>
+        <div><dt>Plating</dt><dd>{plating.join(', ')}</dd></div>
+        <div><dt>Assembly</dt><dd>Assembled, packed and shipped in-house</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -419,6 +419,7 @@ const faqs: Faq[] = [
     text-align: left;
     padding-bottom: 0.5rem;
     font-family: var(--font-display);
+    font-weight: 800;
     font-size: 1.25rem;
     color: var(--navy);
   }
@@ -449,7 +450,7 @@ const faqs: Faq[] = [
   .gauge tbody th {
     font-family: var(--font-display);
     font-size: 1.15rem;
-    font-weight: 400;
+    font-weight: 800;
     color: var(--red);
   }
   .gauge td {

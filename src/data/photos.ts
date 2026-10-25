@@ -44,16 +44,6 @@ import packingOrders from '../assets/photos/packing-orders.jpg';
 import assemblyBenches from '../assets/photos/assembly-benches.jpg';
 import shopFloorDesk from '../assets/photos/shop-floor-desk.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
-// From the 2026 Pattern & Banding catalog (public/catalogs/)
-import patternDiscs from '../assets/photos/pattern-discs-catalog-cover.jpg';
-import bandingFloral from '../assets/photos/banding-sheet-floral-greek-key.jpg';
-import bandingScenic from '../assets/photos/banding-sheet-scenic-scroll.jpg';
-import patternSheet from '../assets/photos/pattern-stock-sheet-c201-c521.jpg';
-// From the 2026 Findings & Stampings catalog (public/catalogs/)
-import findingsFloral from '../assets/photos/findings-floral-stampings-catalog-cover.jpg';
-import findingsBirds from '../assets/photos/findings-sheet-birds-shells-hearts.jpg';
-import findingsMarcasite from '../assets/photos/findings-sheet-marcasite-silver.jpg';
-import findingsMasks from '../assets/photos/findings-sheet-masks-medallions.jpg';
 // Labeled illustrations of styles we strike, cropped from src/assets/illustrations/badge-styles-sheet.png.
 // Customer work is confidential; these use fictional names only.
 import ilPolice from '../assets/illustrations/badge-style-police-eagle.jpg';
@@ -77,13 +67,13 @@ export type Photo = { src: ImageMetadata; alt: string; illustration?: boolean };
 export type PhotoSlotName =
   | 'home-hero'
   | 'home-heritage'
-  | 'home-approach'
   | 'findings'
   | 'pattern-stock'
   | 'badges'
   | 'medallions'
   | 'awards'
   | 'industrial-components'
+  | 'metal-stamping'
   | 'capabilities'
   | 'product-development'
   | 'industries'
@@ -92,18 +82,14 @@ export type PhotoSlotName =
   | 'about';
 
 export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
-  'home-hero': [{ src: brassBlanks, alt: 'A pile of brass stamped blanks catching warm light' }],
-  'home-approach': [
-    { src: pressFloorPerkins, alt: 'Perkins mechanical stamping presses on the press floor, with coils of brass strip on pallets' },
+  'home-hero': [
+    { src: pressFloorPerkins, alt: 'Perkins mechanical stamping presses on the Mel-Co-Ed press floor, with coils of brass strip on pallets' },
+    { src: brassBlanks, alt: 'A pile of brass stamped blanks catching warm light' },
   ],
   'home-heritage': [
     { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
   ],
   findings: [
-    { src: findingsFloral, alt: 'Six embossed brass floral stampings, a fan leaf, iris, rose, lilies and an ivy leaf, on a dark background' },
-    { src: findingsBirds, alt: 'Catalog sheet of brass findings: birds in flight, shells, figure charms, a filigree oval and a heart blank, each with its part number' },
-    { src: findingsMarcasite, alt: 'Catalog sheet of silver-tone findings with set stones: crescent moons, stars, drops, frames and buckles, each with its part number' },
-    { src: findingsMasks, alt: 'Catalog sheet of small stamped charms in brass and copper: theater masks, crests and round medallions, each with its part number' },
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
     { src: cuffsTextured, alt: 'Three stamped cuff bracelets with textured and hammered patterns in a silver finish' },
     { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
@@ -112,10 +98,6 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: cufflinksWorn, alt: 'A square cufflink fastened on a French cuff under a navy suit jacket' },
   ],
   'pattern-stock': [
-    { src: patternDiscs, alt: 'Five embossed brass pattern stock discs with hammered, diamond, ribbed and striped textures, on a dark background' },
-    { src: bandingFloral, alt: 'Catalog sheet of embossed banding patterns, including floral scrollwork, Greek key and ribbed borders, each with its part number' },
-    { src: bandingScenic, alt: 'Catalog sheet of embossed banding patterns with scenic, scrolled, rose and floral designs, each with its part number' },
-    { src: patternSheet, alt: 'Catalog page of embossed pattern stock discs in brass and silver tones, part numbers C201 to C521' },
     { src: patternStock, alt: 'Strips of embossed brass pattern stock with a finished cuff made from it' },
   ],
   badges: [
@@ -158,6 +140,12 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: dieStorageRacks, alt: 'Racks of stored stamping dies and tooling' },
     { src: footPresses, alt: 'A row of blue foot presses for secondary operations' },
     { src: partsConveyor, alt: 'A parts conveyor running alongside a stairway on the shop floor' },
+  ],
+  'metal-stamping': [
+    { src: pressesRow, alt: 'Mechanical punch presses lined up on the Mel-Co-Ed press floor' },
+    { src: pressOperators, alt: 'Operators setting up a large mechanical stamping press on the shop floor' },
+    { src: partsConveyor, alt: 'A parts conveyor carrying stamped parts away from the presses' },
+    { src: brassCoilShelves, alt: 'Coils of brass strip stock stored on shelving beside the presses' },
   ],
   // Shop and tool-room photos only: development work is customer work, so none of it is shown.
   'product-development': [

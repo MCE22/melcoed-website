@@ -2,6 +2,8 @@
 // schema.org JSON-LD all read from here, so a change made once stays consistent
 // everywhere (important for Google Business Profile / NAP consistency).
 
+import { services } from './services';
+
 export const site = {
   name: 'Mel-Co-Ed, Inc.',
   shortName: 'Mel-Co-Ed',
@@ -9,7 +11,7 @@ export const site = {
   url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
   tagline: 'Coined. Die struck. Stamped. Finished in-house.',
   description:
-    'Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company in Pawtucket, Rhode Island. Since 1948 we have produced die-struck badges, medallions, awards, fraternal emblems, jewelry findings and industrial components, with a full tool room on site and finishing in-house. Our products are made in Rhode Island, USA.',
+    'Mel-Co-Ed, Inc. is a third-generation, family-owned metal stamping and die striking company in Pawtucket, Rhode Island. Since 1948 we have run progressive, transfer and automatic stamping, coining and die striking for every industry, from OEM and industrial components to jewelry findings, badges, medallions and emblems, with tooling built in our own tool room and finishing in-house. Our products are made in Rhode Island, USA.',
   foundingYear: 1948,
   generation: 'third-generation',
   phone: {
@@ -103,16 +105,13 @@ export const industryLinks = [
 
 // Links to pages that don't exist yet are filtered out at build time (see src/lib/routes.ts),
 // so this list can describe the full site while pages are still being built.
+export const serviceLinks = services.map((s) => ({ label: s.label, href: s.href }));
+
 export const nav: NavItem[] = [
-  { label: 'Capabilities', href: '/capabilities/' },
+  { label: 'Services', href: '/capabilities/', children: [...serviceLinks, { label: 'All Capabilities', href: '/capabilities/' }] },
   { label: 'Products', href: '/products/', children: [{ label: 'All Products', href: '/products/' }, ...productLinks] },
-  {
-    label: 'Industries',
-    href: '/industries/',
-    children: [{ label: 'All Industries', href: '/industries/' }, ...industryLinks],
-  },
+  { label: 'Industries', href: '/industries/' },
   { label: 'About', href: '/about/' },
-  { label: 'Contact', href: '/contact/' },
 ];
 
 export const quoteHref = '/request-a-quote/';

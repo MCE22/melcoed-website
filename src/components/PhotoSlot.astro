@@ -22,7 +22,7 @@ const list = all.slice(skip);
 const gallery = list.length > 1;
 const illustrated = list.some((p) => p.illustration);
 const widths = [480, 800, 1200, 1600];
-const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
+const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
 ---
 
 {
@@ -32,7 +32,7 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
       <code>src/data/photos.ts</code>.
     </Todo>
   ) : (
-    <div class:list={['photo-slot', { 'photo-slot--gallery': gallery, 'photo-slot--pairs': list.length % 3 !== 0 && list.length % 2 === 0 }, className]}>
+    <div class:list={['photo-slot', { 'photo-slot--gallery': gallery, 'photo-slot--odd': gallery && list.length % 2 === 1 }, className]}>
       {list.map((p, i) => (
         <figure class:list={['photo-slot__frame', { 'photo-slot__frame--illus': p.illustration }]}>
           {p.illustration && <span class="illus-tag">Illustration</span>}
@@ -65,18 +65,16 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
     display: grid;
     gap: 1rem;
   }
+  /* Big photos: two columns at most. With an odd count the first photo runs full width. */
   @media (min-width: 40rem) {
     .photo-slot--gallery {
       grid-template-columns: repeat(2, 1fr);
     }
-  }
-  @media (min-width: 64rem) {
-    .photo-slot--gallery {
-      grid-template-columns: repeat(3, 1fr);
+    .photo-slot--odd > .photo-slot__frame:first-child {
+      grid-column: 1 / -1;
     }
-    /* 2 or 4 photos: two columns, so no orphan tile */
-    .photo-slot--pairs {
-      grid-template-columns: repeat(2, 1fr);
+    .photo-slot--odd > .photo-slot__frame:first-child :global(img) {
+      aspect-ratio: 16 / 9;
     }
   }
   /* Chrome-rimmed frame, matching the map and heritage frames */
@@ -127,7 +125,7 @@ const sizes = gallery ? '(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw
     border-top: 1px solid var(--brass);
     font-family: var(--font-display);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.02em;
     color: var(--oxblood);
   }

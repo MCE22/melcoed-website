@@ -1,55 +1,69 @@
-// Industries served. Used by the Industries hub and the Home page.
-// `href` is the best page for that audience: a dedicated industry page where one
-// exists, otherwise the closest product page. Links only render once the page exists.
+// Industries served: metal stamping for every industry. Used by the Industries page and
+// the Home industries strip. `href` is the best page for that audience: a dedicated
+// industry page where one exists, otherwise the closest service or product page.
 
 export type Industry = {
   name: string;
-  /** Line icon name (src/components/Icon.astro) for the Home "Trusted across industries" strip. */
-  icon: 'shield' | 'star' | 'columns' | 'medal' | 'gem' | 'ribbon' | 'gear' | 'cross' | 'golf';
+  /** Line icon name (src/components/Icon.astro). */
+  icon: 'gear' | 'hex' | 'bolt' | 'gem' | 'ribbon' | 'shield' | 'columns' | 'tag' | 'cross' | 'golf';
   summary: string;
   href: string;
   /** Has its own page under /industries/ */
   dedicated?: boolean;
+  /** A related industry page shown as a second link on the card. */
+  related?: { label: string; href: string };
 };
 
 export const industries: Industry[] = [
   {
-    name: 'Fraternal & Lodge',
-    icon: 'columns',
-    summary: 'Masonic and fraternal emblems, lapel pins and insignia for lodges, grand lodges and regalia suppliers.',
-    href: '/industries/fraternal-lodge/',
-    dedicated: true,
+    name: 'OEM & Industrial',
+    icon: 'gear',
+    summary: 'Precision stamped components built to print for manufacturers and contract assemblers.',
+    href: '/industrial-components/',
   },
   {
-    name: 'Commemorative & 250th',
-    icon: 'medal',
-    summary: "Medallions, coins and pins for America's 250th, town anniversaries, historical societies and milestones.",
-    href: '/industries/commemorative/',
-    dedicated: true,
+    name: 'Hardware',
+    icon: 'hex',
+    summary: 'Stamped brackets, plates, clips and washers for hardware makers, built to print.',
+    href: '/metal-stamping/',
   },
   {
-    name: 'Law Enforcement & Public Safety',
-    icon: 'shield',
-    summary: 'Die-struck police, sheriff, fire and EMS badges, plus reproductions of retired designs.',
-    href: '/badges/',
+    name: 'Electrical',
+    icon: 'bolt',
+    summary: 'Stamped contacts, clips, brackets and shims for electrical products, built to print.',
+    href: '/metal-stamping/',
   },
   {
-    name: 'Military & Government',
-    icon: 'star',
-    summary: 'Die-struck badges, insignia and medallions for agencies, units and government programs.',
-    href: '/badges/',
-  },
-  {
-    name: 'Jewelry & Accessory Brands',
+    name: 'Jewelry & Fashion',
     icon: 'gem',
-    summary: 'Findings and raw die-struck stampings for jewelers, designers and finishers.',
+    summary: 'Findings, blanks and stamped components for jewelers, designers and fashion brands.',
     href: '/findings/',
   },
   {
     name: 'Awards & Recognition',
     icon: 'ribbon',
-    summary: 'Service awards, recognition pins and stamped components for award programs.',
+    summary: 'Medallions, service awards and recognition pins, struck to your design.',
     href: '/awards/',
+    related: { label: 'Commemorative & 250th', href: '/industries/commemorative/' },
+  },
+  {
+    name: 'Government & Public Safety',
+    icon: 'shield',
+    summary: 'Die-struck police, sheriff, fire, EMS, military and government badges and insignia.',
+    href: '/badges/',
+  },
+  {
+    name: 'Fraternal & Lodge',
+    icon: 'columns',
+    summary: 'Masonic and fraternal emblems, lapel pins and insignia for lodges and regalia suppliers.',
+    href: '/industries/fraternal-lodge/',
+    dedicated: true,
+  },
+  {
+    name: 'Corporate & Promotional',
+    icon: 'tag',
+    summary: 'Challenge coins, emblems and pins for companies, programs and events.',
+    href: '/medallions/',
   },
   {
     name: 'Religious Goods',
@@ -62,11 +76,5 @@ export const industries: Industry[] = [
     icon: 'golf',
     summary: 'Ball markers, divot tools, money clips and team and event pieces.',
     href: '/products/',
-  },
-  {
-    name: 'Industrial OEMs',
-    icon: 'gear',
-    summary: 'Precision stamped components built to print for manufacturers and contract assemblers.',
-    href: '/industrial-components/',
   },
 ];

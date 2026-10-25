@@ -1,10 +1,8 @@
 ---
-// Round seal. Uses the official image (src/assets/brand/mce-seal.png) when present,
-// as WebP with a PNG fallback; otherwise the generated SVG seal or Made-in badge.
-// With the official seal in place, the separate Made-in badge is not shown (the seal
-// stands in for both), so callers that render both end up with a single seal.
+// Round seal: the official image (src/assets/brand/mce-seal.png), WebP with a PNG fallback.
+// The seal stands in for the old separate Made-in badge, so `mark="madeIn"` renders nothing.
 import { Picture } from 'astro:assets';
-import { brand, sealPng, brandAlt } from '../data/brand';
+import { sealPng, brandAlt } from '../data/brand';
 
 interface Props {
   mark?: 'seal' | 'madeIn';
@@ -12,19 +10,13 @@ interface Props {
   size?: number;
 }
 const { mark = 'seal', class: className, size = 400 } = Astro.props;
-const m = brand[mark];
 ---
 
 {
-  sealPng ? (
-    mark === 'seal' && (
-      <Picture pictureAttributes={{ class: ['seal', className].filter(Boolean).join(' ') }} src={sealPng} formats={['webp']} fallbackFormat="png" widths={[size, size * 2].filter((w) => w <= sealPng.width)} sizes={`${size}px`} alt={brandAlt} loading="lazy" />
-    )
-  ) : (
-    <img class:list={['seal', className]} src={m.src} width={size} height={size} alt={m.alt} loading="lazy" decoding="async" />
+  mark === 'seal' && (
+    <Picture pictureAttributes={{ class: ['seal', className].filter(Boolean).join(' ') }} src={sealPng} formats={['webp']} fallbackFormat="png" widths={[size, size * 2].filter((w) => w <= sealPng.width)} sizes={`${size}px`} alt={brandAlt} loading="lazy" />
   )
 }
-
 <style>
   :global(picture.seal) {
     display: block;

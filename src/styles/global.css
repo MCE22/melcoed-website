@@ -1,7 +1,7 @@
 /* Mel-Co-Ed design system — editorial, converted-factory studio.
-   Warm cream paper, near-black type, oxblood accents, aged-brass labels and rules,
-   brushed steel. Square corners, thin brass hairlines, generous space, crisp grid.
-   No script fonts. Mobile-first: base styles target phones; min-width queries scale up. */
+   Warm cream paper, near-black type, oxblood accents, aged-brass labels, brushed steel.
+   Heavy block-sans headings (Archivo 800–900, uppercase), Inter body. No serif or
+   script display type. Square corners, generous space, crisp grid. Mobile-first: base styles target phones; min-width queries scale up. */
 
 :root {
   /* Palette */
@@ -49,10 +49,17 @@
   --chrome-dark: var(--steel);
   --steel-dim: var(--rule-dark);
 
-  --font-display: 'Playfair Display Variable', 'Playfair Display', 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-display: 'Archivo Variable', Archivo, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-block: var(--font-body);
   --font-script: var(--font-display); /* no script faces anywhere */
+  /* Type scale: every heading on the site uses one of these */
+  --fs-h1: clamp(1.9rem, 8vw, 4.25rem);
+  --fs-h2: clamp(1.7rem, 4.2vw, 2.7rem);
+  --fs-h3: 1.15rem;
+  --fs-lead: 1.15rem;
+  --fs-eyebrow: 0.7rem;
+
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; /* TODO boxes only */
 
   --gutter: 1rem;
@@ -137,23 +144,29 @@ figure {
 
 /* ---------- Type ---------- */
 h1,
-h2 {
+h2,
+h3,
+h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.04;
-  letter-spacing: 0.005em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   margin: 0 0 1rem;
   color: var(--ink);
   text-wrap: balance;
 }
+h1,
+h2 {
+  line-height: 1;
+}
 h1 {
-  font-size: clamp(2.3rem, 7.4vw, 4.6rem);
+  font-size: var(--fs-h1);
+  font-weight: 900;
 }
 h2 {
-  font-size: clamp(1.7rem, 4.6vw, 2.75rem);
+  font-size: var(--fs-h2);
 }
-/* Key words in oxblood: <h1>American craftsmanship <em>builds brands.</em></h1> */
+/* Key words in oxblood: <h1>Metal stamping <em>since 1948.</em></h1> */
 h1 em,
 h2 em,
 .accent {
@@ -162,35 +175,28 @@ h2 em,
 }
 h3,
 h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
-  color: var(--ink);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem;
 }
 h3 {
-  font-size: 1.12rem;
+  font-size: var(--fs-h3);
 }
 h4 {
   font-size: 1rem;
 }
-.script {
-  font-family: var(--font-display);
-}
 .lead {
-  font-size: 1.12rem;
-  line-height: 1.7;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
   color: var(--ink-600);
-  max-width: 38rem;
+  max-width: 36rem;
 }
 .mono {
   font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
 }
 
-/* Brass eyebrow: widely letter-spaced uppercase sans with a short brass rule.
+/* Brass eyebrow: widely letter-spaced uppercase sans. One per section at most.
    `.ribbon` is the class name earlier pages use; `.eyebrow` and `.label` are aliases. */
 .eyebrow,
 .ribbon,
@@ -205,19 +211,11 @@ h4 {
   box-shadow: none;
   color: var(--eyebrow);
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: var(--fs-eyebrow);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   line-height: 1.3;
   text-transform: uppercase;
-}
-.eyebrow::before,
-.ribbon::before {
-  content: '';
-  flex: none;
-  width: 1.75rem;
-  height: 1px;
-  background: var(--brass);
 }
 .label {
   margin-bottom: 0.6rem;
@@ -229,16 +227,9 @@ h4 {
     gap: 0.65rem;
     letter-spacing: 0.2em;
   }
-  .eyebrow::before,
-  .ribbon::before {
-    width: 1.1rem;
-  }
 }
 :is(.section--ink, .section--navy, .section--teal, .sign, .dark) :is(.eyebrow, .ribbon, .label) {
   --eyebrow: var(--brass-light);
-}
-:is(.section--ink, .section--navy, .section--teal, .sign, .dark) :is(.eyebrow, .ribbon)::before {
-  background: var(--brass-light);
 }
 
 /* ---------- Layout ---------- */
@@ -285,15 +276,6 @@ h4 {
 .section-head {
   margin-bottom: 2.75rem;
   max-width: 46rem;
-}
-/* thin brass rule under section headings */
-.section-head > h2::after {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 1px;
-  margin-top: 1.25rem;
-  background: var(--brass);
 }
 .rule {
   height: 1px;
@@ -396,7 +378,21 @@ h4 {
 .btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+/* Secondary action next to a section's one button: a plain link, not a second button */
+.text-link {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+}
+.text-link:hover {
+  color: var(--oxblood);
+}
+:is(.section--ink, .section--navy, .section--teal, .sign, .dark) .text-link {
+  color: var(--paper);
 }
 
 /* ---------- Dark panel (callouts). `.sign` kept as the class name from earlier pages. ---------- */
@@ -563,6 +559,7 @@ h4 {
 }
 .roundel__value {
   font-family: var(--font-display);
+    font-weight: 800;
   font-size: 1.8rem;
   line-height: 1;
 }
@@ -613,6 +610,7 @@ h4 {
 .step__n {
   display: block;
   font-family: var(--font-display);
+    font-weight: 800;
   font-size: 2rem;
   line-height: 1;
   color: var(--oxblood);

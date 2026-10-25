@@ -1,0 +1,243 @@
+---
+// Lead service page: metal stamping for every industry.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import Todo from '../components/Todo.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import { site, quoteHref } from '../data/site';
+import { industries } from '../data/industries';
+import { faqPageNode, serviceNode, type Faq } from '../lib/schema';
+import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering } from '../data/facts';
+
+const path = '/metal-stamping/';
+const breadcrumbs = [{ name: 'Metal Stamping', path }];
+const quote = `${quoteHref}?type=stamping`;
+const description = `Progressive, transfer and automatic metal stamping, blanking, forming, coining and die striking, with dies built in-house. Any metal, any industry. Pawtucket, RI since ${site.foundingYear}.`;
+
+const processes = [
+  { title: 'Progressive stamping', body: 'Strip feeds through a series of stations, one operation each, for high-volume parts.' },
+  { title: 'Transfer stamping', body: 'Parts move station to station off the strip, for larger or deeper-formed work.' },
+  { title: 'Automatic stamping', body: 'Coil-fed, automated press runs for consistent parts at production speed.' },
+  { title: 'Blanking & piercing', body: 'Flat shapes and holes cut cleanly from sheet and strip.' },
+  { title: 'Forming', body: 'Bends, draws and formed features shaped in the die.' },
+  { title: 'Coining & die striking', body: `Sharp relief struck between engraved steel dies, ${dieStrikingLine.toLowerCase()}.`, href: '/capabilities/#die-striking' },
+];
+
+const faqs: Faq[] = [
+  {
+    q: 'What metal stamping processes does Mel-Co-Ed offer?',
+    a: 'Progressive, transfer and automatic stamping, blanking, piercing and forming, plus coining and die striking. Dies are designed and built in our own tool room in Pawtucket, Rhode Island.',
+  },
+  {
+    q: 'What metals can you stamp?',
+    a: `${materials.join(', ')}. ${materialsNote}`,
+  },
+  {
+    q: 'What is the minimum order for stamped parts?',
+    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum}`,
+  },
+  {
+    q: 'What is the lead time for metal stamping?',
+    a: `Typically ${ordering.leadTime}, depending on tooling and quantity. We confirm the schedule in your quote.`,
+  },
+  {
+    q: 'Can you run dies or metal we supply?',
+    a: "Yes. Have dies or metal already? We'll run yours.",
+  },
+];
+---
+
+<BaseLayout
+  title="Metal Stamping: Progressive, Transfer & Automatic, Built to Print"
+  description={description}
+  breadcrumbs={breadcrumbs}
+  schema={[
+    serviceNode({ path, name: 'Metal stamping', description, serviceType: 'Metal stamping' }),
+    faqPageNode(path, faqs),
+  ]}
+>
+  <PageHero
+    title="Metal Stamping"
+    accent="built to print"
+    ribbon="Services"
+    lead="Progressive, transfer and automatic stamping, blanking and forming, with dies built in our own tool room. Any metal. Any industry."
+    breadcrumbs={breadcrumbs}
+    photo="metal-stamping"
+    photoTodo="Metal stamping hero photo: presses running"
+  >
+    <div class="btn-row hero-cta">
+      <a class="btn btn--primary" href={quote}>Quote Stamped Parts <span class="arr" aria-hidden="true">→</span></a>
+      <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
+    </div>
+  </PageHero>
+
+  <!-- Processes -->
+  <section class="section" aria-labelledby="proc-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="proc-h">What we run</h2>
+      </div>
+      <ul class="procs">
+        {
+          processes.map((p) => (
+            <li>
+              <h3>{p.href ? <a href={p.href}>{p.title} &rarr;</a> : p.title}</h3>
+              <p>{p.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Photos -->
+  <section class="section section--cream" aria-label="Our press floor">
+    <div class="wrap">
+      <PhotoSlot slot="metal-stamping" skip={1} todo="Photos: presses running, strip and coil, finished stamped parts (3–6 images, landscape)." />
+    </div>
+  </section>
+
+  <!-- Specs -->
+  <section class="section" aria-labelledby="specs-h">
+    <div class="wrap split">
+      <div>
+        <h2 id="specs-h">Specs <em>at a glance</em></h2>
+        <p>Send your print, material and quantity. We'll confirm the fit on our presses and tooling.</p>
+        <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <dl class="specs">
+        <div><dt>Materials</dt><dd>{materialsLine}</dd></div>
+        <div><dt>Die striking</dt><dd>{dieStrikingLine}</dd></div>
+        <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
+        <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
+        <div><dt>Tooling</dt><dd>Designed and built in our own tool room</dd></div>
+        <div><dt>Presses</dt><dd><Todo>number of presses and types (e.g. mechanical, hydraulic)</Todo></dd></div>
+        <div><dt>Tonnage range</dt><dd><Todo>e.g. 20&ndash;300 tons</Todo></dd></div>
+        <div><dt>Gauge range</dt><dd><Todo>thinnest to thickest stock you stamp</Todo></dd></div>
+        <div><dt>Max part size</dt><dd><Todo>largest stamped blank / part</Todo></dd></div>
+        <div><dt>Tolerances</dt><dd><Todo>typical and best-achievable tolerances</Todo></dd></div>
+      </dl>
+    </div>
+    <div class="wrap">
+      <div class="table-wrap eq-wrap">
+        <table class="eq">
+          <caption>Press equipment</caption>
+          <thead><tr><th scope="col">Press</th><th scope="col">Type</th><th scope="col">Capacity</th><th scope="col">Qty</th></tr></thead>
+          <tbody>
+            <tr><td colspan="4"><Todo>equipment list: make/model, type, tonnage, quantity. A real equipment list is one of the strongest trust signals for industrial buyers.</Todo></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section class="section section--ink" aria-labelledby="ind-h">
+    <div class="wrap">
+      <h2 id="ind-h">Stamped for <em>every industry</em></h2>
+      <ul class="ind-list">{industries.map((i) => <li>{i.name}</li>)}</ul>
+      <a class="btn btn--ghost" href="/industries/">See industries <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--cream" aria-labelledby="faq-h">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <h2 id="faq-h">Metal stamping FAQ</h2>
+      </div>
+      <FaqList faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .procs {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 40rem) {
+    .procs {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 3rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .procs {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .procs li {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .procs h3 {
+    font-size: 1.2rem;
+  }
+  .procs h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .procs h3 a:hover {
+    color: var(--oxblood);
+  }
+  .procs p {
+    margin: 0;
+    color: var(--ink-600);
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  .eq-wrap {
+    margin-top: 2.5rem;
+  }
+  .eq {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper);
+    font-size: 0.95rem;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .eq caption {
+    text-align: left;
+    padding-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .eq th,
+  .eq td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eq th {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-600);
+  }
+  .ind-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.5rem 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+  .ind-list li {
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--rule-dark);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-200);
+  }
+</style>

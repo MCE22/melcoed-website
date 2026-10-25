@@ -64,9 +64,9 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quote}>Quote {p.name} <span class="arr" aria-hidden="true">→</span></a>
-      <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
+      <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
     </div>
-    {p.catalog && <div class="hero-catalog"><CatalogLinks only={p.catalog} todo /></div>}
+    {p.catalog && <div class="hero-catalog"><CatalogLinks only={p.catalog} variant="links" todo /></div>}
   </PageHero>
 
   <!-- Intro + at a glance -->

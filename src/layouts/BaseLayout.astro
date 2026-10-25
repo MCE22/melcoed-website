@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/playfair-display/wght.css';
+import '@fontsource-variable/archivo/wght.css';
 import '@fontsource-variable/inter/wght.css';
 import '../styles/global.css';
 import '../styles/motion.css';
@@ -57,8 +57,8 @@ const canonical = new URL(path, Astro.site ?? site.url).toString();
 const ogImageUrl = new URL(ogImage, Astro.site ?? site.url).toString();
 
 // Favicon: from the official seal image when present, else the generated SVG.
-const favicon32 = sealPng ? await getImage({ src: sealPng, width: 32, height: 32, format: 'png' }) : undefined;
-const appleIcon = sealPng ? await getImage({ src: sealPng, width: 180, height: 180, format: 'png' }) : undefined;
+const favicon32 = await getImage({ src: sealPng, width: 32, height: 32, format: 'png' });
+const appleIcon = await getImage({ src: sealPng, width: 180, height: 180, format: 'png' });
 
 const nodes = [
   organizationNode(),
@@ -79,16 +79,8 @@ const nodes = [
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
-    {
-      favicon32 ? (
-        <>
-          <link rel="icon" href={favicon32.src} type="image/png" sizes="32x32" />
-          <link rel="apple-touch-icon" href={appleIcon?.src} />
-        </>
-      ) : (
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      )
-    }
+    <link rel="icon" href={favicon32.src} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={appleIcon.src} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#f4efe6" />
 

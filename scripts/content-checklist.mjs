@@ -32,6 +32,8 @@ const PAGE_NAMES = {
   'faq.astro': 'FAQ',
   'contact.astro': 'Contact',
   'capabilities.astro': 'Capabilities',
+  'metal-stamping.astro': 'Metal Stamping',
+  'capabilities/product-development.astro': 'Product Development',
   'industries/index.astro': 'Industries hub',
   'industries/fraternal-lodge.astro': 'Fraternal & Lodge',
   'industries/commemorative.astro': 'Commemorative & 250th',
@@ -109,7 +111,7 @@ for (const b of blocks) {
 for (const m of read('src/data/faqs.ts').matchAll(/\{\s*q: (['"`])(.+?)\1,\s*a:[^}]*?todo: true/g)) add('FAQ (also shown on Home)', 'faq', clean(m[2]));
 
 // --- code comments: business facts ---
-for (const p of ['src/data/site.ts', 'src/components/Logo.astro', 'src/components/QuoteForm.astro', 'astro.config.mjs', 'public/logo.svg']) {
+for (const p of ['src/data/site.ts', 'src/components/Logo.astro', 'src/components/QuoteForm.astro', 'astro.config.mjs']) {
   let s;
   try {
     s = read(p);
@@ -134,7 +136,7 @@ for (const slot of allSlots) {
 }
 
 // --- output ---
-const ORDER = ['Sitewide / business info', 'Home', 'About', 'Capabilities', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industrial Components', 'Industries hub', 'Fraternal & Lodge', 'Commemorative & 250th', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
+const ORDER = ['Sitewide / business info', 'Home', 'Metal Stamping', 'About', 'Capabilities', 'Product Development', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industrial Components', 'Industries hub', 'Fraternal & Lodge', 'Commemorative & 250th', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
 const pages = [...groups.keys()].sort((a, b) => (ORDER.indexOf(a) + 99 * (ORDER.indexOf(a) < 0)) - (ORDER.indexOf(b) + 99 * (ORDER.indexOf(b) < 0)));
 const LABELS = { specs: 'Specs & numbers', copy: 'Facts & copy', faq: 'FAQ answers to confirm', photos: 'Photos' };
 let total = 0;

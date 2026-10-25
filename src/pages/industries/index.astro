@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
+import Icon from '../../components/Icon.astro';
 import { industries } from '../../data/industries';
 import { isLive } from '../../lib/routes';
 
@@ -24,17 +24,18 @@ const itemList = {
 ---
 
 <BaseLayout
-  title="Industries We Serve: Fraternal, Commemorative, Public Safety & More"
-  description="Mel-Co-Ed strikes badges, medallions, emblems, findings and stamped parts for lodges, 250th anniversary committees, police and fire departments, jewelers and OEMs."
+  title="Metal Stamping for Every Industry: OEM, Hardware, Electrical, Jewelry & More"
+  description="Mel-Co-Ed provides metal stamping and die striking for OEM and industrial, hardware, electrical, jewelry, awards, public safety, fraternal, corporate, religious and sports customers. Pawtucket, RI since 1948."
   pageType="CollectionPage"
   breadcrumbs={breadcrumbs}
   schema={[itemList]}
+  hideFooterCta
 >
   <PageHero
-    title="Industries We Serve"
-    accent={`since ${site.foundingYear}`}
-    ribbon="Who we work with"
-    lead="Lodges, anniversary committees, police departments, jewelers and manufacturers all come to us for the same reason: parts struck right, from tooling we build in-house."
+    title="Metal stamping"
+    accent="for every industry"
+    ribbon="Industries"
+    lead="Manufacturers, jewelers, agencies and lodges come to us for the same thing: parts stamped right, from tooling we build in-house."
     breadcrumbs={breadcrumbs}
     photo="industries"
     photoTodo="Industries hero photo: finished work across industries"
@@ -42,62 +43,87 @@ const itemList = {
 
   <section class="section">
     <div class="wrap">
-      <div class="grid grid--3">
+      <ul class="inds">
         {
-          industries.map((i) =>
-            isLive(i.href) ? (
-              <a class:list={['card card--link ind', { 'ind--feature': i.dedicated }]} href={i.href}>
-                <h2 class="ind__h">{i.name}</h2>
-                <p>{i.summary}</p>
-                <span class="card__more">{i.dedicated ? 'Explore' : 'See products'} &rarr;</span>
-              </a>
-            ) : (
-              <article class="card ind">
-                <h2 class="ind__h">{i.name}</h2>
-                <p>{i.summary}</p>
-              </article>
-            ),
-          )
+          industries.map((i) => (
+            <li class="ind">
+              <Icon name={i.icon} size={32} />
+              <h2 class="ind__h">{isLive(i.href) ? <a href={i.href}>{i.name}</a> : i.name}</h2>
+              <p>{i.summary}</p>
+              {i.related && isLive(i.related.href) && (
+                <a class="ind__related" href={i.related.href}>
+                  {i.related.label} &rarr;
+                </a>
+              )}
+            </li>
+          ))
         }
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-label="Our work">
-    <div class="wrap">
-      <PhotoSlot slot="industries" skip={1} todo="Photos: a spread of finished work across industries (badges, emblems, medallions, industrial parts), 3–6 images." />
+      </ul>
     </div>
   </section>
 
   <section class="section section--cream">
     <div class="wrap not-listed">
       <div>
-        <span class="ribbon ribbon--ink">Not listed?</span>
-        <h2>If it's stamped metal, ask.</h2>
-        <p class="lead">
-          Plenty of our work doesn't fit a category: a replacement part for a discontinued product, a one-off emblem, a
-          short run for a prototype. Send us what you have and we'll tell you whether it's a fit.
-        </p>
+        <h2>Not listed? <em>If it's stamped metal, ask.</em></h2>
+        <p class="lead">Send a print, a sketch or a sample and we'll tell you whether it's a fit.</p>
       </div>
-      <div class="btn-row">
-        <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
-        <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}>Call {site.phone.display}</a>
-      </div>
+      <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Industries with their own page get a thin cherry rim to stand out, nothing heavier */
-  .ind--feature {
-    box-shadow:
-      inset 0 0 0 1px var(--cherry),
-      var(--shadow);
+  .inds {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 40rem) {
+    .inds {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 3rem;
+    }
+  }
+  .ind {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.25rem;
+    align-content: start;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ind :global(.icon) {
+    grid-row: span 3;
+    color: var(--brass);
   }
   .ind__h {
-    font-size: clamp(1.5rem, 4.5vw, 1.9rem);
-    line-height: 1;
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+  .ind__h a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .ind__h a::after {
+    content: ' →';
+    color: var(--oxblood);
+  }
+  .ind__h a:hover {
+    color: var(--oxblood);
+  }
+  .ind p {
+    margin: 0;
+    color: var(--ink-600);
+  }
+  .ind__related {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
   }
   .not-listed {
     display: grid;
