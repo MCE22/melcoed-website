@@ -95,7 +95,6 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   <section class="section section--cream" aria-labelledby="types-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon">What we make</span>
         <h2 id="types-h">{p.typesHeading}</h2>
       </div>
       {p.typesTodo && <Todo block>{p.typesTodo}</Todo>}
@@ -129,7 +128,6 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   <section class="section section--navy" aria-labelledby="aud-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--cream">Who we work with</span>
         <h2 id="aud-h">{p.audienceHeading}</h2>
         {
           p.audienceNote && (
@@ -149,7 +147,6 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   <section class="section" aria-labelledby="faq-h">
     <div class="wrap faq-wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">Questions</span>
         <h2 id="faq-h">{p.name} FAQ</h2>
         <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
       </div>

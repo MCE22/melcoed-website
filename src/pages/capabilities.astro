@@ -84,9 +84,9 @@ const faqs: Faq[] = [
 >
   <PageHero
     title="Capabilities"
-    accent="tooling to finished part"
-    ribbon="Stamping · Tooling · Milling"
-    lead="Tool and die making, die striking, blanking, piercing, forming and CNC milling, in one Pawtucket facility, so a part goes from print to press without leaving the building."
+    accent="print to finished part"
+    ribbon="Services"
+    lead="Metal stamping, die striking, tooling, finishing and CNC milling for manufacturers and brands in every industry, all in one Pawtucket building."
     breadcrumbs={breadcrumbs}
   
     photo="capabilities"
@@ -108,7 +108,6 @@ const faqs: Faq[] = [
   <section class="section" aria-labelledby="flow-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">How work flows</span>
         <h2 id="flow-h">One building, one schedule</h2>
       </div>
       <ol class="steps">
@@ -135,14 +134,8 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <h2 id="striking-h">Die striking &amp; coining</h2>
-        <p>
-          A blank is struck between engraved steel dies to raise sharp relief: the process behind badges, medallions,
-          emblems and findings.
-        </p>
-        <p>
-          Production stamping (progressive, transfer and automatic, plus blanking and forming) has its own page:
-          <a href="/metal-stamping/">Metal Stamping &rarr;</a>
-        </p>
+        <p>A blank is struck between engraved steel dies to raise sharp relief, for badges, medallions, emblems and findings.</p>
+        <p>Progressive, transfer and automatic stamping, blanking and forming: <a href="/metal-stamping/">Metal Stamping &rarr;</a></p>
       </div>
       <dl class="specs">
         <div><dt>Processes</dt><dd>Coining and die striking</dd></div>
@@ -157,12 +150,8 @@ const faqs: Faq[] = [
   <section id="tooling" class="section cap" aria-labelledby="tooling-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--ink">Tooling</span>
         <h2 id="tooling-h">In-house tool &amp; die</h2>
-        <p>
-          Every job starts with tooling, and ours is designed and built in-house. When an engineering change comes in or
-          a die needs maintenance, it happens on our floor, not in an outside tool shop's queue.
-        </p>
+        <p>Every die is designed and built in-house. Engineering changes and maintenance happen on our floor, not in an outside tool shop's queue.</p>
       </div>
       <dl class="specs specs--light">
         <div><dt>Die types</dt><dd>Coining and striking dies, progressive and transfer dies <Todo>add blanking, compound or forming dies if applicable</Todo></dd></div>
@@ -201,12 +190,8 @@ const faqs: Faq[] = [
   <section id="milling" class="section section--navy cap" aria-labelledby="milling-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--cream">Precision Milling</span>
         <h2 id="milling-h">CNC milling</h2>
-        <p>
-          Our Precision Milling division cuts the dies that stamping depends on, and handles machined parts and secondary
-          operations on stamped work.
-        </p>
+        <p>Our Precision Milling division cuts the dies stamping depends on, plus machined parts and secondary operations on stamped work.</p>
       </div>
       <dl class="specs">
         <div><dt>Machines</dt><dd><Todo>CNC mills: make/model, axes, quantity</Todo></dd></div>
@@ -221,7 +206,6 @@ const faqs: Faq[] = [
   <section id="materials" class="section cap" aria-labelledby="materials-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">Materials</span>
         <h2 id="materials-h">Metals we stamp</h2>
         <p class="lead">Ferrous and non-ferrous sheet and strip, chosen for the job: appearance, strength, conductivity or cost.</p>
       </div>
@@ -242,12 +226,8 @@ const faqs: Faq[] = [
   <section id="gauges" class="section section--cream cap" aria-labelledby="gauges-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon">Gauges</span>
         <h2 id="gauges-h">Thickness &amp; gauge reference</h2>
-        <p>
-          The same gauge number means different thicknesses for different metals, so we quote and build to decimal
-          inches. If your print calls out a gauge, this table shows what it means for the two most common systems.
-        </p>
+        <p>The same gauge number means different thicknesses in different metals, so we quote to decimal inches. This table converts the two most common systems.</p>
         <dl class="specs specs--light">
           <div><dt>Die striking</dt><dd>Up to .250&Prime; thick</dd></div><div><dt>Stamping range</dt><dd><Todo>stamping gauge range</Todo></dd></div><div><dt>Banding widths</dt><dd><Todo>available banding widths</Todo></dd></div>
         </dl>
@@ -277,12 +257,8 @@ const faqs: Faq[] = [
   <section id="tolerances" class="section cap" aria-labelledby="tol-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--ink">Tolerances</span>
         <h2 id="tol-h">What we hold, and what drives it</h2>
-        <p>
-          Tolerance on a stamped part depends on material, thickness, feature size and the type of tooling. Thicker
-          material, tighter hole-to-edge distances and formed features all affect what's achievable.
-        </p>
+        <p>Tolerance depends on material, thickness, feature size and tooling. Thick stock, tight hole-to-edge distances and formed features all affect it.</p>
         <p>Mark the dimensions that matter on your print. We'll quote to those and tell you up front if any need a different approach.</p>
       </div>
       <dl class="specs specs--light">
@@ -299,7 +275,6 @@ const faqs: Faq[] = [
   <section id="quality" class="section section--navy cap" aria-labelledby="quality-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--cream">Quality</span>
         <h2 id="quality-h">Inspection &amp; documentation</h2>
         <p>Parts are inspected before they ship. Tell us what documentation your quality system needs.</p>
       </div>
@@ -316,7 +291,6 @@ const faqs: Faq[] = [
   <section class="section section--cream" aria-labelledby="faq-h">
     <div class="wrap faq-wrap">
       <div class="section-head">
-        <span class="ribbon">Questions</span>
         <h2 id="faq-h">Capabilities FAQ</h2>
         <a class="btn btn--primary" href={quoteHref}>Request a Quote</a>
       </div>
