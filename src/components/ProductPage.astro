@@ -9,7 +9,7 @@ import PhotoSlot from './PhotoSlot.astro';
 import CatalogLinks from './CatalogLinks.astro';
 import ConfidentialBand from './ConfidentialBand.astro';
 import type { PhotoSlotName } from '../data/photos';
-import { site, quoteHref, productLinks, industryLinks } from '../data/site';
+import { site, quoteHref, productLinks, industryLinks, serviceLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
 import { isLive } from '../lib/routes';
 import type { Product } from '../data/products';
@@ -28,6 +28,7 @@ const materials = p.specs.find((s) => /metal|material/i.test(s.label))?.value;
 
 const labels: Record<string, string> = Object.fromEntries(
   [
+    ...serviceLinks,
     ...productLinks,
     ...industryLinks,
     { label: 'All Industries', href: '/industries/' },

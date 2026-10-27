@@ -453,7 +453,7 @@ export const products: Record<string, Product> = {
         todo: true,
       },
     ],
-    related: ['/capabilities/', '/findings/', '/industries/'],
+    related: ['/metal-stamping/', '/capabilities/', '/industries/'],
     schemaCategory: 'Metal stampings',
   },
 };
