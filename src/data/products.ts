@@ -6,7 +6,7 @@
 
 import type { Faq } from '../lib/schema';
 import type { PhotoSlotName } from './photos';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine } from './facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine, outsourcedLine, pressesLine, stampingThicknessLine, toleranceLine, tooling, edgeFinishes, bandingWidths, badgeAuthorization, enamel, whoWeSellTo } from './facts';
 
 export type Spec = { label: string; value?: string; todo?: string };
 export type ProductType = { title: string; body: string; href?: string };
@@ -55,13 +55,13 @@ export const products: Record<string, Product> = {
     quoteType: 'findings',
     metaTitle: 'Jewelry Findings & Raw Die-Struck Stampings',
     metaDescription:
-      'Jewelry findings and stampings from Mel-Co-Ed in Pawtucket, RI: 30,000+ stock findings with no tooling cost, or custom on your own die. Supplied raw or finished in-house.',
+      'Jewelry findings and stampings from Mel-Co-Ed in Pawtucket, RI: 30,000+ stock findings with no tooling cost, or custom on your own die. Supplied raw or finished.',
     h1: 'Jewelry Findings & Raw Stampings',
     accent: 'stamped in Pawtucket',
     lead: 'Jewelry findings and raw stampings for brands, designers and finishers: 30,000+ stock findings on our Open Line, or your design on your own exclusive die.',
     intro: [
       "Rhode Island built America's jewelry industry, and we've stamped findings here since 1948.",
-      'Every finding is struck from steel dies we build in-house, so parts match run after run and tooling stays ready for reorders. Supplied raw or finished in-house.',
+      'Every finding is struck from steel dies we build in-house, so parts match run after run and tooling stays ready for reorders. Supplied raw or finished.',
     ],
     typesHeading: 'Findings & stampings we make',
     types: [
@@ -102,8 +102,8 @@ export const products: Record<string, Product> = {
       { label: 'Process', value: 'Die striking, blanking and forming from in-house tooling' },
       { label: 'Ways to buy', value: 'Open Line: 30,000+ stock findings, no tooling cost. Confined & Custom: your design on your own exclusive die.' },
       { label: 'Metals', value: materialsLine },
-      { label: 'Thickness', todo: 'stamping gauge range' },
-      { label: 'Finishes', value: `Supplied raw or finished in-house. ${finishesLine}` },
+      { label: 'Thickness', value: stampingThicknessLine },
+      { label: 'Finishes', value: `Supplied raw or finished. ${finishesLine} ${outsourcedLine}` },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
     ],
@@ -144,13 +144,13 @@ export const products: Record<string, Product> = {
       'Die-struck police, sheriff, fire, EMS, military and government badges made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs, reproductions and retirement badges.',
     h1: 'Die-Struck Badges',
     accent: 'police, fire, government',
-    lead: 'Die-struck police, sheriff, fire, EMS, military and government badges for agencies, departments and the uniform suppliers who serve them.',
+    lead: 'Die-struck badges for police, fire, EMS, government and security, and secondary badge work for the companies that make them.',
     intro: [
+      'We handle secondary badge work today, and our presses, tool room and die striking can take on full badge production.',
       'Die striking presses the design into solid metal under heavy pressure: crisp lettering and deep relief that hold up to years of daily wear.',
-      'Struck in Pawtucket from steel dies we build in-house.',
     ],
     typesHeading: 'Badges we strike',
-    typesTodo: 'Confirm the badge types you make and whether you offer hard or soft enamel, hallmarks or serial numbering (color fill is confirmed).',
+    typesTodo: 'Confirm the badge types listed and whether you add hallmarks (hard and soft enamel and numbering are confirmed).',
     types: [
       { title: 'Police & sheriff', body: 'Shields, stars and ovals for municipal, county and state agencies.' },
       { title: 'Fire & EMS', body: 'Maltese cross and custom fire and EMS badges for departments and districts.' },
@@ -166,13 +166,11 @@ export const products: Record<string, Product> = {
       'Uniform and equipment suppliers',
       'Private security companies',
     ],
-    audienceNote:
-      'Law enforcement and government badges are issued items. We require authorization from the issuing agency before striking them.',
-    audienceNoteTodo: 'confirm your authorization policy (e.g. order on agency letterhead or PO) before publishing this note',
+    audienceNote: badgeAuthorization,
     specs: [
       { label: 'Process', value: 'Die-struck from steel tooling' },
       { label: 'Metals', value: materialsLine },
-      { label: 'Finishes', value: finishesLine },
+      { label: 'Finishes', value: `${finishesLine} ${enamel}.` },
       { label: 'Attachments', todo: 'e.g. pin & safety catch, clip, wallet mount' },
       { label: 'Size', value: dieStrikingLine },
       { label: 'Minimum order', value: minimumLine },
@@ -186,8 +184,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Do you need authorization to make police or government badges?',
-        a: 'Yes. Law enforcement and government badges are issued items, so we require authorization from the issuing agency before striking them.',
-        todo: true,
+        a: `Yes. ${badgeAuthorization}`,
       },
       {
         q: 'Can you reproduce a retired badge design?',
@@ -221,7 +218,7 @@ export const products: Record<string, Product> = {
       'We cut the dies and strike every piece in Pawtucket.',
     ],
     typesHeading: 'Medallions we strike',
-    typesTodo: 'Confirm the medallion types and sizes you offer.',
+    typesTodo: 'Confirm the medallion types listed (coins and challenge coins are confirmed, struck up to 3.5″).',
     types: [
       {
         title: 'Commemorative',
@@ -245,7 +242,7 @@ export const products: Record<string, Product> = {
       { label: 'Size', value: dieStrikingLine },
       { label: 'Metals', value: materialsLine },
       { label: 'Finishes', value: finishesLine },
-      { label: 'Edge options', todo: 'e.g. plain, reeded, edge lettering' },
+      { label: 'Edge options', value: edgeFinishes },
       { label: 'Packaging', todo: 'e.g. capsules, velvet boxes' },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
@@ -262,8 +259,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you add edge lettering or serial numbers?',
-        a: 'Tell us what you need on the edge and we will confirm what is possible for your size and quantity.',
-        todo: true,
+        a: `Engraving and numbering are done in-house. ${edgeFinishes}`,
       },
       moqFaq('custom medallions'),
     ],
@@ -312,8 +308,7 @@ export const products: Record<string, Product> = {
     faqs: [
       {
         q: 'Can you match pins we have ordered in previous years?',
-        a: 'If we made the original tooling, we can run matching pieces. If another supplier made them, send a sample and we will tell you what matching it involves.',
-        todo: true,
+        a: `If we made the original die, we still have it: ${tooling.storage.toLowerCase()} If another supplier made them, send a sample and we will tell you what matching it involves.`,
       },
       {
         q: 'Do you work with award and trophy companies?',
@@ -356,7 +351,7 @@ export const products: Record<string, Product> = {
     specs: [
       { label: 'Patterns', value: 'Several hundred, including floral, hammered and stone' },
       { label: 'Metals', value: materialsLine },
-      { label: 'Banding widths', todo: 'available banding widths' },
+      { label: 'Banding widths', value: bandingWidths },
       { label: 'Thickness', todo: 'stamping gauge range' },
       { label: 'Finishes', value: finishesLine },
       { label: 'Minimum order', value: minimumLine },
@@ -420,10 +415,10 @@ export const products: Record<string, Product> = {
     ],
     specs: [
       { label: 'Processes', value: `${processesLine}; blanking, piercing, forming and CNC milling` },
-      { label: 'Press capacity', todo: 'press count and tonnage range' },
+      { label: 'Press capacity', value: pressesLine },
       { label: 'Materials', value: materialsLine },
-      { label: 'Thickness', todo: 'gauge / thickness range' },
-      { label: 'Tolerances', todo: 'typical and best achievable' },
+      { label: 'Thickness', value: stampingThicknessLine },
+      { label: 'Tolerances', value: toleranceLine },
       { label: 'Max part size', todo: 'largest blank / part' },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
@@ -441,7 +436,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you run short runs and prototypes?',
-        a: `Yes. Our standard minimum is ${ordering.minimum}; smaller runs are available at a higher price. Tell us your quantities and we will recommend the most economical tooling approach.`,
+        a: `Yes. ${tooling.shortRun} Our standard minimum is ${ordering.minimum}; smaller runs are available at a higher price.`,
       },
       {
         q: 'Can you take over tooling from another supplier?',

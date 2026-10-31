@@ -2,6 +2,7 @@
 // Custom product development: sketch, drawing or sample → engineered for production →
 // die built in our tool room → sample strikes → production, on an exclusive die.
 // Same URL as the old site's page (/capabilities/product-development/).
+import ResourceLinks from '../../components/ResourceLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
@@ -46,7 +47,7 @@ const steps = [
   },
   { n: '03', title: 'Build the die', body: 'Your die is designed and cut in our own tool room, so changes stay on our schedule.' },
   { n: '04', title: 'Sample strikes', body: 'We strike samples from the new die for you to check and approve before production.' },
-  { n: '05', title: 'Production', body: 'Approved parts are run, finished in-house if you need it, and shipped from Pawtucket.' },
+  { n: '05', title: 'Production', body: 'Approved parts are run, finished if you need it, and shipped from Pawtucket.' },
 ];
 
 const faqs: Faq[] = [
@@ -187,6 +188,7 @@ const faqs: Faq[] = [
       <FaqList faqs={faqs} />
     </div>
   </section>
+  <ResourceLinks path="/capabilities/product-development/" custom />
 </BaseLayout>
 
 <style>

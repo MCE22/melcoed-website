@@ -5,7 +5,7 @@
 
 import { site, fullAddress } from './site';
 import type { Faq } from '../lib/schema';
-import { ordering, materials, materialsNote, waysToBuy } from './facts';
+import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo } from './facts';
 import { confidentialFaq } from './confidential';
 
 export const generalFaqs: Faq[] = [
@@ -55,8 +55,7 @@ export const orderingFaqs: Faq[] = [
   },
   {
     q: 'Who owns the tooling I pay for?',
-    a: 'Tell us how you prefer to handle tooling and we will confirm ownership terms in your quote.',
-    todo: true,
+    a: `${tooling.ownership} ${tooling.storage} ${tooling.billing}`,
   },
   {
     q: 'Do you work with distributors and resellers?',
@@ -64,8 +63,7 @@ export const orderingFaqs: Faq[] = [
   },
   {
     q: 'Do you sell to individuals?',
-    a: 'Tell us what you need and the quantity, and we will let you know whether it is a fit.',
-    todo: true,
+    a: whoWeSellTo,
   },
   {
     q: 'What are your payment terms?',

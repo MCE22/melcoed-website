@@ -1,0 +1,111 @@
+---
+// Resources hub: every buyer-question page, grouped.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { resources, resourceGroups, resourceHref } from '../../data/resources';
+import { site, quoteHref } from '../../data/site';
+
+const path = '/resources/';
+const breadcrumbs = [{ name: 'Resources', path }];
+const itemList = {
+  '@type': 'ItemList',
+  name: 'Mel-Co-Ed buyer guides',
+  itemListElement: resources.map((r, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: r.h1,
+    url: new URL(resourceHref(r), site.url).toString(),
+  })),
+};
+---
+
+<BaseLayout
+  title="Buyer Guides: Metal Stamping, Die Striking, Findings & Emblems"
+  description="Straight answers to the questions buyers ask about metal stamping, die striking, tooling, jewelry findings and emblems, from Mel-Co-Ed in Pawtucket, Rhode Island since 1948."
+  pageType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  schema={[itemList]}
+  hideFooterCta
+>
+  <PageHero
+    title="Buyer guides"
+    accent="straight answers"
+    ribbon="Resources"
+    lead="The questions buyers ask us about stamping, tooling, findings and emblems, answered with our real specs."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap groups">
+      {
+        resourceGroups.map((g) => (
+          <section class="group" aria-label={g}>
+            <h2 class="group__h">{g}</h2>
+            <ul class="group__list">
+              {resources
+                .filter((r) => r.group === g)
+                .map((r) => (
+                  <li>
+                    <a href={resourceHref(r)}>{r.h1} &rarr;</a>
+                  </li>
+                ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="wrap not-answered">
+      <h2>Question not here? <em>Ask us.</em></h2>
+      <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .groups {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 56rem) {
+    .groups {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 4rem;
+    }
+  }
+  .group__h {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .group__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .group__list li {
+    border-bottom: 1px solid var(--rule);
+  }
+  .group__list a {
+    display: block;
+    padding: 0.85rem 0;
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .group__list a:hover {
+    color: var(--oxblood);
+  }
+  .not-answered {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .not-answered h2 {
+    margin: 0;
+  }
+</style>

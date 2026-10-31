@@ -1,5 +1,6 @@
 ---
 // Lead service page: metal stamping for every industry.
+import ResourceLinks from '../components/ResourceLinks.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
@@ -8,7 +9,7 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { industries } from '../data/industries';
 import { faqPageNode, serviceNode, type Faq } from '../lib/schema';
-import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering } from '../data/facts';
+import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering, presses, stampingThickness, toleranceLine, tooling } from '../data/facts';
 
 const path = '/metal-stamping/';
 const breadcrumbs = [{ name: 'Metal Stamping', path }];
@@ -112,20 +113,22 @@ const faqs: Faq[] = [
         <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
         <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
         <div><dt>Tooling</dt><dd>Designed and built in our own tool room</dd></div>
-        <div><dt>Presses</dt><dd><Todo>number of presses and types (e.g. mechanical, hydraulic)</Todo></dd></div>
-        <div><dt>Tonnage range</dt><dd><Todo>e.g. 20&ndash;300 tons</Todo></dd></div>
-        <div><dt>Gauge range</dt><dd><Todo>thinnest to thickest stock you stamp</Todo></dd></div>
+        <div><dt>Presses</dt><dd>{presses.total} presses</dd></div>
+        <div><dt>Tonnage</dt><dd>Automatic department {presses.automatic}; secondary department {presses.secondary}</dd></div>
+        <div><dt>Stock thickness</dt><dd>{stampingThickness}</dd></div>
         <div><dt>Max part size</dt><dd><Todo>largest stamped blank / part</Todo></dd></div>
-        <div><dt>Tolerances</dt><dd><Todo>typical and best-achievable tolerances</Todo></dd></div>
+        <div><dt>Tolerances</dt><dd>{toleranceLine}</dd></div>
+        <div><dt>Your die</dt><dd>{tooling.ownership} {tooling.storage}</dd></div>
       </dl>
     </div>
     <div class="wrap">
       <div class="table-wrap eq-wrap">
         <table class="eq">
-          <caption>Press equipment</caption>
-          <thead><tr><th scope="col">Press</th><th scope="col">Type</th><th scope="col">Capacity</th><th scope="col">Qty</th></tr></thead>
+          <caption>Press departments ({presses.total} presses)</caption>
+          <thead><tr><th scope="col">Department</th><th scope="col">Tonnage</th><th scope="col">Work</th></tr></thead>
           <tbody>
-            <tr><td colspan="4"><Todo>equipment list: make/model, type, tonnage, quantity. A real equipment list is one of the strongest trust signals for industrial buyers.</Todo></td></tr>
+            <tr><td>Automatic</td><td>{presses.automatic}</td><td>Progressive, transfer and automatic stamping</td></tr>
+            <tr><td>Secondary</td><td>{presses.secondary}</td><td>Secondary operations on stamped and struck parts</td></tr>
           </tbody>
         </table>
       </div>
@@ -150,6 +153,7 @@ const faqs: Faq[] = [
       <FaqList faqs={faqs} />
     </div>
   </section>
+  <ResourceLinks path="/metal-stamping/" custom />
 </BaseLayout>
 
 <style>

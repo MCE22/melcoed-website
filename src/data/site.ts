@@ -11,7 +11,7 @@ export const site = {
   url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
   tagline: 'Coined. Die struck. Stamped. Finished in-house.',
   description:
-    'Mel-Co-Ed, Inc. is a third-generation, family-owned metal stamping and die striking company in Pawtucket, Rhode Island. Since 1948 we have run progressive, transfer and automatic stamping, coining and die striking for every industry, from OEM and industrial components to jewelry findings, badges, medallions and emblems, with tooling built in our own tool room and finishing in-house. Our products are made in Rhode Island, USA.',
+    'Mel-Co-Ed, Inc. is a third-generation, family-owned metal stamping and die striking company in Pawtucket, Rhode Island. Since 1948 we have run progressive, transfer and automatic stamping, coining and die striking for every industry, from OEM and industrial components to jewelry findings, badges, medallions and emblems, with tooling built in our own tool room and soldering, assembly, engraving and numbering in-house. Our products are made in Rhode Island, USA.',
   foundingYear: 1948,
   generation: 'third-generation',
   phone: {

@@ -1,4 +1,5 @@
 ---
+import ResourceLinks from '../components/ResourceLinks.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
@@ -6,7 +7,7 @@ import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
-import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering } from '../data/facts';
+import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths } from '../data/facts';
 
 const path = '/capabilities/';
 const breadcrumbs = [{ name: 'Capabilities', path }];
@@ -66,12 +67,11 @@ const faqs: Faq[] = [
   },
   {
     q: 'What thickness range can you stamp?',
-    a: `${dieStrikingLine}. For stamped parts, send your material and thickness and we will confirm the fit with our presses and tooling.`,
+    a: `${stampingThicknessLine} for stamped parts. ${dieStrikingLine}.`,
   },
   {
     q: 'What tolerances can you hold on stamped parts?',
-    a: 'Achievable tolerances depend on material, thickness and feature size. Call out the critical dimensions on your print and we will tell you what we can hold.',
-    todo: true,
+    a: `We typically hold ${tolerance}. What's achievable depends on material, thickness and feature size, so call out the critical dimensions on your print.`,
   },
 ];
 ---
@@ -139,6 +139,7 @@ const faqs: Faq[] = [
       </div>
       <dl class="specs">
         <div><dt>Processes</dt><dd>Coining and die striking</dd></div>
+        <div><dt>Presses</dt><dd>{pressesLine}</dd></div>
         <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
         <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div>
         <div><dt>Lead time</dt><dd>Typically {ordering.leadTime}</dd></div>
@@ -156,8 +157,10 @@ const faqs: Faq[] = [
       <dl class="specs specs--light">
         <div><dt>Die types</dt><dd>Coining and striking dies, progressive and transfer dies <Todo>add blanking, compound or forming dies if applicable</Todo></dd></div>
         <div><dt>Die making</dt><dd>Built and maintained in our own tool room, supported by CNC milling</dd></div>
-        <div><dt>Tool ownership</dt><dd><Todo>who owns tooling the customer pays for</Todo></dd></div>
-        <div><dt>Tool storage</dt><dd><Todo>do you store customer dies, and for how long?</Todo></dd></div>
+        <div><dt>Tool ownership</dt><dd>{tooling.ownership}</dd></div>
+        <div><dt>Tool storage</dt><dd>{tooling.storage}</dd></div>
+        <div><dt>Tooling cost</dt><dd>{tooling.billing}</dd></div>
+        <div><dt>Short runs</dt><dd>{tooling.shortRun}</dd></div>
         <div><dt>Your tooling</dt><dd>Have dies or metal already? We’ll run yours.</dd></div>
       </dl>
     </div>
@@ -176,7 +179,7 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <h2 id="finishing-h">Finishing</h2>
-        <p>Parts are finished in-house, then assembled, packed and shipped from Pawtucket. Or we ship them raw to your finisher.</p>
+        <p>Soldering and assembly happen in-house. Plating, polishing and enamel or epoxy fill go to outside finishers, or we ship parts raw to yours.</p>
       </div>
       <dl class="specs">
         <div><dt>Finishes</dt><dd>{finishes.join(', ')}</dd></div>
@@ -229,7 +232,7 @@ const faqs: Faq[] = [
         <h2 id="gauges-h">Thickness &amp; gauge reference</h2>
         <p>The same gauge number means different thicknesses in different metals, so we quote to decimal inches. This table converts the two most common systems.</p>
         <dl class="specs specs--light">
-          <div><dt>Die striking</dt><dd>Up to .250&Prime; thick</dd></div><div><dt>Stamping range</dt><dd><Todo>stamping gauge range</Todo></dd></div><div><dt>Banding widths</dt><dd><Todo>available banding widths</Todo></dd></div>
+          <div><dt>Die striking</dt><dd>Up to .250&Prime; thick</dd></div><div><dt>Stamping range</dt><dd>{stampingThickness} thick</dd></div><div><dt>Banding widths</dt><dd>{bandingWidths}</dd></div>
         </dl>
         <p class="small">
           Stainless steel and aluminum use their own gauge tables; specify decimal thickness for those metals.
@@ -262,7 +265,7 @@ const faqs: Faq[] = [
         <p>Mark the dimensions that matter on your print. We'll quote to those and tell you up front if any need a different approach.</p>
       </div>
       <dl class="specs specs--light">
-        <div><dt>Blanked features</dt><dd><Todo>typical tolerance, e.g. &plusmn;.002&Prime;&ndash;.005&Prime;</Todo></dd></div>
+        <div><dt>Typical tolerance</dt><dd>{toleranceLine}</dd></div>
         <div><dt>Hole locations</dt><dd><Todo>typical tolerance</Todo></dd></div>
         <div><dt>Formed features</dt><dd><Todo>typical tolerance / bend angle</Todo></dd></div>
         <div><dt>Flatness</dt><dd><Todo>typical</Todo></dd></div>
@@ -297,6 +300,7 @@ const faqs: Faq[] = [
       <FaqList faqs={faqs} />
     </div>
   </section>
+  <ResourceLinks path="/capabilities/" custom />
 </BaseLayout>
 
 <style>

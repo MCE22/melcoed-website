@@ -1,0 +1,78 @@
+---
+// "Buyer guides" for a service or product page: the /resources/ pages that link here,
+// plus "Who owns the die? You do." on custom-work pages.
+import { guidesFor, resourceHref, dieOwnership } from '../data/resources';
+
+interface Props {
+  /** This page's path, e.g. "/badges/". */
+  path: string;
+  /** Custom-work page: always show the die-ownership guide. */
+  custom?: boolean;
+}
+const { path, custom = false } = Astro.props;
+const guides = guidesFor(path).filter((g) => g !== dieOwnership);
+---
+
+{
+  (guides.length > 0 || custom) && (
+    <section class="section guides" aria-labelledby="guides-h">
+      <div class="wrap">
+        <h2 id="guides-h">Buyer guides</h2>
+        {custom && (
+          <p class="guides__die">
+            <a href={resourceHref(dieOwnership)}>Who owns the die? <strong>You do.</strong> &rarr;</a>
+          </p>
+        )}
+        {guides.length > 0 && (
+          <ul class="guides__list">
+            {guides.map((g) => (
+              <li>
+                <a href={resourceHref(g)}>{g.h1} &rarr;</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .guides h2 {
+    font-size: 1.5rem;
+  }
+  .guides__die {
+    margin: 0 0 1.25rem;
+    font-size: 1.1rem;
+  }
+  .guides__die a {
+    font-weight: 600;
+  }
+  .guides__list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 48rem) {
+    .guides__list {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2.5rem;
+    }
+  }
+  .guides__list li {
+    border-bottom: 1px solid var(--rule);
+  }
+  .guides__list a {
+    display: block;
+    padding: 0.85rem 0;
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .guides__list a:hover {
+    color: var(--oxblood);
+  }
+</style>

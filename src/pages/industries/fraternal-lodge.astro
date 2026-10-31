@@ -1,4 +1,5 @@
 ---
+import ResourceLinks from '../../components/ResourceLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
@@ -24,6 +25,10 @@ const products = [
   {
     title: 'Emblems & insignia',
     body: 'Stamped emblems for regalia, aprons, collars, hats and banners, supplied finished or as raw stampings for your finisher.',
+  },
+  {
+    title: 'Past Master & officer jewels',
+    body: 'Jewels for Past Masters and lodge officers, struck from steel dies and finished to your lodge’s standard.',
   },
   {
     title: 'Anniversary medallions',
@@ -106,10 +111,6 @@ const faqs: Faq[] = [
           compasses, lodge number and lettering stay crisp.
         </p>
       </div>
-      <Todo block>
-        Confirm this product list against what MCE actually makes for lodges (e.g. add officer or Past Master jewels,
-        remove anything you don't offer).
-      </Todo>
       <div class="grid grid--2">
         {
           products.map((p) => (
@@ -176,7 +177,7 @@ const faqs: Faq[] = [
         <li class="step">
           <span class="step__n">03</span>
           <h3>Tooling &amp; strike</h3>
-          <p>Steel dies are cut and parts are struck. The tooling is kept, so reorders for new members don't start over.</p>
+          <p>Steel dies are cut and parts are struck. The die is the lodge's, stored free, so reorders for new members don't start over.</p>
         </li>
         <li class="step">
           <span class="step__n">04</span>
@@ -184,9 +185,6 @@ const faqs: Faq[] = [
           <p>Pieces are finished, fitted with their backs and shipped to the lodge or your supplier.</p>
         </li>
       </ol>
-      <Todo block>
-        Confirm the tooling-retention statement in step 03: does MCE store customer dies, and for how long?
-      </Todo>
     </div>
   </section>
 
@@ -200,6 +198,7 @@ const faqs: Faq[] = [
       <FaqList faqs={faqs} />
     </div>
   </section>
+  <ResourceLinks path="/industries/fraternal-lodge/" custom />
 </BaseLayout>
 
 <style>

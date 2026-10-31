@@ -17,15 +17,17 @@ interface Props {
   photo?: PhotoSlotName;
   photoTodo?: string;
   variant?: 'light' | 'dark';
+  /** Smaller headline for long titles (e.g. buyer-question pages). */
+  size?: 'default' | 'question';
 }
-const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = 'Hero photo: dark, moody product shot', variant = 'light' } = Astro.props;
+const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = 'Hero photo: dark, moody product shot', variant = 'light', size = 'default' } = Astro.props;
 const accentText = accent ? accent.replace(/[.!?]?$/, '.') : undefined;
 // Never break the company name across lines (U+2011 non-breaking hyphen).
 const nb = (s: string) => s.replace(/Mel-Co-Ed/g, 'Mel\u2011Co\u2011Ed');
 const titleText = nb(title);
 ---
 
-<section class:list={['page-hero', `page-hero--${variant}`, { 'page-hero--media': photo, dark: variant === 'dark' }]}>
+<section class:list={['page-hero', `page-hero--${variant}`, `page-hero--${size}`, { 'page-hero--media': photo, dark: variant === 'dark' }]}>
   <div class="wrap page-hero__grid">
     <div class="page-hero__text">
       {
@@ -98,6 +100,11 @@ const titleText = nb(title);
     max-width: 18ch;
     font-size: var(--fs-h1);
     margin-bottom: 1.25rem;
+  }
+  .page-hero--question h1 {
+    max-width: 24ch;
+    font-size: clamp(1.75rem, 5.4vw, 3rem);
+    line-height: 1.05;
   }
   .page-hero__accent {
     display: block;

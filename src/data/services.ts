@@ -33,7 +33,7 @@ export const services: Service[] = [
   {
     label: 'Finishing',
     href: '/capabilities/#finishing',
-    summary: 'Polishing, plating and color fill in-house, or shipped raw.',
+    summary: 'High polish to antique, plating and enamel fill through outside finishers, or shipped raw.',
     photo: { slot: 'industries' },
   },
   {

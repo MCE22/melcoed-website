@@ -8,6 +8,7 @@ import Todo from './Todo.astro';
 import PhotoSlot from './PhotoSlot.astro';
 import CatalogLinks from './CatalogLinks.astro';
 import ConfidentialBand from './ConfidentialBand.astro';
+import ResourceLinks from './ResourceLinks.astro';
 import type { PhotoSlotName } from '../data/photos';
 import { site, quoteHref, productLinks, industryLinks, serviceLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
@@ -154,6 +155,8 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
       <FaqList faqs={p.faqs} />
     </div>
   </section>
+
+  <ResourceLinks path={path} custom />
 
   {
     related.length > 0 && (

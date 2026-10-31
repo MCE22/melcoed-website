@@ -4,6 +4,7 @@ import type { APIRoute } from 'astro';
 import { site, fullAddress, productLinks } from '../data/site';
 import { services } from '../data/services';
 import { industries } from '../data/industries';
+import { resources, resourceGroups, resourceHref } from '../data/resources';
 import { madeIn } from '../data/brand';
 import { isLive } from '../lib/routes';
 
@@ -35,6 +36,10 @@ ${links(productLinks)}
 Metal stamping for every industry: ${industries.map((i) => i.name).join(', ')}.
 
 ${links([{ label: 'All industries', href: '/industries/' }, { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }, { label: 'Commemorative & 250th', href: '/industries/commemorative/' }])}
+
+## Buyer guides
+
+${resourceGroups.map((g) => `### ${g}\n\n` + resources.filter((r) => r.group === g).map((r) => `- [${r.h1}](${abs(resourceHref(r))}): ${r.answer.split('. ')[0]}.`).join('\n')).join('\n\n')}
 
 ## Company
 

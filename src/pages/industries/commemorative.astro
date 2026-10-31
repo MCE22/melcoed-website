@@ -1,9 +1,10 @@
 ---
+import ResourceLinks from '../../components/ResourceLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering } from '../../data/facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, edgeFinishes } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, type Faq } from '../../lib/schema';
@@ -180,7 +181,7 @@ const faqs: Faq[] = [
         <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
         <div><dt>Metals</dt><dd>{materialsLine}</dd></div>
         <div><dt>Finishes</dt><dd>{finishesLine}</dd></div>
-        <div><dt>Edge options</dt><dd><Todo>e.g. plain, reeded, edge lettering</Todo></dd></div>
+        <div><dt>Edge options</dt><dd>{edgeFinishes}</dd></div>
         <div><dt>Packaging</dt><dd><Todo>e.g. capsules, velvet boxes, display cards</Todo></dd></div>
         <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
         <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
@@ -233,6 +234,7 @@ const faqs: Faq[] = [
       <FaqList faqs={faqs} />
     </div>
   </section>
+  <ResourceLinks path="/industries/commemorative/" custom />
 </BaseLayout>
 
 <style>

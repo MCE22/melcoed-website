@@ -60,3 +60,41 @@ export const process = [
 
 export const processesLine =
   'Coining, die striking, and progressive, transfer and automatic stamping, with dies built and maintained in our own tool room';
+
+// ---- Owner-confirmed shop facts (2026 Q&A) ----
+
+export const presses = {
+  automatic: '25 to 250 tons',
+  secondary: '5 to 25 tons',
+  total: '20+',
+};
+export const pressesLine = `${presses.total} presses: automatic department ${presses.automatic}, secondary department ${presses.secondary}`;
+
+export const stampingThickness = '.010″ to .250″';
+export const stampingThicknessLine = `Stamping stock ${stampingThickness} thick`;
+export const tolerance = '±.002″';
+export const toleranceLine = `${tolerance} typical`;
+
+export const inHouse = ['Tool and die', 'Stamping', 'Die striking', 'Coining', 'Soldering and assembly', 'Engraving and numbering'];
+export const outsourced = ['Plating', 'Polishing', 'Enamel and epoxy fill'];
+export const inHouseLine = `In-house: ${inHouse.join(', ').toLowerCase()}.`;
+export const outsourcedLine = 'Plating, polishing and enamel or epoxy fill are done by outside finishers.';
+export const pinPosts = 'Pin posts are fused, never soldered.';
+export const enamel = 'Soft and hard enamel';
+
+export const madeHere = 'Every finding is made in Pawtucket. Nothing is imported.';
+export const whoWeSellTo = 'We sell to businesses and small designers. Minimums apply.';
+export const gold = ['Gold filled', 'Solid 10K, 14K and 18K gold', 'Karat gold plating', 'Customer-supplied gold'];
+export const goldLine = `${gold.join('; ')}.`;
+
+export const tooling = {
+  ownership: 'You own the die you pay for, and you can take it anywhere.',
+  storage: 'We store your die free, indefinitely.',
+  billing: 'Tooling is billed separately or built into the piece price, your choice.',
+  leadTime: 'The 3–8 week lead time includes building a new die.',
+  shortRun: 'Prototypes and low-cost short-run tooling are available.',
+};
+
+export const edgeFinishes = 'Ask us about edge finishes.';
+export const bandingWidths = 'Ask us about widths for your project.';
+export const badgeAuthorization = 'Authorization is verified before any law-enforcement badge order.';
