@@ -1,7 +1,7 @@
 // Confirmed business facts from the 2026 Mel-Co-Ed sell sheet. Pages read from here
 // so each fact is stated once and identically everywhere (copy, specs, FAQ schema).
 
-export const tagline = 'Coined. Die struck. Stamped. Finished in-house.';
+export const tagline = 'Coined. Die struck. Stamped. Since 1948.';
 
 export const materials = [
   'Brass (230/260)',
@@ -79,6 +79,12 @@ export const inHouse = ['Tool and die', 'Stamping', 'Die striking', 'Coining', '
 export const outsourced = ['Plating', 'Polishing', 'Enamel and epoxy fill'];
 export const inHouseLine = `In-house: ${inHouse.join(', ').toLowerCase()}.`;
 export const outsourcedLine = 'Plating, polishing and enamel or epoxy fill are done by outside finishers.';
+// Also offered (owner-confirmed): packaging and assembly, and drop shipping. Castings are NOT offered.
+export const packaging = {
+  assembly: 'Packaging and assembly',
+  dropShip: 'Drop shipping',
+  line: 'Packaging and assembly, and drop shipping to your customers.',
+};
 export const pinPosts = 'Pin posts are fused, never soldered.';
 export const enamel = 'Soft and hard enamel';
 

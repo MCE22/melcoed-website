@@ -9,6 +9,8 @@ export type Service = {
   summary: string;
   /** Photo for the Home tile: first photo of this slot, or a specific index. */
   photo: { slot: PhotoSlotName; index?: number };
+  /** Show as a Home tile (Home shows six). */
+  home?: boolean;
 };
 
 export const services: Service[] = [
@@ -47,5 +49,12 @@ export const services: Service[] = [
     href: '/capabilities/product-development/',
     summary: 'Sketch, drawing or sample to a production die that is yours alone.',
     photo: { slot: 'product-development' },
+  },
+  {
+    label: 'Packaging & Drop Shipping',
+    href: '/capabilities/#packaging',
+    summary: 'Packaging and assembly, and drop shipping to your customers.',
+    photo: { slot: 'about', index: 2 },
+    home: false,
   },
 ];

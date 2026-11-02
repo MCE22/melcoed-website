@@ -1,0 +1,101 @@
+---
+// Privacy policy. Plain-language and specific to how this site actually works:
+// Web3Forms delivers the quote form, Cloudflare hosts the site, no ad cookies or pixels.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, fullAddress } from '../data/site';
+import { confidential } from '../data/confidential';
+
+const path = '/privacy/';
+const breadcrumbs = [{ name: 'Privacy Policy', path }];
+const effective = 'November 2, 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description={`How ${site.name} handles the information you send through melcoed.com and by email.`}
+  breadcrumbs={breadcrumbs}
+  hideFooterCta
+>
+  <PageHero title="Privacy Policy" ribbon={`Effective ${effective}`} lead="What we collect when you contact us, how we use it, and the choices you have." breadcrumbs={breadcrumbs} />
+
+  <section class="section">
+    <div class="wrap policy">
+      <h2>Who we are</h2>
+      <p>
+        {site.name} is a metal stamping company at {fullAddress}. Questions about this policy go to
+        <a href={`mailto:${site.email}`}>{site.email}</a> or {site.phone.display}.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>
+        When you use our quote form or email us, we receive what you send: your name, company, email address, phone
+        number, project details and any files you attach. We don't take payments or ask for payment details on this site.
+      </p>
+
+      <h2>How the quote form works</h2>
+      <p>
+        Quote requests are delivered to our sales inbox by Web3Forms, a form-delivery service. They are used only to
+        respond to your request.
+      </p>
+
+      <h2>How we use your information</h2>
+      <ul>
+        <li>To answer your request and prepare quotes. We reply within one business day.</li>
+        <li>To make, ship and support your order.</li>
+        <li>To keep the business records we need.</li>
+      </ul>
+      <p>
+        We may use software tools, including AI tools, to help draft replies. A person at Mel-Co-Ed reviews and approves
+        every reply before it is sent.
+      </p>
+
+      <h2>Your designs</h2>
+      <p>{confidential.body}</p>
+
+      <h2>Sharing</h2>
+      <p>
+        We don't sell or rent your personal information. We share it only with service providers that help us run the
+        business (form delivery, email, website hosting and, when we ship, shipping carriers) or when the law requires it.
+      </p>
+
+      <h2>Cookies and analytics</h2>
+      <p>
+        This site doesn't use advertising cookies or tracking pixels. Our hosting provider, Cloudflare, processes basic
+        technical data such as IP address and browser type to deliver and protect the site. If we add analytics, we will
+        use a privacy-focused service and update this page.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <p>As long as we need it to respond to you, serve an ongoing business relationship and meet our legal obligations.</p>
+
+      <h2>Your choices</h2>
+      <p>
+        You can ask to see, correct or delete the personal information we hold about you by emailing
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>Children</h2>
+      <p>This site is for businesses and is not directed to children under 13.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, we will update this page and its effective date.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .policy {
+    max-width: 46rem;
+  }
+  .policy h2 {
+    margin: 2.25rem 0 0.6rem;
+    font-size: 1.2rem;
+  }
+  .policy h2:first-child {
+    margin-top: 0;
+  }
+  .policy ul {
+    padding-left: 1.1rem;
+  }
+</style>

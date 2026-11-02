@@ -112,7 +112,7 @@ const servicesList = liveLinks(serviceLinks);
 
   <div class="footer-base">
     <div class="wrap footer-base__inner">
-      <span>&copy; {year} {site.name} All rights reserved.</span>
+      <span>&copy; {year} {site.name} All rights reserved. <a href="/privacy/">Privacy Policy</a></span>
       <span>Est. {site.foundingYear} &middot; {site.address.city}, {site.address.regionName}</span>
     </div>
   </div>
@@ -282,6 +282,13 @@ const servicesList = liveLinks(serviceLinks);
     border-top: 1px solid var(--rule-dark);
     font-size: 0.78rem;
     color: var(--steel);
+  }
+  .footer-base a {
+    margin-left: 0.75rem;
+    color: var(--cream-200);
+  }
+  .footer-base a:hover {
+    color: var(--brass-light);
   }
   .footer-base__inner {
     display: flex;

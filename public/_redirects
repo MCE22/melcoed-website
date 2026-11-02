@@ -1,0 +1,57 @@
+# 301 redirects from the old WordPress site (www.melcoed.com sitemap, Nov 2026).
+# Every old page URL lands on the closest new page. Both slash forms are listed.
+
+# Pages
+/4-reasons-to-choose-melcoed/                 /about/                                    301
+/4-reasons-to-choose-melcoed                  /about/                                    301
+/about/history/                               /about/                                    301
+/about/history                                /about/                                    301
+/values/                                      /about/                                    301
+/values                                       /about/                                    301
+/community/                                   /about/                                    301
+/community                                    /about/                                    301
+/contact-us/                                  /contact/                                  301
+/contact-us                                   /contact/                                  301
+/faqs/                                        /faq/                                      301
+/faqs                                         /faq/                                      301
+/home/                                        /                                          301
+/home                                         /                                          301
+/sample-page/                                 /                                          301
+/sample-page                                  /                                          301
+/thank-you/                                   /request-a-quote/                          301
+/thank-you                                    /request-a-quote/                          301
+/news-resources/                              /resources/                                301
+/news-resources                               /resources/                                301
+/category/news-resources/                     /resources/                                301
+/category/news-resources                      /resources/                                301
+
+# Old capability pages
+/capabilities/progressive-stampings/          /metal-stamping/                           301
+/capabilities/progressive-stampings           /metal-stamping/                           301
+/capabilities/findings/                       /findings/                                 301
+/capabilities/findings                        /findings/                                 301
+/capabilities/embossed-pattern-stock/         /pattern-stock/                            301
+/capabilities/embossed-pattern-stock          /pattern-stock/                            301
+/capabilities/die-striking-emblemantics/      /resources/custom-die-struck-emblems-nameplates/           301
+/capabilities/die-striking-emblemantics       /resources/custom-die-struck-emblems-nameplates/           301
+/capabilities/castings/                       /resources/what-is-die-striking/           301
+/capabilities/castings                        /resources/what-is-die-striking/           301
+/capabilities/tooling/                        /capabilities/                               301
+/capabilities/tooling                         /capabilities/                               301
+/capabilities/finishing/                      /capabilities/                             301
+/capabilities/finishing                       /capabilities/                             301
+/capabilities/materials/                      /capabilities/                             301
+/capabilities/materials                       /capabilities/                             301
+/capabilities/precision-milling/              /capabilities/                             301
+/capabilities/precision-milling               /capabilities/                             301
+/capabilities/packaging-logistics-assembly/   /capabilities/                             301
+/capabilities/packaging-logistics-assembly    /capabilities/                             301
+
+# Old WordPress sitemaps → new sitemap
+/sitemap_index.xml                            /sitemap-index.xml                         301
+/sitemap.xml                                  /sitemap-index.xml                         301
+/page-sitemap.xml                             /sitemap-index.xml                         301
+/post-sitemap.xml                             /sitemap-index.xml                         301
+/category-sitemap.xml                         /sitemap-index.xml                         301
+/post_tag-sitemap.xml                         /sitemap-index.xml                         301
+/author-sitemap.xml                           /sitemap-index.xml                         301

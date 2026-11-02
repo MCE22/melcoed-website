@@ -107,7 +107,7 @@ const why = [
       </div>
       <ul class="services">
         {
-          services.map((s) => (
+          services.filter((s) => s.home !== false).map((s) => (
             <li>
               <a class="service" href={s.href}>
                 <MediaSlot slot={s.photo.slot} index={s.photo.index} aspect="3 / 2" sizes="(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw" todo="Photo" />

@@ -17,6 +17,7 @@ export const GET: APIRoute = () => {
 
 > ${site.description}
 
+- Tagline: ${site.tagline}
 - Founded: ${site.foundingYear}, ${site.address.city}, ${site.address.regionName}; ${site.generation}, family-owned
 - Origin: ${madeIn.primary} (${madeIn.secondary})
 - Address: ${fullAddress}

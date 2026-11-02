@@ -489,7 +489,7 @@ export const resources: Resource[] = [
       'Die striking presses a metal blank between two engraved steel dies under heavy pressure, forcing the metal into every detail of the design. Mel-Co-Ed has die struck badges, medallions, emblems and findings in Pawtucket, Rhode Island since 1948, up to 3.5″ across and .250″ thick.',
     body: [
       'Die striking is a form of coining: the metal flows to fill the dies, so lettering is sharp, relief is crisp and the piece is dense and heavy. Stamping, more broadly, cuts and bends sheet metal into shape by blanking, piercing and forming.',
-      'Casting pours molten metal into a mold. It handles deep undercuts and fully three-dimensional shapes, but detail is usually softer and the metal less dense than a struck piece.',
+      'Casting pours molten metal into a mold. It handles deep undercuts and fully three-dimensional shapes, but detail is usually softer and the metal less dense than a struck piece. Mel-Co-Ed strikes and stamps; we don’t offer casting.',
     ],
     list: {
       heading: 'Which method fits',

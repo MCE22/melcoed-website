@@ -20,7 +20,6 @@ import cuffsEmbossed from '../assets/photos/cuffs-embossed.jpg';
 import tieBars from '../assets/photos/tie-bars.jpg';
 import cufflinksFootball from '../assets/photos/cufflinks-football.jpg';
 import cufflinksWorn from '../assets/photos/cufflinks-worn.jpg';
-import medallionsAssortment from '../assets/photos/medallions-assortment.jpg';
 import pendantsDogTags from '../assets/photos/pendants-dog-tags.jpg';
 import flagPinFront from '../assets/photos/flag-pin-front.jpg';
 import flagPinAngle from '../assets/photos/flag-pin-angle.jpg';
@@ -117,7 +116,6 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { illustration: true, src: ilLighthouse, alt: 'Illustration of a bronze medallion with a lighthouse scene, ringed by the words Guidance, Service, Community' },
   ],
   medallions: [
-    { src: medallionsAssortment, alt: 'An assortment of die-struck medallions and pendants in gold and antique finishes' },
     { src: pendantsDogTags, alt: 'Die-struck pendants on ball chains in silver and gold finishes, displayed on black velvet' },
   ],
   awards: [
