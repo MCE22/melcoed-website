@@ -50,7 +50,9 @@ const productTypes = [
   data-max-mb={maxUploadMb}
 >
   <input type="hidden" name="access_key" value={accessKey} />
-  <input type="hidden" name="subject" value="New quote request from melcoed.com" />
+  <!-- Subject and replyto are filled from the visitor's answers on submit (see script below), so the
+       notification reads "Quote request — Name — Company" and hitting Reply goes to the customer. -->
+  <input type="hidden" name="subject" value="Quote request — melcoed.com" />
   <input type="hidden" name="from_name" value="melcoed.com quote form" />
   <input type="hidden" name="redirect" value={redirect} />
   <!-- Honeypot: hidden from people, irresistible to bots. Web3Forms rejects submissions where it's checked. -->
@@ -211,6 +213,9 @@ const productTypes = [
         return;
       }
       data.delete('redirect'); // JSON response for fetch; redirect is only for the no-JS path
+      const field = (k: string) => String(data.get(k) ?? '').trim();
+      data.set('replyto', field('email'));
+      data.set('subject', ['Quote request', field('name'), field('company')].filter(Boolean).join(' — '));
 
       const label = submit.textContent;
       submit.disabled = true;
