@@ -1,7 +1,9 @@
 /* Mel-Co-Ed design system — editorial, converted-factory studio.
    Warm cream paper, near-black type, oxblood accents, aged-brass labels, brushed steel.
-   Heavy block-sans headings (Archivo 800–900, uppercase), Inter body. No serif or
-   script display type. Square corners, generous space, crisp grid. Mobile-first: base styles target phones; min-width queries scale up. */
+   Hybrid that matches the printed catalogs and sell sheet: heavy block-sans headlines
+   (Archivo 800–900, uppercase, like the sell sheet), with accent words in gold Lora italic
+   and Lora intro paragraphs (like the catalogs), thin gold frames on dark sections, Inter body.
+   No script faces. Square corners, generous space, crisp grid. Mobile-first: base styles target phones; min-width queries scale up. */
 
 :root {
   /* Palette */
@@ -49,6 +51,8 @@
   --chrome-dark: var(--steel);
   --steel-dim: var(--rule-dark);
 
+  --font-serif: 'Lora Variable', Lora, Georgia, 'Times New Roman', serif; /* accents + intros, as in the catalogs */
+  --gold: #9a7636; /* catalog gold, deep enough for large text on cream (AA large) */
   --font-display: 'Archivo Variable', Archivo, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-block: var(--font-body);
@@ -167,11 +171,17 @@ h2 {
   font-size: var(--fs-h2);
 }
 /* Key words in oxblood: <h1>Metal stamping <em>since 1948.</em></h1> */
+/* Accent words: gold Lora italic, set in normal case like the catalogs ("for three generations") */
 h1 em,
 h2 em,
 .accent {
-  font-style: normal;
-  color: var(--oxblood);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.04em;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gold);
 }
 h3,
 h4 {
@@ -186,6 +196,7 @@ h4 {
   font-size: 1rem;
 }
 .lead {
+  font-family: var(--font-serif);
   font-size: var(--fs-lead);
   line-height: 1.6;
   color: var(--ink-600);
@@ -264,7 +275,37 @@ h4 {
   color: var(--paper);
 }
 :is(.section--ink, .section--navy, .section--teal, .dark) :is(h1, h2) em {
-  color: var(--oxblood-300);
+  color: var(--brass-light);
+}
+/* Thin gold frame inside dark sections, as on the catalog covers */
+.section--ink,
+.section--navy,
+.section--teal,
+.page-hero--dark,
+.footer-main {
+  position: relative;
+  isolation: isolate;
+}
+.section--ink::after,
+.section--navy::after,
+.section--teal::after,
+.page-hero--dark::after,
+.footer-main::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgb(205 178 122 / 0.45);
+  pointer-events: none;
+  z-index: -1;
+}
+@media (min-width: 48rem) {
+  .section--ink::after,
+  .section--navy::after,
+  .section--teal::after,
+  .page-hero--dark::after,
+  .footer-main::after {
+    inset: 14px;
+  }
 }
 :is(.section--ink, .section--navy, .section--teal, .dark) .lead,
 :is(.section--ink, .section--navy, .section--teal, .dark) p {
@@ -610,10 +651,10 @@ h4 {
 .step__n {
   display: block;
   font-family: var(--font-display);
-    font-weight: 800;
+  font-weight: 800;
   font-size: 2rem;
   line-height: 1;
-  color: var(--oxblood);
+  color: var(--gold);
   margin-bottom: 0.75rem;
 }
 .step p {
