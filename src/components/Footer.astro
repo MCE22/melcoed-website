@@ -5,6 +5,7 @@ import { site, serviceLinks, productLinks, industryLinks, quoteHref, mapsUrl } f
 import { madeIn } from '../data/brand';
 import { liveLinks } from '../lib/routes';
 import CatalogLinks from './CatalogLinks.astro';
+import { sellSheet } from '../data/downloads';
 
 interface Props {
   /** Hide the quote call-to-action band (e.g. on the quote page itself). */
@@ -68,6 +69,13 @@ const servicesList = liveLinks(serviceLinks);
         </address>
         <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
         <div class="footer-catalogs"><CatalogLinks variant="links" /></div>
+        {
+          sellSheet && (
+            <p class="footer-sellsheet">
+              <a href={sellSheet.href} download>Sell Sheet (PDF)</a>
+            </p>
+          )
+        }
       </div>
 
       <div class="footer-col">
@@ -215,6 +223,14 @@ const servicesList = liveLinks(serviceLinks);
   .footer-catalogs {
     margin-top: 1rem;
     font-size: 0.9rem;
+  }
+  .footer-sellsheet {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+  }
+  .footer-main .footer-sellsheet a {
+    color: var(--brass-light);
+    text-decoration: underline;
   }
   .footer-h {
     margin: 0 0 1rem;

@@ -1,4 +1,5 @@
 ---
+import { sellSheet } from '../../data/downloads';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
@@ -72,6 +73,20 @@ const faqs: Faq[] = [
           </address>
           <p><a href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a></p>
         </div>
+
+        {
+          sellSheet && (
+            <div class="aside-block">
+              <h2 class="aside-h">Sell sheet</h2>
+              <p>Shop, materials, finishes, minimums and lead times on two pages.</p>
+              <p>
+                <a href={sellSheet.href} download>
+                  Sell Sheet (PDF) &middot; {sellSheet.sizeMb} MB
+                </a>
+              </p>
+            </div>
+          )
+        }
 
         <div class="aside-block">
           <h2 class="aside-h">For a faster quote</h2>
