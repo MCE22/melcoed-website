@@ -5,6 +5,8 @@ import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
 import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
+import MediaSlot from '../components/MediaSlot.astro';
+import { hasPhoto } from '../data/photos';
 import { site, quoteHref } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
 import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths } from '../data/facts';
@@ -137,6 +139,7 @@ const faqs: Faq[] = [
         <h2 id="striking-h">Die striking &amp; coining</h2>
         <p>A blank is struck between engraved steel dies to raise sharp relief, for badges, medallions, emblems and findings.</p>
         <p>Progressive, transfer and automatic stamping, blanking and forming: <a href="/metal-stamping/">Metal Stamping &rarr;</a></p>
+        {hasPhoto('die-striking-shoot') && <MediaSlot slot="die-striking-shoot" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: die set in a press; fresh strike off the die" class="cap-shot" />}
       </div>
       <dl class="specs">
         <div><dt>Processes</dt><dd>Coining and die striking</dd></div>
@@ -154,6 +157,7 @@ const faqs: Faq[] = [
       <div>
         <h2 id="tooling-h">In-house tool &amp; die</h2>
         <p>Every die is designed and built in-house. Engineering changes and maintenance happen on our floor, not in an outside tool shop's queue.</p>
+        {hasPhoto('tooling-shoot') && <MediaSlot slot="tooling-shoot" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: toolmaker at bench; die next to its struck part" class="cap-shot" />}
       </div>
       <dl class="specs specs--light">
         <div><dt>Die types</dt><dd>Coining and striking dies, progressive and transfer dies <Todo>add blanking, compound or forming dies if applicable</Todo></dd></div>
@@ -227,6 +231,7 @@ const faqs: Faq[] = [
       <div class="section-head">
         <h2 id="materials-h">Metals we stamp</h2>
         <p class="lead">Ferrous and non-ferrous sheet and strip, chosen for the job: appearance, strength, conductivity or cost.</p>
+        {hasPhoto('materials') && <MediaSlot slot="materials" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: raw brass and sterling stock" class="cap-shot" />}
       </div>
       <p class="finish-note"><strong>{materialsNote}</strong></p>
       <div class="table-wrap">
@@ -296,6 +301,7 @@ const faqs: Faq[] = [
       <div>
         <h2 id="quality-h">Inspection &amp; documentation</h2>
         <p>Parts are inspected before they ship. Tell us what documentation your quality system needs.</p>
+        {hasPhoto('quality') && <MediaSlot slot="quality" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: hands checking a part with calipers" class="cap-shot" />}
       </div>
       <dl class="specs">
         <div><dt>Inspection</dt><dd><Todo>equipment and methods (e.g. calipers, micrometers, optical comparator, CMM)</Todo></dd></div>
@@ -457,5 +463,8 @@ const faqs: Faq[] = [
   }
   .pd-link h3 {
     margin-top: 0.5rem;
+  }
+  :global(.cap-shot) {
+    margin-top: 1.5rem;
   }
 </style>

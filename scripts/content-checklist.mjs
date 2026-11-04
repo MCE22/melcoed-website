@@ -52,10 +52,19 @@ const kindOf = (t) => (/^photo/i.test(t) ? 'photos' : 'copy');
 
 // --- data: photo slots that are filled ---
 const photosSrc = read('src/data/photos.ts');
-const filledSlots = new Set([...photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[\s*\{/gm)].map((m) => m[1]));
+// A slot is filled when its array has a photo object or spreads a close-up / shoot entry that has one.
+const emptyShoot = new Set([...photosSrc.matchAll(/^\s+([a-zA-Z]+): \[\],$/gm)].map((m) => m[1]));
+const filledSlots = new Set(
+  [...photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[(.*?)\],?$/gms)]
+    .filter(([, , body]) => /\{\s*(?:illustration: true, )?src:|close\.|\.\.\.shoot\.(\w+)/.test(body) && (body.includes('{') || body.includes('close.') || [...body.matchAll(/\.\.\.shoot\.(\w+)/g)].some((m) => !emptyShoot.has(m[1]))))
+    .map((m) => m[1]),
+);
+// NEW SHOOT shot list: every shot still empty goes on the checklist.
+for (const m of photosSrc.matchAll(/\{ key: '(\w+)', shot: '([^']+)', pages: '([^']+)' \}/g))
+  if (emptyShoot.has(m[1])) add('Sitewide / business info', 'photos', `NEW SHOOT: ${m[2]} (for ${m[3]})`);
 // Slots filled with labeled illustrations still need real house-sample photos.
 const ILLUS_PAGES = { badges: 'Badges', 'industries-fraternal': 'Fraternal & Lodge' };
-for (const m of photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[([\s\S]*?)^\s*\],/gm)) {
+for (const m of photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[(.*?)\],?$/gms)) {
   if (m[2].includes('illustration: true'))
     add(ILLUS_PAGES[m[1]] ?? 'Sitewide / business info', 'photos', `Replace the labeled illustrations in the \`${m[1]}\` slot with house-sample photos (keep the illustration flag off for real photos)`);
 }
@@ -83,7 +92,7 @@ for (const file of walk(join(src, 'pages')).filter((f) => f.endsWith('.astro')))
   }
   for (const m of s.matchAll(/todo: '([^']+)'/g)) add(page, 'copy', clean(m[1]));
   for (const m of s.matchAll(/<(?:PhotoSlot|MediaSlot)\s[^>]*?slot="([a-z-]+)"[^>]*?todo="([^"]+)"/g))
-    if (!filledSlots.has(m[1])) add(page, 'photos', clean(m[2]));
+    if (!filledSlots.has(m[1]) && !/^New shoot/i.test(m[2])) add(page, 'photos', clean(m[2])); // shoot items are listed once, from photos.ts
   // page-header photos: <PageHero photo="slot" photoTodo="...">
   for (const m of s.matchAll(/photo="([a-z-]+)"\s+photoTodo="([^"]+)"/g))
     if (!filledSlots.has(m[1])) add(page, 'photos', `${clean(m[2])} (page header)`);
@@ -130,8 +139,19 @@ for (const m of read('src/components/QuoteForm.astro').matchAll(/<Todo(?:\s+bloc
 const allSlots = [...photosSrc.matchAll(/\| '([a-z-]+)'/g)].map((m) => m[1]);
 const pageSrc = walk(join(src, 'pages')).map((f) => readFileSync(f, 'utf8')).join('\n');
 const productSlugs = [...products.matchAll(/slug: '([a-z-]+)'/g)].map((m) => m[1]);
+// Service tiles with no fitting close-up yet; slots fed only by the NEW SHOOT list are covered above.
+const TILE_SLOTS = {
+  'cnc-milling': 'CNC Milling service tile (Home): tight shot of the CNC mill cutting a die, or a machined die part',
+  packaging: 'Packaging & Drop Shipping tile: hands packing finished parts, or a packed order',
+};
+const SHOOT_ONLY = ['products', 'quality', 'materials', 'die-striking-shoot', 'tooling-shoot', 'die-ownership'];
 for (const slot of allSlots) {
-  if (filledSlots.has(slot) || productSlugs.includes(slot) || pageSrc.includes(`slot="${slot}"`) || pageSrc.includes(`photo="${slot}"`)) continue;
+  if (filledSlots.has(slot) || SHOOT_ONLY.includes(slot)) continue;
+  if (TILE_SLOTS[slot]) {
+    add('Sitewide / business info', 'photos', TILE_SLOTS[slot]);
+    continue;
+  }
+  if (productSlugs.includes(slot) || pageSrc.includes(`slot="${slot}"`) || pageSrc.includes(`photo="${slot}"`)) continue;
   add(slot.startsWith('home') ? 'Home' : 'Sitewide / business info', 'photos', `\`${slot}\` photo slot (not placed on the page yet; layout will be designed around the chosen photo)`);
 }
 

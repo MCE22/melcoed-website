@@ -7,6 +7,7 @@ import { productIndex } from '../data/products';
 import CatalogLinks from '../components/CatalogLinks.astro';
 import { waysToBuy } from '../data/facts';
 import { isLive } from '../lib/routes';
+import { hasPhoto } from '../data/photos';
 
 const path = '/products/';
 const breadcrumbs = [{ name: 'Products', path }];
@@ -33,6 +34,8 @@ const itemList = {
     ribbon="What we stamp"
     lead="Badges, medallions, awards, emblems, findings and industrial components for manufacturers, jewelers, agencies and organizations. Short runs or production quantities."
     breadcrumbs={breadcrumbs}
+    photo={hasPhoto('products') ? 'products' : undefined}
+    photoTodo="New shoot: tray of finished parts"
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quoteHref}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>

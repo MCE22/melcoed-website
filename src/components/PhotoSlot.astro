@@ -2,7 +2,6 @@
 // Renders a page's photos from src/data/photos.ts, or a TODO box when the slot is empty.
 // One photo: a single framed image. Two or more: a responsive gallery grid.
 import { Image } from 'astro:assets';
-import Todo from './Todo.astro';
 import { photos, type PhotoSlotName } from '../data/photos';
 import { confidential } from '../data/confidential';
 
@@ -26,12 +25,7 @@ const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 7
 ---
 
 {
-  all.length > 0 && list.length === 0 ? null : list.length === 0 ? (
-    <Todo block>
-      {todo} Save to <code>src/assets/photos/</code> and add to the <code>{slot}</code> slot in
-      <code>src/data/photos.ts</code>.
-    </Todo>
-  ) : (
+  list.length === 0 ? null : (
     <div class:list={['photo-slot', { 'photo-slot--gallery': gallery, 'photo-slot--odd': gallery && list.length % 2 === 1 }, className]}>
       {list.map((p, i) => (
         <figure class:list={['photo-slot__frame', { 'photo-slot__frame--illus': p.illustration }]}>

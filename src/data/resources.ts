@@ -370,6 +370,7 @@ export const resources: Resource[] = [
     ],
     quoteType: 'custom',
     confidential: true,
+    image: { slot: 'die-ownership', index: 0 },
   },
 
   {

@@ -24,13 +24,13 @@ export const services: Service[] = [
     label: 'Die Striking & Coining',
     href: '/capabilities/#die-striking',
     summary: 'Sharp relief struck between engraved steel dies, up to 3.5″ across.',
-    photo: { slot: 'industrial-components', index: 1 },
+    photo: { slot: 'die-striking' },
   },
   {
     label: 'Tooling',
     href: '/capabilities/#tooling',
     summary: 'Dies designed, built and maintained in our own tool room.',
-    photo: { slot: 'capabilities', index: 3 },
+    photo: { slot: 'tooling' },
   },
   {
     label: 'Finishing',
@@ -42,7 +42,7 @@ export const services: Service[] = [
     label: 'CNC Milling',
     href: '/capabilities/#milling',
     summary: 'CNC machining for die work and secondary operations.',
-    photo: { slot: 'capabilities', index: 2 },
+    photo: { slot: 'cnc-milling' },
   },
   {
     label: 'Product Development',
@@ -54,7 +54,7 @@ export const services: Service[] = [
     label: 'Packaging & Drop Shipping',
     href: '/capabilities/#packaging',
     summary: 'Packaging and assembly, and drop shipping to your customers.',
-    photo: { slot: 'about', index: 2 },
+    photo: { slot: 'packaging' },
     home: false,
   },
 ];
