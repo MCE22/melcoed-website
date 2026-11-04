@@ -47,6 +47,10 @@
 /capabilities/packaging-logistics-assembly/   /capabilities/                             301
 /capabilities/packaging-logistics-assembly    /capabilities/                             301
 
+# Retired page on the new site
+/industries/commemorative/                    /medallions/                               301
+/industries/commemorative                     /medallions/                               301
+
 # Old WordPress sitemaps → new sitemap
 /sitemap_index.xml                            /sitemap-index.xml                         301
 /sitemap.xml                                  /sitemap-index.xml                         301

@@ -36,7 +36,7 @@ ${links(productLinks)}
 
 Metal stamping for every industry: ${industries.map((i) => i.name).join(', ')}.
 
-${links([{ label: 'All industries', href: '/industries/' }, { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }, { label: 'Commemorative & 250th', href: '/industries/commemorative/' }])}
+${links([{ label: 'All industries', href: '/industries/' }, { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }])}
 
 ## Buyer guides
 

@@ -44,7 +44,6 @@ export const industries: Industry[] = [
     icon: 'ribbon',
     summary: 'Medallions, service awards and recognition pins, struck to your design.',
     href: '/awards/',
-    related: { label: 'Commemorative & 250th', href: '/industries/commemorative/' },
   },
   {
     name: 'Government & Public Safety',

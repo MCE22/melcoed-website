@@ -156,7 +156,7 @@ export const products: Record<string, Product> = {
       { title: 'Fire & EMS', body: 'Maltese cross and custom fire and EMS badges for departments and districts.' },
       { title: 'Military & government', body: 'Badges and insignia for federal, state and municipal agencies and units.' },
       { title: 'Corporate & security', body: 'Badges for private security, corporate programs and identification.' },
-      { title: 'Retirement & reproductions', body: 'Retirement and commemorative badges, and reproductions of retired designs.' },
+      { title: 'Retirement & reproductions', body: 'Retirement badges, and reproductions of retired designs.' },
     ],
     audienceHeading: 'Who orders badges',
     audience: [
@@ -193,7 +193,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Do you make retirement badges?',
-        a: 'Yes. Retirement and commemorative badges can be struck to match a department’s duty badge with the added retirement wording.',
+        a: 'Yes. Retirement badges can be struck to match a department’s duty badge with the added retirement wording.',
         todo: true,
       },
       moqFaq('custom badges'),
@@ -204,15 +204,15 @@ export const products: Record<string, Product> = {
 
   medallions: {
     slug: 'medallions',
-    name: 'Medallions',
+    name: 'Medals & Medallions',
     division: 'Finished Goods',
     quoteType: 'medallions',
-    metaTitle: 'Custom Struck Medallions & Challenge Coins',
+    metaTitle: 'Custom Struck Medals, Medallions & Challenge Coins',
     metaDescription:
-      'Custom die-struck medallions and challenge coins from Mel-Co-Ed in Pawtucket, RI: commemorative, presentation and award medallions with relief on both sides.',
-    h1: 'Custom Medallions',
-    accent: 'struck on both sides',
-    lead: 'Die-struck commemorative, presentation and award medallions and challenge coins, struck on both sides, for committees, organizations, units and award programs.',
+      'Custom die-struck medals, medallions and challenge coins from Mel-Co-Ed in Pawtucket, RI. Any type of medal, struck from your design with relief on both sides.',
+    h1: 'Custom Medals & Medallions',
+    accent: 'any type of medal',
+    lead: 'Die-struck medals, medallions and challenge coins of any type, struck on both sides from your design, for organizations, units and award programs.',
     intro: [
       'Struck between two steel dies, a medallion gets sharp relief on both faces and a solid, heavy feel that cast or printed pieces can’t match.',
       'We cut the dies and strike every piece in Pawtucket.',
@@ -220,18 +220,13 @@ export const products: Record<string, Product> = {
     typesHeading: 'Medallions we strike',
     typesTodo: 'Confirm the medallion types listed (coins and challenge coins are confirmed, struck up to 3.5″).',
     types: [
-      {
-        title: 'Commemorative',
-        body: "Anniversary and event medallions, including America's 250th and town milestones.",
-        href: '/industries/commemorative/',
-      },
+      { title: 'Any type of medal', body: 'Tell us what it’s for. If it can be struck in metal, we’ll make it.' },
       { title: 'Challenge coins', body: 'Coin-sized pieces for units, departments, organizations and teams.' },
       { title: 'Presentation & award', body: 'Medallions presented to honorees, retirees, donors and graduates.' },
       { title: 'Organizational', body: 'Medallions for lodges, societies, schools and associations.' },
     ],
     audienceHeading: 'Who orders medallions',
     audience: [
-      'Anniversary and 250th committees',
       'Police, fire and military units',
       'Schools, colleges and alumni groups',
       'Lodges and fraternal organizations',
@@ -263,7 +258,7 @@ export const products: Record<string, Product> = {
       },
       moqFaq('custom medallions'),
     ],
-    related: ['/industries/commemorative/', '/awards/', '/badges/'],
+    related: ['/awards/', '/badges/', '/industries/fraternal-lodge/'],
     schemaCategory: 'Medallions',
   },
 
@@ -474,10 +469,10 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     body: 'Die-struck badges for police, fire, EMS, military, government, corporate and security.',
   },
   {
-    title: 'Medallions',
+    title: 'Medals & Medallions',
     slot: 'medallions',
     href: '/medallions/',
-    body: 'Commemorative, presentation and award medallions and challenge coins, struck on both sides.',
+    body: 'Any type of medal, medallion or challenge coin, struck on both sides.',
   },
   {
     title: 'Awards',

@@ -544,7 +544,7 @@ export const resources: Resource[] = [
     list: {
       heading: 'What customers strike as coins',
       items: [
-        'Commemorative and anniversary coins',
+        'Organization and membership coins',
         'Challenge coins for units and organizations',
         'Event and program coins',
         'Numbered limited editions',
@@ -588,7 +588,7 @@ export const resources: Resource[] = [
       heading: 'Medallions and awards we strike',
       items: [
         'Award and recognition medallions',
-        'Commemorative and anniversary medallions',
+        'Religious and organizational medals',
         'Presentation pieces for retirees, donors and honorees',
         'Recognition pins struck from the same artwork',
       ],
@@ -1162,7 +1162,7 @@ export const resources: Resource[] = [
     ],
     list: {
       heading: 'What we strike',
-      items: ['Devotional medals', 'Emblems for religious goods suppliers', 'Commemorative medals for anniversaries and dedications', 'Custom designs on your own exclusive die'],
+      items: ['Devotional medals', 'Emblems for religious goods suppliers', 'Medals for dedications and special occasions', 'Custom designs on your own exclusive die'],
     },
     specs: [R.struck, R.metals, R.noMinimum, R.gold, R.engraving, R.finishing, R.leadTime, R.die],
     steps: strikeSteps(

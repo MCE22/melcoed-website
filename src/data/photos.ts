@@ -102,7 +102,6 @@ export type PhotoSlotName =
   | 'product-development'
   | 'industries'
   | 'industries-fraternal'
-  | 'industries-commemorative'
   | 'about'
   // service tiles
   | 'die-striking'

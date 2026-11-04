@@ -92,7 +92,7 @@ export const productLinks = [
   { label: 'Findings', href: '/findings/' },
   { label: 'Pattern Stock & Banding', href: '/pattern-stock/' },
   { label: 'Badges', href: '/badges/' },
-  { label: 'Medallions', href: '/medallions/' },
+  { label: 'Medals & Medallions', href: '/medallions/' },
   { label: 'Awards', href: '/awards/' },
   { label: 'Fraternal & Lodge Emblems', href: '/industries/fraternal-lodge/' },
   { label: 'Industrial Components', href: '/industrial-components/' },
@@ -100,7 +100,6 @@ export const productLinks = [
 
 export const industryLinks = [
   { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' },
-  { label: 'Commemorative & 250th', href: '/industries/commemorative/' },
 ];
 
 // Links to pages that don't exist yet are filtered out at build time (see src/lib/routes.ts),

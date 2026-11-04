@@ -36,7 +36,6 @@ const PAGE_NAMES = {
   'capabilities/product-development.astro': 'Product Development',
   'industries/index.astro': 'Industries hub',
   'industries/fraternal-lodge.astro': 'Fraternal & Lodge',
-  'industries/commemorative.astro': 'Commemorative & 250th',
   'request-a-quote/index.astro': 'Request a Quote',
   'request-a-quote/thank-you.astro': 'Request a Quote',
   'search.astro': 'Search',
@@ -156,7 +155,7 @@ for (const slot of allSlots) {
 }
 
 // --- output ---
-const ORDER = ['Sitewide / business info', 'Home', 'Metal Stamping', 'About', 'Capabilities', 'Product Development', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industrial Components', 'Industries hub', 'Fraternal & Lodge', 'Commemorative & 250th', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
+const ORDER = ['Sitewide / business info', 'Home', 'Metal Stamping', 'About', 'Capabilities', 'Product Development', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industrial Components', 'Industries hub', 'Fraternal & Lodge', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
 const pages = [...groups.keys()].sort((a, b) => (ORDER.indexOf(a) + 99 * (ORDER.indexOf(a) < 0)) - (ORDER.indexOf(b) + 99 * (ORDER.indexOf(b) < 0)));
 const LABELS = { specs: 'Specs & numbers', copy: 'Facts & copy', faq: 'FAQ answers to confirm', photos: 'Photos' };
 let total = 0;
