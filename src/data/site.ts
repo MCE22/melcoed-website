@@ -72,7 +72,7 @@ export const divisions: Division[] = [
       'Die-struck badges, medallions, awards and fraternal emblems, struck in Pawtucket and finished to your spec.',
     links: [
       { label: 'Badges', href: '/badges/' },
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
       { label: 'Awards', href: '/awards/' },
       { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' },
     ],

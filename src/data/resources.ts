@@ -522,7 +522,7 @@ export const resources: Resource[] = [
     ],
     links: [
       { label: 'Die Striking & Coining', href: '/capabilities/#die-striking' },
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
     ],
     quoteType: 'medallions',
     image: { slot: 'badges', index: 6 },
@@ -564,7 +564,7 @@ export const resources: Resource[] = [
       },
     ],
     links: [
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
       { label: 'Die Striking & Coining', href: '/capabilities/#die-striking' },
     ],
     quoteType: 'medallions',
@@ -613,7 +613,7 @@ export const resources: Resource[] = [
       },
     ],
     links: [
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
       { label: 'Awards', href: '/awards/' },
     ],
     quoteType: 'medallions',
@@ -654,7 +654,7 @@ export const resources: Resource[] = [
       },
       { q: 'What is the minimum order for challenge coins?', a: minimumLine },
     ],
-    links: [{ label: 'Medallions', href: '/medallions/' }],
+    links: [{ label: 'Medals & Medallions', href: '/medallions/' }],
     quoteType: 'medallions',
     custom: true,
     image: { slot: 'industries-fraternal', index: 4 },
@@ -1140,7 +1140,7 @@ export const resources: Resource[] = [
     ],
     links: [
       { label: 'Awards', href: '/awards/' },
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
     ],
     quoteType: 'awards',
     custom: true,
@@ -1175,7 +1175,7 @@ export const resources: Resource[] = [
       { q: 'Can a medal be engraved on the back?', a: 'Yes. Engraving and numbering are done in-house.' },
     ],
     links: [
-      { label: 'Medallions', href: '/medallions/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
       { label: 'Products', href: '/products/' },
     ],
     quoteType: 'medallions',
