@@ -44,7 +44,7 @@ const web = site.url.replace('https://www.', '');
     <title>Sell Sheet 2026 | {site.name}</title>
     <link rel="canonical" href={`${site.url}/sell-sheet/`} />
   </head>
-  <body>
+  <body class="sellsheet">
     <!-- ================= FRONT ================= -->
     <section class="sheet" aria-label="Sell sheet, front">
       <header class="hero">
@@ -165,7 +165,8 @@ const web = site.url.replace('https://www.', '');
 </html>
 
 <style is:global>
-  :root {
+  /* Scoped to body.sellsheet: Astro can bundle this stylesheet onto other pages. */
+  .sellsheet  {
     --black: #141414;
     --gold: #c9a24a;
     --gold-text: #8a6a1f;
@@ -176,15 +177,15 @@ const web = site.url.replace('https://www.', '');
     --display: 'Archivo Variable', Archivo, 'Arial Narrow', Arial, sans-serif;
     --body: 'Inter Variable', Inter, system-ui, Arial, sans-serif;
   }
-  @page {
+  @page sellsheet {
     size: letter;
     margin: 0;
   }
-  * {
+  .sellsheet *  {
     box-sizing: border-box;
   }
-  html,
-  body {
+  html:has(body.sellsheet),
+  body.sellsheet  {
     margin: 0;
     background: #8e9399;
     color: var(--ink);
@@ -192,7 +193,8 @@ const web = site.url.replace('https://www.', '');
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .sheet {
+  .sellsheet .sheet {
+    page: sellsheet;
     display: flex;
     flex-direction: column;
     width: 8.5in;
@@ -203,44 +205,44 @@ const web = site.url.replace('https://www.', '');
     box-shadow: 0 6px 30px rgb(0 0 0 / 0.35);
   }
   @media print {
-    html,
-    body {
+    html:has(body.sellsheet),
+  body.sellsheet  {
       background: none;
     }
-    .sheet {
+    .sellsheet .sheet  {
       margin: 0;
       box-shadow: none;
       break-after: page;
     }
   }
-  h1,
-  h2,
-  h3 {
+  .sellsheet h1,
+  .sellsheet h2,
+  .sellsheet h3  {
     margin: 0;
     font-family: var(--display);
     font-stretch: 75%;
     font-weight: 700;
     line-height: 1.05;
   }
-  p {
+  .sellsheet p  {
     margin: 0;
   }
-  img {
+  .sellsheet img  {
     display: block;
     width: 100%;
     object-fit: cover;
     min-height: 0;
   }
-  .gold {
+  .sellsheet .gold  {
     color: var(--gold);
   }
-  .strong {
+  .sellsheet .strong  {
     font-weight: 700;
   }
-  .body {
+  .sellsheet .body  {
     padding: 0 0.55in;
   }
-  .eyebrow {
+  .sellsheet .eyebrow  {
     margin: 0.24in 0 0.1in;
     font-size: 11pt;
     font-stretch: 75%;
@@ -248,7 +250,7 @@ const web = site.url.replace('https://www.', '');
     text-transform: uppercase;
     color: var(--gold-text);
   }
-  .mark {
+  .sellsheet .mark  {
     display: inline-grid;
     place-items: center;
     width: 0.62in;
@@ -263,7 +265,7 @@ const web = site.url.replace('https://www.', '');
   }
 
   /* Front */
-  .hero {
+  .sellsheet .hero {
     display: grid;
     grid-template-columns: 1fr 3.1in;
     height: 3.15in;
@@ -271,16 +273,16 @@ const web = site.url.replace('https://www.', '');
     color: #fff;
     border-bottom: 5px solid var(--gold);
   }
-  .hero__text {
+  .sellsheet .hero__text  {
     padding: 0.36in 0.35in 0.3in 0.55in;
   }
-  .brand {
+  .sellsheet .brand  {
     display: flex;
     align-items: center;
     gap: 0.16in;
     margin-bottom: 0.24in;
   }
-  .brand__name {
+  .sellsheet .brand__name  {
     display: block;
     font-family: var(--display);
     font-stretch: 85%;
@@ -289,7 +291,7 @@ const web = site.url.replace('https://www.', '');
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  .brand__sub {
+  .sellsheet .brand__sub  {
     display: block;
     font-family: var(--display);
     font-stretch: 85%;
@@ -299,24 +301,24 @@ const web = site.url.replace('https://www.', '');
     text-transform: uppercase;
     color: var(--gold);
   }
-  .hero h1 {
+  .sellsheet .hero h1  {
     margin-bottom: 0.18in;
     font-size: 27pt;
   }
-  .hero p {
+  .sellsheet .hero p  {
     font-size: 10pt;
     color: #e8e8e8;
   }
-  .hero__photo img {
+  .sellsheet .hero__photo img  {
     height: 100%;
   }
-  .hero__photo {
+  .sellsheet .hero__photo  {
     position: relative;
     height: calc(3.15in - 5px);
     overflow: hidden;
     border-left: 5px solid var(--gold);
   }
-  .usa {
+  .sellsheet .usa  {
     position: absolute;
     left: 0;
     right: 0;
@@ -332,34 +334,34 @@ const web = site.url.replace('https://www.', '');
     text-transform: uppercase;
     text-align: center;
   }
-  .custom {
+  .sellsheet .custom  {
     display: grid;
     grid-template-columns: 3.2in 1fr;
     height: 1.95in;
     overflow: hidden;
   }
-  .custom img {
+  .sellsheet .custom img  {
     height: 1.95in;
   }
-  .custom__text {
+  .sellsheet .custom__text  {
     padding: 0.18in 0.26in;
     background: var(--black);
     color: #fff;
     border-left: 5px solid var(--gold);
   }
-  .custom__text h3 {
+  .sellsheet .custom__text h3  {
     margin-bottom: 0.1in;
     font-size: 19pt;
     color: var(--gold);
   }
-  .custom__text p {
+  .sellsheet .custom__text p  {
     font-size: 10pt;
     margin-bottom: 0.07in;
   }
-  .custom__text .gold {
+  .sellsheet .custom__text .gold  {
     font-weight: 700;
   }
-  .openline {
+  .sellsheet .openline  {
     display: grid;
     grid-template-columns: 1.4in auto 1fr;
     align-items: center;
@@ -369,33 +371,33 @@ const web = site.url.replace('https://www.', '');
     overflow: hidden;
     border: 2px solid var(--black);
   }
-  .openline img {
+  .sellsheet .openline img  {
     height: calc(0.9in - 4px);
   }
-  .openline h3 {
+  .sellsheet .openline h3  {
     font-size: 21pt;
     white-space: nowrap;
   }
-  .openline p {
+  .sellsheet .openline p  {
     padding-right: 0.25in;
     font-size: 10.5pt;
   }
-  .tiles {
+  .sellsheet .tiles  {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.13in;
   }
-  .tiles img {
+  .sellsheet .tiles img  {
     height: 1.16in;
     border: 1px solid var(--rule);
   }
-  .strapline {
+  .sellsheet .strapline  {
     margin-top: auto;
     padding: 0 0.55in 0.14in;
     font-size: 9.5pt;
     color: var(--ink-600);
   }
-  .foot {
+  .sellsheet .foot  {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -407,30 +409,30 @@ const web = site.url.replace('https://www.', '');
   }
 
   /* Back */
-  .top {
+  .sellsheet .top {
     display: grid;
     grid-template-columns: 4.35in 1fr;
     height: 1.95in;
     overflow: hidden;
   }
-  .top__left {
+  .sellsheet .top__left  {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: var(--black);
   }
-  .top__title {
+  .sellsheet .top__title  {
     display: flex;
     align-items: center;
     gap: 0.2in;
     padding: 0.38in 0.3in 0 0.55in;
   }
-  .top__title h1 {
+  .sellsheet .top__title h1  {
     font-size: 28pt;
     white-space: nowrap;
     color: #fff;
   }
-  .top__strip {
+  .sellsheet .top__strip  {
     padding: 0.1in 0.2in 0.1in 0.55in;
     background: var(--gold);
     color: var(--black);
@@ -442,19 +444,19 @@ const web = site.url.replace('https://www.', '');
     white-space: nowrap;
     text-transform: uppercase;
   }
-  .top__photo {
+  .sellsheet .top__photo  {
     height: 1.95in;
   }
-  .cols {
+  .sellsheet .cols  {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.45in;
   }
-  .cols p {
+  .sellsheet .cols p  {
     margin-bottom: 0.06in;
     font-size: 10.5pt;
   }
-  .pack {
+  .sellsheet .pack  {
     display: grid;
     grid-template-columns: 2.5in 1fr;
     gap: 0.25in;
@@ -463,82 +465,82 @@ const web = site.url.replace('https://www.', '');
     padding: 0.02in 0.26in 0.18in;
     border: 2px solid var(--gold);
   }
-  .pack .eyebrow {
+  .sellsheet .pack .eyebrow  {
     margin-top: 0.16in;
     margin-bottom: 0.04in;
   }
-  .pack__h {
+  .sellsheet .pack__h  {
     font-family: var(--display);
     font-stretch: 75%;
     font-weight: 700;
     font-size: 19pt;
     line-height: 1.05;
   }
-  .pack > p {
+  .sellsheet .pack > p  {
     padding-top: 0.12in;
     font-size: 10.5pt;
   }
-  .pack .eyebrow {
+  .sellsheet .pack .eyebrow  {
     white-space: nowrap;
   }
-  .order {
+  .sellsheet .order  {
     margin-top: 0.26in;
     padding: 0.2in 0.3in 0.22in;
     background: var(--black);
     color: #fff;
   }
-  .order h2 {
+  .sellsheet .order h2  {
     margin-bottom: 0.12in;
     font-size: 21pt;
     color: var(--gold);
   }
-  .order dl {
+  .sellsheet .order dl  {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.1in 0.4in;
     margin: 0;
     font-size: 10.5pt;
   }
-  .order dt,
-  .order dd {
+  .sellsheet .order dt,
+  .sellsheet .order dd  {
     display: inline;
     margin: 0;
   }
-  .order dt {
+  .sellsheet .order dt  {
     font-weight: 700;
   }
-  .serve {
+  .sellsheet .serve  {
     margin-top: 0.2in;
     font-size: 10pt;
     color: var(--ink-600);
   }
-  .serve + .serve {
+  .sellsheet .serve + .serve  {
     margin-top: 0.08in;
   }
-  .serve strong {
+  .sellsheet .serve strong  {
     color: var(--ink);
   }
-  .foot--back {
+  .sellsheet .foot--back  {
     margin-top: auto;
     padding: 0.2in 0.55in 0.24in;
     border-top: 5px solid var(--gold);
   }
-  .qr {
+  .sellsheet .qr  {
     width: 0.95in;
     height: 0.95in;
     padding: 0.05in;
     background: #faf7f1;
     flex: none;
   }
-  .qr svg {
+  .sellsheet .qr svg  {
     display: block;
     width: 100%;
     height: 100%;
   }
-  .foot--back > div:nth-child(2) {
+  .sellsheet .foot--back > div:nth-child(2)  {
     flex: 1;
   }
-  .cta {
+  .sellsheet .cta  {
     display: block;
     font-family: var(--display);
     font-stretch: 75%;
@@ -547,17 +549,17 @@ const web = site.url.replace('https://www.', '');
     color: var(--gold);
     text-decoration: none;
   }
-  .muted {
+  .sellsheet .muted  {
     white-space: nowrap;
     font-size: 9.5pt;
     color: #cfcfcf;
   }
-  .right {
+  .sellsheet .right  {
     display: grid;
     white-space: nowrap;
     text-align: right;
   }
-  .right > strong {
+  .sellsheet .right > strong  {
     font-family: var(--display);
     font-stretch: 85%;
     font-size: 16pt;
