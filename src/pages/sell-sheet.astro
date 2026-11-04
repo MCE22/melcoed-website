@@ -1,54 +1,38 @@
 ---
-// 2-page sell sheet (front/back, US Letter). Print layout only: no site header/footer.
+// 2-page sell sheet (front/back, US Letter), laid out like the original printed sheet:
+// black bands, gold accents, condensed headlines. Print layout only: no site header/footer.
 // The PDF in public/downloads/ is exported from this page: `npm run sell-sheet`.
 // Rules: never say "finished in-house" (plating, polishing and enamel are done by outside
-// finishers), no castings, no customer names or logos, sales@ only.
-import '@fontsource-variable/archivo/wght.css';
+// finishers), no castings, no customer pieces in photos, sales@ only.
+import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/inter/wght.css';
 import { Image } from 'astro:assets';
 import { site, fullAddress, quoteHref } from '../data/site';
-import { platePng, brandAlt } from '../data/brand';
-import { ordering } from '../data/facts';
 import qrSvg from '../assets/brand/qr-request-a-quote.svg?raw';
+import brassBlanks from '../assets/photos/brass-blanks.jpg';
 import dieBlock from '../assets/photos/die-block-closeup.jpg';
-import findingsBoards from '../assets/photos/findings-sample-boards.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
+import tieBars from '../assets/photos/tie-bars.jpg';
+import cuffsTextured from '../assets/photos/cuffs-textured.jpg';
+import cufflinksFootball from '../assets/photos/cufflinks-football.jpg';
+import flagPin from '../assets/photos/flag-pin-front.jpg';
+import cuffsEmbossed from '../assets/photos/cuffs-embossed.jpg';
+import pins from '../assets/sell-sheet/pins-skull-anchor.jpg';
+import tray from '../assets/sell-sheet/cufflink-tray.jpg';
+import banner from '../assets/sell-sheet/banner-assortment.jpg';
+import showroom from '../assets/sell-sheet/openline-room.jpg';
 
-const make = [
-  'Jewelry findings & components',
-  'Custom jewelry & product development',
-  'Metal stampings',
-  'Coins & challenge coins',
-  'Medallions & awards',
-  'Emblems & nameplates',
-  'Badges & pins',
-  'Fraternal & lodge jewels',
-  'Religious medals',
-  'Belt buckles',
-  'Pattern stock & banding',
+const grid = [
+  { src: patternStock, alt: 'Embossed brass pattern stock and banding' },
+  { src: tieBars, alt: 'Tie bars in gold, silver and antique finishes' },
+  { src: cuffsTextured, alt: 'Textured cuff bracelets' },
+  { src: pins, alt: 'Anchor and skull lapel pins' },
+  { src: cufflinksFootball, alt: 'Football cufflinks in antique brass' },
+  { src: flagPin, alt: 'Enameled American flag lapel pin' },
+  { src: cuffsEmbossed, alt: 'Embossed cuff bracelets in brass and silver' },
+  { src: tray, alt: 'A tray of cufflinks' },
 ];
-
-const shop = [
-  '20+ presses: automatic 25–250 ton, secondary 5–25 ton',
-  'Stamping .010″–.250″ stock, ±.002″ typical',
-  'Die striking up to 3.5″ diameter, .250″ thick',
-  'Coining, progressive, transfer and automatic stamping',
-  'Dies built and maintained in our own tool room',
-  'Prototypes and short-run tooling available',
-];
-
-const serve = [
-  'Jewelry & fashion',
-  'Awards & recognition',
-  'Government & public safety',
-  'Fraternal & lodge',
-  'Corporate & promotional',
-  'Religious goods',
-  'Golf & sports',
-];
-
-const web = site.url.replace('https://', '');
-const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
+const web = site.url.replace('https://www.', '');
 ---
 
 <!doctype html>
@@ -64,50 +48,53 @@ const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
     <!-- ================= FRONT ================= -->
     <section class="sheet" aria-label="Sell sheet, front">
       <header class="hero">
-        <Image src={platePng} alt={brandAlt} width={760} class="plate" loading="eager" />
         <div class="hero__text">
-          <h1><span>Coined. Die struck.</span><span>Stamped.</span><span class="since">Since 1948.</span></h1>
-          <p class="hero__who">{site.name} · Pawtucket, Rhode Island · Third generation, family-owned</p>
+          <div class="brand">
+            <span class="mark">MCE</span>
+            <span>
+              <span class="brand__name">Mel-Co-Ed, Inc.</span>
+              <span class="brand__sub">Pawtucket, Rhode Island · Since 1948</span>
+            </span>
+          </div>
+          <h1>Coined. Die struck. Stamped. Since 1948.</h1>
+          <p>
+            Third-generation, family-owned maker of custom die-struck emblems, jewelry findings and stampings in
+            Southern New England, the historic jewelry capital of the world. Full tool room on site — from your
+            sketch, drawing or sample to finished, packed parts.
+          </p>
+        </div>
+        <div class="hero__photo">
+          <Image src={brassBlanks} alt="Freshly stamped brass blanks" width={900} loading="eager" />
+          <div class="usa">★ Made in the USA ★</div>
         </div>
       </header>
-      <div class="made">★ Made in Rhode Island, USA ★</div>
-
-      <div class="strip">
-        <Image src={dieBlock} alt="A progressive die block on the bench in our tool room" width={640} />
-        <Image src={findingsBoards} alt="Sample boards of stock jewelry findings and stampings" width={640} />
-        <Image src={patternStock} alt="Embossed brass pattern stock and banding" width={640} />
-      </div>
 
       <div class="body">
-        <h2 class="eyebrow">Two ways to buy</h2>
-        <div class="ways">
-          <div class="way">
-            <h3>Open Line</h3>
-            <p>30,000+ stock findings, stampings and pattern stock. <strong>No tooling cost.</strong></p>
-          </div>
-          <div class="way">
-            <h3>Confined &amp; Custom</h3>
-            <p>Your design on your own exclusive die, run only for you. <strong>Have dies or metal? We’ll run yours.</strong></p>
+        <h2 class="eyebrow">Custom &amp; Confined — what we do best</h2>
+        <div class="custom">
+          <Image src={dieBlock} alt="A die block on the bench in our tool room" width={700} />
+          <div class="custom__text">
+            <h3>Your design. Your die. Run only for you.</h3>
+            <p>Send a sketch, drawing or sample. We engineer it, prototype it, cut the die in our own tool room and strike it here in Pawtucket.</p>
+            <p class="gold">You own your die — stored free, take it anywhere.</p>
+            <p class="strong">Already have dies or metal? We’ll run yours.</p>
           </div>
         </div>
-      </div>
 
-      <div class="die">
-        <h2>Your die. Your design.</h2>
-        <p>
-          You own the die you pay for. We store it free, indefinitely. Take it anywhere.
-          Your work stays confidential — NDA on request.
-        </p>
-      </div>
+        <div class="openline">
+          <Image src={showroom} alt="Our findings showroom in Pawtucket" width={400} />
+          <h3>Open Line</h3>
+          <p>30,000+ stock findings, stampings and pattern stock, no tooling cost. Pick from our catalogs, or design around one of our patterns.</p>
+        </div>
 
-      <div class="body">
         <h2 class="eyebrow">What we make</h2>
-        <ul class="make">{make.map((m) => <li>{m}</li>)}</ul>
+        <div class="tiles">{grid.map((g) => <Image src={g.src} alt={g.alt} width={480} />)}</div>
       </div>
 
+      <p class="strapline">Made in the USA · All metals available · Prototypes before you commit · 3–8 week lead time · Specs on the back</p>
       <footer class="foot">
         <span>{fullAddress}</span>
-        <strong>{site.phone.display}</strong>
+        <strong class="gold">{site.phone.display}</strong>
         <span>{site.email}</span>
         <strong>{web}</strong>
       </footer>
@@ -115,61 +102,63 @@ const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
 
     <!-- ================= BACK ================= -->
     <section class="sheet" aria-label="Sell sheet, back">
-      <header class="bar">
-        <Image src={platePng} alt={brandAlt} width={420} class="plate plate--small" loading="eager" />
-        <p class="bar__h">Built to your spec</p>
+      <header class="top">
+        <div class="top__left">
+          <div class="top__title"><span class="mark">MCE</span><h1>Built to Your Spec</h1></div>
+          <div class="top__strip">★ Made in the USA · Pawtucket, Rhode Island</div>
+        </div>
+        <Image src={banner} alt="Bracelet, cufflinks, tie bar and flag pin" width={1229} class="top__photo" loading="eager" />
       </header>
 
-      <div class="body grid">
-        <div class="block">
-          <h2 class="eyebrow">Shop</h2>
-          <ul class="ticks">{shop.map((s) => <li>{s}</li>)}</ul>
+      <div class="body cols">
+        <div>
+          <h2 class="eyebrow">What we do</h2>
+          <p>Coining · Die striking · Progressive, transfer &amp; automatic stamping · Embossed pattern stock &amp; banding · Tool &amp; die · Prototyping · Finishing &amp; plating · Assembly &amp; packaging · Precision milling</p>
+          <h2 class="eyebrow">Presses &amp; tolerances</h2>
+          <p>20+ presses: 25–250 ton automatic, 5–25 ton secondary. Stamping .010″–.250″ stock, ±.002″ typical. Die striking up to 3.5″ diameter, up to .250″ thick.</p>
         </div>
-        <div class="block">
+        <div>
           <h2 class="eyebrow">Materials</h2>
-          <p>
-            Brass (230/260), copper, nickel silver, sterling, fine silver, gold filled, solid 10K/14K/18K,
-            stainless, aluminum, cold-rolled steel, zinc — <strong>or send us yours.</strong>
-          </p>
+          <p>Brass (230 / 260) · Copper · Nickel silver · Sterling silver · Fine silver · Gold &amp; gold filled · Stainless steel · Aluminum · Cold-rolled steel · Zinc</p>
+          <p class="strong">All metals available — or send us yours.</p>
           <h2 class="eyebrow">Finishes</h2>
-          <p>
-            High polish, satin, sandblast, antique, soft &amp; hard enamel, color fill.<br />
-            <strong>Plating:</strong> gold, karat gold, silver, imitation rhodium.
-          </p>
-        </div>
-        <div class="block">
-          <h2 class="eyebrow">Services</h2>
-          <p>Soldering &amp; assembly, engraving &amp; numbering, packaging, drop shipping.</p>
-          <p><strong>Pin posts fused, never soldered.</strong></p>
-        </div>
-        <div class="block">
-          <h2 class="eyebrow">Who we serve</h2>
-          <ul class="serve">{serve.map((s) => <li>{s}</li>)}</ul>
+          <p>High polish · Satin · Sandblast · Antique · Color fill · Plating: gold, karat gold, silver, imitation rhodium</p>
         </div>
       </div>
 
-      <div class="order">
-        <h2>How to order</h2>
-        <dl>
-          <div><dt>Minimum</dt><dd>3 gross (432 pcs) per item. Smaller runs at a higher price. No minimum on sterling or gold.</dd></div>
-          <div><dt>Lead time</dt><dd>{ordering.leadTime}, including new tooling.</dd></div>
-          <div><dt>Pricing</dt><dd>Priced at order on current metal. Custom work quoted per job.</dd></div>
-          <div><dt>Tooling</dt><dd>Billed separately or built into the piece price — your choice.</dd></div>
-        </dl>
+      <div class="body">
+        <div class="pack">
+          <div>
+            <h2 class="eyebrow">Packaging &amp; logistics</h2>
+            <p class="pack__h">Done here, not by you.</p>
+          </div>
+          <p>Assembly · Custom packaging · UPC &amp; RFID tagging · Inventory held for you · Drop ship direct to your customers. Hand us the whole job and never touch a box.</p>
+        </div>
+
+        <div class="order">
+          <h2>How to Order</h2>
+          <dl>
+            <div><dt>Minimum:</dt> <dd>3 gross per item. Smaller runs at a higher price. No minimums on sterling silver or gold.</dd></div>
+            <div><dt>Lead time:</dt> <dd>3–8 weeks, depending on the job.</dd></div>
+            <div><dt>Pricing:</dt> <dd>Quoted at time of order on current metal prices.</dd></div>
+            <div><dt>Custom work:</dt> <dd>Quoted per job. Send a sketch, drawing or sample.</dd></div>
+          </dl>
+        </div>
+
+        <p class="serve"><strong>Who we serve:</strong> Jewelry &amp; fashion · Military, police, fire &amp; government · Fraternal &amp; lodge · Recognition &amp; awards · Corporate gifts · Religious goods · Golf &amp; sports</p>
+        <p class="serve"><strong>Catalogs:</strong> Findings &amp; Stampings Catalog · Pattern &amp; Banding Catalog</p>
       </div>
 
-      <footer class="contact">
-        <div class="contact__qr" set:html={qrSvg} aria-hidden="true" />
-        <div class="contact__cta">
-          <a class="btn" href={`${site.url}${quoteHref}`}>Request a quote →</a>
-          <p class="contact__url">Scan or visit<br /><strong>{quoteUrl}</strong></p>
+      <footer class="foot foot--back">
+        <div class="qr" set:html={qrSvg} aria-hidden="true" />
+        <div>
+          <a class="cta" href={`${site.url}${quoteHref}`}>Request a quote</a>
+          <span class="muted">{fullAddress} · Made in the USA since 1948</span>
         </div>
-        <address class="contact__nap">
-          <strong>{site.name}</strong><br />
-          {fullAddress}<br />
-          <strong class="big">{site.phone.display}</strong><br />
-          {site.email} · {web}
-        </address>
+        <div class="right">
+          <strong>{site.phone.display}</strong>
+          <span>{site.email} · <strong>{web}</strong></span>
+        </div>
       </footer>
     </section>
   </body>
@@ -177,19 +166,14 @@ const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
 
 <style is:global>
   :root {
-    --cream: #f4efe6;
-    --paper: #faf7f1;
-    --bone: #ebe4d7;
-    --ink: #1b1815;
-    --ink-600: #4a443e;
-    --char: #181512;
-    --oxblood: #7a1f1f;
-    --brass: #a8843f;
-    --brass-light: #cdb27a;
-    --brass-text: #7d6028;
-    --navy: #1c2533;
-    --rule: #dcd2c1;
-    --display: 'Archivo Variable', Archivo, 'Arial Black', Arial, sans-serif;
+    --black: #141414;
+    --gold: #c9a24a;
+    --gold-text: #8a6a1f;
+    --paper: #ffffff;
+    --ink: #1b1b1b;
+    --ink-600: #4a4a4a;
+    --rule: #e3ded3;
+    --display: 'Archivo Variable', Archivo, 'Arial Narrow', Arial, sans-serif;
     --body: 'Inter Variable', Inter, system-ui, Arial, sans-serif;
   }
   @page {
@@ -204,19 +188,18 @@ const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
     margin: 0;
     background: #8e9399;
     color: var(--ink);
-    font: 11.5pt/1.42 var(--body);
+    font: 11pt/1.45 var(--body);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
   .sheet {
-    position: relative;
     display: flex;
     flex-direction: column;
     width: 8.5in;
     height: 11in;
     margin: 0.4in auto;
     overflow: hidden;
-    background: var(--cream);
+    background: var(--paper);
     box-shadow: 0 6px 30px rgb(0 0 0 / 0.35);
   }
   @media print {
@@ -235,288 +218,348 @@ const quoteUrl = `melcoed.com${quoteHref.replace(/\/$/, '')}`;
   h3 {
     margin: 0;
     font-family: var(--display);
-    font-weight: 800;
-    text-transform: uppercase;
-    line-height: 1.02;
+    font-stretch: 75%;
+    font-weight: 700;
+    line-height: 1.05;
   }
   p {
-    margin: 0 0 0.08in;
-  }
-  ul {
     margin: 0;
-    padding: 0;
-    list-style: none;
+  }
+  img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    min-height: 0;
+  }
+  .gold {
+    color: var(--gold);
+  }
+  .strong {
+    font-weight: 700;
   }
   .body {
-    padding: 0.28in 0.55in 0;
+    padding: 0 0.55in;
   }
   .eyebrow {
-    margin-bottom: 0.12in;
-    font-family: var(--body);
-    font-size: 9pt;
-    font-weight: 700;
-    letter-spacing: 0.24em;
-    color: var(--brass-text);
+    margin: 0.24in 0 0.1in;
+    font-size: 11pt;
+    font-stretch: 75%;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .mark {
+    display: inline-grid;
+    place-items: center;
+    width: 0.62in;
+    height: 0.62in;
+    border: 2.5px solid #fff;
+    font-family: var(--display);
+    font-stretch: 75%;
+    font-weight: 800;
+    font-size: 17pt;
+    color: #fff;
+    flex: none;
   }
 
   /* Front */
   .hero {
     display: grid;
-    grid-template-columns: 2.4in 1fr;
-    gap: 0.35in;
-    align-items: center;
-    padding: 0.5in 0.55in 0.4in;
-    background: var(--char);
-    color: var(--paper);
+    grid-template-columns: 1fr 3.1in;
+    height: 3.15in;
+    background: var(--black);
+    color: #fff;
+    border-bottom: 5px solid var(--gold);
   }
-  .plate {
+  .hero__text {
+    padding: 0.36in 0.35in 0.3in 0.55in;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.16in;
+    margin-bottom: 0.24in;
+  }
+  .brand__name {
     display: block;
-    width: 100%;
-    height: auto;
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.5);
+    font-family: var(--display);
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 17pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .brand__sub {
+    display: block;
+    font-family: var(--display);
+    font-stretch: 85%;
+    font-weight: 600;
+    font-size: 9pt;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
   }
   .hero h1 {
-    font-size: 29pt;
-    letter-spacing: 0.005em;
+    margin-bottom: 0.18in;
+    font-size: 27pt;
   }
-  .hero h1 span {
-    display: block;
+  .hero p {
+    font-size: 10pt;
+    color: #e8e8e8;
   }
-  .hero h1 .since {
-    color: var(--brass-light);
+  .hero__photo img {
+    height: 100%;
   }
-  .hero__who {
-    margin: 0.16in 0 0;
-    font-size: 11pt;
-    color: #ddd4c4;
+  .hero__photo {
+    position: relative;
+    height: calc(3.15in - 5px);
+    overflow: hidden;
+    border-left: 5px solid var(--gold);
   }
-  .made {
-    padding: 0.09in 0.55in;
-    background: var(--brass);
-    color: var(--char);
+  .usa {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.1in;
+    background: var(--black);
+    color: var(--gold);
     font-family: var(--display);
-    font-size: 12pt;
-    font-weight: 800;
+    font-stretch: 75%;
+    font-weight: 700;
+    font-size: 15pt;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     text-align: center;
   }
-  .strip {
+  .custom {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
-    height: 1.6in;
+    grid-template-columns: 3.2in 1fr;
+    height: 1.95in;
     overflow: hidden;
-    background: var(--char);
   }
-  .strip img {
-    width: 100%;
-    height: 1.6in;
-    min-height: 0;
-    object-fit: cover;
-    display: block;
+  .custom img {
+    height: 1.95in;
   }
-  .ways {
+  .custom__text {
+    padding: 0.18in 0.26in;
+    background: var(--black);
+    color: #fff;
+    border-left: 5px solid var(--gold);
+  }
+  .custom__text h3 {
+    margin-bottom: 0.1in;
+    font-size: 19pt;
+    color: var(--gold);
+  }
+  .custom__text p {
+    font-size: 10pt;
+    margin-bottom: 0.07in;
+  }
+  .custom__text .gold {
+    font-weight: 700;
+  }
+  .openline {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.22in;
+    grid-template-columns: 1.4in auto 1fr;
+    align-items: center;
+    gap: 0.25in;
+    height: 0.9in;
+    margin-top: 0.18in;
+    overflow: hidden;
+    border: 2px solid var(--black);
   }
-  .way {
-    padding: 0.16in 0.2in;
-    background: var(--paper);
+  .openline img {
+    height: calc(0.9in - 4px);
+  }
+  .openline h3 {
+    font-size: 21pt;
+    white-space: nowrap;
+  }
+  .openline p {
+    padding-right: 0.25in;
+    font-size: 10.5pt;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.13in;
+  }
+  .tiles img {
+    height: 1.16in;
     border: 1px solid var(--rule);
-    border-top: 4px solid var(--brass);
   }
-  .way h3 {
-    margin-bottom: 0.08in;
-    font-size: 17pt;
-    color: var(--oxblood);
-  }
-  .way p {
-    margin: 0;
-    font-size: 11.5pt;
-  }
-  .die {
-    margin: 0.28in 0.55in 0;
-    padding: 0.2in 0.28in;
-    background: var(--oxblood);
-    color: var(--paper);
-    border-left: 6px solid var(--brass);
-  }
-  .die h2 {
-    margin-bottom: 0.08in;
-    font-size: 20pt;
-    color: var(--brass-light);
-  }
-  .die p {
-    margin: 0;
-    font-size: 12pt;
-  }
-  .make {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.07in 0.22in;
-  }
-  .make li {
-    padding: 0.04in 0 0.04in 0.16in;
-    border-left: 3px solid var(--brass);
-    font-size: 11pt;
-    font-weight: 600;
-    line-height: 1.25;
+  .strapline {
+    margin-top: auto;
+    padding: 0 0.55in 0.14in;
+    font-size: 9.5pt;
+    color: var(--ink-600);
   }
   .foot {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 0.2in;
-    margin-top: auto;
     padding: 0.2in 0.55in;
-    background: var(--char);
-    color: var(--paper);
+    background: var(--black);
+    color: #fff;
     font-size: 10.5pt;
-    border-top: 3px solid var(--brass);
-  }
-  .foot strong {
-    color: var(--brass-light);
   }
 
   /* Back */
-  .bar {
+  .top {
+    display: grid;
+    grid-template-columns: 4.35in 1fr;
+    height: 1.95in;
+    overflow: hidden;
+  }
+  .top__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--black);
+  }
+  .top__title {
     display: flex;
     align-items: center;
-    gap: 0.35in;
-    padding: 0.4in 0.55in 0.32in;
-    background: var(--char);
-    border-bottom: 4px solid var(--brass);
+    gap: 0.2in;
+    padding: 0.38in 0.3in 0 0.55in;
   }
-  .plate--small {
-    width: 1.75in;
+  .top__title h1 {
+    font-size: 28pt;
+    white-space: nowrap;
+    color: #fff;
   }
-  .bar__h {
-    margin: 0;
+  .top__strip {
+    padding: 0.1in 0.2in 0.1in 0.55in;
+    background: var(--gold);
+    color: var(--black);
     font-family: var(--display);
-    font-size: 30pt;
-    font-weight: 800;
+    font-stretch: 80%;
+    font-weight: 700;
+    font-size: 10pt;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
     text-transform: uppercase;
-    color: var(--paper);
-    line-height: 1;
   }
-  .grid {
+  .top__photo {
+    height: 1.95in;
+  }
+  .cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.22in 0.4in;
-    padding-top: 0.32in;
+    gap: 0.45in;
   }
-  .block p {
-    font-size: 11pt;
-  }
-  .block .eyebrow + p,
-  .block .eyebrow + ul {
-    margin-bottom: 0.16in;
-  }
-  .ticks li {
-    position: relative;
-    padding-left: 0.2in;
+  .cols p {
     margin-bottom: 0.06in;
-    font-size: 11pt;
-    line-height: 1.3;
+    font-size: 10.5pt;
   }
-  .ticks li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.075in;
-    width: 0.08in;
-    height: 0.08in;
-    background: var(--oxblood);
-  }
-  .serve {
+  .pack {
     display: grid;
-    gap: 0.04in;
+    grid-template-columns: 2.5in 1fr;
+    gap: 0.25in;
+    align-items: center;
+    margin-top: 0.26in;
+    padding: 0.02in 0.26in 0.18in;
+    border: 2px solid var(--gold);
   }
-  .serve li {
-    font-size: 11pt;
-    font-weight: 600;
+  .pack .eyebrow {
+    margin-top: 0.16in;
+    margin-bottom: 0.04in;
+  }
+  .pack__h {
+    font-family: var(--display);
+    font-stretch: 75%;
+    font-weight: 700;
+    font-size: 19pt;
+    line-height: 1.05;
+  }
+  .pack > p {
+    padding-top: 0.12in;
+    font-size: 10.5pt;
+  }
+  .pack .eyebrow {
+    white-space: nowrap;
   }
   .order {
-    margin: 0.12in 0.55in 0.22in;
-    padding: 0.22in 0.3in 0.2in;
-    background: var(--navy);
-    color: var(--paper);
-    border-top: 4px solid var(--brass);
+    margin-top: 0.26in;
+    padding: 0.2in 0.3in 0.22in;
+    background: var(--black);
+    color: #fff;
   }
   .order h2 {
-    margin-bottom: 0.14in;
-    font-size: 19pt;
-    color: var(--brass-light);
+    margin-bottom: 0.12in;
+    font-size: 21pt;
+    color: var(--gold);
   }
   .order dl {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.14in 0.35in;
+    gap: 0.1in 0.4in;
+    margin: 0;
+    font-size: 10.5pt;
+  }
+  .order dt,
+  .order dd {
+    display: inline;
     margin: 0;
   }
   .order dt {
-    font-family: var(--body);
-    font-size: 8.5pt;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-light);
   }
-  .order dd {
-    margin: 0.03in 0 0;
-    font-size: 11pt;
+  .serve {
+    margin-top: 0.2in;
+    font-size: 10pt;
+    color: var(--ink-600);
   }
-  .contact {
-    display: grid;
-    grid-template-columns: 1.15in 1fr auto;
-    gap: 0.3in;
-    align-items: center;
+  .serve + .serve {
+    margin-top: 0.08in;
+  }
+  .serve strong {
+    color: var(--ink);
+  }
+  .foot--back {
     margin-top: auto;
-    padding: 0.3in 0.55in 0.38in;
-    background: var(--char);
-    color: var(--paper);
-    border-top: 3px solid var(--brass);
+    padding: 0.2in 0.55in 0.24in;
+    border-top: 5px solid var(--gold);
   }
-  .contact__qr {
-    width: 1.15in;
-    height: 1.15in;
-    padding: 0.06in;
-    background: var(--paper);
+  .qr {
+    width: 0.95in;
+    height: 0.95in;
+    padding: 0.05in;
+    background: #faf7f1;
+    flex: none;
   }
-  .contact__qr svg {
+  .qr svg {
     display: block;
     width: 100%;
     height: 100%;
   }
-  .btn {
-    display: inline-block;
-    padding: 0.12in 0.24in;
-    background: var(--oxblood);
-    color: var(--paper);
-    border: 2px solid var(--brass);
+  .foot--back > div:nth-child(2) {
+    flex: 1;
+  }
+  .cta {
+    display: block;
     font-family: var(--display);
-    font-size: 15pt;
-    font-weight: 800;
-    text-transform: uppercase;
+    font-stretch: 75%;
+    font-weight: 700;
+    font-size: 22pt;
+    color: var(--gold);
     text-decoration: none;
-    white-space: nowrap;
   }
-  .contact__url {
-    margin: 0.1in 0 0;
-    font-size: 10pt;
-    color: #ddd4c4;
-  }
-  .contact__nap {
+  .muted {
     white-space: nowrap;
-    font-style: normal;
-    font-size: 10.5pt;
-    line-height: 1.5;
+    font-size: 9.5pt;
+    color: #cfcfcf;
+  }
+  .right {
+    display: grid;
+    white-space: nowrap;
     text-align: right;
   }
-  .contact__nap .big {
+  .right > strong {
     font-family: var(--display);
-    font-size: 17pt;
-    color: var(--brass-light);
+    font-stretch: 85%;
+    font-size: 16pt;
   }
 </style>
