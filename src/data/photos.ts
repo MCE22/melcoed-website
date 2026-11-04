@@ -33,7 +33,6 @@ import partsConveyor from '../assets/photos/parts-conveyor.jpg';
 import finishedGoods from '../assets/photos/finished-goods-assortment.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
 import libertasObverse from '../assets/photos/libertas-americana-obverse.jpg';
-import libertasReverse from '../assets/photos/libertas-americana-reverse.jpg';
 // Labeled illustrations of styles we strike, cropped from src/assets/illustrations/badge-styles-sheet.png.
 // Customer work is confidential; these use fictional names only.
 import ilPolice from '../assets/illustrations/badge-style-police-eagle.jpg';
@@ -132,10 +131,6 @@ const close = {
   sign: { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
   cuffsEmbossed: { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
   libertasObverse: { src: libertasObverse, alt: 'Antique-silver Libertas Americana medal reading "Tribute to 1783, Princeton, NJ, 2008"' },
-  libertasReverse: {
-    src: libertasReverse,
-    alt: 'Reverse of the Libertas Americana medal, inscribed "Non sine diis animosus infans" with the dates 1777 and 1781',
-  },
 } satisfies Record<string, Photo>;
 
 export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
@@ -181,7 +176,6 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
   capabilities: [...shoot.toolmaker, close.dieBlock, close.controlPanel, close.conveyor, close.dieSet],
   // Development work is customer work, so none of it is shown.
   'product-development': [...shoot.dieAndPart, close.cuffsEmbossed, close.dieSet, close.dieBlock],
-  'industries-commemorative': [close.libertasObverse, close.libertasReverse],
   industries: [close.finishedGoods],
   about: [...shoot.buildingSign, close.sign, ...shoot.toolmaker],
   // Service tiles (Home and menus)
