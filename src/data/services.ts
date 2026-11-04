@@ -53,7 +53,7 @@ export const services: Service[] = [
   {
     label: 'Packaging & Drop Shipping',
     href: '/capabilities/#packaging',
-    summary: 'Packaging and assembly, and drop shipping to your customers.',
+    summary: 'Packaging and assembly, UPC and RFID tagging, and drop shipping to your customers.',
     photo: { slot: 'packaging' },
     home: false,
   },

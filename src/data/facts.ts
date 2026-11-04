@@ -79,11 +79,13 @@ export const inHouse = ['Tool and die', 'Stamping', 'Die striking', 'Coining', '
 export const outsourced = ['Plating', 'Polishing', 'Enamel and epoxy fill'];
 export const inHouseLine = `In-house: ${inHouse.join(', ').toLowerCase()}.`;
 export const outsourcedLine = 'Plating, polishing and enamel or epoxy fill are done by outside finishers.';
-// Also offered (owner-confirmed): packaging and assembly, and drop shipping. Castings are NOT offered.
+// Also offered (owner-confirmed): packaging and assembly, UPC and RFID tagging, and drop shipping.
+// Castings are NOT offered.
 export const packaging = {
   assembly: 'Packaging and assembly',
+  tagging: 'UPC and RFID tagging',
   dropShip: 'Drop shipping',
-  line: 'Packaging and assembly, and drop shipping to your customers.',
+  line: 'Packaging and assembly, UPC and RFID tagging, and drop shipping to your customers.',
 };
 export const pinPosts = 'Pin posts are fused, never soldered.';
 export const enamel = 'Soft and hard enamel';
