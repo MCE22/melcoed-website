@@ -58,14 +58,13 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   <PageHero
     title={p.h1}
     accent={p.accent}
-    ribbon={p.division}
     lead={p.lead}
     breadcrumbs={breadcrumbs}
     photo={p.slug as PhotoSlotName}
     photoTodo={`${p.name} hero photo: dark, moody product shot`}
   >
     <div class="btn-row hero-cta">
-      <a class="btn btn--primary" href={quote}>Quote {p.name} <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn btn--primary" href={quote}>Quote {p.name.toLowerCase()} <span class="arr" aria-hidden="true">→</span></a>
       <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
     </div>
     {p.catalog && <div class="hero-catalog"><CatalogLinks only={p.catalog} variant="links" todo /></div>}
@@ -150,7 +149,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
     <div class="wrap faq-wrap">
       <div class="section-head">
         <h2 id="faq-h">{p.name} FAQ</h2>
-        <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--primary" href={quote}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <FaqList faqs={p.faqs} />
     </div>
@@ -183,43 +182,25 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   .intro p:not(.lead) {
     color: var(--ink-600);
   }
-  /* At-a-glance spec card: plain and readable, with a chrome-rimmed header */
-  .glance {
-    padding: 1.25rem 1.25rem 0.5rem;
-    background: var(--paper);
-    border: 1px solid var(--chrome-light);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  @media (min-width: 40rem) {
-    .glance {
-      padding: 1.75rem 1.75rem 0.75rem;
-    }
-  }
+  /* At-a-glance specs: a plain column with thin rules, no box */
   .glance__h {
-    font-size: 1.35rem;
-    margin-bottom: 1rem;
-  }
-  .glance .specs {
-    border-top: 0;
+    font-size: var(--fs-h3);
+    margin-bottom: var(--space-2);
   }
   .glance .specs > div:last-child {
     border-bottom: 0;
   }
-  .type h3 {
-    color: var(--navy);
-  }
   .photos {
-    margin: 2rem 0 0;
+    margin: var(--space-6) 0 0;
   }
   .aud-note {
     color: var(--cream-200);
   }
   .related {
-    padding-block: 2.5rem;
+    padding-block: var(--space-6);
   }
   .related__h {
-    font-size: 1.4rem;
+    font-size: var(--fs-h3);
   }
   .related__list {
     display: flex;

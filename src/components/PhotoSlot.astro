@@ -13,11 +13,13 @@ interface Props {
   eager?: boolean;
   /** Skip the first N photos (e.g. 1 when the page hero already shows photo 0). */
   skip?: number;
+  /** Most photos to show. Galleries stay at one or two large images. */
+  max?: number;
   class?: string;
 }
-const { slot, todo, eager = false, skip = 0, class: className } = Astro.props;
+const { slot, todo, eager = false, skip = 0, max = 2, class: className } = Astro.props;
 const all = photos[slot] ?? [];
-const list = all.slice(skip);
+const list = all.slice(skip, skip + max);
 const gallery = list.length > 1;
 const illustrated = list.some((p) => p.illustration);
 const widths = [480, 800, 1200, 1600];
@@ -98,7 +100,7 @@ const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 7
     border: 1px solid var(--brass);
     font-size: 0.6rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--brass-light);
   }
@@ -119,7 +121,7 @@ const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 7
     border-top: 1px solid var(--brass);
     font-family: var(--font-display);
     font-size: 1.1rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--oxblood);
   }

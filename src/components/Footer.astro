@@ -33,7 +33,6 @@ const servicesList = liveLinks(serviceLinks);
       <div class="footer-cta">
         <div class="wrap footer-cta__inner">
           <div>
-            <p class="eyebrow">Start a project</p>
             <p class="footer-cta__h">
               Got a print, a sketch <em>or a sample?</em>
             </p>
@@ -41,7 +40,7 @@ const servicesList = liveLinks(serviceLinks);
           </div>
           <div class="btn-row">
             <a class="btn btn--primary" href={quoteHref}>
-              Request a Quote <span class="arr" aria-hidden="true">→</span>
+              Request a quote <span class="arr" aria-hidden="true">→</span>
             </a>
             <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
           </div>
@@ -138,15 +137,15 @@ const servicesList = liveLinks(serviceLinks);
   .footer-cta__inner {
     display: grid;
     gap: 1.75rem;
-    padding-block: 3.5rem;
+    padding-block: var(--space-7);
   }
   .footer-cta__h {
     margin: 0 0 0.6rem;
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4.6vw, 2.5rem);
-    font-weight: 800;
-    line-height: 1.08;
-    text-transform: uppercase;
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     color: var(--ink);
   }
   .footer-cta__h em {
@@ -162,7 +161,7 @@ const servicesList = liveLinks(serviceLinks);
       grid-template-columns: 1fr auto;
       align-items: end;
       gap: 3rem;
-      padding-block: 5rem;
+      padding-block: var(--space-8);
     }
   }
 
@@ -208,7 +207,7 @@ const servicesList = liveLinks(serviceLinks);
     margin: 1.25rem 0 1rem;
     font-size: 0.66rem;
     font-weight: 600;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--brass-light);
   }
@@ -239,7 +238,7 @@ const servicesList = liveLinks(serviceLinks);
     font-family: var(--font-body);
     font-size: 0.66rem;
     font-weight: 600;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--brass-light);
   }
@@ -280,7 +279,7 @@ const servicesList = liveLinks(serviceLinks);
   .footer-made__primary {
     font-family: var(--font-display);
     font-size: 1.15rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--paper);
