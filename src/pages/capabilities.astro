@@ -4,12 +4,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
 import Todo from '../components/Todo.astro';
+import GovBuyers from '../components/GovBuyers.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import { hasPhoto } from '../data/photos';
 import { site, quoteHref } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
-import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths } from '../data/facts';
+import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths, quality, maxPartLine, precisionMilling } from '../data/facts';
 
 const path = '/capabilities/';
 const breadcrumbs = [{ name: 'Capabilities', path }];
@@ -38,7 +39,7 @@ const materialUses: Record<string, string> = {
   'Gold & gold filled': 'Fine jewelry and recognition pieces (no minimum on gold)',
   'Stainless steel': 'Tie bars, money clips, durable components',
   Aluminum: 'Lightweight parts, tags and plates',
-  'Cold-rolled steel': 'Industrial parts, brackets and clips',
+  'Cold-rolled steel': 'Parts stamped to print',
   Zinc: 'Economical decorative parts',
 };
 const materials = materialList.map((name) => ({ name, uses: materialUses[name] ?? '' }));
@@ -62,7 +63,7 @@ const gauges: [number, string, string][] = [
 const faqs: Faq[] = [
   {
     q: 'Do you build your own stamping dies?',
-    a: 'Yes. Tooling is designed and built in-house, with our Precision Milling division handling die work. That keeps engineering changes, repairs and reorders on our schedule.',
+    a: 'Yes. Tooling is designed and built in our own tool room. That keeps engineering changes, repairs and reorders on our schedule.',
   },
   {
     q: 'Should I specify material thickness in gauge or in inches?',
@@ -80,8 +81,8 @@ const faqs: Faq[] = [
 ---
 
 <BaseLayout
-  title="Capabilities: Metal Stamping, Tool & Die, CNC Milling, Materials & Tolerances"
-  description="Mel-Co-Ed capabilities in Pawtucket, RI: die striking, blanking, piercing and forming, in-house tool and die, CNC milling, materials, gauge reference and tolerances."
+  title="Capabilities: Metal Stamping, Tool & Die, Precision Milling, Materials & Tolerances"
+  description="Mel-Co-Ed capabilities in Pawtucket, RI: die striking, blanking, piercing and forming, in-house tool and die, precision milling, materials, gauge reference and tolerances."
   breadcrumbs={breadcrumbs}
   schema={[faqPageNode(path, faqs)]}
 >
@@ -89,7 +90,7 @@ const faqs: Faq[] = [
     title="Capabilities"
     accent="print to finished part"
     ribbon="Services"
-    lead="Metal stamping, die striking, tooling, finishing and CNC milling for manufacturers and brands in every industry, all in one Pawtucket building."
+    lead="Metal stamping, die striking, tooling, finishing and precision milling for manufacturers and brands in every industry, with one supplier in Pawtucket."
     breadcrumbs={breadcrumbs}
   
     photo="capabilities"
@@ -111,7 +112,7 @@ const faqs: Faq[] = [
   <section class="section" aria-labelledby="flow-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="flow-h">One building, one schedule</h2>
+        <h2 id="flow-h">One supplier, one schedule</h2>
       </div>
       <ol class="steps">
         {
@@ -126,7 +127,7 @@ const faqs: Faq[] = [
       </ol>
       <PhotoSlot
         slot="capabilities" skip={1}
-        todo="Photos: press floor, tool room / die work, CNC mill, and a finished part on the bench (3–6 images, landscape)."
+        todo="Photos: press close-ups, tool room / die work, and a finished part on the bench (3–6 images, landscape)."
         class="cap-photos"
       />
     </div>
@@ -143,6 +144,7 @@ const faqs: Faq[] = [
       </div>
       <dl class="specs">
         <div><dt>Processes</dt><dd>Coining and die striking</dd></div>
+        <div><dt>Max part size</dt><dd>{maxPartLine}</dd></div>
         <div><dt>Presses</dt><dd>{pressesLine}</dd></div>
         <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
         <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div>
@@ -161,7 +163,7 @@ const faqs: Faq[] = [
       </div>
       <dl class="specs specs--light">
         <div><dt>Die types</dt><dd>Coining and striking dies, progressive and transfer dies <Todo>add blanking, compound or forming dies if applicable</Todo></dd></div>
-        <div><dt>Die making</dt><dd>Built and maintained in our own tool room, supported by CNC milling</dd></div>
+        <div><dt>Die making</dt><dd>Built and maintained in our own tool room</dd></div>
         <div><dt>Tool ownership</dt><dd>{tooling.ownership}</dd></div>
         <div><dt>Tool storage</dt><dd>{tooling.storage}</dd></div>
         <div><dt>Tooling cost</dt><dd>{tooling.billing}</dd></div>
@@ -212,17 +214,9 @@ const faqs: Faq[] = [
 
   <!-- Milling -->
   <section id="milling" class="section section--navy cap" aria-labelledby="milling-h">
-    <div class="wrap split">
-      <div>
-        <h2 id="milling-h">CNC milling</h2>
-        <p>Our Precision Milling division cuts the dies stamping depends on, plus machined parts and secondary operations on stamped work.</p>
-      </div>
-      <dl class="specs">
-        <div><dt>Machines</dt><dd><Todo>CNC mills: make/model, axes, quantity</Todo></dd></div>
-        <div><dt>Work envelope</dt><dd><Todo>max X / Y / Z travel</Todo></dd></div>
-        <div><dt>Materials machined</dt><dd><Todo>e.g. tool steel, aluminum, brass</Todo></dd></div>
-        <div><dt>Work for others</dt><dd><Todo>do you take standalone machining jobs, or only stamping-related?</Todo></dd></div>
-      </dl>
+    <div class="wrap">
+      <h2 id="milling-h">Precision milling</h2>
+      <p class="lead">{precisionMilling}</p>
     </div>
   </section>
 
@@ -291,7 +285,6 @@ const faqs: Faq[] = [
         <div><dt>Hole locations</dt><dd><Todo>typical tolerance</Todo></dd></div>
         <div><dt>Formed features</dt><dd><Todo>typical tolerance / bend angle</Todo></dd></div>
         <div><dt>Flatness</dt><dd><Todo>typical</Todo></dd></div>
-        <div><dt>Machined (milling)</dt><dd><Todo>typical tolerance</Todo></dd></div>
       </dl>
     </div>
   </section>
@@ -301,17 +294,18 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <h2 id="quality-h">Inspection &amp; documentation</h2>
-        <p>Parts are inspected before they ship. Tell us what documentation your quality system needs.</p>
+        <p>{quality.inspection}</p>
         {hasPhoto('quality') && <MediaSlot slot="quality" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: hands checking a part with calipers" class="cap-shot" />}
       </div>
       <dl class="specs">
-        <div><dt>Inspection</dt><dd><Todo>equipment and methods (e.g. calipers, micrometers, optical comparator, CMM)</Todo></dd></div>
-        <div><dt>First article</dt><dd><Todo>do you provide FAI reports?</Todo></dd></div>
-        <div><dt>Material certs</dt><dd><Todo>available on request?</Todo></dd></div>
-        <div><dt>Certifications</dt><dd><Todo>ISO 9001, ITAR registration, etc., or "none"; don't leave blank</Todo></dd></div>
+        <div><dt>Checked to</dt><dd>Your print and specifications</dd></div>
+        <div><dt>Inspection</dt><dd>Micrometers and a Micro-Vu vision measuring system</dd></div>
+        <div><dt>Certifications</dt><dd>{quality.certifications}</dd></div>
       </dl>
     </div>
   </section>
+
+  <GovBuyers />
 
   <!-- FAQ -->
   <section class="section section--cream" aria-labelledby="faq-h">

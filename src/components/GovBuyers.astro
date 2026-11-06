@@ -1,0 +1,44 @@
+---
+// "Government buyers": NAICS codes and federal registrations, for procurement officers.
+// CAGE / UEI / SAM.gov show a TODO until they're filled in src/data/facts.ts.
+import Todo from './Todo.astro';
+import { government as g } from '../data/facts';
+import { quoteHref } from '../data/site';
+
+interface Props {
+  quote?: string;
+}
+const { quote = quoteHref } = Astro.props;
+---
+
+<section class="section gov" aria-labelledby="gov-h">
+  <div class="wrap split">
+    <div>
+      <h2 id="gov-h">Government buyers</h2>
+      <p>Codes and registrations for federal, state and municipal procurement. Every part is made in Pawtucket, Rhode Island, USA.</p>
+      <a class="btn btn--primary" href={quote}>Request a Quote <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <dl class="specs">
+      <div>
+        <dt>NAICS</dt>
+        <dd>
+          {g.naics.map((n) => (
+            <span class="gov__naics"><strong>{n.code}</strong> {n.title}</span>
+          ))}
+        </dd>
+      </div>
+      <div><dt>CAGE code</dt><dd>{g.cage ?? <Todo>CAGE code</Todo>}</dd></div>
+      <div><dt>UEI</dt><dd>{g.uei ?? <Todo>Unique Entity ID (UEI)</Todo>}</dd></div>
+      <div><dt>SAM.gov</dt><dd>{g.sam ?? <Todo>SAM.gov registration status, e.g. "Active through MM/YYYY"</Todo>}</dd></div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .gov__naics {
+    display: block;
+  }
+  .gov__naics + .gov__naics {
+    margin-top: 0.35rem;
+  }
+</style>

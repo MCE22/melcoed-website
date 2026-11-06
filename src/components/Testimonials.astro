@@ -1,0 +1,56 @@
+---
+// Up to three testimonials (src/data/testimonials.ts). Renders nothing until one is filled.
+import { publishedTestimonials as list } from '../data/testimonials';
+---
+
+{
+  list.length > 0 && (
+    <section class="section testimonials" aria-labelledby="testimonials-h">
+      <div class="wrap">
+        <h2 id="testimonials-h">What customers say</h2>
+        <ul class="testimonials__list">
+          {list.map((t) => (
+            <li>
+              <blockquote>
+                <p>“{t.quote}”</p>
+                <footer>
+                  <strong>{t.firstName}</strong>
+                  {[t.industry, t.city].filter(Boolean).length > 0 && <span>, {[t.industry, t.city].filter(Boolean).join(', ')}</span>}
+                </footer>
+              </blockquote>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .testimonials__list {
+    display: grid;
+    gap: 2.5rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 56rem) {
+    .testimonials__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .testimonials__list li {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  blockquote {
+    margin: 0;
+  }
+  blockquote p {
+    font-size: 1.1rem;
+  }
+  blockquote footer {
+    color: var(--ink-600);
+    font-size: 0.95rem;
+  }
+</style>

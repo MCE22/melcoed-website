@@ -39,6 +39,8 @@ export type Product = {
   catalog?: string;
   /** Show the "Your die. Your design." confidentiality section. */
   confidential?: boolean;
+  /** Show the "Government buyers" block (NAICS, CAGE, UEI, SAM.gov). */
+  government?: boolean;
   schemaCategory: string;
 };
 
@@ -128,7 +130,7 @@ export const products: Record<string, Product> = {
       },
       moqFaq('custom findings'),
     ],
-    related: ['/pattern-stock/', '/industrial-components/', '/medallions/', '/capabilities/'],
+    related: ['/pattern-stock/', '/metal-stamping/', '/medallions/', '/capabilities/'],
     catalog: 'Findings',
     schemaCategory: 'Jewelry findings',
   },
@@ -137,6 +139,7 @@ export const products: Record<string, Product> = {
     slug: 'badges',
     name: 'Badges',
     confidential: true,
+    government: true,
     division: 'Finished Goods',
     quoteType: 'badges',
     metaTitle: 'Die-Struck Police, Fire, Military & Government Badges',
@@ -377,75 +380,6 @@ export const products: Record<string, Product> = {
     schemaCategory: 'Embossed metal pattern stock',
   },
 
-  'industrial-components': {
-    slug: 'industrial-components',
-    name: 'Industrial Components',
-    division: 'Industrial Components',
-    quoteType: 'industrial',
-    metaTitle: 'Precision Metal Stamping: Industrial Stamped Components Built to Print',
-    metaDescription:
-      'Precision stamped metal components built to print by Mel-Co-Ed in Pawtucket, RI: brackets, clips, contacts, terminals, washers, shims and flat parts, with in-house tooling.',
-    h1: 'Industrial Stamped Components',
-    accent: 'built to print',
-    lead: 'Brackets, clips, contacts, terminals, washers, shims and flat parts, stamped to print for OEMs, contract manufacturers and electrical and hardware makers.',
-    intro: [
-      'Dies are built in-house, with our Precision Milling division on die work and secondary operations, so engineering changes and reorders never wait on outside shops.',
-      'Send a print or STEP file with material, quantity and critical dimensions. We quote tooling and piece price at your volumes.',
-    ],
-    typesHeading: 'Components we stamp',
-    typesTodo: 'Confirm part families and add industries/OEM types you serve (only where you can name them).',
-    types: [
-      { title: 'Brackets & clips', body: 'Formed brackets, clips and retainers made to your print.' },
-      { title: 'Contacts & terminals', body: 'Stamped electrical contacts and terminals.' },
-      { title: 'Washers, shims & spacers', body: 'Standard and custom washers, shims and spacers held to thickness.' },
-      { title: 'Flat parts & blanks', body: 'Blanked and pierced flat parts, and blanks for further processing.' },
-      { title: 'Formed parts', body: 'Single-hit and multi-stage formed parts made to print.' },
-    ],
-    audienceHeading: 'Who we supply',
-    audience: [
-      'OEMs and product manufacturers',
-      'Contract manufacturers and assemblers',
-      'Electrical and hardware manufacturers',
-      'Buyers needing a second source or tooling transfer',
-    ],
-    specs: [
-      { label: 'Processes', value: `${processesLine}; blanking, piercing, forming and CNC milling` },
-      { label: 'Press capacity', value: pressesLine },
-      { label: 'Materials', value: materialsLine },
-      { label: 'Thickness', value: stampingThicknessLine },
-      { label: 'Tolerances', value: toleranceLine },
-      { label: 'Max part size', todo: 'largest blank / part' },
-      { label: 'Minimum order', value: minimumLine },
-      { label: 'Lead time', value: leadTimeLine },
-      { label: 'Quality', todo: 'inspection methods, material certs, certifications (ISO, ITAR?) if any' },
-    ],
-    photoTodo: 'Photos: 4–6 production parts (no customer-identifying parts without permission) and one press-floor shot.',
-    faqs: [
-      {
-        q: 'What do you need to quote a stamped part?',
-        a: 'A drawing or STEP file, the material and thickness, annual or order quantities, any finish or plating, and the dimensions or tolerances that matter most. We quote tooling and piece price separately so you can see both.',
-      },
-      {
-        q: 'Do you build your own tooling?',
-        a: 'Yes. Dies are built in-house, with support from our Precision Milling division, which keeps engineering changes and repairs on our schedule instead of an outside tool shop’s.',
-      },
-      {
-        q: 'Can you run short runs and prototypes?',
-        a: `Yes. ${tooling.shortRun} Our standard minimum is ${ordering.minimum}; smaller runs are available at a higher price.`,
-      },
-      {
-        q: 'Can you take over tooling from another supplier?',
-        a: 'Yes. Have dies or metal already? We’ll run yours. Send details of the existing tooling and we will confirm the fit with our presses.',
-      },
-      {
-        q: 'Do you provide material certifications and inspection reports?',
-        a: 'Tell us what documentation your quality system requires and we will confirm what we can provide.',
-        todo: true,
-      },
-    ],
-    related: ['/metal-stamping/', '/capabilities/', '/industries/'],
-    schemaCategory: 'Metal stampings',
-  },
 };
 
 // Cards for the /products/ index (fraternal emblems live on their industry page).
@@ -485,11 +419,5 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     slot: 'industries-fraternal',
     href: '/industries/fraternal-lodge/',
     body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, Grand Lodges and regalia suppliers.',
-  },
-  {
-    title: 'Industrial Components',
-    slot: 'industrial-components',
-    href: '/industrial-components/',
-    body: 'Brackets, clips, contacts, terminals, washers, shims and flat parts, stamped to print for OEMs.',
   },
 ];

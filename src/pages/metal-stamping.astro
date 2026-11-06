@@ -9,7 +9,7 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { industries } from '../data/industries';
 import { faqPageNode, serviceNode, type Faq } from '../lib/schema';
-import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering, presses, stampingThickness, toleranceLine, tooling } from '../data/facts';
+import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering, presses, stampingThickness, toleranceLine, tooling, quality, maxPartLine } from '../data/facts';
 
 const path = '/metal-stamping/';
 const breadcrumbs = [{ name: 'Metal Stamping', path }];
@@ -116,9 +116,11 @@ const faqs: Faq[] = [
         <div><dt>Presses</dt><dd>{presses.total} presses</dd></div>
         <div><dt>Tonnage</dt><dd>Automatic department {presses.automatic}; secondary department {presses.secondary}</dd></div>
         <div><dt>Stock thickness</dt><dd>{stampingThickness}</dd></div>
-        <div><dt>Max part size</dt><dd><Todo>largest stamped blank / part</Todo></dd></div>
+        <div><dt>Max part size</dt><dd>{maxPartLine}</dd></div>
         <div><dt>Tolerances</dt><dd>{toleranceLine}</dd></div>
         <div><dt>Your die</dt><dd>{tooling.ownership} {tooling.storage}</dd></div>
+        <div><dt>Quality</dt><dd>{quality.inspection}</dd></div>
+        <div><dt>Certifications</dt><dd>{quality.certifications}</dd></div>
       </dl>
     </div>
     <div class="wrap">

@@ -63,7 +63,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.nam
 
         <div class="card info">
           <h3>Hours</h3>
-          {site.openingHours ? <p>{site.openingHours}</p> : <Todo>office and shipping/receiving hours (also add to src/data/site.ts for schema)</Todo>}
+          <p>{site.hoursText.map((h, i) => <>{i > 0 && <br />}{h}</>)}</p>
         </div>
 
         <div class="card info">

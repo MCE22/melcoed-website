@@ -96,7 +96,6 @@ export type PhotoSlotName =
   | 'badges'
   | 'medallions'
   | 'awards'
-  | 'industrial-components'
   | 'metal-stamping'
   | 'capabilities'
   | 'product-development'
@@ -106,7 +105,7 @@ export type PhotoSlotName =
   // service tiles
   | 'die-striking'
   | 'tooling'
-  | 'cnc-milling'
+  | 'precision-milling'
   | 'packaging'
   // shows when filled (new-shoot-only positions)
   | 'products'
@@ -170,7 +169,6 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: flagPinFront, alt: 'An enameled American flag lapel pin' },
     { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
   ],
-  'industrial-components': [close.conveyor, close.dieSet, close.dieBlock],
   'metal-stamping': [...shoot.largePress, ...shoot.operatorPress, ...shoot.coilFeed, close.controlPanel, close.conveyor, close.brassBlanks],
   capabilities: [...shoot.toolmaker, close.dieBlock, close.controlPanel, close.conveyor, close.dieSet],
   // Development work is customer work, so none of it is shown.
@@ -180,7 +178,7 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
   // Service tiles (Home and menus)
   'die-striking': [...shoot.dieInPress, ...shoot.freshStrike, close.dieSet],
   tooling: [...shoot.toolmaker, ...shoot.dieAndPart, close.dieBlock],
-  'cnc-milling': [],
+  'precision-milling': [],
   packaging: [],
   // Shows when filled
   products: [...shoot.finishedTray],

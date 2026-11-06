@@ -26,8 +26,7 @@ const productTypes = [
   { key: 'fraternal', label: 'Fraternal or lodge emblems' },
   { key: 'findings', label: 'Findings or raw stampings' },
   { key: 'pattern', label: 'Pattern stock or banding' },
-  { key: 'industrial', label: 'Industrial components' },
-  { key: 'milling', label: 'Milling or machined parts' },
+  { key: 'milling', label: 'Precision milling (dies, tooling, parts)' },
   { key: 'other', label: 'Not sure / something else' },
 ];
 ---
@@ -229,6 +228,11 @@ const productTypes = [
         form.reset();
         form.hidden = true;
         success.hidden = false;
+        // Conversion tracking. Cloudflare Web Analytics has no custom events, so a sent quote is
+        // recorded as a page view of the thank-you URL (the beacon runs with spa: true); the
+        // no-JavaScript path lands on that page too. Zaraz, if ever enabled, also gets an event.
+        history.pushState(null, '', '/request-a-quote/thank-you/');
+        (window as unknown as { zaraz?: { track?: (e: string) => void } }).zaraz?.track?.('quote_submitted');
         success.focus();
         success.scrollIntoView({ block: 'start' });
       } catch {

@@ -11,7 +11,7 @@ import { confidentialFaq } from './confidential';
 export const generalFaqs: Faq[] = [
   {
     q: 'What does Mel-Co-Ed, Inc. make?',
-    a: 'Mel-Co-Ed (MCE) is a precision metal stamping company with four divisions: Raw Stampings & Findings, Industrial Components, Finished Goods (die-struck badges, medallions, awards and fraternal emblems) and Precision Milling.',
+    a: 'Mel-Co-Ed (MCE) is a metal stamping and die striking company. We stamp parts to print for every industry, and run three divisions: Raw Stampings & Findings, Finished Goods (die-struck badges, medals, awards and fraternal emblems) and Precision Milling.',
   },
   {
     q: 'Where is Mel-Co-Ed located?',
@@ -51,7 +51,7 @@ export const generalFaqs: Faq[] = [
 export const orderingFaqs: Faq[] = [
   {
     q: 'Do you build the tooling for my parts?',
-    a: 'Yes. Dies are designed and built in-house, supported by our Precision Milling division, so tooling, changes and repairs stay on our schedule.',
+    a: 'Yes. Dies are designed and built in our own tool room, so tooling, changes and repairs stay on our schedule.',
   },
   {
     q: 'Who owns the tooling I pay for?',

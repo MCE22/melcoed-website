@@ -106,3 +106,24 @@ export const tooling = {
 export const edgeFinishes = 'Ask us about edge finishes.';
 export const bandingWidths = 'Ask us about widths for your project.';
 export const badgeAuthorization = 'Authorization is verified before any law-enforcement badge order.';
+
+// ---- Government buyers ----
+// NAICS codes confirmed by the owner. CAGE / UEI / SAM.gov: null until supplied (shown as TODO).
+export const government = {
+  naics: [
+    { code: '332119', title: 'Metal Crown, Closure, and Other Metal Stamping (except Automotive)' },
+    { code: '339910', title: 'Jewelry and Silverware Manufacturing' },
+  ],
+  cage: null as string | null, // TODO: CAGE code
+  uei: null as string | null, // TODO: Unique Entity ID (UEI)
+  sam: null as string | null, // TODO: SAM.gov registration status, e.g. "Active through MM/YYYY"
+};
+
+// ---- Owner-confirmed (Nov 2026) ----
+export const quality = {
+  inspection: 'Parts are checked to your print and specifications with micrometers and a Micro-Vu vision measuring system.',
+  certifications: 'Not ISO certified — we build and inspect to customer specifications.',
+};
+export const maxPartLine = 'Up to 3.5″ across and up to .250″ thick, for both stamping and die striking';
+// Never say milling is in-house, and never say it's outsourced.
+export const precisionMilling = 'Precision milling for dies, tooling and parts, managed through our shop so you deal with one supplier.';

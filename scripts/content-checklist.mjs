@@ -119,7 +119,7 @@ for (const b of blocks) {
 for (const m of read('src/data/faqs.ts').matchAll(/\{\s*q: (['"`])(.+?)\1,\s*a:[^}]*?todo: true/g)) add('FAQ (also shown on Home)', 'faq', clean(m[2]));
 
 // --- code comments: business facts ---
-for (const p of ['src/data/site.ts', 'src/components/Logo.astro', 'src/components/QuoteForm.astro', 'astro.config.mjs']) {
+for (const p of ['src/data/site.ts', 'src/data/facts.ts', 'src/data/testimonials.ts', 'src/components/Logo.astro', 'src/components/QuoteForm.astro', 'astro.config.mjs']) {
   let s;
   try {
     s = read(p);
@@ -134,13 +134,25 @@ for (const m of read('src/components/QuoteForm.astro').matchAll(/<Todo(?:\s+bloc
   if (!t.includes('PUBLIC_WEB3FORMS_ACCESS_KEY')) add('Request a Quote', 'copy', t);
 }
 
+// --- buyer guides (src/data/resources.ts): unconfirmed spec rows and FAQ answers ---
+const resourcesSrc = read('src/data/resources.ts');
+for (const b of resourcesSrc.split(/\n  \{\n    slug: '/).slice(1)) {
+  const page = `Buyer guide: ${clean(b.match(/h1: '([^']+)'/)[1])}`;
+  for (const m of b.matchAll(/\{ label: '([^']+)', todo: '([^']+)' \}/g)) add(page, 'specs', `**${m[1]}**: ${clean(m[2])}`);
+  for (const m of b.matchAll(/\{\s*q: (['"`])(.+?)\1,\s*a:[^}]*?todo: true/g)) add(page, 'faq', clean(m[2]));
+}
+
+// --- launch settings ---
+if (read('src/layouts/BaseLayout.astro').includes('PUBLIC_CF_ANALYTICS_TOKEN'))
+  add('Sitewide / business info', 'copy', 'Set PUBLIC_CF_ANALYTICS_TOKEN in Cloudflare Pages (Analytics > Web Analytics > Add site) and redeploy. Analytics are off until then.');
+
 // --- photo slots defined in photos.ts but not placed on any page yet (e.g. the Home hero) ---
 const allSlots = [...photosSrc.matchAll(/\| '([a-z-]+)'/g)].map((m) => m[1]);
 const pageSrc = walk(join(src, 'pages')).map((f) => readFileSync(f, 'utf8')).join('\n');
 const productSlugs = [...products.matchAll(/slug: '([a-z-]+)'/g)].map((m) => m[1]);
 // Service tiles with no fitting close-up yet; slots fed only by the NEW SHOOT list are covered above.
 const TILE_SLOTS = {
-  'cnc-milling': 'CNC Milling service tile (Home): tight shot of the CNC mill cutting a die, or a machined die part',
+  'precision-milling': 'Precision Milling service tile (Home): close-up of a milled die or tooling part',
   packaging: 'Packaging & Drop Shipping tile: hands packing finished parts, or a packed order',
 };
 const SHOOT_ONLY = ['products', 'quality', 'materials', 'die-striking-shoot', 'tooling-shoot', 'die-ownership'];
@@ -155,7 +167,7 @@ for (const slot of allSlots) {
 }
 
 // --- output ---
-const ORDER = ['Sitewide / business info', 'Home', 'Metal Stamping', 'About', 'Capabilities', 'Product Development', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industrial Components', 'Industries hub', 'Fraternal & Lodge', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
+const ORDER = ['Sitewide / business info', 'Home', 'Metal Stamping', 'About', 'Capabilities', 'Product Development', 'Findings', 'Badges', 'Medallions', 'Awards', 'Industries hub', 'Fraternal & Lodge', 'FAQ (also shown on Home)', 'FAQ', 'Request a Quote', 'Contact'];
 const pages = [...groups.keys()].sort((a, b) => (ORDER.indexOf(a) + 99 * (ORDER.indexOf(a) < 0)) - (ORDER.indexOf(b) + 99 * (ORDER.indexOf(b) < 0)));
 const LABELS = { specs: 'Specs & numbers', copy: 'Facts & copy', faq: 'FAQ answers to confirm', photos: 'Photos' };
 let total = 0;

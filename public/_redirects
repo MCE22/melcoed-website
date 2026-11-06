@@ -47,7 +47,9 @@
 /capabilities/packaging-logistics-assembly/   /capabilities/                             301
 /capabilities/packaging-logistics-assembly    /capabilities/                             301
 
-# Retired page on the new site
+# Retired pages on the new site
+/industrial-components/                       /metal-stamping/                           301
+/industrial-components                        /metal-stamping/                           301
 /industries/commemorative/                    /medallions/                               301
 /industries/commemorative                     /medallions/                               301
 

@@ -58,7 +58,8 @@ const servicesList = liveLinks(serviceLinks);
           <strong>{site.name}</strong><br />
           {site.address.street}<br />
           {site.address.city}, {site.address.region} {site.address.postalCode}<br />
-          <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+          <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a><br />
+          {site.hoursText.join(' · ')}
           {site.email && (
             <>
               <br />
@@ -67,6 +68,13 @@ const servicesList = liveLinks(serviceLinks);
           )}
         </address>
         <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
+        {
+          site.googleReviewUrl && (
+            <p class="footer-review">
+              <a href={site.googleReviewUrl} rel="noopener" target="_blank">Leave us a Google review &rarr;</a>
+            </p>
+          )
+        }
         <div class="footer-catalogs"><CatalogLinks variant="links" /></div>
         {
           sellSheet && (
@@ -221,6 +229,10 @@ const servicesList = liveLinks(serviceLinks);
   }
   .footer-catalogs {
     margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .footer-review {
+    margin: 0.4rem 0 0;
     font-size: 0.9rem;
   }
   .footer-sellsheet {

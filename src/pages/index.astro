@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import Icon from '../components/Icon.astro';
 import Seal from '../components/Seal.astro';
+import Testimonials from '../components/Testimonials.astro';
 import CatalogLinks from '../components/CatalogLinks.astro';
 import { site, quoteHref } from '../data/site';
 import { madeIn } from '../data/brand';
@@ -21,7 +22,7 @@ const homeServices = services.filter((s) => s.home !== false);
 
 // Product tiles under the hero, industrial first (photos come from each product's slot).
 const tiles: { label: string; href: string; slot: PhotoSlotName }[] = [
-  { label: 'Industrial Components', href: '/industrial-components/', slot: 'industrial-components' },
+  { label: 'Metal Stamping', href: '/metal-stamping/', slot: 'metal-stamping' },
   { label: 'Findings', href: '/findings/', slot: 'findings' },
   { label: 'Emblems & Badges', href: '/badges/', slot: 'badges' },
   { label: 'Medallions & Awards', href: '/medallions/', slot: 'medallions' },
@@ -202,6 +203,9 @@ const why = [
       </dl>
     </div>
   </section>
+
+  <!-- Testimonials: hidden until src/data/testimonials.ts has one -->
+  <Testimonials />
 
   <!-- 6. HERITAGE -->
   <section class="section" aria-labelledby="heritage-h">

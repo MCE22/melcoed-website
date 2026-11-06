@@ -1,7 +1,8 @@
 // Buyer-question pages under /resources/. One entry per page, rendered by
 // src/pages/resources/[slug].astro. Every Mel-Co-Ed claim here comes from facts.ts
 // (owner-confirmed); general explanations of processes are labeled as such in context.
-// No TODOs on these pages: if a fact isn't confirmed, the page doesn't mention it.
+// Unconfirmed specs are `todo` rows (shown as TODO boxes and listed on the content checklist);
+// unconfirmed FAQ answers carry `todo: true` and stay out of FAQ schema.
 
 import type { Faq } from '../lib/schema';
 import type { PhotoSlotName } from './photos';
@@ -27,7 +28,7 @@ import {
 } from './facts';
 import { confidential } from './confidential';
 
-export type Row = { label: string; value: string };
+export type Row = { label: string; value: string } | { label: string; todo: string };
 export type Step = { title: string; body: string };
 export type ResourceGroup = 'Stamping & manufacturing' | 'Die striking & coining' | 'Jewelry & findings' | 'Emblems, awards & organizations';
 
@@ -151,7 +152,6 @@ export const resources: Resource[] = [
     ],
     links: [
       { label: 'Metal Stamping', href: '/metal-stamping/' },
-      { label: 'Industrial Components', href: '/industrial-components/' },
     ],
     quoteType: 'stamping',
     custom: true,
@@ -202,7 +202,6 @@ export const resources: Resource[] = [
     ],
     links: [
       { label: 'Metal Stamping', href: '/metal-stamping/' },
-      { label: 'Industrial Components', href: '/industrial-components/' },
     ],
     quoteType: 'stamping',
     custom: true,
@@ -278,7 +277,7 @@ export const resources: Resource[] = [
         'Jewelry findings, charms and blanks',
         'Emblems, medallions and coins',
         'Embossed pattern stock and banding',
-        'Industrial parts stamped to print',
+        'Parts stamped to print',
         'Pieces to be plated in gold, karat gold, silver or imitation rhodium',
       ],
     },
@@ -472,7 +471,6 @@ export const resources: Resource[] = [
     ],
     links: [
       { label: 'Metal Stamping', href: '/metal-stamping/' },
-      { label: 'Industrial Components', href: '/industrial-components/' },
     ],
     quoteType: 'stamping',
     custom: true,
@@ -658,6 +656,62 @@ export const resources: Resource[] = [
     quoteType: 'medallions',
     custom: true,
     image: { slot: 'industries-fraternal', index: 4 },
+  },
+
+  {
+    slug: 'america-250th-commemorative-coins-medallions',
+    group: 'Die striking & coining',
+    h1: 'America 250th commemorative coins & medallions (anniversaries through 2033)',
+    metaTitle: 'America 250th Commemorative Coins & Medallions, Struck in the USA',
+    metaDescription:
+      'Custom coins and medallions for America’s 250th anniversaries through 2033, die struck in Pawtucket, RI since 1948. Up to 3.5″, numbering in-house, 3–8 week lead time.',
+    answer:
+      'Mel-Co-Ed strikes custom coins and medallions in Pawtucket, Rhode Island, where we have die struck metal since 1948, and can strike them for 250th anniversary programs from now through 2033. Coins and medallions are struck up to 3.5″ across from dies built in our own tool room.',
+    body: [
+      'America’s 250th isn’t one date. The anniversaries of the Revolution run through the Treaty of Paris in 2033, and towns, historical societies, lodges and units mark their own along the way.',
+      `A struck medal with your town seal or your own design is a keepsake that lasts. Tell us the date you need them in hand: our ${ordering.leadTime} lead time includes building the die.`,
+    ],
+    list: {
+      heading: '250th anniversaries ahead',
+      items: [
+        '2027: Saratoga and the winter at Valley Forge (1777)',
+        '2028: The alliance with France (1778)',
+        '2031: Yorktown (1781)',
+        '2033: The Treaty of Paris (1783)',
+        'Your town’s, lodge’s or unit’s own 250th',
+      ],
+    },
+    specs: [
+      R.struck,
+      R.metals,
+      R.enamel,
+      R.engraving,
+      R.noMinimum,
+      R.minimum,
+      R.leadTime,
+      R.die,
+      { label: 'Official America250 marks', todo: 'are you an official America250 licensee? If not, say so here (customers use their own designs).' },
+    ],
+    steps: strikeSteps(
+      'Your seal, design or artwork is prepared for the dies, front and back.',
+      'Coins are numbered in-house if needed, finished by outside finishers, and shipped in time for your date.',
+    ),
+    faqs: [
+      {
+        q: 'When should we order 250th coins or medallions?',
+        a: `Lead time is typically ${ordering.leadTime}, including building the die. Add time for your committee to approve the proof, and order well ahead of your event.`,
+      },
+      { q: 'Can 250th coins be numbered as a limited edition?', a: 'Yes. Engraving and numbering are done in-house.' },
+      { q: 'Can we order 250th medallions in sterling silver?', a: `Yes. ${ordering.noMinimum}` },
+      {
+        q: 'Can you strike the official America250 logo?',
+        a: 'The official America250 marks are licensed. We strike your organization’s own designs; ask us about the official marks.',
+        todo: true,
+      },
+    ],
+    links: [{ label: 'Medals & Medallions', href: '/medallions/' }],
+    quoteType: 'medallions',
+    custom: true,
   },
 
   {
@@ -1070,6 +1124,62 @@ export const resources: Resource[] = [
     custom: true,
     confidential: true,
     image: { slot: 'badges', index: 0 },
+  },
+
+  {
+    slug: 'custom-die-struck-pilot-wings-military-insignia',
+    group: 'Emblems, awards & organizations',
+    h1: 'Custom die struck pilot wings & military insignia',
+    metaTitle: 'Custom Die Struck Pilot Wings & Military Insignia | Made in USA',
+    metaDescription:
+      'Custom die struck pilot wings, unit insignia and emblems from Pawtucket, RI since 1948. Struck up to 3.5″, pin posts fused never soldered, soft or hard enamel.',
+    answer: `Mel-Co-Ed die strikes custom pilot wings, unit insignia and emblems in Pawtucket, Rhode Island, where we have struck metal since 1948. Pieces are struck up to 3.5″ across from dies built in our own tool room. ${pinPosts}`,
+    body: [
+      'Wings and insignia are worn every day, so detail and durability matter: crisp feathering on a wing, sharp lettering, a pin that stays put. Die striking delivers all three.',
+      'Color comes from soft or hard enamel, and plating in gold, silver or imitation rhodium, both from outside finishers. Numbering is done in-house.',
+    ],
+    list: {
+      heading: 'What we can strike',
+      items: ['Pilot, aircrew and flight wings', 'Unit and squadron insignia', 'Unit challenge coins', 'Retirement and presentation pieces'],
+    },
+    specs: [
+      R.dieStrike,
+      R.metals,
+      R.enamel,
+      R.plating,
+      R.pinPosts,
+      R.engraving,
+      R.minimum,
+      R.leadTime,
+      R.die,
+      { label: 'Military specification', todo: 'can you strike to Institute of Heraldry (TIOH) specifications, and are you a TIOH-certified manufacturer?' },
+      { label: 'Backs', todo: 'which attachments do you offer (military clutch, pin and catch, screw back)?' },
+    ],
+    steps: strikeSteps(
+      'Your wing, insignia or unit artwork is prepared for the dies.',
+      'Pieces are enamel-filled and plated by outside finishers, posts fused, numbered in-house if needed, and shipped.',
+    ),
+    faqs: [
+      {
+        q: 'Do you make official U.S. military insignia?',
+        a: 'Official insignia must be made to Institute of Heraldry specifications by a certified manufacturer. Tell us what you need and we will confirm whether we can supply it.',
+        todo: true,
+      },
+      {
+        q: 'Can wings and insignia be made to our unit’s own design?',
+        a: `Yes. Your design is struck on its own die. ${tooling.ownership}`,
+      },
+      { q: 'How are the pins attached to wings and insignia?', a: pinPosts },
+      { q: 'What is the minimum order for unit insignia?', a: minimumLine },
+    ],
+    links: [
+      { label: 'Badges', href: '/badges/' },
+      { label: 'Medals & Medallions', href: '/medallions/' },
+    ],
+    quoteType: 'badges',
+    custom: true,
+    confidential: true,
+    image: { slot: 'badges', index: 4 },
   },
 
   {
