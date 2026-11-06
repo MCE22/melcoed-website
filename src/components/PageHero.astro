@@ -1,7 +1,6 @@
 ---
 // Interior page header: breadcrumbs, brass eyebrow, uppercase block-sans title with an
-// oxblood second line, lead, optional actions (slot), and an optional photo that
-// fades into the background. `variant="dark"` is the charcoal version (About page).
+// oxblood second line, lead, optional actions (slot), and an optional hard-edged photo. `variant="dark"` is the charcoal version (About page).
 import MediaSlot from './MediaSlot.astro';
 import type { Crumb } from '../lib/schema';
 import type { PhotoSlotName } from '../data/photos';
@@ -59,10 +58,10 @@ const titleText = nb(title);
         <MediaSlot
           slot={photo}
           aspect="4 / 3"
-          fade="left"
           eager
           sizes="(min-width: 64rem) 50vw, 100vw"
           todo={photoTodo}
+          tone={variant === 'dark' ? 'cream' : 'charcoal'}
           class="page-hero__media"
         />
       )

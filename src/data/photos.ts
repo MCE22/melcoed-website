@@ -6,17 +6,19 @@
 //
 // Alt text: describe what is in the photo (part, finish, setting), not "image of".
 // Photo direction: people and craftsmanship, tight close-ups, a few big-machine moments.
-// No wide shop-floor views. Current photos are close-ups from the old melcoed.com library;
-// Badges and Fraternal & Lodge use labeled illustrations until house samples are shot.
+// No wide shop-floor views. The old shop and factory photos are gone (owner, Nov 2026);
+// product close-ups stay, and Badges and Fraternal & Lodge use labeled illustrations
+// until house samples are shot.
 //
-// NEW SHOOT: add next week's photos to the matching `shoot` entry below. Each one then
-// leads the page slots listed for it automatically. An empty slot renders as a clean dark
-// frame; new-only positions (marked "shows when filled") stay hidden until a photo exists.
+// NEW SHOOT: add photos to the matching `shoot` entry below. Until a shot exists, every
+// position that needs it shows a SPACER: a solid brand-tone panel with the small seal,
+// the same size as the photo, no text, tagged in the HTML with data-shot="PHOTO-05" etc.
+// Fill `shoot.<key>` and the spacer is replaced automatically. Positions marked
+// "shows when filled" stay hidden until a photo exists.
 
 import type { ImageMetadata } from 'astro';
 
 import brassBlanks from '../assets/photos/brass-blanks.jpg';
-import buildingSign from '../assets/photos/building-sign.jpg';
 import findingsBoards from '../assets/photos/findings-sample-boards.jpg';
 import cuffsTextured from '../assets/photos/cuffs-textured.jpg';
 import cuffsEmbossed from '../assets/photos/cuffs-embossed.jpg';
@@ -26,10 +28,6 @@ import cufflinksWorn from '../assets/photos/cufflinks-worn.jpg';
 import pendantsDogTags from '../assets/photos/pendants-dog-tags.jpg';
 import flagPinFront from '../assets/photos/flag-pin-front.jpg';
 import flagPinAngle from '../assets/photos/flag-pin-angle.jpg';
-import dieSetBench from '../assets/photos/die-set-bench.jpg';
-import dieBlockCloseup from '../assets/photos/die-block-closeup.jpg';
-import pressControlPanel from '../assets/photos/press-control-panel.jpg';
-import partsConveyor from '../assets/photos/parts-conveyor.jpg';
 import finishedGoods from '../assets/photos/finished-goods-assortment.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
 import libertasObverse from '../assets/photos/libertas-americana-obverse.jpg';
@@ -52,24 +50,30 @@ import ilLighthouse from '../assets/illustrations/lodge-style-lighthouse-medalli
  *  never a customer piece). It renders with a visible "Illustration" label and the
  *  confidentiality note. Replace with real house-sample photos when available. */
 export type Photo = { src: ImageMetadata; alt: string; illustration?: boolean };
+/** Placeholder for a shot not taken yet. `shot` is the shot-list id, e.g. "PHOTO-05". */
+export type Spacer = { spacer: true; shot: string; label: string };
+export type SlotItem = Photo | Spacer;
+export const isSpacer = (p: SlotItem | undefined): p is Spacer => !!p && 'spacer' in p;
 
 // ============ NEW SHOOT ============
 // Shot list for next week. Add photos to `shoot.<key>`, e.g.
 //   import toolmaker1 from '../assets/photos/toolmaker-bench.jpg';
 //   toolmaker: [{ src: toolmaker1, alt: 'A toolmaker fitting a die at the bench' }],
 export const newShoot = [
-  { key: 'toolmaker', shot: 'Toolmaker at bench', pages: 'About, Tooling' },
-  { key: 'operatorPress', shot: 'Operator at a press, tight', pages: 'Metal Stamping' },
-  { key: 'calipers', shot: 'Hands checking a part with calipers', pages: 'Capabilities (quality)' },
-  { key: 'buildingSign', shot: 'Team or owner at the building sign', pages: 'About' },
-  { key: 'largePress', shot: 'One large press, low angle', pages: 'Home, Metal Stamping' },
-  { key: 'coilFeed', shot: 'Coil feeding a press', pages: 'Metal Stamping' },
-  { key: 'dieInPress', shot: 'Die set in a press, close up', pages: 'Die Striking' },
-  { key: 'dieAndPart', shot: 'Die next to its struck part', pages: 'Home, Tooling, Who Owns the Die' },
-  { key: 'freshStrike', shot: 'Fresh strike coming off the die', pages: 'Die Striking' },
-  { key: 'finishedTray', shot: 'Tray of finished parts', pages: 'Products' },
-  { key: 'rawStock', shot: 'Raw brass and sterling stock', pages: 'Materials' },
-  { key: 'velvet', shot: 'Polished pieces on dark velvet', pages: 'Findings, Medallions' },
+  { key: 'toolmaker', id: 'PHOTO-01', shot: 'Toolmaker at bench', pages: 'Capabilities hero (spacer); Tooling section when filled' },
+  { key: 'operatorPress', id: 'PHOTO-02', shot: 'Operator at a press, tight', pages: 'Metal Stamping gallery (spacer)' },
+  { key: 'calipers', id: 'PHOTO-03', shot: 'Hands checking a part with calipers', pages: 'Capabilities gallery (spacer); Quality section when filled' },
+  { key: 'buildingSign', id: 'PHOTO-04', shot: 'Team or owner at the building sign', pages: 'Home heritage and About hero (spacers)' },
+  { key: 'largePress', id: 'PHOTO-05', shot: 'One large press, low angle', pages: 'Home Services and Metal Stamping hero (spacers)' },
+  { key: 'coilFeed', id: 'PHOTO-06', shot: 'Coil feeding a press', pages: 'Metal Stamping gallery (spacer)' },
+  { key: 'dieInPress', id: 'PHOTO-07', shot: 'Die set in a press, close up', pages: 'Capabilities gallery (spacer); Die Striking section when filled' },
+  { key: 'dieAndPart', id: 'PHOTO-08', shot: 'Die next to its struck part', pages: 'Product Development gallery (spacer); Tooling and Who Owns the Die when filled' },
+  { key: 'freshStrike', id: 'PHOTO-09', shot: 'Fresh strike coming off the die', pages: 'Product Development gallery (spacer); Die Striking section when filled' },
+  { key: 'finishedTray', id: 'PHOTO-10', shot: 'Tray of finished parts', pages: 'Products hub header when filled' },
+  { key: 'rawStock', id: 'PHOTO-11', shot: 'Raw brass and sterling stock', pages: 'Capabilities materials section when filled' },
+  { key: 'velvet', id: 'PHOTO-12', shot: 'Polished pieces on dark velvet', pages: 'leads the Findings and Medallions galleries when filled' },
+  { key: 'precisionMilling', id: 'PHOTO-13', shot: 'Precision milling: part on the mill', pages: 'Precision Milling service tile (not placed on a page yet)' },
+  { key: 'packaging', id: 'PHOTO-14', shot: 'Packaging: carded or bagged parts ready to ship', pages: 'Packaging service tile (not placed on a page yet)' },
 ] as const;
 export type ShootKey = (typeof newShoot)[number]['key'];
 
@@ -86,6 +90,15 @@ export const shoot: Record<ShootKey, Photo[]> = {
   finishedTray: [],
   rawStock: [],
   velvet: [],
+  precisionMilling: [],
+  packaging: [],
+};
+
+/** The shoot photos for `key`, or its spacer while none exist. */
+const shot = (key: ShootKey): SlotItem[] => {
+  if (shoot[key].length) return shoot[key];
+  const s = newShoot.find((n) => n.key === key)!;
+  return [{ spacer: true, shot: s.id, label: s.shot }];
 };
 
 export type PhotoSlotName =
@@ -118,22 +131,17 @@ export type PhotoSlotName =
 // Close-ups reused across pages.
 const close = {
   brassBlanks: { src: brassBlanks, alt: 'A pile of brass stamped blanks catching warm light' },
-  dieBlock: { src: dieBlockCloseup, alt: 'Close-up of a stamping die block with guide posts and fasteners' },
-  dieSet: { src: dieSetBench, alt: 'A stamping die set clamped on the bench, with freshly stamped parts below it' },
-  conveyor: { src: partsConveyor, alt: 'A parts conveyor carrying stamped parts away from the presses' },
-  controlPanel: { src: pressControlPanel, alt: 'An operator at the control panel of a stamping press, beside a cart of dies' },
   finishedGoods: {
     src: finishedGoods,
     alt: 'Finished pieces built from stamped components: cuffs, bangles, bracelets, cufflinks, tie bars and flag pins',
   },
-  sign: { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
   cuffsEmbossed: { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
   libertasObverse: { src: libertasObverse, alt: 'Antique-silver Libertas Americana medal reading "Tribute to 1783, Princeton, NJ, 2008"' },
 } satisfies Record<string, Photo>;
 
-export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
+export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   'home-hero': [...shoot.largePress, close.brassBlanks],
-  'home-heritage': [...shoot.buildingSign, close.sign],
+  'home-heritage': shot('buildingSign'),
   findings: [
     ...shoot.velvet,
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
@@ -169,17 +177,18 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
     { src: flagPinFront, alt: 'An enameled American flag lapel pin' },
     { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
   ],
-  'metal-stamping': [...shoot.largePress, ...shoot.operatorPress, ...shoot.coilFeed, close.controlPanel, close.conveyor, close.brassBlanks],
-  capabilities: [...shoot.toolmaker, close.dieBlock, close.controlPanel, close.conveyor, close.dieSet],
+  // Hero/tile = [0]; the gallery shows the next two.
+  'metal-stamping': [...shot('largePress'), ...shot('operatorPress'), ...shot('coilFeed')],
+  capabilities: [...shot('toolmaker'), ...shot('calipers'), ...shot('dieInPress')],
   // Development work is customer work, so none of it is shown.
-  'product-development': [...shoot.dieAndPart, close.cuffsEmbossed, close.dieSet, close.dieBlock],
+  'product-development': [close.cuffsEmbossed, ...shot('dieAndPart'), ...shot('freshStrike')],
   industries: [close.finishedGoods],
-  about: [...shoot.buildingSign, close.sign, ...shoot.toolmaker],
+  about: [...shot('buildingSign'), ...shoot.toolmaker],
   // Service tiles (Home and menus)
-  'die-striking': [...shoot.dieInPress, ...shoot.freshStrike, close.dieSet],
-  tooling: [...shoot.toolmaker, ...shoot.dieAndPart, close.dieBlock],
-  'precision-milling': [],
-  packaging: [],
+  'die-striking': [...shot('dieInPress'), ...shoot.freshStrike],
+  tooling: [...shot('toolmaker'), ...shoot.dieAndPart],
+  'precision-milling': shot('precisionMilling'),
+  packaging: shot('packaging'),
   // Shows when filled
   products: [...shoot.finishedTray],
   quality: [...shoot.calipers],
@@ -189,5 +198,5 @@ export const photos: Partial<Record<PhotoSlotName, Photo[]>> = {
   'die-ownership': [...shoot.dieAndPart],
 };
 
-/** True when a slot has at least one photo (for positions that only show when filled). */
+/** True when a slot has something to show, photo or spacer (for positions that only show when filled). */
 export const hasPhoto = (slot: PhotoSlotName) => (photos[slot]?.length ?? 0) > 0;

@@ -16,7 +16,6 @@ import {
   presses,
   stampingThickness,
   tolerance,
-  toleranceLine,
   outsourcedLine,
   pinPosts,
   madeHere,
@@ -66,7 +65,7 @@ const R = {
   presses: { label: 'Presses', value: pressesLine },
   automatic: { label: 'Automatic department', value: `Presses from ${presses.automatic}` },
   thickness: { label: 'Stock thickness', value: `${stampingThickness} thick` },
-  tolerance: { label: 'Tolerance', value: toleranceLine },
+  tolerance: { label: 'Typical tolerance', value: tolerance },
   metals: { label: 'Metals', value: materialsLine },
   dieStrike: { label: 'Die striking', value: 'Up to 3.5″ diameter and .250″ thick' },
   struck: { label: 'Size', value: 'Struck up to 3.5″ in diameter' },
@@ -117,7 +116,7 @@ export const resources: Resource[] = [
     h1: 'Custom metal stamping company in New England',
     metaTitle: 'Custom Metal Stamping Company in New England | Pawtucket, RI',
     metaDescription:
-      'Mel-Co-Ed is a custom metal stamping company in Pawtucket, Rhode Island, since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ standard tolerance.',
+      'Mel-Co-Ed is a custom metal stamping company in Pawtucket, Rhode Island, since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ typical tolerance.',
     answer:
       'Mel-Co-Ed, Inc. is a custom metal stamping company in Pawtucket, Rhode Island, stamping parts for manufacturers since 1948. We build the die in our own tool room and run progressive, transfer and automatic stamping, coining and die striking under one roof.',
     body: [
@@ -202,7 +201,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'How thick can the strip be?',
-        a: `We stamp stock from ${stampingThickness} thick. Our standard tolerance is ${tolerance}, and we also hold the tolerances on your print.`,
+        a: `We stamp stock from ${stampingThickness} thick and typically hold ${tolerance}.`,
       },
     ],
     links: [

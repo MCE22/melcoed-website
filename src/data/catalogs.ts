@@ -4,11 +4,11 @@
 import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-export type Catalog = { title: string; href: string; sizeMb?: number };
+export type Catalog = { title: string; label: string; href: string; sizeMb?: number };
 
 const all: Catalog[] = [
-  { title: 'Findings & Stampings Catalog 2026', href: '/catalogs/mce-findings-stampings-catalog-2026.pdf' },
-  { title: 'Pattern & Banding Catalog 2026', href: '/catalogs/mce-pattern-banding-catalog-2026.pdf' },
+  { title: 'Findings & Stampings Catalog 2026', label: 'Findings & Stampings Catalog (PDF)', href: '/catalogs/mce-findings-stampings-catalog-2026.pdf' },
+  { title: 'Pattern & Banding Catalog 2026', label: 'Pattern & Banding Catalog (PDF)', href: '/catalogs/mce-pattern-banding-catalog-2026.pdf' },
 ];
 
 const file = (href: string) => join(process.cwd(), 'public', href);

@@ -100,6 +100,7 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
         <h2 id="types-h">{p.typesHeading}</h2>
       </div>
       {p.typesTodo && <Todo block>{p.typesTodo}</Todo>}
+      {p.types.length > 0 && (
       <div class="grid grid--3">
         {
           p.types.map((t) =>
@@ -118,7 +119,8 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
           )
         }
       </div>
-      <div class="photos">
+      )}
+      <div class:list={['photos', { 'photos--flush': p.types.length === 0 }]}>
         <PhotoSlot slot={p.slug as PhotoSlotName} todo={p.photoTodo} skip={1} />
       </div>
     </div>
@@ -195,6 +197,9 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   }
   .photos {
     margin: var(--space-6) 0 0;
+  }
+  .photos--flush {
+    margin-top: 0;
   }
   .aud-note {
     color: var(--cream-200);
