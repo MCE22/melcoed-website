@@ -1,6 +1,7 @@
 ---
-// Visible placeholder for content the owner must supply.
-// Find them all with `npm run todos`. Remove before launch.
+// Placeholder for content the owner must supply. Hidden in production builds (see
+// src/lib/todos.ts); listed on the content checklist either way.
+import { showTodos } from '../lib/todos';
 interface Props {
   block?: boolean;
 }
@@ -8,4 +9,4 @@ const { block = false } = Astro.props;
 const Tag = block ? 'div' : 'span';
 ---
 
-<Tag class:list={['todo', { 'todo--block': block }]} data-todo><strong>TODO:</strong> <slot /></Tag>
+{showTodos && <Tag class:list={['todo', { 'todo--block': block }]} data-todo><strong>TODO:</strong> <slot /></Tag>}

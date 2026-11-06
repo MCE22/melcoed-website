@@ -12,6 +12,7 @@ import { quoteHref, site } from '../../data/site';
 import { faqPageNode } from '../../lib/schema';
 import { isLive } from '../../lib/routes';
 import { hasPhoto } from '../../data/photos';
+import { showTodos } from '../../lib/todos';
 
 export function getStaticPaths() {
   return resources.map((r) => ({ params: { slug: r.slug }, props: { r } }));
@@ -26,6 +27,8 @@ const breadcrumbs = [
 const quote = `${quoteHref}?type=${r.quoteType}`;
 const links = r.links.filter((l) => isLive(l.href));
 const showDie = r.custom && r !== dieOwnership;
+// Unconfirmed spec rows are owner TODOs: hidden in production.
+const specs = r.specs.filter((row) => 'value' in row || showTodos);
 ---
 
 <BaseLayout title={r.metaTitle} fullTitle description={r.metaDescription} breadcrumbs={breadcrumbs} schema={[faqPageNode(path, r.faqs)]} hideFooterCta>
@@ -53,7 +56,7 @@ const showDie = r.custom && r !== dieOwnership;
         <table class="facts">
           <tbody>
             {
-              r.specs.map((row) => (
+              specs.map((row) => (
                 <tr>
                   <th scope="row">{row.label}</th>
                   <td>{'value' in row ? row.value : <Todo>{row.todo}</Todo>}</td>

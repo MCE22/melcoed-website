@@ -36,8 +36,8 @@ export const site = {
   hoursText: ['Mon–Thu 7:30am–4:30pm ET', 'Fri 7:30am–3:30pm ET'],
   // TODO: Google review link (Google Business Profile > Ask for reviews > copy link). The footer's "Leave us a Google review" link appears once this is set.
   googleReviewUrl: null as string | null,
-  // TODO: add Google Business Profile, LinkedIn, Facebook, etc. Used for schema.org `sameAs`.
-  sameAs: [] as string[],
+  // Used for schema.org `sameAs`. Add the Google Business Profile link when it exists.
+  sameAs: ['https://www.linkedin.com/company/mel-co-ed-inc/', 'https://www.facebook.com/melcoed'] as string[],
 } as const;
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;

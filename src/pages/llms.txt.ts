@@ -18,7 +18,7 @@ export const GET: APIRoute = () => {
 > ${site.description}
 
 - Tagline: ${site.tagline}
-- Founded: ${site.foundingYear}, ${site.address.city}, ${site.address.regionName}; ${site.generation}, family-owned
+- Founded: ${site.foundingYear}, Warwick, Rhode Island; at 381 Roosevelt Ave, ${site.address.city} since 1964; ${site.generation}, family-owned
 - Origin: ${madeIn.primary} (${madeIn.secondary})
 - Address: ${fullAddress}
 - Phone: ${site.phone.display}${site.email ? `\n- Email: ${site.email}` : ''}

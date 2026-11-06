@@ -27,7 +27,7 @@ export function organizationNode(): Node {
     description: site.description,
     slogan: tagline,
     foundingDate: String(site.foundingYear),
-    foundingLocation: { '@type': 'Place', name: 'Pawtucket, Rhode Island' },
+    foundingLocation: { '@type': 'Place', name: 'Warwick, Rhode Island' },
     telephone: site.phone.e164,
     address: {
       '@type': 'PostalAddress',

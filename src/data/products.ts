@@ -143,7 +143,7 @@ export const products: Record<string, Product> = {
     quoteType: 'badges',
     metaTitle: 'Die-Struck Police, Fire, Military & Government Badges',
     metaDescription:
-      'Die-struck badges made by Mel-Co-Ed in Pawtucket, RI since 1948, for police, fire, EMS, government and security. Custom designs and reproductions.',
+      'Die-struck badges made by Mel-Co-Ed in Rhode Island since 1948, for police, fire, EMS, government and security. Custom designs and reproductions.',
     h1: 'Die-Struck Badges',
     accent: 'police, fire, government',
     lead: 'Die-struck badges for police, fire, EMS, government and security, and secondary badge work for the companies that make them.',

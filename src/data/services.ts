@@ -35,7 +35,7 @@ export const services: Service[] = [
   {
     label: 'Finishing',
     href: '/capabilities/#finishing',
-    summary: 'High polish to antique, plating and enamel fill through outside finishers, or shipped raw.',
+    summary: 'High polish to antique, plating and enamel fill through our finishing partners, or shipped raw.',
     photo: { slot: 'industries' },
   },
   {

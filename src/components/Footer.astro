@@ -5,7 +5,7 @@ import { site, serviceLinks, productLinks, industryLinks, quoteHref, mapsUrl } f
 import { madeIn } from '../data/brand';
 import { liveLinks } from '../lib/routes';
 import CatalogLinks from './CatalogLinks.astro';
-import { sellSheet } from '../data/downloads';
+import { atAGlance } from '../data/downloads';
 
 interface Props {
   /** Hide the quote call-to-action band (e.g. on the quote page itself). */
@@ -89,9 +89,9 @@ const servicesList = liveLinks(serviceLinks);
         }
         <div class="footer-catalogs"><CatalogLinks variant="links" /></div>
         {
-          sellSheet && (
-            <p class="footer-sellsheet">
-              <a href={sellSheet.href} download>Sell Sheet (PDF)</a>
+          atAGlance && (
+            <p class="footer-glance">
+              <a href={atAGlance.href} download>Mel-Co-Ed at a Glance (PDF)</a>
             </p>
           )
         }
@@ -140,7 +140,7 @@ const servicesList = liveLinks(serviceLinks);
   <div class="footer-base">
     <div class="wrap footer-base__inner">
       <span>&copy; {year} {site.name} All rights reserved. <a href="/privacy/">Privacy Policy</a></span>
-      <span>Est. {site.foundingYear} &middot; {site.address.city}, {site.address.regionName}</span>
+      <span>Made in Rhode Island since {site.foundingYear}</span>
     </div>
   </div>
 </footer>
@@ -247,11 +247,11 @@ const servicesList = liveLinks(serviceLinks);
     margin: 0.4rem 0 0;
     font-size: 0.9rem;
   }
-  .footer-sellsheet {
+  .footer-glance {
     margin: 0.3rem 0 0;
     font-size: 0.9rem;
   }
-  .footer-main .footer-sellsheet a {
+  .footer-main .footer-glance a {
     color: var(--brass-light);
     text-decoration: underline;
   }

@@ -68,7 +68,7 @@ its links appear automatically.
 
 ## Confirmed facts, catalogs and official logos
 
-- **`src/data/facts.ts`:** confirmed facts from the 2026 sell sheet (tagline, materials, finishes, sizes,
+- **`src/data/facts.ts`:** confirmed facts from the 2026 Mel-Co-Ed at a Glance sheet (tagline, materials, finishes, sizes,
   minimums, lead time, pricing, two ways to buy, process). Pages, specs and FAQ answers read from here.
 - **Catalogs:** put the PDFs in `public/catalogs/` as `mce-findings-stampings-catalog-2026.pdf` and
   `mce-pattern-banding-catalog-2026.pdf`. "Download Catalog (PDF)" links then appear on Home, Products,
