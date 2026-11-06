@@ -1,5 +1,5 @@
 ---
-// Home: seven sections, centered on metal stamping for every industry.
+// Home: seven sections, centered on ornamental stamping and die striking.
 // Hero (with product tiles) → Services → Industries → Two ways to buy → Why Mel-Co-Ed
 // → Heritage → CTA (the footer's quote band).
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -20,12 +20,12 @@ import { waysToBuy, ordering } from '../data/facts';
 const years = new Date().getFullYear() - site.foundingYear;
 const homeServices = services.filter((s) => s.home !== false);
 
-// Product tiles under the hero, industrial first (photos come from each product's slot).
+// Product tiles under the hero, ornamental work first (photos come from each product's slot).
 const tiles: { label: string; href: string; slot: PhotoSlotName }[] = [
-  { label: 'Metal Stamping', href: '/metal-stamping/', slot: 'metal-stamping' },
-  { label: 'Findings', href: '/findings/', slot: 'findings' },
   { label: 'Emblems & Badges', href: '/badges/', slot: 'badges' },
   { label: 'Medallions & Awards', href: '/medallions/', slot: 'medallions' },
+  { label: 'Metal Stamping', href: '/metal-stamping/', slot: 'metal-stamping' },
+  { label: 'Findings', href: '/findings/', slot: 'findings' },
 ];
 
 const why = [
@@ -48,18 +48,18 @@ const why = [
 ---
 
 <BaseLayout
-  title={`${site.name} | Metal Stamping & Die Striking in Pawtucket, RI | Est. ${site.foundingYear}`}
+  title={`${site.name} | Ornamental Metal Stamping & Die Striking | Est. ${site.foundingYear}`}
   fullTitle
-  description={`Progressive, transfer and automatic metal stamping, coining and die striking, with tooling built in-house. Any metal, any industry. Made in Rhode Island, USA since ${site.foundingYear}.`}
+  description={`Custom ornamental metal stamping and die striking for badges, medallions, emblems and decorative components. In-house tooling. Made in Rhode Island since ${site.foundingYear}.`}
 >
   <!-- 1. HERO + product tiles -->
   <section class="hero">
     <div class="wrap hero__grid">
       <div class="hero__text">
-        <h1>Metal stamping &amp; die striking. <em>Since {site.foundingYear}.</em></h1>
+        <h1>Ornamental metal stamping &amp; die striking. <em>Since {site.foundingYear}.</em></h1>
         <p class="lead">
-          Progressive, transfer and automatic stamping, coining and die striking, with tooling built in our own tool
-          room. Any metal. Any industry. {madeIn.primary}.
+          Custom badges, medallions, emblems and decorative metal components, made with in-house tooling,
+          coining and die striking. {madeIn.primary}.
         </p>
         <div class="btn-row">
           <a class="btn btn--primary" href={quoteHref}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
