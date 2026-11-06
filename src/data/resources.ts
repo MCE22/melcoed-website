@@ -470,7 +470,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Will my parts be made in the USA?',
-        a: 'Yes. Every part is made at our shop in Pawtucket, Rhode Island.',
+        a: 'Yes. Our parts are made in Rhode Island, USA, at our shop in Pawtucket.',
       },
     ],
     links: [

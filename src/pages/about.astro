@@ -11,13 +11,13 @@ const path = '/about/';
 const breadcrumbs = [{ name: 'About', path }];
 const years = new Date().getFullYear() - site.foundingYear;
 
-// Milestones: only the first and last are confirmed; fill the rest from company records.
+// Milestones: from the company history on the previous melcoed.com About page.
 const milestones: { year: string; text?: string; todo?: string }[] = [
-  { year: String(site.foundingYear), text: 'Mel-Co-Ed is founded in Pawtucket, Rhode Island.' },
-  { year: '19__', todo: 'move to 381 Roosevelt Ave (year?)' },
-  { year: '19__', todo: 'second generation takes over (year, name)' },
-  { year: '19__', todo: 'key expansion: new presses or a major product line' },
-  { year: 'Today', text: 'Third generation of the family runs the company.' },
+  { year: String(site.foundingYear), text: 'Ed Sowa and his partners Mel and Cosmo start Mel-Co-Ed in a garage in Warwick, Rhode Island.' },
+  { year: '1950s', text: 'The company begins making ornamental jewelry findings for women’s jewelry and men’s accessories.' },
+  { year: '1964', text: 'Mel-Co-Ed moves to 381 Roosevelt Avenue in Pawtucket, where it still works today.' },
+  { year: '1985', text: 'Ed’s son takes over, building up the tooling and the American-made custom and Open Line products.' },
+  { year: '2022', text: 'Phil Sowa, Ed’s grandson, becomes owner and President: the third generation.' },
 ];
 
 // People: only what the owner confirmed. Add names and roles to the leadership TODO below.
@@ -53,7 +53,7 @@ const principles = [
   },
   {
     title: 'Family-owned, long-term',
-    body: `Three generations and ${years}+ years in the same city. We plan in decades, and so do our customers' programs.`,
+    body: `Three generations and ${years}+ years in Rhode Island. We plan in decades, and so do our customers' programs.`,
   },
 ];
 ---
@@ -82,13 +82,18 @@ const principles = [
         <span class="ribbon ribbon--navy">Our story</span>
         <h2 id="story-h">Three generations on Roosevelt Avenue</h2>
         <p class="lead">
-          Mel-Co-Ed has been stamping metal in Pawtucket since {site.foundingYear}, in a state that built its name on
+          Mel-Co-Ed has been stamping metal in Rhode Island since {site.foundingYear}, in a state that built its name on
           jewelry and metalworking. Today the company is run by the third generation of the same family.
         </p>
-        <Todo block>
-          Founding story, 3&ndash;5 sentences: who founded Mel-Co-Ed, where the name comes from, what the company first
-          made, and how it grew. Real names, dates and products are what make this page rank and get cited by AI search.
-        </Todo>
+        <p>
+          Ed Sowa started the company in {site.foundingYear} with two partners, Mel and Cosmo, in a garage in Warwick.
+          The name comes from the three of them: Mel, Co, Ed. By the 1950s the shop was making ornamental jewelry
+          findings for women’s jewelry and men’s accessories, and in 1964 it moved to 381 Roosevelt Avenue in Pawtucket.
+        </p>
+        <p>
+          Ed’s son took over in 1985 and built up the tool room and the American-made custom and Open Line products.
+          In 2022 Phil Sowa, Ed’s grandson, became owner. He still works directly with customers on every new design.
+        </p>
       </div>
       <div class="story-seal">
         <Seal />
@@ -114,7 +119,6 @@ const principles = [
           ))
         }
       </ul>
-      <Todo block>Current leadership: the remaining names and roles of the people running the company today.</Todo>
     </div>
   </section>
 
