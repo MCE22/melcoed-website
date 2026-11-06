@@ -18,19 +18,19 @@ export const industries: Industry[] = [
   {
     name: 'OEM & Industrial',
     icon: 'gear',
-    summary: 'Precision stamped components built to print for manufacturers and contract assemblers.',
-    href: '/industrial-components/',
+    summary: 'Parts stamped to print for manufacturers and contract assemblers.',
+    href: '/metal-stamping/',
   },
   {
     name: 'Hardware',
     icon: 'hex',
-    summary: 'Stamped brackets, plates, clips and washers for hardware makers, built to print.',
+    summary: 'Stamped parts built to print for hardware makers.',
     href: '/metal-stamping/',
   },
   {
     name: 'Electrical',
     icon: 'bolt',
-    summary: 'Stamped contacts, clips, brackets and shims for electrical products, built to print.',
+    summary: 'Stamped parts built to print for electrical products.',
     href: '/metal-stamping/',
   },
   {

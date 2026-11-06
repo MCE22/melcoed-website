@@ -9,6 +9,7 @@ import PhotoSlot from './PhotoSlot.astro';
 import CatalogLinks from './CatalogLinks.astro';
 import ConfidentialBand from './ConfidentialBand.astro';
 import ResourceLinks from './ResourceLinks.astro';
+import GovBuyers from './GovBuyers.astro';
 import type { PhotoSlotName } from '../data/photos';
 import { site, quoteHref, productLinks, industryLinks, serviceLinks } from '../data/site';
 import { faqPageNode, productNode } from '../lib/schema';
@@ -124,6 +125,8 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
   </section>
 
   {p.confidential && <ConfidentialBand quote={quote} />}
+
+  {p.government && <GovBuyers quote={quote} />}
 
   <!-- Audience -->
   <section class="section section--navy" aria-labelledby="aud-h">

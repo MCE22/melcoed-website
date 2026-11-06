@@ -17,18 +17,40 @@ const milestones: { year: string; text?: string; todo?: string }[] = [
   { year: String(site.foundingYear), text: 'Mel-Co-Ed is founded in Pawtucket, Rhode Island.' },
   { year: '19__', todo: 'move to 381 Roosevelt Ave (year?)' },
   { year: '19__', todo: 'second generation takes over (year, name)' },
-  { year: '19__', todo: 'key expansion: new presses, milling division, major product line' },
-  { year: 'Today', text: 'Third generation of the family runs the company, with four divisions under one roof.' },
+  { year: '19__', todo: 'key expansion: new presses or a major product line' },
+  { year: 'Today', text: 'Third generation of the family runs the company.' },
+];
+
+// People: only what the owner confirmed. Add names and roles to the leadership TODO below.
+const people = [
+  {
+    name: 'Phil Sowa',
+    role: 'President · third generation',
+    body: 'Phil started at Mel-Co-Ed in 2005 in shipping and receiving, ran sales and customer service from 2008, became Vice President in 2015 and President in 2022. He knows the business from the shipping dock to the tool room.',
+  },
+  {
+    name: 'John Augustine',
+    role: 'With Mel-Co-Ed since 1977',
+    body: 'John knows tooling, sales and our customers inside and out. He is the person customers have counted on for decades.',
+  },
+  {
+    name: 'The tool room',
+    body: 'Toolmakers with 20 to 30+ years here, building and maintaining the dies your parts are struck from.',
+  },
+  {
+    name: 'The office',
+    body: 'Long-tenured staff who know your account and your history.',
+  },
 ];
 
 const principles = [
   {
     title: 'Tooling in-house',
-    body: 'We build our own dies, with support from our Precision Milling division. Changes, repairs and reorders happen on our floor, on our schedule.',
+    body: 'We build our own dies in our own tool room. Changes, repairs and reorders happen on our floor, on our schedule.',
   },
   {
     title: 'One supplier, one schedule',
-    body: 'Tooling, stamping and milling happen in one Pawtucket building, so there is one company accountable for your parts.',
+    body: 'Tooling, stamping, finishing and milling are managed through our Pawtucket shop, so there is one company accountable for your parts.',
   },
   {
     title: 'Family-owned, long-term',
@@ -47,7 +69,7 @@ const principles = [
     title="About Mel-Co-Ed"
     accent={`since ${site.foundingYear}`}
     ribbon="Family-owned · Third generation"
-    lead={`A family-owned precision metal stamping company in Pawtucket, Rhode Island, striking badges, medallions, emblems, findings and industrial parts since ${site.foundingYear}.`}
+    lead={`A family-owned metal stamping company in Pawtucket, Rhode Island, striking badges, medals, emblems and findings, and stamping parts to print, since ${site.foundingYear}.`}
     breadcrumbs={breadcrumbs}
     photo="about"
     photoTodo="About hero photo: the shop, the sign or the family at work"
@@ -70,11 +92,32 @@ const principles = [
           Founding story, 3&ndash;5 sentences: who founded Mel-Co-Ed, where the name comes from, what the company first
           made, and how it grew. Real names, dates and products are what make this page rank and get cited by AI search.
         </Todo>
-        <Todo block>Current leadership: names and roles of the family members running the company today.</Todo>
       </div>
       <div class="story-seal">
         <Seal />
       </div>
+    </div>
+  </section>
+
+  <!-- People -->
+  <section class="section" aria-labelledby="people-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="people-h">The people behind your parts</h2>
+        <p class="lead">Most of our people have been here for decades. When you call, you talk to someone who knows your part.</p>
+      </div>
+      <ul class="people">
+        {
+          people.map((p) => (
+            <li>
+              <h3>{p.name}</h3>
+              {p.role && <p class="people__role">{p.role}</p>}
+              <p>{p.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <Todo block>Current leadership: the remaining names and roles of the people running the company today.</Todo>
     </div>
   </section>
 
@@ -145,7 +188,7 @@ const principles = [
   <section class="section section--cream" aria-labelledby="div-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon">Four divisions</span>
+        <span class="ribbon">Our divisions</span>
         <h2 id="div-h">What we do today</h2>
       </div>
       <div class="grid grid--2">
@@ -254,5 +297,32 @@ const principles = [
   }
   .cta-row {
     margin-top: 2.5rem;
+  }
+  .people {
+    display: grid;
+    gap: 2rem 3rem;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 48rem) {
+    .people {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .people li {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .people h3 {
+    margin-bottom: 0.2rem;
+  }
+  .people__role {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brass-text);
   }
 </style>

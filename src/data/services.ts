@@ -39,10 +39,10 @@ export const services: Service[] = [
     photo: { slot: 'industries' },
   },
   {
-    label: 'CNC Milling',
+    label: 'Precision Milling',
     href: '/capabilities/#milling',
-    summary: 'CNC machining for die work and secondary operations.',
-    photo: { slot: 'cnc-milling' },
+    summary: 'Precision milling for dies, tooling and parts, managed through our shop so you deal with one supplier.',
+    photo: { slot: 'precision-milling' },
   },
   {
     label: 'Product Development',

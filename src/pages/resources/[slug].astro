@@ -5,6 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import MediaSlot from '../../components/MediaSlot.astro';
+import Todo from '../../components/Todo.astro';
 import { resources, resourceHref, dieOwnership, type Resource } from '../../data/resources';
 import { confidential } from '../../data/confidential';
 import { quoteHref, site } from '../../data/site';
@@ -55,7 +56,7 @@ const showDie = r.custom && r !== dieOwnership;
               r.specs.map((row) => (
                 <tr>
                   <th scope="row">{row.label}</th>
-                  <td>{row.value}</td>
+                  <td>{'value' in row ? row.value : <Todo>{row.todo}</Todo>}</td>
                 </tr>
               ))
             }

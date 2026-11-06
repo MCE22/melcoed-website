@@ -5,13 +5,13 @@
 
 import { site, fullAddress } from './site';
 import type { Faq } from '../lib/schema';
-import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo } from './facts';
+import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo, reproductions, shippingLine } from './facts';
 import { confidentialFaq } from './confidential';
 
 export const generalFaqs: Faq[] = [
   {
     q: 'What does Mel-Co-Ed, Inc. make?',
-    a: 'Mel-Co-Ed (MCE) is a precision metal stamping company with four divisions: Raw Stampings & Findings, Industrial Components, Finished Goods (die-struck badges, medallions, awards and fraternal emblems) and Precision Milling.',
+    a: 'Mel-Co-Ed (MCE) is a metal stamping and die striking company. We stamp parts to print for every industry, and run three divisions: Raw Stampings & Findings, Finished Goods (die-struck badges, medals, awards and fraternal emblems) and Precision Milling.',
   },
   {
     q: 'Where is Mel-Co-Ed located?',
@@ -43,6 +43,10 @@ export const generalFaqs: Faq[] = [
   },
   confidentialFaq,
   {
+    q: 'Can you match an existing piece?',
+    a: reproductions,
+  },
+  {
     q: 'What metals do you work with?',
     a: `${materials.join(', ')}. ${materialsNote}`,
   },
@@ -51,7 +55,7 @@ export const generalFaqs: Faq[] = [
 export const orderingFaqs: Faq[] = [
   {
     q: 'Do you build the tooling for my parts?',
-    a: 'Yes. Dies are designed and built in-house, supported by our Precision Milling division, so tooling, changes and repairs stay on our schedule.',
+    a: 'Yes. Dies are designed and built in our own tool room, so tooling, changes and repairs stay on our schedule.',
   },
   {
     q: 'Who owns the tooling I pay for?',
@@ -66,13 +70,7 @@ export const orderingFaqs: Faq[] = [
     a: whoWeSellTo,
   },
   {
-    q: 'What are your payment terms?',
-    a: 'Payment terms are confirmed on your quote.',
-    todo: true,
-  },
-  {
     q: 'How do you ship orders?',
-    a: 'Orders ship from Pawtucket, Rhode Island. Tell us your delivery requirements and we will confirm the shipping method in your quote.',
-    todo: true,
+    a: shippingLine,
   },
 ];

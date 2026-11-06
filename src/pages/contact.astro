@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Todo from '../components/Todo.astro';
+import { shipping } from '../data/facts';
 import { site, quoteHref, fullAddress, mapsUrl } from '../data/site';
 
 const path = '/contact/';
@@ -63,12 +64,12 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.nam
 
         <div class="card info">
           <h3>Hours</h3>
-          {site.openingHours ? <p>{site.openingHours}</p> : <Todo>office and shipping/receiving hours (also add to src/data/site.ts for schema)</Todo>}
+          <p>{site.hoursText.map((h, i) => <>{i > 0 && <br />}{h}</>)}</p>
         </div>
 
         <div class="card info">
-          <h3>Visiting &amp; deliveries</h3>
-          <Todo>parking, which door to use, receiving dock / delivery instructions, and whether visits need an appointment</Todo>
+          <h3>Shipping &amp; pickup</h3>
+          <p>{shipping.carriers}.<br />{shipping.local}.<br />{shipping.pickup}.</p>
         </div>
       </div>
 
