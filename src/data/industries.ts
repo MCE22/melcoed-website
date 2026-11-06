@@ -54,7 +54,7 @@ export const industries: Industry[] = [
   {
     name: 'Fraternal & Lodge',
     icon: 'columns',
-    summary: 'Masonic and fraternal emblems, lapel pins and insignia for lodges and regalia suppliers.',
+    summary: 'Fraternal emblems, lapel pins and jewels, made to your design.',
     href: '/industries/fraternal-lodge/',
     dedicated: true,
   },

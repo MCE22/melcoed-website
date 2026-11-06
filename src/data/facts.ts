@@ -73,7 +73,7 @@ export const pressesLine = `${presses.total} presses: automatic department ${pre
 export const stampingThickness = '.010″ to .250″';
 export const stampingThicknessLine = `Stamping stock ${stampingThickness} thick`;
 export const tolerance = '±.002″';
-export const toleranceLine = `${tolerance} typical`;
+export const toleranceLine = `${tolerance} standard; we also hold the tolerances on your print`;
 
 export const inHouse = ['Tool and die', 'Stamping', 'Die striking', 'Coining', 'Soldering and assembly', 'Engraving and numbering'];
 export const outsourced = ['Plating', 'Polishing', 'Enamel and epoxy fill'];

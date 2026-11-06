@@ -221,7 +221,6 @@ export const products: Record<string, Product> = {
     audience: [
       'Police, fire and military units',
       'Schools, colleges and alumni groups',
-      'Lodges and fraternal organizations',
       'Companies and award programs',
     ],
     specs: [
@@ -283,7 +282,7 @@ export const products: Record<string, Product> = {
     audience: [
       'HR and employee recognition programs',
       'Police, fire and public safety agencies',
-      'Associations and fraternal organizations',
+      'Associations and organizations',
       'Award and trophy suppliers',
     ],
     specs: [
@@ -410,6 +409,6 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     title: 'Fraternal & Lodge Emblems',
     slot: 'industries-fraternal',
     href: '/industries/fraternal-lodge/',
-    body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, Grand Lodges and regalia suppliers.',
+    body: 'Fraternal emblems, lapel pins, jewels and medallions, made to your design.',
   },
 ];

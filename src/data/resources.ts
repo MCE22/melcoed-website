@@ -16,6 +16,7 @@ import {
   presses,
   stampingThickness,
   tolerance,
+  toleranceLine,
   outsourcedLine,
   pinPosts,
   madeHere,
@@ -65,7 +66,7 @@ const R = {
   presses: { label: 'Presses', value: pressesLine },
   automatic: { label: 'Automatic department', value: `Presses from ${presses.automatic}` },
   thickness: { label: 'Stock thickness', value: `${stampingThickness} thick` },
-  tolerance: { label: 'Typical tolerance', value: tolerance },
+  tolerance: { label: 'Tolerance', value: toleranceLine },
   metals: { label: 'Metals', value: materialsLine },
   dieStrike: { label: 'Die striking', value: 'Up to 3.5″ diameter and .250″ thick' },
   struck: { label: 'Size', value: 'Struck up to 3.5″ in diameter' },
@@ -116,7 +117,7 @@ export const resources: Resource[] = [
     h1: 'Custom metal stamping company in New England',
     metaTitle: 'Custom Metal Stamping Company in New England | Pawtucket, RI',
     metaDescription:
-      'Mel-Co-Ed is a custom metal stamping company in Pawtucket, Rhode Island, since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ typical tolerance.',
+      'Mel-Co-Ed is a custom metal stamping company in Pawtucket, Rhode Island, since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ standard tolerance.',
     answer:
       'Mel-Co-Ed, Inc. is a custom metal stamping company in Pawtucket, Rhode Island, stamping parts for manufacturers since 1948. We build the die in our own tool room and run progressive, transfer and automatic stamping, coining and die striking under one roof.',
     body: [
@@ -201,7 +202,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'How thick can the strip be?',
-        a: `We stamp stock from ${stampingThickness} thick and typically hold ${tolerance}.`,
+        a: `We stamp stock from ${stampingThickness} thick. Our standard tolerance is ${tolerance}, and we also hold the tolerances on your print.`,
       },
     ],
     links: [
@@ -1190,26 +1191,26 @@ export const resources: Resource[] = [
     h1: 'Fraternal and lodge emblems, pins and jewels',
     metaTitle: 'Fraternal & Lodge Emblems, Pins and Past Master Jewels | Made in USA',
     metaDescription:
-      'Lodge emblems, lapel pins, Past Master and officer jewels die struck in Pawtucket, RI since 1948. The lodge owns its die; we store it free for every reorder.',
+      'Lapel pins, emblems, Past Master and officer jewels and anniversary medallions, die struck in Pawtucket, RI since 1948. You own your die; we store it free.',
     answer:
-      'Mel-Co-Ed strikes lodge emblems, lapel pins and Past Master and officer jewels in Pawtucket, Rhode Island, where we have die struck metal since 1948. Every piece comes from steel dies built in our own tool room.',
+      'Mel-Co-Ed can strike lodge emblems, lapel pins and Past Master and officer jewels in Pawtucket, Rhode Island, where we have die struck metal since 1948. Every piece comes from steel dies built in our own tool room.',
     body: [
-      'Fraternal pieces are worn for decades and handed down, so detail matters: the square and compasses, the lodge number, the founding date. Die striking keeps that detail sharp at lapel size.',
-      `The lodge owns the die it pays for, and we store it free, indefinitely, so pins for new members and jewels for new officers start from the same tool. ${pinPosts}`,
+      'Fraternal pieces are worn for decades and handed down, so detail matters: the emblem, the number, the founding date. Die striking keeps that detail sharp at lapel size.',
+      `You own the die you pay for, and we store it free, indefinitely, so every reorder starts from the same tool. ${pinPosts}`,
     ],
     list: {
-      heading: 'What lodges order',
-      items: ['Past Master jewels', 'Officer jewels', 'Lapel pins with lodge name and number', 'Emblems for regalia', 'Anniversary medallions'],
+      heading: 'What we can make',
+      items: ['Past Master jewels', 'Officer jewels', 'Lapel pins with a name and number', 'Emblems for regalia', 'Anniversary medallions'],
     },
     specs: [R.dieStrike, R.metals, R.noMinimum, R.enamel, R.pinPosts, R.attachments, R.finishing, R.minimum, R.die, R.leadTime],
     steps: strikeSteps(
-      'Your lodge seal, an old pin or a sketch is prepared for the dies, with lodge name, number and dates.',
-      'Pieces are enamel-filled and plated by outside finishers, fitted, and shipped to the lodge or your supplier.',
+      'Your seal, an old pin or a sketch is prepared for the dies, with the name, number and dates you want.',
+      'Pieces are enamel-filled and plated by outside finishers, fitted, and shipped to you or your supplier.',
     ),
     faqs: [
-      { q: 'Do you make Past Master jewels?', a: 'Yes. We strike Past Master and officer jewels for lodges.' },
+      { q: 'Can you make Past Master and officer jewels?', a: 'Yes. We can strike Past Master and officer jewels to your design.' },
       {
-        q: 'Can pins for new members match the ones we ordered years ago?',
+        q: 'Will reorders match the originals?',
         a: `Yes, if we struck the originals. ${tooling.storage}`,
       },
       { q: 'Can jewels be made in sterling or gold?', a: `Yes. ${ordering.noMinimum}` },
