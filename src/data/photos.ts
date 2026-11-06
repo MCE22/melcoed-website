@@ -47,6 +47,12 @@ import toolRoomBandsaw from '../assets/photos/tool-room-bandsaw.jpg';
 import inspectionStation from '../assets/photos/inspection-station.jpg';
 import packingOrders from '../assets/photos/packing-orders.jpg';
 import teamShowroom from '../assets/photos/team-showroom.jpg';
+import calipersPart from '../assets/photos/calipers-part.jpg';
+import benchDieCalipers from '../assets/photos/bench-die-calipers.jpg';
+import showroomBoards from '../assets/photos/showroom-boards.jpg';
+import showroomRoom from '../assets/photos/showroom-room.jpg';
+import showroomTable from '../assets/photos/showroom-table.jpg';
+import officeReception from '../assets/photos/office-reception.jpg';
 import showroomWall from '../assets/photos/showroom-wall.jpg';
 import showroomStands from '../assets/photos/showroom-display-stands.jpg';
 import findingsFloral from '../assets/photos/findings-floral-stampings.jpg';
@@ -96,15 +102,19 @@ export const newShoot = [
 export type ShootKey = (typeof newShoot)[number]['key'];
 
 export const shoot: Record<ShootKey, Photo[]> = {
-  calipers: [],
-  dieAndPart: [],
+  calipers: [{ src: calipersPart, alt: 'Mitutoyo dial caliper beside a stamped brass bezel finding on a maple workbench' }],
+  dieAndPart: [{ src: benchDieCalipers, alt: 'Bench tooling and a dial caliper on a workbench in the Mel-Co-Ed tool room' }],
   struckRelief: [],
   finishedTray: [],
   rawStock: [],
   velvet: [],
   milledSurface: [],
-  showroom: [],
-  office: [],
+  showroom: [
+    { src: showroomRoom, alt: 'The Mel-Co-Ed showroom in Pawtucket: Open Line sample boards around a marble meeting table' },
+    { src: showroomBoards, alt: 'Swinging panels of Open Line findings and stampings on navy and plum velvet' },
+    { src: showroomTable, alt: 'Meeting table in the Mel-Co-Ed showroom surrounded by finding sample boards' },
+  ],
+  office: [{ src: officeReception, alt: 'The Mel-Co-Ed front office at 381 Roosevelt Avenue, Pawtucket' }],
 };
 
 /** The shoot photos for `key`, or its spacer while none exist. */
@@ -229,7 +239,7 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   'precision-milling': shot('milledSurface'),
   packaging: [shop.packing],
   // Shows when filled
-  products: [...shoot.finishedTray],
+  products: shoot.finishedTray.length ? [...shoot.finishedTray] : [shoot.showroom[1]],
   quality: [...shoot.calipers, shop.inspection],
   materials: [...shoot.rawStock, shop.coilsPallet],
   'die-striking-shoot': [...shoot.struckRelief],
