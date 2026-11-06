@@ -3,14 +3,14 @@
 // black bands, gold accents, condensed headlines. Print layout only: no site header/footer.
 // The PDF in public/downloads/ is exported from this page: `npm run sell-sheet`.
 // Rules: never say "finished in-house" (plating, polishing and enamel are done by outside
-// finishers), no castings, no customer pieces in photos, sales@ only.
+// finishers), no castings, no customer pieces in photos, no factory-floor photos, sales@ only.
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/inter/wght.css';
 import { Image } from 'astro:assets';
 import { site, fullAddress, quoteHref } from '../data/site';
 import qrSvg from '../assets/brand/qr-request-a-quote.svg?raw';
 import brassBlanks from '../assets/photos/brass-blanks.jpg';
-import dieBlock from '../assets/photos/die-block-closeup.jpg';
+import findingsFloral from '../assets/photos/findings-floral-stampings.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
 import tieBars from '../assets/photos/tie-bars.jpg';
 import cuffsTextured from '../assets/photos/cuffs-textured.jpg';
@@ -20,7 +20,7 @@ import cuffsEmbossed from '../assets/photos/cuffs-embossed.jpg';
 import pins from '../assets/sell-sheet/pins-skull-anchor.jpg';
 import tray from '../assets/sell-sheet/cufflink-tray.jpg';
 import banner from '../assets/sell-sheet/banner-assortment.jpg';
-import showroom from '../assets/sell-sheet/openline-room.jpg';
+import showroom from '../assets/photos/showroom-wall.jpg';
 
 const grid = [
   { src: patternStock, alt: 'Embossed brass pattern stock and banding' },
@@ -72,7 +72,7 @@ const web = site.url.replace('https://www.', '');
       <div class="body">
         <h2 class="eyebrow">Custom &amp; Confined — what we do best</h2>
         <div class="custom">
-          <Image src={dieBlock} alt="A die block on the bench in our tool room" width={700} />
+          <Image src={findingsFloral} alt="Die-struck floral findings in gold" width={700} />
           <div class="custom__text">
             <h3>Your design. Your die. Run only for you.</h3>
             <p>Send a sketch, drawing or sample. We engineer it, prototype it, cut the die in our own tool room and strike it here in Pawtucket.</p>
@@ -372,7 +372,10 @@ const web = site.url.replace('https://www.', '');
     border: 2px solid var(--black);
   }
   .sellsheet .openline img  {
+    width: 100%;
     height: calc(0.9in - 4px);
+    object-fit: cover;
+    object-position: 50% 30%;
   }
   .sellsheet .openline h3  {
     font-size: 21pt;
