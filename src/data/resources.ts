@@ -42,7 +42,7 @@ export type Resource = {
   h1: string;
   metaTitle: string;
   metaDescription: string;
-  /** First two sentences: answer the question and name Mel-Co-Ed, Pawtucket, Rhode Island, since 1948. */
+  /** First two sentences: answer the question and name Mel-Co-Ed, Pawtucket, Rhode Island. Founded 1948 in Warwick, RI; in Pawtucket since 1964. */
   answer: string;
   body: string[];
   list: { heading: string; items: string[] };
@@ -76,8 +76,8 @@ const R = {
     label: 'Finishing',
     value: `${finishes.join(', ')}. Plating in ${plating.map((p) => p.toLowerCase()).join(', ')}. ${outsourcedLine}`,
   },
-  plating: { label: 'Plating', value: `${plating.join(', ')}, through outside finishers` },
-  enamel: { label: 'Enamel', value: 'Soft and hard enamel, applied by outside finishers' },
+  plating: { label: 'Plating', value: `${plating.join(', ')}, through our finishing partners` },
+  enamel: { label: 'Enamel', value: 'Soft and hard enamel, applied by our finishing partners' },
   engraving: { label: 'Engraving & numbering', value: 'Done in-house' },
   assembly: { label: 'Soldering & assembly', value: 'Done in-house' },
   pinPosts: { label: 'Pin posts', value: pinPosts },
@@ -89,7 +89,7 @@ const R = {
   openLine: { label: 'Open Line', value: '30,000+ stock findings, stampings and pattern stock. No tooling cost.' },
   exclusive: { label: 'Confined & Custom', value: 'Your design on your own exclusive die, run only for you' },
   madeHere: { label: 'Made in', value: madeHere },
-  origin: { label: 'Made in', value: 'Pawtucket, Rhode Island, USA, since 1948' },
+  origin: { label: 'Made in', value: 'Pawtucket, Rhode Island, USA. Made in Rhode Island since 1948' },
   sellTo: { label: 'Who we sell to', value: whoWeSellTo },
   gold: { label: 'Gold', value: goldLine },
   pricing: { label: 'Pricing', value: ordering.pricing },
@@ -116,9 +116,9 @@ export const resources: Resource[] = [
     h1: 'Custom metal stamping company in New England',
     metaTitle: 'Custom Metal Stamping Company in New England | Pawtucket, RI',
     metaDescription:
-      'Mel-Co-Ed is a custom metal stamping company in Pawtucket, Rhode Island, since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ typical tolerance.',
+      'Mel-Co-Ed is a custom metal stamping company in Rhode Island since 1948: 20+ presses from 5 to 250 tons, dies built in-house, ±.002″ typical tolerance.',
     answer:
-      'Mel-Co-Ed, Inc. is a custom metal stamping company in Pawtucket, Rhode Island, stamping parts for manufacturers since 1948. We build the die in our own tool room and run progressive, transfer and automatic stamping, coining and die striking under one roof.',
+      'Mel-Co-Ed, Inc. is a custom metal stamping company in Pawtucket, Rhode Island, stamping parts for manufacturers in Rhode Island since 1948. We build the die in our own tool room and run progressive, transfer and automatic stamping, coining and die striking under one roof.',
     body: [
       'Pawtucket is where American manufacturing started, a few minutes from Providence and about an hour from Boston. We are a third-generation, family-owned shop with 20+ presses, from 5 tons in our secondary department to 250 tons in our automatic department.',
       'Every die is built in-house, so engineering changes and reorders never wait on an outside tool shop. The die you pay for is yours, and we store it free for as long as you need it.',
@@ -143,7 +143,7 @@ export const resources: Resource[] = [
     faqs: [
       {
         q: 'Where is Mel-Co-Ed’s stamping shop?',
-        a: 'At 381 Roosevelt Ave, Pawtucket, Rhode Island 02860, where the company has stamped metal since 1948.',
+        a: 'At 381 Roosevelt Ave, Pawtucket, Rhode Island 02860, our home since 1964. The company was founded in Warwick, Rhode Island in 1948.',
       },
       {
         q: 'Does your lead time include building the die?',
@@ -167,9 +167,9 @@ export const resources: Resource[] = [
     h1: 'Progressive die stamping for small and mid-volume runs',
     metaTitle: 'Progressive Die Stamping for Small & Mid-Volume Runs | Mel-Co-Ed',
     metaDescription:
-      'Progressive die stamping in Pawtucket, RI since 1948. Dies built in-house, automatic presses from 25 to 250 tons, 3-gross minimum, tooling billed separately or in the piece price.',
+      'Progressive die stamping in Rhode Island since 1948. Dies built in-house, automatic presses from 25 to 250 tons, 3-gross minimum, tooling billed separately or in the piece price.',
     answer:
-      'Mel-Co-Ed runs progressive die stamping for small and mid-volume programs from our shop in Pawtucket, Rhode Island, where we have stamped parts since 1948. Our minimum is 3 gross (432 pieces) per item, and the progressive die is built in our own tool room.',
+      'Mel-Co-Ed runs progressive die stamping for small and mid-volume programs from our shop in Pawtucket, Rhode Island, and has stamped parts since 1948. Our minimum is 3 gross (432 pieces) per item, and the progressive die is built in our own tool room.',
     body: [
       'In a progressive die, strip steps through a row of stations. Each press stroke pierces, blanks or forms one stage, and a finished part leaves the end of the die. Every part comes off the same tool, so parts stay consistent run after run.',
       'Progressive tooling costs more up front than a simple blanking die, so it pays off as quantities grow. When a program is still small, low-cost short-run tooling is available instead.',
@@ -217,9 +217,9 @@ export const resources: Resource[] = [
     h1: 'Short-run metal stamping and prototypes',
     metaTitle: 'Short-Run Metal Stamping & Prototypes | Mel-Co-Ed, Pawtucket RI',
     metaDescription:
-      'Prototype and short-run metal stamping in Pawtucket, RI since 1948. Low-cost short-run tooling, runs below 432 pieces at a higher price, no minimum on sterling or gold.',
+      'Prototype and short-run metal stamping in Rhode Island since 1948. Low-cost short-run tooling, runs below 432 pieces at a higher price, no minimum on sterling or gold.',
     answer:
-      'Mel-Co-Ed makes prototypes and short runs of stamped parts in Pawtucket, Rhode Island, as we have stamped metal since 1948. Low-cost short-run tooling is available, and runs smaller than our 3-gross (432-piece) minimum are available at a higher price.',
+      'Mel-Co-Ed makes prototypes and short runs of stamped parts in Pawtucket, Rhode Island, and has stamped metal since 1948. Low-cost short-run tooling is available, and runs smaller than our 3-gross (432-piece) minimum are available at a higher price.',
     body: [
       'A prototype run lets you check fit and function before committing to production tooling. Short-run tooling keeps the up-front cost down, which suits pilot builds and products still finding their market.',
       'When the part is proven, the same print can move to production tooling. Either way, the die you pay for is yours, and we store it free.',
@@ -268,9 +268,9 @@ export const resources: Resource[] = [
     h1: 'Brass, copper and nickel silver stamping, made in the USA',
     metaTitle: 'Brass, Copper & Nickel Silver Stamping Made in the USA | Mel-Co-Ed',
     metaDescription:
-      'Brass (230/260), copper and nickel silver stampings and die-struck parts from Pawtucket, RI since 1948. Stock .010″–.250″, die striking to 3.5″, dies built in-house.',
+      'Brass (230/260), copper and nickel silver stampings and die-struck parts from Rhode Island since 1948. Stock .010″–.250″, die striking to 3.5″, dies built in-house.',
     answer:
-      'Mel-Co-Ed has stamped and die struck brass, copper and nickel silver in Pawtucket, Rhode Island since 1948. We run brass 230 and 260 alongside copper and nickel silver, with every die built in our own tool room.',
+      'Mel-Co-Ed has stamped and die struck brass, copper and nickel silver in Rhode Island since 1948. We run brass 230 and 260 alongside copper and nickel silver, with every die built in our own tool room.',
     body: [
       'Brass strikes crisply, holds fine detail and takes plating well. Brass 230, red brass, has the warmer color; 260, cartridge brass, is the more formable of the two. Copper brings warmth and conductivity.',
       'Nickel silver contains no silver: it is copper, nickel and zinc, with a pale color that suits pieces meant to look like silver. All three can be stamped from .010″ to .250″ stock or die struck for relief up to 3.5″ across.',
@@ -299,7 +299,7 @@ export const resources: Resource[] = [
       { title: 'Pick the alloy', body: 'Match brass, copper or nickel silver to the color, strength and finish you need.' },
       { title: 'Build the die', body: 'Designed and built in our own tool room, for stamping or die striking.' },
       { title: 'Stamp or strike', body: 'Flat and formed parts are stamped; relief pieces are struck.' },
-      { title: 'Finish or ship raw', body: 'Plating, polishing and enamel go to outside finishers, or parts ship raw to yours.' },
+      { title: 'Finish or ship raw', body: 'Plating, polishing and enamel go to our finishing partners, or parts ship raw to yours.' },
     ],
     faqs: [
       {
@@ -331,7 +331,7 @@ export const resources: Resource[] = [
     metaDescription:
       'At Mel-Co-Ed in Pawtucket, RI, you own the die you pay for. We store it free, indefinitely, use it only for your orders, and you can take it anywhere.',
     answer:
-      'You do. At Mel-Co-Ed in Pawtucket, Rhode Island, where we have built dies since 1948, the customer owns the die they pay for, we store it free indefinitely, and you can take it anywhere.',
+      'You do. At Mel-Co-Ed in Pawtucket, Rhode Island, building dies since 1948, the customer owns the die they pay for, we store it free indefinitely, and you can take it anywhere.',
     body: [
       'A custom die is a precision tool cut for one part, and it is often the largest up-front cost of a stamping program. So who owns it matters: tooling held by a supplier can tie your part to that shop.',
       'Our policy is simple. You pay for the die, it is yours. While it is here it is stored free with no time limit, maintained in our tool room and run only for your orders. If you move the work, the die goes with you.',
@@ -382,9 +382,9 @@ export const resources: Resource[] = [
     h1: 'How much does a custom stamping die cost?',
     metaTitle: 'How Much Does a Custom Stamping Die Cost? Cost Drivers Explained',
     metaDescription:
-      'What drives the cost of a custom stamping die: size, operations, material, tolerances and volume. Mel-Co-Ed, Pawtucket RI since 1948, quotes every die to your print.',
+      'What drives the cost of a custom stamping die: size, operations, material, tolerances and volume. Mel-Co-Ed, building dies in Rhode Island since 1948, quotes every die to your print.',
     answer:
-      'It depends on the part, so Mel-Co-Ed quotes every die to your print rather than from a price list. We have built dies in Pawtucket, Rhode Island since 1948, and the cost comes down to the part’s size, operations, material, tolerances and the volume you need.',
+      'It depends on the part, so Mel-Co-Ed quotes every die to your print rather than from a price list. We have built dies in Rhode Island since 1948, and the cost comes down to the part’s size, operations, material, tolerances and the volume you need.',
     body: [
       'A die is a one-off precision tool, so two parts that look alike can carry very different tooling costs. The biggest factors are how many operations the part needs and how tightly it is held.',
       'You have options that change the up-front number: low-cost short-run tooling, tooling built into the piece price, or a stock part from our Open Line with no tooling cost at all.',
@@ -437,7 +437,7 @@ export const resources: Resource[] = [
     metaDescription:
       'Move existing stamping dies to Mel-Co-Ed in Pawtucket, RI. We run your dies on 20+ presses from 5 to 250 tons, store them free, and use them only for your orders.',
     answer:
-      'Mel-Co-Ed takes on second-source and transferred stamping work in Pawtucket, Rhode Island, where we have stamped parts since 1948. Have dies or metal already? We will run yours, on 20+ presses from 5 to 250 tons.',
+      'Mel-Co-Ed takes on second-source and transferred stamping work in Pawtucket, Rhode Island, and has stamped parts since 1948. Have dies or metal already? We will run yours, on 20+ presses from 5 to 250 tons.',
     body: [
       'Buyers add a second source when one supplier becomes a risk: capacity, lead times, quality or a shop closing. Moving existing tooling is often the fastest route, because the die already makes a proven part.',
       'Once your die is here it is stored free, indefinitely, and run only for your orders. You still own it, so it can move again if you need it to.',
@@ -487,9 +487,9 @@ export const resources: Resource[] = [
     h1: 'What is die striking? Die struck vs. cast vs. stamped',
     metaTitle: 'What Is Die Striking? Die Struck vs Cast vs Stamped Explained',
     metaDescription:
-      'Die striking presses a blank between engraved steel dies for sharp relief. How it compares with casting and stamping, from Mel-Co-Ed, die striking in Pawtucket, RI since 1948.',
+      'Die striking presses a blank between engraved steel dies for sharp relief. How it compares with casting and stamping, from Mel-Co-Ed, die striking in Rhode Island since 1948.',
     answer:
-      'Die striking presses a metal blank between two engraved steel dies under heavy pressure, forcing the metal into every detail of the design. Mel-Co-Ed has die struck badges, medallions, emblems and findings in Pawtucket, Rhode Island since 1948, up to 3.5″ across and .250″ thick.',
+      'Die striking presses a metal blank between two engraved steel dies under heavy pressure, forcing the metal into every detail of the design. Mel-Co-Ed has die struck badges, medallions, emblems and findings in Rhode Island since 1948, up to 3.5″ across and .250″ thick.',
     body: [
       'Die striking is a form of coining: the metal flows to fill the dies, so lettering is sharp, relief is crisp and the piece is dense and heavy. Stamping, more broadly, cuts and bends sheet metal into shape by blanking, piercing and forming.',
       'Casting pours molten metal into a mold. It handles deep undercuts and fully three-dimensional shapes, but detail is usually softer and the metal less dense than a struck piece. Mel-Co-Ed strikes and stamps; we don’t offer casting.',
@@ -506,7 +506,7 @@ export const resources: Resource[] = [
     specs: [R.dieStrike, R.presses, R.metals, R.finishing, R.minimum, R.leadTime, R.origin],
     steps: strikeSteps(
       'Your logo, seal or design is prepared for the dies, front and back.',
-      'Pieces are trimmed, then plated, polished or enamel-filled by outside finishers, or shipped raw.',
+      'Pieces are trimmed, then plated, polished or enamel-filled by our finishing partners, or shipped raw.',
     ),
     faqs: [
       {
@@ -536,12 +536,12 @@ export const resources: Resource[] = [
     h1: 'Custom coining and coins struck in the USA',
     metaTitle: 'Custom Coins Struck in the USA | Coining by Mel-Co-Ed, Pawtucket RI',
     metaDescription:
-      'Custom coins struck in Pawtucket, Rhode Island since 1948: up to 3.5″ diameter, dies built in-house, numbering in-house, soft or hard enamel, no minimum on sterling or gold.',
+      'Custom coins struck in Rhode Island since 1948: up to 3.5″ diameter, dies built in-house, numbering in-house, soft or hard enamel, no minimum on sterling or gold.',
     answer:
-      'Mel-Co-Ed has coined and struck metal in Pawtucket, Rhode Island since 1948, and strikes custom coins today from dies built in our own tool room. Coins are struck up to 3.5″ in diameter, in brass, copper, nickel silver, sterling, fine silver, gold and more.',
+      'Mel-Co-Ed has coined and struck metal in Rhode Island since 1948, and strikes custom coins today from dies built in our own tool room. Coins are struck up to 3.5″ in diameter, in brass, copper, nickel silver, sterling, fine silver, gold and more.',
     body: [
       'Coining squeezes a blank between two dies so hard that the metal flows into every line of both faces. The result is crisp relief, sharp lettering and the solid, heavy feel people expect from a coin.',
-      'Numbering and engraving are done in-house, so limited editions can carry a number on every coin. Color comes from soft or hard enamel, applied by outside finishers.',
+      'Numbering and engraving are done in-house, so limited editions can carry a number on every coin. Color comes from soft or hard enamel, applied by our finishing partners.',
     ],
     list: {
       heading: 'What customers strike as coins',
@@ -555,7 +555,7 @@ export const resources: Resource[] = [
     specs: [R.struck, R.metals, R.enamel, R.plating, R.engraving, R.edges, R.minimum, R.leadTime],
     steps: strikeSteps(
       'Front and back artwork is prepared for the dies.',
-      'Coins are numbered in-house if needed, then plated, polished or enamel-filled by outside finishers and shipped.',
+      'Coins are numbered in-house if needed, then plated, polished or enamel-filled by our finishing partners and shipped.',
     ),
     faqs: [
       { q: 'How big can a custom coin be?', a: 'Up to 3.5″ in diameter.' },
@@ -579,9 +579,9 @@ export const resources: Resource[] = [
     h1: 'Custom die struck medallions and award medallions',
     metaTitle: 'Custom Die Struck Medallions & Award Medallions | Made in USA',
     metaDescription:
-      'Custom die struck medallions, award medallions and recognition pins from Pawtucket, RI since 1948. Struck up to 3.5″, dies built in-house and stored free for every reorder.',
+      'Custom die struck medallions, award medallions and recognition pins from Rhode Island since 1948. Struck up to 3.5″, dies built in-house and stored free for every reorder.',
     answer:
-      'Mel-Co-Ed strikes custom medallions and award medallions in Pawtucket, Rhode Island, where we have die struck metal since 1948. Medallions are struck up to 3.5″ across from dies built in our own tool room, in any metal on our list or yours.',
+      'Mel-Co-Ed strikes custom medallions and award medallions in Pawtucket, Rhode Island, and has die struck metal since 1948. Medallions are struck up to 3.5″ across from dies built in our own tool room, in any metal on our list or yours.',
     body: [
       'A struck medallion gets its relief from steel dies, not a mold, so lettering and portraits stay sharp and the piece has real weight in the hand. That makes it the standard for awards meant to be kept.',
       'For recognition programs, the same die strikes every piece in the series. You own the die and we store it free, so next year’s medallions match this year’s.',
@@ -598,7 +598,7 @@ export const resources: Resource[] = [
     specs: [R.struck, R.metals, R.finishing, R.enamel, R.engraving, R.edges, R.minimum, R.leadTime, R.die],
     steps: strikeSteps(
       'Obverse and reverse artwork is prepared for the dies.',
-      'Medallions are engraved or numbered in-house if needed, finished by outside finishers, and shipped.',
+      'Medallions are engraved or numbered in-house if needed, finished by our finishing partners, and shipped.',
     ),
     faqs: [
       {
@@ -629,12 +629,12 @@ export const resources: Resource[] = [
     h1: 'Challenge coins made in the USA',
     metaTitle: 'Challenge Coins Made in the USA | Struck in Rhode Island',
     metaDescription:
-      'Challenge coins struck in Pawtucket, Rhode Island since 1948. Up to 3.5″, soft or hard enamel, in-house numbering, dies built in-house and stored free.',
+      'Challenge coins struck in Rhode Island since 1948. Up to 3.5″, soft or hard enamel, in-house numbering, dies built in-house and stored free.',
     answer:
-      'Mel-Co-Ed strikes challenge coins in Pawtucket, Rhode Island, from dies built in our own tool room; we have struck metal here since 1948. Every coin is made in the USA, up to 3.5″ across, with soft or hard enamel, numbering and edge finishes available.',
+      'Mel-Co-Ed strikes challenge coins in Pawtucket, Rhode Island, from dies built in our own tool room; we have struck metal in Rhode Island since 1948. Every coin is made in the USA, up to 3.5″ across, with soft or hard enamel, numbering and edge finishes available.',
     body: [
       'If “made in USA” matters to your unit, department or organization, ask any supplier where the coins are actually struck. Ours are struck in Rhode Island, from a die you own.',
-      'Soft enamel sits slightly below the raised metal lines; hard enamel is filled and polished level for a smooth face. Both are applied by outside finishers. Numbering is done in-house.',
+      'Soft enamel sits slightly below the raised metal lines; hard enamel is filled and polished level for a smooth face. Both are applied by our finishing partners. Numbering is done in-house.',
     ],
     list: {
       heading: 'Who orders challenge coins',
@@ -643,7 +643,7 @@ export const resources: Resource[] = [
     specs: [R.struck, R.enamel, R.engraving, R.edges, R.metals, R.minimum, R.leadTime, R.origin],
     steps: strikeSteps(
       'Front and back artwork is prepared, with your enamel colors marked.',
-      'Coins are numbered in-house if needed, enamel-filled and plated by outside finishers, and shipped.',
+      'Coins are numbered in-house if needed, enamel-filled and plated by our finishing partners, and shipped.',
     ),
     faqs: [
       {
@@ -668,9 +668,9 @@ export const resources: Resource[] = [
     h1: 'America 250th commemorative coins & medallions (anniversaries through 2033)',
     metaTitle: 'America 250th Commemorative Coins & Medallions, Struck in the USA',
     metaDescription:
-      'Custom coins and medallions for America’s 250th anniversaries through 2033, die struck in Pawtucket, RI since 1948. Up to 3.5″, numbering in-house, 3–8 week lead time.',
+      'Custom coins and medallions for America’s 250th anniversaries through 2033, die struck in Rhode Island since 1948. Up to 3.5″, numbering in-house, 3–8 week lead time.',
     answer:
-      'Mel-Co-Ed strikes custom coins and medallions in Pawtucket, Rhode Island, where we have die struck metal since 1948, and can strike them for 250th anniversary programs from now through 2033. Coins and medallions are struck up to 3.5″ across from dies built in our own tool room.',
+      'Mel-Co-Ed strikes custom coins and medallions in Pawtucket, Rhode Island. We have die struck metal since 1948 and can strike them for 250th anniversary programs from now through 2033. Coins and medallions are struck up to 3.5″ across from dies built in our own tool room.',
     body: [
       `America’s 250th isn’t one date. The anniversaries of the Revolution run through the Treaty of Paris in 2033, and towns, historical societies, lodges and units mark their own along the way. Mel-Co-Ed is ${america250.charAt(0).toLowerCase()}${america250.slice(1)}`,
       `A struck medal with your town seal or your own design is a keepsake that lasts. Tell us the date you need them in hand: our ${ordering.leadTime} lead time includes building the die.`,
@@ -698,7 +698,7 @@ export const resources: Resource[] = [
     ],
     steps: strikeSteps(
       'Your seal, design or artwork is prepared for the dies, front and back.',
-      'Coins are numbered in-house if needed, finished by outside finishers, and shipped in time for your date.',
+      'Coins are numbered in-house if needed, finished by our finishing partners, and shipped in time for your date.',
     ),
     faqs: [
       {
@@ -723,12 +723,12 @@ export const resources: Resource[] = [
     h1: 'Custom die struck emblems and nameplates',
     metaTitle: 'Custom Die Struck Emblems & Nameplates | Mel-Co-Ed, Made in USA',
     metaDescription:
-      'Custom die struck emblems and nameplates from Pawtucket, RI since 1948. Struck up to 3.5″, numbering in-house, soft or hard enamel, dies built in-house.',
+      'Custom die struck emblems and nameplates from Rhode Island since 1948. Struck up to 3.5″, numbering in-house, soft or hard enamel, dies built in-house.',
     answer:
-      'Mel-Co-Ed makes custom die struck emblems and nameplates in Pawtucket, Rhode Island, where we have struck and stamped metal since 1948. Emblems are struck up to 3.5″ across, and nameplates can be stamped flat or struck with raised lettering and logos.',
+      'Mel-Co-Ed makes custom die struck emblems and nameplates in Pawtucket, Rhode Island, and has struck and stamped metal since 1948. Emblems are struck up to 3.5″ across, and nameplates can be stamped flat or struck with raised lettering and logos.',
     body: [
       'A die-struck emblem carries a logo in real relief, the kind you can feel. It is the classic choice for products, equipment and regalia where a printed label would wear off.',
-      'Engraving and numbering are done in-house, so nameplates can carry serial or model numbers. Plating, polishing and enamel fill are done by outside finishers.',
+      'Engraving and numbering are done in-house, so nameplates can carry serial or model numbers. Plating, polishing and enamel fill are done by our finishing partners.',
     ],
     list: {
       heading: 'Emblems and nameplates we make',
@@ -742,7 +742,7 @@ export const resources: Resource[] = [
     specs: [R.dieStrike, R.thickness, R.metals, R.finishing, R.enamel, R.engraving, R.minimum, R.leadTime],
     steps: strikeSteps(
       'Your logo or lettering is prepared for the dies.',
-      'Plates are numbered in-house if needed, finished by outside finishers, and shipped.',
+      'Plates are numbered in-house if needed, finished by our finishing partners, and shipped.',
     ),
     faqs: [
       { q: 'Can nameplates carry serial numbers?', a: 'Yes. Engraving and numbering are done in-house.' },
@@ -752,7 +752,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Can an emblem be made in our brand colors?',
-        a: 'Yes. Color is added with soft or hard enamel by outside finishers. Tell us your colors with the artwork.',
+        a: 'Yes. Color is added with soft or hard enamel by our finishing partners. Tell us your colors with the artwork.',
       },
     ],
     links: [
@@ -770,12 +770,12 @@ export const resources: Resource[] = [
     h1: 'Belt buckle manufacturer in the USA',
     metaTitle: 'Belt Buckle Manufacturer in the USA | Die Struck in Rhode Island',
     metaDescription:
-      'Custom belt buckles die struck and stamped in Pawtucket, RI since 1948. Dies built in-house, soldering and assembly in-house, numbering in-house, no minimum on sterling.',
+      'Custom belt buckles die struck and stamped in Rhode Island since 1948. Dies built in-house, soldering and assembly in-house, numbering in-house, no minimum on sterling.',
     answer:
-      'Mel-Co-Ed makes custom belt buckles in Pawtucket, Rhode Island, where we have stamped and die struck metal since 1948. Buckles are struck or stamped from dies built in our own tool room, with soldering and assembly done in-house.',
+      'Mel-Co-Ed makes custom belt buckles in Pawtucket, Rhode Island, and has stamped and die struck metal since 1948. Buckles are struck or stamped from dies built in our own tool room, with soldering and assembly done in-house.',
     body: [
       'A die-struck buckle face carries a logo or design in raised relief, the same way a coin or badge does. Soldering and assembly are done in-house, and numbering too, so a limited run can be numbered on the back.',
-      'Sterling silver carries no minimum order, and brass and nickel silver give a solid, classic buckle at a lower metal cost. Plating, polishing and enamel are done by outside finishers.',
+      'Sterling silver carries no minimum order, and brass and nickel silver give a solid, classic buckle at a lower metal cost. Plating, polishing and enamel are done by our finishing partners.',
     ],
     list: {
       heading: 'Buckles we make',
@@ -784,7 +784,7 @@ export const resources: Resource[] = [
     specs: [R.dieStrike, R.metals, R.assembly, R.engraving, R.finishing, R.minimum, R.leadTime, R.origin],
     steps: strikeSteps(
       'Your design is prepared for the dies.',
-      'Buckles are soldered and assembled in-house, finished by outside finishers, and shipped.',
+      'Buckles are soldered and assembled in-house, finished by our finishing partners, and shipped.',
     ),
     faqs: [
       { q: 'How large can a die-struck buckle face be?', a: 'Up to 3.5″ across and .250″ thick.' },
@@ -810,9 +810,9 @@ export const resources: Resource[] = [
     h1: 'Wholesale jewelry findings manufacturer in the USA (not an importer)',
     metaTitle: 'Wholesale Jewelry Findings Manufacturer in the USA, Not an Importer',
     metaDescription:
-      'Mel-Co-Ed manufactures jewelry findings in Pawtucket, RI since 1948. Every finding is made here, nothing imported. 30,000+ stock findings, no tooling cost.',
+      'Mel-Co-Ed manufactures jewelry findings in Rhode Island since 1948. Every finding is made here, nothing imported. 30,000+ stock findings, no tooling cost.',
     answer:
-      'Mel-Co-Ed manufactures jewelry findings in Pawtucket, Rhode Island, and has since 1948. Every finding we sell is made in Pawtucket; nothing is imported.',
+      'Mel-Co-Ed manufactures jewelry findings in Pawtucket, Rhode Island, and has made them in Rhode Island since 1948. Every finding we sell is made in Pawtucket; nothing is imported.',
     body: [
       'Plenty of wholesale findings are imported and resold. We strike and stamp ours from dies built in our own tool room, which means consistent parts, known metals and reorders from the same tool years later.',
       `Our Open Line has more than 30,000 stock findings, stampings and pattern stock, with no tooling cost. ${whoWeSellTo}`,
@@ -832,7 +832,7 @@ export const resources: Resource[] = [
       { title: 'Find the part', body: 'Pick a part number from our Findings & Stampings catalog, or send your own design.' },
       { title: 'Choose the metal', body: 'Any metal on our list, or send us yours.' },
       { title: 'Strike or stamp', body: 'Findings are struck and stamped in Pawtucket from our own dies.' },
-      { title: 'Ship raw or finished', body: 'Plating and polishing go to outside finishers, or parts ship raw.' },
+      { title: 'Ship raw or finished', body: 'Plating and polishing go to our finishing partners, or parts ship raw.' },
     ],
     faqs: [
       { q: 'Are your findings made in the USA or imported?', a: madeHere },
@@ -856,9 +856,9 @@ export const resources: Resource[] = [
     h1: 'Sterling silver findings manufacturer',
     metaTitle: 'Sterling Silver Findings Manufacturer | No Minimum | Made in USA',
     metaDescription:
-      'Sterling silver findings made in Pawtucket, RI since 1948, with no minimum order on sterling. Priced at order on current metal prices; send us your own silver.',
+      'Sterling silver findings made in Rhode Island since 1948, with no minimum order on sterling. Priced at order on current metal prices; send us your own silver.',
     answer:
-      'Mel-Co-Ed makes sterling silver findings in Pawtucket, Rhode Island, where we have made findings since 1948. There is no minimum order on sterling silver, and every finding is made here, not imported.',
+      'Mel-Co-Ed makes sterling silver findings in Pawtucket, Rhode Island, and has made findings since 1948. There is no minimum order on sterling silver, and every finding is made here, not imported.',
     body: [
       'Sterling, 92.5% silver, is the standard for fine silver jewelry. Because it moves with the metal market, sterling is priced at the time of order, based on current metal prices.',
       "We also work in fine silver, and you can supply your own metal: have metal already? We'll run yours. Your design can go on its own exclusive die, run only for you.",
@@ -880,7 +880,7 @@ export const resources: Resource[] = [
       { title: 'Design or part number', body: 'Send your design, or pick a finding from our catalog.' },
       { title: 'Metal', body: 'Sterling or fine silver, priced at order, or silver you supply.' },
       { title: 'Strike or stamp', body: 'Struck and stamped in Pawtucket from dies built in-house.' },
-      { title: 'Finish & ship', body: 'Polishing and plating go to outside finishers, or parts ship raw.' },
+      { title: 'Finish & ship', body: 'Polishing and plating go to our finishing partners, or parts ship raw.' },
     ],
     faqs: [
       { q: 'Is there a minimum order for sterling silver findings?', a: `No. ${ordering.noMinimum}` },
@@ -906,12 +906,12 @@ export const resources: Resource[] = [
     h1: 'Gold-filled and karat gold findings',
     metaTitle: 'Gold-Filled & Solid 10K, 14K, 18K Gold Findings | Made in USA',
     metaDescription:
-      'Gold-filled, solid 10K/14K/18K and karat-plated findings made in Pawtucket, RI since 1948. No minimum on gold; customer-supplied gold welcome.',
+      'Gold-filled, solid 10K/14K/18K and karat-plated findings made in Rhode Island since 1948. No minimum on gold; customer-supplied gold welcome.',
     answer:
-      'Mel-Co-Ed makes gold-filled and solid gold findings in Pawtucket, Rhode Island, where we have made findings since 1948. We work in gold filled, solid 10K, 14K and 18K gold, karat gold plating and customer-supplied gold, with no minimum order on gold.',
+      'Mel-Co-Ed makes gold-filled and solid gold findings in Pawtucket, Rhode Island, and has made findings since 1948. We work in gold filled, solid 10K, 14K and 18K gold, karat gold plating and customer-supplied gold, with no minimum order on gold.',
     body: [
       'Gold filled carries a thick layer of karat gold bonded to a base metal, so it wears far longer than plating at a fraction of the cost of solid gold. Solid gold findings are karat gold all the way through.',
-      'Karat gold plating gives gold color over brass or another base metal, applied by outside finishers. Gold is priced at the time of order, and if you supply your own, we will strike it.',
+      'Karat gold plating gives gold color over brass or another base metal, applied by our finishing partners. Gold is priced at the time of order, and if you supply your own, we will strike it.',
     ],
     list: {
       heading: 'Gold findings we make',
@@ -927,7 +927,7 @@ export const resources: Resource[] = [
       { title: 'Choose the gold', body: 'Gold filled, 10K, 14K, 18K, karat plating, or gold you supply.' },
       { title: 'Build the die', body: 'Your design on its own die, built in our tool room, or a catalog finding.' },
       { title: 'Strike or stamp', body: 'Findings are struck and stamped in Pawtucket.' },
-      { title: 'Finish & ship', body: 'Plating and polishing go to outside finishers, then parts ship.' },
+      { title: 'Finish & ship', body: 'Plating and polishing go to our finishing partners, then parts ship.' },
     ],
     faqs: [
       {
@@ -948,9 +948,9 @@ export const resources: Resource[] = [
     h1: 'Custom findings for jewelry brands',
     metaTitle: 'Custom Jewelry Findings for Brands | Your Own Exclusive Die',
     metaDescription:
-      'Custom findings for jewelry brands, made in Pawtucket, RI since 1948. Your design on your own exclusive die, run only for you. You own the die; we store it free.',
+      'Custom findings for jewelry brands, made in Rhode Island since 1948. Your design on your own exclusive die, run only for you. You own the die; we store it free.',
     answer:
-      'Mel-Co-Ed makes custom findings for jewelry brands in Pawtucket, Rhode Island, where we have made findings since 1948. Your design goes on your own exclusive die, run only for you, and you own the die.',
+      'Mel-Co-Ed makes custom findings for jewelry brands in Pawtucket, Rhode Island, and has made findings since 1948. Your design goes on your own exclusive die, run only for you, and you own the die.',
     body: [
       'A custom finding sets your line apart: a branded charm, a signature connector, a component no competitor can buy. We build the die in our own tool room from your sketch, drawing or sample.',
       'Confined designs never join our Open Line. Customer dies are used only for that customer’s orders, and we will sign an NDA on request.',
@@ -1000,9 +1000,9 @@ export const resources: Resource[] = [
     h1: 'Embossed pattern stock and banding for jewelry',
     metaTitle: 'Embossed Pattern Stock & Banding for Jewelry | Several Hundred Patterns',
     metaDescription:
-      'Embossed pattern stock and banding from Pawtucket, RI since 1948. Several hundred patterns, from floral and hammered to stone, on the Open Line with no tooling cost.',
+      'Embossed pattern stock and banding from Rhode Island since 1948. Several hundred patterns, from floral and hammered to stone, on the Open Line with no tooling cost.',
     answer:
-      'Mel-Co-Ed embosses pattern stock and banding for jewelry makers in Pawtucket, Rhode Island, where we have made findings since 1948. Several hundred patterns, from floral and hammered to stone, are on our Open Line with no tooling cost.',
+      'Mel-Co-Ed embosses pattern stock and banding for jewelry makers in Pawtucket, Rhode Island, and has made findings since 1948. Several hundred patterns, from floral and hammered to stone, are on our Open Line with no tooling cost.',
     body: [
       'Pattern stock is flat metal with a design pressed into its surface. Blank it, form it and finish it, and every piece carries the same texture without engraving each one. Banding is the same idea in a narrow strip.',
       `Bring your own flat stock and we will emboss it, or put a new pattern on your own exclusive die. ${bandingWidths}`,
@@ -1052,12 +1052,12 @@ export const resources: Resource[] = [
     h1: 'Cufflinks, tie bars and money clips manufacturer',
     metaTitle: 'Cufflinks, Tie Bars & Money Clips Manufacturer | Made in USA',
     metaDescription:
-      'Cufflinks, tie bars and money clips made in Pawtucket, RI since 1948. Open Line pieces with no tooling cost, or your design on your own die. Soldering and engraving in-house.',
+      'Cufflinks, tie bars and money clips made in Rhode Island since 1948. Open Line pieces with no tooling cost, or your design on your own die. Soldering and engraving in-house.',
     answer:
-      'Mel-Co-Ed makes cufflinks, tie bars and money clips in Pawtucket, Rhode Island, where we have stamped metal since 1948. Choose from our Open Line or put your design on its own exclusive die, with soldering, assembly and engraving done in-house.',
+      'Mel-Co-Ed makes cufflinks, tie bars and money clips in Pawtucket, Rhode Island, and has stamped metal since 1948. Choose from our Open Line or put your design on its own exclusive die, with soldering, assembly and engraving done in-house.',
     body: [
       'Men’s accessories are part of our Open Line: tie bars, tie tacks, cufflinks, collar clips and money clips, with no tooling cost. Custom pieces are struck from your own die.',
-      'Embossed pattern stock adds texture, and engraving is done in-house for initials, logos or numbers. Plating and polishing are done by outside finishers.',
+      'Embossed pattern stock adds texture, and engraving is done in-house for initials, logos or numbers. Plating and polishing are done by our finishing partners.',
     ],
     list: {
       heading: 'What customers order',
@@ -1068,7 +1068,7 @@ export const resources: Resource[] = [
       { title: 'Stock or custom', body: 'Pick an Open Line piece, or send your design.' },
       { title: 'Strike', body: 'Faces are struck or stamped from steel dies built in-house.' },
       { title: 'Assemble', body: 'Soldering, assembly and engraving are done in-house.' },
-      { title: 'Finish & ship', body: 'Plating and polishing by outside finishers, then shipped.' },
+      { title: 'Finish & ship', body: 'Plating and polishing by our finishing partners, then shipped.' },
     ],
     faqs: [
       {
@@ -1099,7 +1099,7 @@ export const resources: Resource[] = [
     metaTitle: 'Custom Police & Fire Badge Manufacturer | Die Struck in Rhode Island',
     metaDescription:
       'Mel-Co-Ed in Pawtucket, RI does secondary badge work and can take on full badge production: die struck up to 3.5″, soft or hard enamel, numbering in-house. Authorization verified.',
-    answer: `Mel-Co-Ed does secondary badge work in Pawtucket, Rhode Island, where we have die struck metal since 1948, and our presses and tool room can take on full badge production. ${badgeAuthorization}`,
+    answer: `Mel-Co-Ed does secondary badge work in Pawtucket, Rhode Island, and has die struck metal since 1948. Our presses and tool room can take on full badge production. ${badgeAuthorization}`,
     body: [
       'Die striking is how quality badges are made: a blank is struck between engraved steel dies, so the lettering, seal and border come out sharp and the badge stands up to daily wear.',
       `Our shop already handles secondary badge work, and the same equipment, ${presses.total} presses, an in-house tool room and die striking up to 3.5″, can produce complete badges. Numbering is done in-house. ${pinPosts}`,
@@ -1111,7 +1111,7 @@ export const resources: Resource[] = [
     specs: [R.auth, R.dieStrike, R.presses, R.enamel, R.engraving, R.pinPosts, R.attachments, R.metals, R.minimum, R.leadTime],
     steps: strikeSteps(
       'Your badge design is prepared for the dies, with the issuing agency’s authorization verified for law-enforcement badges.',
-      'Badges are numbered in-house if needed, enamel-filled and plated by outside finishers, and shipped.',
+      'Badges are numbered in-house if needed, enamel-filled and plated by our finishing partners, and shipped.',
     ),
     faqs: [
       {
@@ -1120,7 +1120,7 @@ export const resources: Resource[] = [
       },
       { q: 'Are badge pin posts soldered on?', a: `No. ${pinPosts}` },
       { q: 'Can badges be numbered?', a: 'Yes. Engraving and numbering are done in-house.' },
-      { q: 'Do you offer hard enamel on badges?', a: 'Yes. We offer soft and hard enamel, applied by outside finishers.' },
+      { q: 'Do you offer hard enamel on badges?', a: 'Yes. We offer soft and hard enamel, applied by our finishing partners.' },
     ],
     links: [{ label: 'Badges', href: '/badges/' }],
     quoteType: 'badges',
@@ -1135,11 +1135,11 @@ export const resources: Resource[] = [
     h1: 'Custom die struck pilot wings & military insignia',
     metaTitle: 'Custom Die Struck Pilot Wings & Military Insignia | Made in USA',
     metaDescription:
-      'Custom die struck pilot wings, unit insignia and emblems from Pawtucket, RI since 1948. Struck up to 3.5″, pin posts fused never soldered, soft or hard enamel.',
-    answer: `Mel-Co-Ed die strikes custom pilot wings, unit insignia and emblems in Pawtucket, Rhode Island, where we have struck metal since 1948. Pieces are struck up to 3.5″ across from dies built in our own tool room. ${pinPosts}`,
+      'Custom die struck pilot wings, unit insignia and emblems from Rhode Island since 1948. Struck up to 3.5″, pin posts fused never soldered, soft or hard enamel.',
+    answer: `Mel-Co-Ed die strikes custom pilot wings, unit insignia and emblems in Pawtucket, Rhode Island, and has struck metal since 1948. Pieces are struck up to 3.5″ across from dies built in our own tool room. ${pinPosts}`,
     body: [
       'Wings and insignia are worn every day, so detail and durability matter: crisp feathering on a wing, sharp lettering, a pin that stays put. Die striking delivers all three.',
-      'Color comes from soft or hard enamel, and plating in gold, silver or imitation rhodium, both from outside finishers. Numbering is done in-house.',
+      'Color comes from soft or hard enamel, and plating in gold, silver or imitation rhodium, both from our finishing partners. Numbering is done in-house.',
     ],
     list: {
       heading: 'What we can strike',
@@ -1160,7 +1160,7 @@ export const resources: Resource[] = [
     ],
     steps: strikeSteps(
       'Your wing, insignia or unit artwork is prepared for the dies.',
-      'Pieces are enamel-filled and plated by outside finishers, posts fused, numbered in-house if needed, and shipped.',
+      'Pieces are enamel-filled and plated by our finishing partners, posts fused, numbered in-house if needed, and shipped.',
     ),
     faqs: [
       {
@@ -1190,9 +1190,9 @@ export const resources: Resource[] = [
     h1: 'Fraternal and lodge emblems, pins and jewels',
     metaTitle: 'Fraternal & Lodge Emblems, Pins and Past Master Jewels | Made in USA',
     metaDescription:
-      'Lapel pins, emblems, Past Master and officer jewels and anniversary medallions, die struck in Pawtucket, RI since 1948. You own your die; we store it free.',
+      'Lapel pins, emblems, Past Master and officer jewels and anniversary medallions, die struck in Rhode Island since 1948. You own your die; we store it free.',
     answer:
-      'Mel-Co-Ed can strike lodge emblems, lapel pins and Past Master and officer jewels in Pawtucket, Rhode Island, where we have die struck metal since 1948. Every piece comes from steel dies built in our own tool room.',
+      'Mel-Co-Ed can strike lodge emblems, lapel pins and Past Master and officer jewels in Pawtucket, Rhode Island, and has die struck metal since 1948. Every piece comes from steel dies built in our own tool room.',
     body: [
       'Fraternal pieces are worn for decades and handed down, so detail matters: the emblem, the number, the founding date. Die striking keeps that detail sharp at lapel size.',
       `You own the die you pay for, and we store it free, indefinitely, so every reorder starts from the same tool. ${pinPosts}`,
@@ -1204,7 +1204,7 @@ export const resources: Resource[] = [
     specs: [R.dieStrike, R.metals, R.noMinimum, R.enamel, R.pinPosts, R.attachments, R.finishing, R.minimum, R.die, R.leadTime],
     steps: strikeSteps(
       'Your seal, an old pin or a sketch is prepared for the dies, with the name, number and dates you want.',
-      'Pieces are enamel-filled and plated by outside finishers, fitted, and shipped to you or your supplier.',
+      'Pieces are enamel-filled and plated by our finishing partners, fitted, and shipped to you or your supplier.',
     ),
     faqs: [
       { q: 'Can you make Past Master and officer jewels?', a: 'Yes. We can strike Past Master and officer jewels to your design.' },
@@ -1227,10 +1227,10 @@ export const resources: Resource[] = [
     h1: 'Corporate logo pins and emblems made in the USA',
     metaTitle: 'Corporate Logo Pins & Emblems Made in the USA | Die Struck',
     metaDescription:
-      'Corporate logo pins and emblems die struck in Pawtucket, RI since 1948. Soft or hard enamel, pin posts fused never soldered, dies you own and we store free.',
-    answer: `Mel-Co-Ed strikes corporate logo pins and emblems in Pawtucket, Rhode Island, where we have die struck metal since 1948. Every pin is made in the USA from a die built in our own tool room. ${pinPosts}`,
+      'Corporate logo pins and emblems die struck in Rhode Island since 1948. Soft or hard enamel, pin posts fused never soldered, dies you own and we store free.',
+    answer: `Mel-Co-Ed strikes corporate logo pins and emblems in Pawtucket, Rhode Island, and has die struck metal since 1948. Every pin is made in the USA from a die built in our own tool room. ${pinPosts}`,
     body: [
-      'A struck pin carries your logo in real metal relief, which reads as quality on a lapel. Color comes from soft or hard enamel, and plating in gold, karat gold, silver or imitation rhodium, both applied by outside finishers.',
+      'A struck pin carries your logo in real metal relief, which reads as quality on a lapel. Color comes from soft or hard enamel, and plating in gold, karat gold, silver or imitation rhodium, both applied by our finishing partners.',
       'For service and recognition programs, the same die strikes every year’s pins. You own it, and we store it free, so this year’s pin matches last year’s.',
     ],
     list: {
@@ -1240,13 +1240,13 @@ export const resources: Resource[] = [
     specs: [R.pinPosts, R.attachments, R.enamel, R.plating, R.metals, R.dieStrike, R.minimum, R.leadTime, R.origin, R.die],
     steps: strikeSteps(
       'Your logo is prepared for the dies, with brand colors marked.',
-      'Pins are enamel-filled and plated by outside finishers, posts fused, and shipped.',
+      'Pins are enamel-filled and plated by our finishing partners, posts fused, and shipped.',
     ),
     faqs: [
       { q: 'How are pin posts attached?', a: pinPosts },
       {
         q: 'Can you match our brand colors?',
-        a: 'Color is added with soft or hard enamel by outside finishers. Send your brand colors with the artwork.',
+        a: 'Color is added with soft or hard enamel by our finishing partners. Send your brand colors with the artwork.',
       },
       { q: 'Are your logo pins made overseas?', a: 'No. They are struck at our shop in Pawtucket, Rhode Island, USA.' },
     ],
@@ -1265,12 +1265,12 @@ export const resources: Resource[] = [
     h1: 'Religious medals and emblems manufacturer',
     metaTitle: 'Religious Medals & Emblems Manufacturer | Die Struck in USA',
     metaDescription:
-      'Religious medals and emblems die struck in Pawtucket, RI since 1948. Up to 3.5″, sterling and gold with no minimum, engraving in-house, dies built in-house.',
+      'Religious medals and emblems die struck in Rhode Island since 1948. Up to 3.5″, sterling and gold with no minimum, engraving in-house, dies built in-house.',
     answer:
-      'Mel-Co-Ed makes religious medals and emblems in Pawtucket, Rhode Island, where we have die struck metal since 1948. Medals are struck up to 3.5″ across from dies built in our own tool room, in sterling, gold, brass, nickel silver and more.',
+      'Mel-Co-Ed makes religious medals and emblems in Pawtucket, Rhode Island, and has die struck metal since 1948. Medals are struck up to 3.5″ across from dies built in our own tool room, in sterling, gold, brass, nickel silver and more.',
     body: [
       'Die striking gives a medal the fine detail it needs: faces, lettering and borders that stay crisp, on a piece dense enough to wear every day.',
-      `${ordering.noMinimum} Engraving and numbering are done in-house; plating, polishing and enamel fill are done by outside finishers.`,
+      `${ordering.noMinimum} Engraving and numbering are done in-house; plating, polishing and enamel fill are done by our finishing partners.`,
     ],
     list: {
       heading: 'What we strike',
@@ -1279,7 +1279,7 @@ export const resources: Resource[] = [
     specs: [R.struck, R.metals, R.noMinimum, R.gold, R.engraving, R.finishing, R.leadTime, R.die],
     steps: strikeSteps(
       'Your design or an existing medal is prepared for the dies.',
-      'Medals are engraved in-house if needed, finished by outside finishers, and shipped.',
+      'Medals are engraved in-house if needed, finished by our finishing partners, and shipped.',
     ),
     faqs: [
       { q: 'Can religious medals be made in sterling or gold?', a: `Yes, with no minimum order. ${ordering.pricing}` },

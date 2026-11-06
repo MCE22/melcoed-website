@@ -40,7 +40,7 @@ const { PDFDocument } = await import('pdf-lib');
 const pdf = await PDFDocument.load(raw);
 pdf.setTitle('Mel-Co-Ed at a Glance', { showInWindowTitleBar: true });
 pdf.setAuthor('Mel-Co-Ed, Inc.');
-pdf.setSubject('Custom die-struck emblems, jewelry findings and stampings. Pawtucket, Rhode Island, since 1948.');
+pdf.setSubject('Custom die-struck emblems, jewelry findings and stampings. Made in Rhode Island since 1948; Pawtucket, RI since 1964.');
 pdf.setKeywords(['Mel-Co-Ed', 'die striking', 'stamping', 'jewelry findings', 'pattern stock', 'Made in USA']);
 pdf.setCreator('melcoed.com');
 pdf.setProducer('melcoed.com');

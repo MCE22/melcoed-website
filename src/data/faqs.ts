@@ -15,7 +15,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: 'Where is Mel-Co-Ed located?',
-    a: `Our shop is at ${fullAddress}. We have operated in Pawtucket, Rhode Island, since ${site.foundingYear}.`,
+    a: `Our shop is at ${fullAddress}. We have operated in Rhode Island since ${site.foundingYear}.`,
   },
   {
     q: 'Is Mel-Co-Ed a family-owned company?',

@@ -78,7 +78,7 @@ export const toleranceLine = `${tolerance} typical`;
 export const inHouse = ['Tool and die', 'Stamping', 'Die striking', 'Coining', 'Soldering and assembly', 'Engraving and numbering'];
 export const outsourced = ['Plating', 'Polishing', 'Enamel and epoxy fill'];
 export const inHouseLine = `In-house: ${inHouse.join(', ').toLowerCase()}.`;
-export const outsourcedLine = 'Plating, polishing and enamel or epoxy fill are done by outside finishers.';
+export const outsourcedLine = 'Plating, polishing and enamel or epoxy fill are done by our finishing partners.';
 // Also offered (owner-confirmed): packaging and assembly, UPC and RFID tagging, and drop shipping.
 // Castings are NOT offered.
 export const packaging = {

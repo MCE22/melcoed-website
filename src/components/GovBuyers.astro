@@ -1,7 +1,8 @@
 ---
 // "Government buyers": NAICS codes and federal registrations, for procurement officers.
-// CAGE / UEI / SAM.gov show a TODO until they're filled in src/data/facts.ts.
+// CAGE / UEI / SAM.gov rows appear once filled in src/data/facts.ts (a TODO shows in dev only).
 import Todo from './Todo.astro';
+import { showTodos } from '../lib/todos';
 import { government as g } from '../data/facts';
 import { quoteHref } from '../data/site';
 
@@ -27,9 +28,9 @@ const { quote = quoteHref } = Astro.props;
           ))}
         </dd>
       </div>
-      <div><dt>CAGE code</dt><dd>{g.cage ?? <Todo>CAGE code</Todo>}</dd></div>
-      <div><dt>UEI</dt><dd>{g.uei ?? <Todo>Unique Entity ID (UEI)</Todo>}</dd></div>
-      <div><dt>SAM.gov</dt><dd>{g.sam ?? <Todo>SAM.gov registration status, e.g. "Active through MM/YYYY"</Todo>}</dd></div>
+      {(g.cage || showTodos) && <div><dt>CAGE code</dt><dd>{g.cage ?? <Todo>CAGE code</Todo>}</dd></div>}
+      {(g.uei || showTodos) && <div><dt>UEI</dt><dd>{g.uei ?? <Todo>Unique Entity ID (UEI)</Todo>}</dd></div>}
+      {(g.sam || showTodos) && <div><dt>SAM.gov</dt><dd>{g.sam ?? <Todo>SAM.gov registration status, e.g. "Active through MM/YYYY"</Todo>}</dd></div>}
     </dl>
   </div>
 </section>

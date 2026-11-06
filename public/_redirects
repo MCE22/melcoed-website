@@ -28,6 +28,8 @@
 # Old capability pages
 /capabilities/progressive-stampings/          /metal-stamping/                           301
 /capabilities/progressive-stampings           /metal-stamping/                           301
+/capabilities/progressive-stamping/           /metal-stamping/                           301
+/capabilities/progressive-stamping            /metal-stamping/                           301
 /capabilities/findings/                       /findings/                                 301
 /capabilities/findings                        /findings/                                 301
 /capabilities/embossed-pattern-stock/         /pattern-stock/                            301

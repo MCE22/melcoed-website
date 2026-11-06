@@ -8,6 +8,7 @@
 // - File uploads are a Web3Forms Pro feature; the field only renders when
 //   PUBLIC_WEB3FORMS_FILE_UPLOADS=true. Otherwise visitors are told to email drawings.
 import Todo from './Todo.astro';
+import { showTodos } from '../lib/todos';
 import { site } from '../data/site';
 
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? '';
@@ -32,12 +33,19 @@ const productTypes = [
 ---
 
 {
-  !accessKey && (
-    <Todo block>
-      Set <code>PUBLIC_WEB3FORMS_ACCESS_KEY</code> in Cloudflare Pages (Settings &rarr; Environment variables) and
-      redeploy. Until then this form cannot send.
-    </Todo>
-  )
+  !accessKey &&
+    (showTodos ? (
+      <Todo block>
+        Set <code>PUBLIC_WEB3FORMS_ACCESS_KEY</code> in Cloudflare Pages (Settings &rarr; Environment variables) and
+        redeploy. Until then this form cannot send.
+      </Todo>
+    ) : (
+      // Safety net if a build ever ships without the key: buyers get a way to reach us, never "TODO".
+      <p class="qf-offline" role="status">
+        Our online form is offline for a moment. Email <a href={`mailto:${site.email}`}>{site.email}</a> or call{' '}
+        <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a> and we'll reply within one business day.
+      </p>
+    ))
 }
 
 <form
