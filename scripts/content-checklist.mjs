@@ -5,7 +5,6 @@
 //   <Todo>...</Todo> in .astro files           → visible TODO boxes
 //   todo: '...' / typesTodo / photoTodo / ...  → TODO fields in data files
 //   FAQ objects with `todo: true`              → answers to confirm (kept out of schema)
-//   moqFaq('...')                              → minimum-order FAQ (always needs confirming)
 //   <PhotoSlot slot="..." todo="..." />        → photo slots, only while the slot is empty
 //   // TODO: comments in src/data, src/components, astro.config.mjs
 
@@ -112,7 +111,6 @@ for (const b of blocks) {
   const photo = b.match(/photoTodo: '([^']+)'/);
   if (photo && !filledSlots.has(slug)) add(page, 'photos', clean(photo[1]));
   for (const m of b.matchAll(/\{\s*q: (['"`])(.+?)\1,\s*a:[^}]*?todo: true/g)) add(page, 'faq', clean(m[2]));
-  for (const m of b.matchAll(/moqFaq\('([^']+)'\)/g)) add(page, 'faq', `What is the minimum order for ${m[1]}?`);
 }
 
 // --- sitewide FAQs (shown on Home + FAQ) ---
