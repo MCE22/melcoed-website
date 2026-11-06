@@ -249,7 +249,9 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   quality: [...shoot.calipers, shop.inspection],
   materials: [...shoot.rawStock, shop.coilsPallet],
   'die-striking-shoot': [...shoot.struckRelief],
-  'tooling-shoot': [...shoot.dieAndPart],
+  // Capabilities tool & die section: the #8 die close-up (owner pick). The bench photo stays on
+  // Product Development and Who Owns the Die.
+  'tooling-shoot': [shop.dieCloseup],
   'die-ownership': [...shoot.dieAndPart, shop.dieCloseup],
 };
 
