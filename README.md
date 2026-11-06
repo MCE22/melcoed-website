@@ -29,7 +29,7 @@ npm run todos     # list every placeholder that still needs real content
 
 `public/_headers` sets security headers and long-term caching for hashed assets.
 Canonical host is **https://www.melcoed.com**. The apex `melcoed.com` should 301 to www via a
-Cloudflare redirect rule. DNS and custom-domain setup are handled outside this repo.
+Cloudflare redirect rule. Step-by-step DNS and custom-domain setup (without breaking email): `docs/launch-checklist.md`.
 
 `npm run build` also runs `scripts/check-links.mjs`, which fails the build if any page links to an
 internal URL that doesn't exist.

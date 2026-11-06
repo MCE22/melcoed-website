@@ -59,9 +59,12 @@ list can break email.
    - `mail` A records and any SRV records
 
    An orange cloud on a mail record breaks email.
-4. **Delete** the old website records for `@` and `www` (the ones pointing at the WordPress host).
-   Step 4 replaces them. Leave every other record alone.
-5. Cloudflare then shows you **two nameservers** (like `xxx.ns.cloudflare.com`). Keep that page open.
+4. **Keep** the old website records for `@` and `www` (the ones pointing at the WordPress host,
+   `141.193.213.10`) for now, so the old site stays up while the nameserver change spreads. Step 4
+   replaces them. Leave every other record alone.
+5. Do **not** turn on Cloudflare **Email Routing**. It replaces your MX records and would stop
+   Microsoft 365 mail.
+6. Cloudflare then shows you **two nameservers** (like `xxx.ns.cloudflare.com`). Keep that page open.
 
 ## Step 3: Switch nameservers (Network Solutions)
 
@@ -82,6 +85,9 @@ list can break email.
 1. Cloudflare → **Workers & Pages → (this project) → Custom domains → Set up a custom domain**.
 2. Enter `www.melcoed.com` → Continue → **Activate domain**. Cloudflare creates the DNS record itself.
 3. Repeat for `melcoed.com`.
+   If Cloudflare says a DNS record already exists, go to **DNS → Records**, delete the old `www`
+   (or `@`) A record pointing at `141.193.213.10`, and click **Activate** again. The old site is offline
+   only for that minute.
 4. Wait until both show **Active** with a certificate. This takes a few minutes.
 
 ## Step 5: Forward melcoed.com to www.melcoed.com
@@ -154,3 +160,30 @@ few hours.
 - [ ] In Search Console, check **Pages** for errors and **Sitemaps** for "Success".
 - [ ] Email still fine → cancel the old WordPress hosting. **Keep the domain registration at
       Network Solutions** and keep auto-renew on.
+
+---
+
+## Appendix: what a public DNS lookup showed (6 Nov 2026)
+
+Use this to double-check your Network Solutions screenshots. Your screenshots are the real list:
+public lookups can't see every record.
+
+| Name | Type | Value | What it's for |
+| --- | --- | --- | --- |
+| melcoed.com | NS | `ns9.worldnic.com`, `ns10.worldnic.com` | Network Solutions DNS (your rollback) |
+| melcoed.com | MX | `0 melcoed-com.mail.protection.outlook.com` | Incoming email (Microsoft 365). **Copy exactly, grey cloud.** |
+| melcoed.com | TXT | `v=spf1 include:edgepilot.com include:spf.mailjet.com ~all` | SPF. **Copy exactly.** |
+| autodiscover.melcoed.com | CNAME | `autodiscover.outlook.com` | Outlook setup. **Grey cloud.** |
+| melcoed.com, www | A | `141.193.213.10` | Old WordPress site (WP Engine). Replaced in Step 4. |
+| mail, webmail, ftp | A | `141.193.213.10` | Old WP Engine host; Microsoft 365 email doesn't use them. Copy (grey), remove after WP Engine is cancelled. |
+| `*` (wildcard) | A | `141.193.213.10` | Every other subdomain goes to WP Engine. Copy (grey), remove after WP Engine is cancelled. |
+| _dmarc | TXT | none found | |
+| selector1/2._domainkey | CNAME | none found | |
+
+**Email health (separate from launch, do it after):** there is no DMARC record and no Microsoft 365
+DKIM, and the SPF record lists EdgePilot and Mailjet but not Microsoft 365
+(`include:spf.protection.outlook.com`). That SPF can be right if all outgoing mail passes through
+EdgePilot; ask whoever set it up. Without DKIM and DMARC, more quotes land in customers' spam
+folders. Don't change any of this during the launch. Afterwards: turn on DKIM in Microsoft 365
+(Defender → Email authentication → DKIM gives two CNAMEs to add, grey cloud), confirm SPF, then add
+a monitor-only DMARC record (`v=DMARC1; p=none; rua=mailto:...`).
