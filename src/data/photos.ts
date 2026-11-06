@@ -5,13 +5,14 @@
 //
 // Alt text: describe what is in the photo (part, finish, setting), not "image of".
 //
-// OWNER PHOTO RULES (final, Nov 2026)
+// OWNER PHOTO RULES (Nov 2026)
 //   Allowed: building exterior and sign; office; showroom; our own product (Open Line
 //   findings, pattern stock, stampings), NEVER customer work; labeled AI illustrations
-//   (badges, lodge, medallions); unlabeled AI material close-ups (coil, strip, die face,
-//   struck relief, blanks, milled surface) with no machines, no people, no logos.
-//   Not allowed: factory floor photos of any kind. No presses, no shop floor, no
-//   workers at machines.
+//   (badges, lodge, medallions); unlabeled AI material close-ups (no machines, people or
+//   logos); and the shop photos the owner approved one by one from the old-site pull
+//   (the `shop` set below). Lean toward people, craftsmanship and machine close-ups;
+//   a few big machines; no wide shop-floor views. Don't add other shop photos without
+//   the owner's OK.
 //
 // SHOT LIST: add photos to the matching `shoot` entry below. Until a shot exists, every
 // position that needs it shows a SPACER: a solid brand-tone panel with the small seal,
@@ -34,6 +35,17 @@ import finishedGoods from '../assets/photos/finished-goods-assortment.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
 import libertasObverse from '../assets/photos/libertas-americana-obverse.jpg';
 import buildingSign from '../assets/photos/building-sign.jpg';
+import craftsmanBench from '../assets/photos/craftsman-bench.jpg';
+import pressOperators from '../assets/photos/press-operators-pair.jpg';
+import brassCoilsShelf from '../assets/photos/brass-coils-shelf.jpg';
+import brassCoilsPallet from '../assets/photos/brass-coils-pallet.jpg';
+import pressDelivery from '../assets/photos/press-delivery.jpg';
+import diesRack from '../assets/photos/dies-rack.jpg';
+import dieCloseup from '../assets/photos/die-closeup.jpg';
+import toolRoomEdm from '../assets/photos/tool-room-edm.jpg';
+import toolRoomBandsaw from '../assets/photos/tool-room-bandsaw.jpg';
+import inspectionStation from '../assets/photos/inspection-station.jpg';
+import packingOrders from '../assets/photos/packing-orders.jpg';
 import teamShowroom from '../assets/photos/team-showroom.jpg';
 import showroomWall from '../assets/photos/showroom-wall.jpg';
 import showroomStands from '../assets/photos/showroom-display-stands.jpg';
@@ -68,19 +80,16 @@ export const isSpacer = (p: SlotItem | undefined): p is Spacer => !!p && 'spacer
 // mode, background blurred. Add results to `shoot.<key>`, e.g.
 //   import coil1 from '../assets/photos/brass-coil-edge.jpg';
 //   coil: [{ src: coil1, alt: 'Edge of a brass coil in warm light' }],
-// Retired (owner rules): PHOTO-01 toolmaker, PHOTO-02 press operator, PHOTO-04 team at sign.
+// Retired: PHOTO-01 toolmaker, PHOTO-02 press operator, PHOTO-04 team at sign (owner rules);
+// PHOTO-05 coil, 06 strip, 07 die face, 14 packaging (filled by owner-approved shop photos).
 export const newShoot = [
-  { key: 'calipers', id: 'PHOTO-03', shot: 'Phone: calipers on a part', pages: 'Capabilities gallery (spacer); Quality section when filled' },
-  { key: 'coil', id: 'PHOTO-05', shot: 'AI: brass coil, edge-on close-up', pages: 'Home Services and Metal Stamping hero (spacers)' },
-  { key: 'strip', id: 'PHOTO-06', shot: 'AI: stamped brass strip with blanked openings', pages: 'Metal Stamping gallery (spacer)' },
-  { key: 'dieFace', id: 'PHOTO-07', shot: 'AI: polished die face, macro', pages: 'Capabilities hero (spacer); Tooling section when filled' },
-  { key: 'dieAndPart', id: 'PHOTO-08', shot: 'Phone: die next to its struck part', pages: 'Product Development gallery (spacer); Tooling and Who Owns the Die when filled' },
+  { key: 'calipers', id: 'PHOTO-03', shot: 'Phone: calipers on a part', pages: 'leads the Capabilities quality section when filled' },
+  { key: 'dieAndPart', id: 'PHOTO-08', shot: 'Phone: die next to its struck part', pages: 'leads Product Development gallery, Tooling section and Who Owns the Die when filled' },
   { key: 'struckRelief', id: 'PHOTO-09', shot: 'AI: struck relief in raking light', pages: 'Product Development gallery (spacer); Die Striking section when filled' },
-  { key: 'finishedTray', id: 'PHOTO-10', shot: 'AI or phone: tray of Open Line findings', pages: 'Metal Stamping gallery (spacer); Products hub header when filled' },
-  { key: 'rawStock', id: 'PHOTO-11', shot: 'AI: raw brass and silver sheet stock', pages: 'Capabilities materials section when filled' },
+  { key: 'finishedTray', id: 'PHOTO-10', shot: 'AI or phone: tray of Open Line findings', pages: 'Products hub header when filled' },
+  { key: 'rawStock', id: 'PHOTO-11', shot: 'AI: raw brass and silver sheet stock', pages: 'leads the Capabilities materials section when filled' },
   { key: 'velvet', id: 'PHOTO-12', shot: 'AI: polished pieces on dark velvet', pages: 'leads the Findings and Medallions pages when filled' },
-  { key: 'milledSurface', id: 'PHOTO-13', shot: 'AI: milled steel surface, macro', pages: 'Capabilities gallery (spacer)' },
-  { key: 'packaging', id: 'PHOTO-14', shot: 'AI: bagged and boxed parts, close-up', pages: 'Packaging service tile (not placed on a page yet)' },
+  { key: 'milledSurface', id: 'PHOTO-13', shot: 'AI: milled steel surface, macro', pages: 'Precision Milling service tile (not placed on a page yet)' },
   { key: 'showroom', id: 'PHOTO-15', shot: 'Phone: showroom, fresh shot', pages: 'replaces the current showroom photos on About when filled' },
   { key: 'office', id: 'PHOTO-16', shot: 'Phone: office', pages: 'About page when filled (add to the about slot)' },
 ] as const;
@@ -88,16 +97,12 @@ export type ShootKey = (typeof newShoot)[number]['key'];
 
 export const shoot: Record<ShootKey, Photo[]> = {
   calipers: [],
-  coil: [],
-  strip: [],
-  dieFace: [],
   dieAndPart: [],
   struckRelief: [],
   finishedTray: [],
   rawStock: [],
   velvet: [],
   milledSurface: [],
-  packaging: [],
   showroom: [],
   office: [],
 };
@@ -112,6 +117,7 @@ const shot = (key: ShootKey): SlotItem[] => {
 export type PhotoSlotName =
   | 'home-hero'
   | 'home-heritage'
+  | 'home-services'
   | 'findings'
   | 'pattern-stock'
   | 'badges'
@@ -148,6 +154,21 @@ const close = {
   sign: { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
 } satisfies Record<string, Photo>;
 
+// Shop photos approved one by one by the owner (old-site pull, Nov 2026).
+const shop = {
+  craftsman: { src: craftsmanBench, alt: 'A longtime Mel-Co-Ed craftsman working on a part at his bench' },
+  pressOperators: { src: pressOperators, alt: 'Two operators running large flywheel stamping presses' },
+  coilsShelf: { src: brassCoilsShelf, alt: 'Coils of brass strip stock on a storage rack' },
+  coilsPallet: { src: brassCoilsPallet, alt: 'Shrink-wrapped coils of brass strip stacked on a pallet' },
+  pressDelivery: { src: pressDelivery, alt: 'A newly purchased stamping press arriving on a flatbed trailer' },
+  diesRack: { src: diesRack, alt: 'Steel die sets stored on a rack in the tool room' },
+  dieCloseup: { src: dieCloseup, alt: 'A small die set and a hand grinder on the tool room bench' },
+  edm: { src: toolRoomEdm, alt: 'An EDM machine in the Mel-Co-Ed tool room' },
+  bandsaw: { src: toolRoomBandsaw, alt: 'A DoAll band saw in the tool room' },
+  inspection: { src: inspectionStation, alt: 'The optical inspection station used to check parts against the print' },
+  packing: { src: packingOrders, alt: 'A team member packing finished orders into cartons' },
+} satisfies Record<string, Photo>;
+
 const showroom: Photo[] = shoot.showroom.length
   ? shoot.showroom
   : [
@@ -158,6 +179,7 @@ const showroom: Photo[] = shoot.showroom.length
 export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   'home-hero': [close.brassBlanks],
   'home-heritage': [close.sign],
+  'home-services': [shop.craftsman],
   findings: [
     ...shoot.velvet,
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
@@ -194,25 +216,25 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
   ],
   // Hero/tile = [0]; the gallery shows the next two.
-  'metal-stamping': [...shot('coil'), ...shot('strip'), ...shot('finishedTray')],
-  capabilities: [...shot('dieFace'), ...shot('calipers'), ...shot('milledSurface')],
+  'metal-stamping': [shop.pressOperators, shop.coilsShelf, shop.pressDelivery],
+  capabilities: [shop.diesRack, shop.edm, shop.bandsaw],
   // Development work is customer work, so none of it is shown.
-  'product-development': [close.cuffsEmbossed, ...shot('dieAndPart'), ...shot('struckRelief')],
+  'product-development': [close.cuffsEmbossed, ...(shoot.dieAndPart.length ? shoot.dieAndPart : [shop.dieCloseup]), ...shot('struckRelief')],
   industries: [close.finishedGoods],
   // About gallery: two pictures, the team and the showroom (an office shot can take the team's spot later).
   about: [close.sign, { src: teamShowroom, alt: 'Members of the Mel-Co-Ed team gathered around a table in the showroom' }, showroom[0], ...shoot.office],
   // Service tiles (not placed on a page today)
   'die-striking': shot('struckRelief'),
-  tooling: shot('dieFace'),
+  tooling: [shop.diesRack],
   'precision-milling': shot('milledSurface'),
-  packaging: shot('packaging'),
+  packaging: [shop.packing],
   // Shows when filled
   products: [...shoot.finishedTray],
-  quality: [...shoot.calipers],
-  materials: [...shoot.rawStock],
+  quality: [...shoot.calipers, shop.inspection],
+  materials: [...shoot.rawStock, shop.coilsPallet],
   'die-striking-shoot': [...shoot.struckRelief],
-  'tooling-shoot': [...shoot.dieFace, ...shoot.dieAndPart],
-  'die-ownership': [...shoot.dieAndPart],
+  'tooling-shoot': [...shoot.dieAndPart],
+  'die-ownership': [...shoot.dieAndPart, shop.dieCloseup],
 };
 
 /** True when a slot has something to show, photo or spacer (for positions that only show when filled). */

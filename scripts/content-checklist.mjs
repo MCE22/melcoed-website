@@ -54,7 +54,7 @@ const photosSrc = read('src/data/photos.ts');
 const emptyShoot = new Set([...photosSrc.matchAll(/^\s+([a-zA-Z]+): \[\],$/gm)].map((m) => m[1]));
 const filledSlots = new Set(
   [...photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[(.*?)\],?$/gms)]
-    .filter(([, , body]) => /\{\s*(?:illustration: true, )?src:|close\.|\.\.\.shoot\.(\w+)/.test(body) && (body.includes('{') || body.includes('close.') || [...body.matchAll(/\.\.\.shoot\.(\w+)/g)].some((m) => !emptyShoot.has(m[1]))))
+    .filter(([, , body]) => /\{\s*(?:illustration: true, )?src:|close\.|shop\.|\.\.\.shoot\.(\w+)/.test(body) && (body.includes('{') || body.includes('close.') || body.includes('shop.') || [...body.matchAll(/\.\.\.shoot\.(\w+)/g)].some((m) => !emptyShoot.has(m[1]))))
     .map((m) => m[1]),
 );
 // Slots that show a shoot spacer (shot('key')) count as filled; the shot itself is listed below.

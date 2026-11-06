@@ -99,7 +99,7 @@ const why = [
         {isLive('/capabilities/') && <a class="text-link" href="/capabilities/">All capabilities &rarr;</a>}
       </div>
       <div class="services-wrap">
-        <MediaSlot slot={homeServices[0].photo.slot} index={homeServices[0].photo.index} aspect="4 / 5" sizes="(min-width: 64rem) 40vw, 100vw" todo="Photo" class="services__photo" />
+        <MediaSlot slot="home-services" aspect="4 / 5" sizes="(min-width: 64rem) 40vw, 100vw" todo="Photo" class="services__photo" />
         <ul class="services">
           {
             homeServices.map((s) => (

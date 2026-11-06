@@ -1,7 +1,7 @@
 # Photo prompts and phone shoot list
 
 The site shows a seal panel ("spacer") wherever one of these shots is missing. Each spacer is
-tagged in the HTML with its ID, e.g. `data-shot="PHOTO-05"`. To place a finished image, save it
+tagged in the HTML with its ID, e.g. `data-shot="PHOTO-09"`. To place a finished image, save it
 to `src/assets/photos/` and add it to the matching `shoot.<key>` entry in `src/data/photos.ts`.
 The spacer is then replaced automatically.
 
@@ -10,7 +10,10 @@ The spacer is then replaced automatically.
 - **Allowed:** building exterior and sign; office; showroom; our own product (Open Line findings,
   pattern stock, stampings), **never customer work**; labeled AI illustrations (badges, lodge,
   medallions); unlabeled AI material close-ups.
-- **Not allowed:** factory floor photos of any kind. No presses, no shop floor, no workers at machines.
+- **Shop photos:** only the ones the owner approved one by one from the old-site pull. They're
+  listed in the `shop` set in `src/data/photos.ts`. Lean toward people, craftsmanship and
+  machine close-ups plus a few big machines; no wide shop-floor views. Get the owner's OK
+  before adding any other shop photo.
 - **AI images:** materials and metal only. No machines, no people or hands, no logos, no text, no
   recognizable products or designs.
 
@@ -29,23 +32,18 @@ no logos, no text, no watermark
 ```
 
 **Settings:**
-- **Midjourney:** add `--ar 4:3 --style raw --v 7`. Use `--ar 4:5` for PHOTO-05, which fills a
-  tall frame on Home.
-- **ChatGPT:** ask for a landscape 4:3 image (portrait 4:5 for PHOTO-05).
+- **Midjourney:** add `--ar 4:3 --style raw --v 7`.
+- **ChatGPT:** ask for a landscape 4:3 image.
 
 Save the output at least 1600px wide.
 
 | ID | Key | Where it shows | Subject line |
 |---|---|---|---|
-| PHOTO-05 | `coil` | Home Services photo, Metal Stamping hero | Edge-on view of a tightly wound coil of brass strip, the layered edges catching light like a fan of thin gold lines, slight oil sheen |
-| PHOTO-06 | `strip` | Metal Stamping gallery | A length of flat brass strip after stamping, a repeating row of clean blanked-out openings, a few small burrs and oil drops, lying diagonally across the frame |
-| PHOTO-07 | `dieFace` | Capabilities hero | Extreme close-up of a polished hardened-steel die face with a shallow engraved recess, mirror finish, fine lapping marks, the surrounding steel block slightly out of focus |
-| PHOTO-09 | `struckRelief` | Product Development gallery | Close-up of a freshly die-struck brass disc showing a simple abstract leaf-and-ring relief pattern, sharp raised edges, light skimming across the relief to show depth |
-| PHOTO-10 | `finishedTray` | Metal Stamping gallery | A shallow black tray filled with dozens of small identical stamped brass findings (plain jump rings, flat blanks and simple bails), neatly scattered, a few in sharp focus |
-| PHOTO-11 | `rawStock` | Capabilities materials (shows when filled) | Neat stack of thin raw sheet metal, brass on top, a silver sheet and a copper sheet below, offset so each edge is visible, clean sheared edges |
+| PHOTO-09 | `struckRelief` | Product Development gallery (**the only spacer left**) | Close-up of a freshly die-struck brass disc showing a simple abstract leaf-and-ring relief pattern, sharp raised edges, light skimming across the relief to show depth |
+| PHOTO-10 | `finishedTray` | Products hub header (shows when filled) | A shallow black tray filled with dozens of small identical stamped brass findings (plain jump rings, flat blanks and simple bails), neatly scattered, a few in sharp focus |
+| PHOTO-11 | `rawStock` | Leads the Capabilities materials section (optional) | Neat stack of thin raw sheet metal, brass on top, a silver sheet and a copper sheet below, offset so each edge is visible, clean sheared edges |
 | PHOTO-12 | `velvet` | Findings and Medallions (shows when filled) | A few small polished stamped pieces, plain round medallion blanks and simple charms, resting on dark navy velvet, soft highlights on the polished faces |
-| PHOTO-13 | `milledSurface` | Capabilities gallery | Macro of a precision-milled steel surface with crisp pocket edges and a fine swirl milling pattern, a small chamfer catching the light |
-| PHOTO-14 | `packaging` | Packaging tile (not on a page yet) | Small clear zip bags of stamped brass parts lined up in a plain kraft cardboard box, a blank white label on the box, close crop |
+| PHOTO-13 | `milledSurface` | Precision Milling tile (not on a page yet) | Macro of a precision-milled steel surface with crisp pocket edges and a fine swirl milling pattern, a small chamfer catching the light |
 
 **Before an AI image goes on the site, check that it has:**
 - No text or lettering, including fake text that AI sometimes draws on labels or medals.
@@ -65,14 +63,16 @@ No machines, shop floor or people at machines in frame. Landscape orientation un
 |---|---|---|
 | PHOTO-15 | **Showroom** | Sample-board wall and display stands. Avoid the window glare. Shoot a few angles. Replaces the current showroom photos on About. |
 | PHOTO-16 | **Office** | Desk or front office, tidy, no screens showing customer files. Goes on the About page. |
-| PHOTO-03 | **Calipers on a part** | Calipers measuring an Open Line stamping on a bench mat. Hands are fine, faces are not needed. Capabilities gallery. |
-| PHOTO-08 | **Die next to its struck part** | An Open Line die (not a customer's) on a cloth, its struck part beside it. Product Development gallery. |
-| PHOTO-10 | **Tray of Open Line findings** | Same idea as the AI prompt. If you shoot it, skip the AI version. Metal Stamping gallery. |
+| PHOTO-03 | **Calipers on a part** | Calipers measuring an Open Line stamping on a bench mat. Hands are fine, faces are not needed. Leads the Capabilities quality section. |
+| PHOTO-08 | **Die next to its struck part** | An Open Line die (not a customer's) on a cloth, its struck part beside it. Replaces the die close-up on Product Development and Who Owns the Die. |
+| PHOTO-10 | **Tray of Open Line findings** | Same idea as the AI prompt. If you shoot it, skip the AI version. Products hub header. |
 
 ## Retired shots
 
-These were dropped under the owner photo rules. Their spots now use material shots.
+These were dropped under the owner photo rules:
 
 - PHOTO-01: toolmaker at bench
 - PHOTO-02: operator at a press
 - PHOTO-04: team or owner at the building sign. The building photo itself is back on Home and About.
+- PHOTO-05 coil, PHOTO-06 strip, PHOTO-07 die face and PHOTO-14 packaging. Their spots are now
+  filled by owner-approved shop photos.
