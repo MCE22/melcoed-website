@@ -1,6 +1,6 @@
 ---
 import { reproductions } from '../../data/facts';
-import { sellSheet } from '../../data/downloads';
+import { atAGlance } from '../../data/downloads';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
@@ -75,13 +75,13 @@ const faqs: Faq[] = [
         </div>
 
         {
-          sellSheet && (
+          atAGlance && (
             <div class="aside-block">
-              <h2 class="aside-h">Sell sheet</h2>
+              <h2 class="aside-h">Mel-Co-Ed at a Glance</h2>
               <p>Shop, materials, finishes, minimums and lead times on two pages.</p>
               <p>
-                <a href={sellSheet.href} download>
-                  Sell Sheet (PDF) &middot; {sellSheet.sizeMb} MB
+                <a href={atAGlance.href} download>
+                  Mel-Co-Ed at a Glance (PDF) &middot; {atAGlance.sizeMb} MB
                 </a>
               </p>
             </div>

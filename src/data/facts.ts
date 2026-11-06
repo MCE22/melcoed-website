@@ -1,4 +1,4 @@
-// Confirmed business facts from the 2026 Mel-Co-Ed sell sheet. Pages read from here
+// Confirmed business facts from the 2026 Mel-Co-Ed at a Glance sheet. Pages read from here
 // so each fact is stated once and identically everywhere (copy, specs, FAQ schema).
 
 export const tagline = 'Coined. Die struck. Stamped. Since 1948.';
