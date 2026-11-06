@@ -28,11 +28,11 @@ const products = [
   },
   {
     title: 'Past Master & officer jewels',
-    body: 'Jewels for Past Masters and lodge officers, struck from steel dies and finished to your lodge’s standard.',
+    body: 'Past Master and officer jewels, struck from steel dies and finished to your standard.',
   },
   {
     title: 'Anniversary medallions',
-    body: "Two-sided medallions for a lodge's 100th, 150th or 200th, a Grand Lodge session or a cornerstone ceremony.",
+    body: 'Two-sided medallions for an organization’s anniversary or milestone.',
   },
   {
     title: 'Service & membership pins',
@@ -41,9 +41,10 @@ const products = [
 ];
 
 const audiences = [
-  'Fraternal orders, lodges and service organizations',
-  'Grand and governing bodies',
-  'Regalia suppliers and distributors',
+  'Lapel pins and emblems',
+  'Past Master and officer jewels',
+  'Anniversary medallions',
+  'Service and membership pins',
 ];
 
 const faqs: Faq[] = [
@@ -68,28 +69,28 @@ const faqs: Faq[] = [
     a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}.`,
   },
   {
-    q: 'Do you work with regalia companies and distributors?',
-    a: 'Yes. We supply stamped emblems, raw stampings and finished pieces to regalia suppliers and distributors, made to their designs and shipped to their schedule.',
+    q: 'Can you work with regalia companies and distributors?',
+    a: 'Yes. We can supply stamped emblems, raw stampings and finished pieces made to a supplier’s designs.',
   },
 ];
 ---
 
 <BaseLayout
   title="Masonic & Fraternal Lodge Emblems, Lapel Pins & Insignia"
-  description="Die-struck Masonic lapel pins, lodge emblems, insignia and anniversary medallions, made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs and reproductions."
+  description="Die-struck Masonic lapel pins, lodge emblems, jewels and anniversary medallions, made by Mel-Co-Ed in Pawtucket, RI since 1948. Custom designs and reproductions."
   pageType="CollectionPage"
   breadcrumbs={breadcrumbs}
   schema={[faqPageNode(path, faqs)]}
 >
   <PageHero
     title="Fraternal & Lodge Emblems"
-    accent="struck for the lodge"
+    accent="made to your design"
     ribbon="Masonic · Pins · Insignia"
-    lead="Lapel pins, emblems, insignia and anniversary medallions for Masonic lodges, Grand Lodges and fraternal organizations, die-struck in Pawtucket, Rhode Island."
+    lead="Lapel pins, emblems, jewels and anniversary medallions of the kind fraternal organizations use, die-struck in Pawtucket, Rhode Island."
     breadcrumbs={breadcrumbs}
   
     photo="industries-fraternal"
-    photoTodo="Hero photo: lodge pins or emblems on dark wood"
+    photoTodo="Hero photo: house-sample pins or emblems on dark wood"
   >
     <div class="btn-row hero-cta">
       <a class="btn btn--primary" href={quote}>Quote lodge emblems</a>
@@ -131,13 +132,12 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <span class="ribbon ribbon--cream">Who we work with</span>
-        <h2 id="specs-h">Lodges, Grand Lodges &amp; suppliers</h2>
+        <h2 id="specs-h">What we can make</h2>
         <ul class="audience">
           {audiences.map((a) => <li>{a}</li>)}
         </ul>
         <p class="note">
-          Some fraternal organizations license their emblems. For those, we strike with the organization's written
-          authorization or through a licensed supplier.
+          Some fraternal organizations license their emblems. If yours does, tell us when you request a quote.
         </p>
       </div>
       <dl class="specs">
@@ -157,28 +157,28 @@ const faqs: Faq[] = [
     <div class="wrap">
       <div class="section-head">
         <span class="ribbon ribbon--ink">Ordering</span>
-        <h2 id="order-h">From lodge seal to finished pin</h2>
+        <h2 id="order-h">From artwork to finished pin</h2>
       </div>
       <ol class="steps">
         <li class="step">
           <span class="step__n">01</span>
           <h3>Send your artwork</h3>
-          <p>Lodge seal, an old pin, a sketch or a scan from the minute book. Include lodge name, number and dates.</p>
+          <p>A seal, an old pin, a sketch or a scan. Include the name, number and dates you want on the piece.</p>
         </li>
         <li class="step">
           <span class="step__n">02</span>
           <h3>Approve the proof</h3>
-          <p>We prepare the design for striking and send it back for the Worshipful Master or committee to approve.</p>
+          <p>We prepare the design for striking and send it back for you to approve.</p>
         </li>
         <li class="step">
           <span class="step__n">03</span>
           <h3>Tooling &amp; strike</h3>
-          <p>Steel dies are cut and parts are struck. The die is the lodge's, stored free, so reorders for new members don't start over.</p>
+          <p>Steel dies are cut and parts are struck. You own the die and we store it free, so reorders don't start over.</p>
         </li>
         <li class="step">
           <span class="step__n">04</span>
           <h3>Finish &amp; ship</h3>
-          <p>Pieces are finished, fitted with their backs and shipped to the lodge or your supplier.</p>
+          <p>Pieces are finished, fitted with their backs and shipped to you or your supplier.</p>
         </li>
       </ol>
     </div>

@@ -1,8 +1,10 @@
 ---
-// Renders a page's photos from src/data/photos.ts, or a TODO box when the slot is empty.
+// Renders a page's photos from src/data/photos.ts (nothing when the slot is empty).
 // One photo: a single framed image. Two or more: a responsive gallery grid.
+// Spacers (shots not taken yet) render as a brand-tone panel with the seal, same size.
 import { Image } from 'astro:assets';
-import { photos, type PhotoSlotName } from '../data/photos';
+import Seal from './Seal.astro';
+import { photos, isSpacer, type PhotoSlotName } from '../data/photos';
 import { confidential } from '../data/confidential';
 
 interface Props {
@@ -21,7 +23,7 @@ const { slot, todo, eager = false, skip = 0, max = 2, class: className } = Astro
 const all = photos[slot] ?? [];
 const list = all.slice(skip, skip + max);
 const gallery = list.length > 1;
-const illustrated = list.some((p) => p.illustration);
+const illustrated = list.some((p) => !isSpacer(p) && p.illustration);
 const widths = [480, 800, 1200, 1600];
 const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
 ---
@@ -29,7 +31,11 @@ const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 7
 {
   list.length === 0 ? null : (
     <div class:list={['photo-slot', { 'photo-slot--gallery': gallery, 'photo-slot--odd': gallery && list.length % 2 === 1 }, className]}>
-      {list.map((p, i) => (
+      {list.map((p, i) => isSpacer(p) ? (
+        <figure class="photo-slot__frame photo-slot__spacer" data-shot={p.shot} data-shot-label={p.label} aria-hidden="true">
+          <Seal size={160} class="photo-slot__seal" />
+        </figure>
+      ) : (
         <figure class:list={['photo-slot__frame', { 'photo-slot__frame--illus': p.illustration }]}>
           {p.illustration && <span class="illus-tag">Illustration</span>}
           <Image
@@ -85,6 +91,23 @@ const sizes = gallery ? '(min-width: 40rem) 50vw, 100vw' : '(min-width: 72rem) 7
     display: block;
     width: 100%;
     height: auto;
+  }
+  /* Spacer: 4:3 like a gallery photo (16:9 when it runs full width), seal centered */
+  .photo-slot__spacer {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    background: #1f1b17;
+    border-color: rgb(205 178 122 / 0.35);
+  }
+  @media (min-width: 40rem) {
+    .photo-slot--odd > .photo-slot__spacer:first-child {
+      aspect-ratio: 16 / 9;
+    }
+  }
+  .photo-slot__spacer :global(picture.photo-slot__seal) {
+    width: clamp(4.5rem, 20%, 8rem);
+    opacity: 0.92;
   }
   .photo-slot__frame--illus {
     position: relative;

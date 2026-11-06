@@ -1,5 +1,5 @@
 ---
-// "Download Catalog (PDF)" links for every catalog present in public/catalogs/.
+// Named catalog download links ("Findings & Stampings Catalog (PDF)") for every catalog present in public/catalogs/.
 // Renders nothing (or a TODO, with `todo`) while the PDFs are missing.
 import Todo from './Todo.astro';
 import { catalogs, missingCatalogs } from '../data/catalogs';
@@ -22,7 +22,7 @@ const missing = only ? missingCatalogs.filter((c) => c.title.includes(only)) : m
       {list.map((c) => (
         <li>
           <a class={variant === 'buttons' ? 'btn btn--ghost' : undefined} href={c.href} download>
-            Download Catalog (PDF)<span class="catalogs__meta">{c.title} &middot; {c.sizeMb} MB</span>
+            {c.label}<span class="catalogs__meta">2026 edition &middot; {c.sizeMb} MB</span>
           </a>
         </li>
       ))}

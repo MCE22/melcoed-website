@@ -69,7 +69,6 @@ const why = [
       <MediaSlot
         slot="home-hero"
         aspect="5 / 4"
-        fade="left"
         eager
         sizes="(min-width: 64rem) 55vw, 100vw"
         todo="Hero photo: the press floor"
@@ -262,7 +261,7 @@ const why = [
       z-index: 1;
       padding-right: 2rem;
     }
-    /* photo bleeds to the right edge and fades into the cream on its left */
+    /* photo bleeds to the right edge, hard left edge */
     .hero :global(.hero__media) {
       margin-right: calc(var(--gutter) * -1 - 2.5rem);
     }

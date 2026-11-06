@@ -14,7 +14,14 @@ interface Props {
 const { hideCta = false } = Astro.props;
 const year = new Date().getFullYear();
 const products = liveLinks([{ label: 'All Products', href: '/products/' }, ...productLinks]);
-const industries = liveLinks([{ label: 'All Industries', href: '/industries/' }, ...industryLinks]);
+// Industries without their own page link to the page that serves that buyer.
+const industries = liveLinks([
+  { label: 'All Industries', href: '/industries/' },
+  { label: 'Government & Public Safety', href: '/badges/' },
+  { label: 'Jewelry & Fashion', href: '/findings/' },
+  { label: 'Awards & Recognition', href: '/awards/' },
+  ...industryLinks,
+]);
 const company = liveLinks([
   { label: 'Capabilities', href: '/capabilities/' },
   { label: 'About Us', href: '/about/' },
@@ -59,7 +66,12 @@ const servicesList = liveLinks(serviceLinks);
           {site.address.street}<br />
           {site.address.city}, {site.address.region} {site.address.postalCode}<br />
           <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a><br />
-          {site.hoursText.join(' · ')}
+          {site.hoursText.map((h, i) => (
+            <>
+              {i > 0 && <br />}
+              {h}
+            </>
+          ))}
           {site.email && (
             <>
               <br />

@@ -1,10 +1,10 @@
 ---
-// One photo from a slot in src/data/photos.ts, cropped to a fixed aspect ratio.
-// Built for dark, moody product shots: the frame is dark, and `fade` blends the
-// photo's edge into the page background. An empty slot shows a dark placeholder
-// with a small TODO tag, so layouts look right before photography exists.
+// One photo from a slot in src/data/photos.ts, cropped to a fixed aspect ratio, hard-edged.
+// A spacer (shot not taken yet) renders as a solid brand-tone panel with the small seal
+// centered and no text, tagged data-shot="PHOTO-xx" with its shot-list id.
 import { Image } from 'astro:assets';
-import { photos, type PhotoSlotName } from '../data/photos';
+import Seal from './Seal.astro';
+import { photos, isSpacer, type PhotoSlotName } from '../data/photos';
 import { confidential } from '../data/confidential';
 
 interface Props {
@@ -21,12 +21,21 @@ interface Props {
   class?: string;
   /** Skip the overlaid illustration label when the caller shows the label itself (small tiles). */
   labelOutside?: boolean;
+  /** Spacer panel colour: charcoal (default) or cream, for dark backgrounds. */
+  tone?: 'charcoal' | 'cream';
 }
-const { labelOutside = false, slot, index = 0, aspect, sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, fade = 'none', todo, class: className } = Astro.props;
-const photo = photos[slot]?.[index];
+const { labelOutside = false, slot, index = 0, aspect, sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, fade = 'none', tone = 'charcoal', todo, class: className } = Astro.props;
+const item = photos[slot]?.[index];
+const spacer = isSpacer(item) ? item : undefined;
+const photo = isSpacer(item) ? undefined : item;
 const widths = [480, 800, 1200, 1600, 2000];
 ---
 
+{spacer ? (
+<figure class:list={['media', 'spacer', `spacer--${tone}`, className]} style={aspect ? `aspect-ratio:${aspect}` : undefined} data-shot={spacer.shot} data-shot-label={spacer.label} aria-hidden="true">
+  <Seal size={160} class="spacer__seal" />
+</figure>
+) : (
 <figure class:list={['media', `media--fade-${fade}`, { 'media--empty': !photo }, className]} style={aspect ? `aspect-ratio:${aspect}` : undefined}>
   {
     photo ? (
@@ -50,6 +59,7 @@ const widths = [480, 800, 1200, 1600, 2000];
     )
   }
 </figure>
+)}
 
 <style>
   .media {
@@ -61,6 +71,28 @@ const widths = [480, 800, 1200, 1600, 2000];
   /* Empty slot: a clean dark frame until the photo arrives (listed in the content checklist) */
   .media--empty {
     background: linear-gradient(160deg, #1d1915 0%, #14110e 100%);
+  }
+  /* Spacer: same footprint as the photo, solid panel, small seal centered */
+  .spacer {
+    display: grid;
+    place-items: center;
+    min-height: 12rem;
+  }
+  .spacer--charcoal {
+    background: #1f1b17;
+    box-shadow: inset 0 0 0 1px rgb(205 178 122 / 0.28);
+  }
+  .spacer--cream {
+    background: var(--cream-200);
+    box-shadow: inset 0 0 0 1px rgb(168 132 70 / 0.45);
+  }
+  .spacer :global(picture.spacer__seal) {
+    width: clamp(4.5rem, 22%, 8.5rem);
+    opacity: 0.92;
+  }
+  .spacer :global(picture.spacer__seal img) {
+    height: auto !important;
+    object-fit: contain;
   }
   .media :global(img) {
     display: block;

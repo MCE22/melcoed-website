@@ -148,14 +148,11 @@ export const products: Record<string, Product> = {
     accent: 'police, fire, government',
     lead: 'Die-struck badges for police, fire, EMS, government and security, and secondary badge work for the companies that make them.',
     intro: [
-      'We handle secondary badge work today, and our presses, tool room and die striking can take on full badge production.',
+      'We strike badges from steel dies built in our own tool room, and our presses can take on full badge production from design to finished piece. We also reproduce old or retired badges from a sample.',
       'Die striking presses the design into solid metal under heavy pressure: crisp lettering and deep relief that hold up to years of daily wear.',
     ],
     typesHeading: 'Badges we strike',
-    types: [
-      { title: 'Badges', body: 'Die-struck badges, made to your design.' },
-      { title: 'Reproductions', body: 'Old or retired badges reproduced from a sample.' },
-    ],
+    types: [],
     audienceHeading: 'Who orders badges',
     audience: [
       'Police and sheriff departments',
@@ -221,7 +218,6 @@ export const products: Record<string, Product> = {
     audience: [
       'Police, fire and military units',
       'Schools, colleges and alumni groups',
-      'Lodges and fraternal organizations',
       'Companies and award programs',
     ],
     specs: [
@@ -283,7 +279,7 @@ export const products: Record<string, Product> = {
     audience: [
       'HR and employee recognition programs',
       'Police, fire and public safety agencies',
-      'Associations and fraternal organizations',
+      'Associations and organizations',
       'Award and trophy suppliers',
     ],
     specs: [
@@ -410,6 +406,6 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     title: 'Fraternal & Lodge Emblems',
     slot: 'industries-fraternal',
     href: '/industries/fraternal-lodge/',
-    body: 'Masonic and fraternal emblems, lapel pins, jewels and insignia for lodges, Grand Lodges and regalia suppliers.',
+    body: 'Fraternal emblems, lapel pins, jewels and medallions, made to your design.',
   },
 ];

@@ -52,7 +52,7 @@ export function organizationNode(): Node {
       'Jewelry findings',
       'Police badges',
       'Medallions',
-      'Fraternal and Masonic emblems',
+      'Fraternal emblems',
       'Custom metal stamping to print',
     ],
     contactPoint: {

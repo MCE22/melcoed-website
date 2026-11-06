@@ -57,9 +57,11 @@ const filledSlots = new Set(
     .filter(([, , body]) => /\{\s*(?:illustration: true, )?src:|close\.|\.\.\.shoot\.(\w+)/.test(body) && (body.includes('{') || body.includes('close.') || [...body.matchAll(/\.\.\.shoot\.(\w+)/g)].some((m) => !emptyShoot.has(m[1]))))
     .map((m) => m[1]),
 );
+// Slots that show a shoot spacer (shot('key')) count as filled; the shot itself is listed below.
+for (const m of photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*(?:\[.*?)?\.{0,3}shot\('/gm)) filledSlots.add(m[1]);
 // NEW SHOOT shot list: every shot still empty goes on the checklist.
-for (const m of photosSrc.matchAll(/\{ key: '(\w+)', shot: '([^']+)', pages: '([^']+)' \}/g))
-  if (emptyShoot.has(m[1])) add('Sitewide / business info', 'photos', `NEW SHOOT: ${m[2]} (for ${m[3]})`);
+for (const m of photosSrc.matchAll(/\{ key: '(\w+)', id: '([A-Z0-9-]+)', shot: '([^']+)', pages: '([^']+)' \}/g))
+  if (emptyShoot.has(m[1])) add('Sitewide / business info', 'photos', `NEW SHOOT ${m[2]}: ${m[3]} (${m[4]})`);
 // Slots filled with labeled illustrations still need real house-sample photos.
 const ILLUS_PAGES = { badges: 'Badges', 'industries-fraternal': 'Fraternal & Lodge' };
 for (const m of photosSrc.matchAll(/^\s*'?([a-z-]+)'?:\s*\[(.*?)\],?$/gms)) {
@@ -148,11 +150,8 @@ if (read('src/layouts/BaseLayout.astro').includes('PUBLIC_CF_ANALYTICS_TOKEN'))
 const allSlots = [...photosSrc.matchAll(/\| '([a-z-]+)'/g)].map((m) => m[1]);
 const pageSrc = walk(join(src, 'pages')).map((f) => readFileSync(f, 'utf8')).join('\n');
 const productSlugs = [...products.matchAll(/slug: '([a-z-]+)'/g)].map((m) => m[1]);
-// Service tiles with no fitting close-up yet; slots fed only by the NEW SHOOT list are covered above.
-const TILE_SLOTS = {
-  'precision-milling': 'Precision Milling service tile (Home): close-up of a milled die or tooling part',
-  packaging: 'Packaging & Drop Shipping tile: hands packing finished parts, or a packed order',
-};
+// Service tiles with no fitting photo or spacer yet (none today; PHOTO-13/14 cover milling and packaging).
+const TILE_SLOTS = {};
 const SHOOT_ONLY = ['products', 'quality', 'materials', 'die-striking-shoot', 'tooling-shoot', 'die-ownership'];
 for (const slot of allSlots) {
   if (filledSlots.has(slot) || SHOOT_ONLY.includes(slot)) continue;

@@ -22,20 +22,20 @@ FAQ answers marked here are shown on the site but kept out of Google's FAQ marku
 
 **Photos**
 
-- [ ] NEW SHOOT: Toolmaker at bench (for About, Tooling)
-- [ ] NEW SHOOT: Operator at a press, tight (for Metal Stamping)
-- [ ] NEW SHOOT: Hands checking a part with calipers (for Capabilities (quality))
-- [ ] NEW SHOOT: Team or owner at the building sign (for About)
-- [ ] NEW SHOOT: One large press, low angle (for Home, Metal Stamping)
-- [ ] NEW SHOOT: Coil feeding a press (for Metal Stamping)
-- [ ] NEW SHOOT: Die set in a press, close up (for Die Striking)
-- [ ] NEW SHOOT: Die next to its struck part (for Home, Tooling, Who Owns the Die)
-- [ ] NEW SHOOT: Fresh strike coming off the die (for Die Striking)
-- [ ] NEW SHOOT: Tray of finished parts (for Products)
-- [ ] NEW SHOOT: Raw brass and sterling stock (for Materials)
-- [ ] NEW SHOOT: Polished pieces on dark velvet (for Findings, Medallions)
-- [ ] Precision Milling service tile (Home): close-up of a milled die or tooling part
-- [ ] Packaging & Drop Shipping tile: hands packing finished parts, or a packed order
+- [ ] NEW SHOOT PHOTO-01: Toolmaker at bench (Capabilities hero (spacer); Tooling section when filled)
+- [ ] NEW SHOOT PHOTO-02: Operator at a press, tight (Metal Stamping gallery (spacer))
+- [ ] NEW SHOOT PHOTO-03: Hands checking a part with calipers (Capabilities gallery (spacer); Quality section when filled)
+- [ ] NEW SHOOT PHOTO-04: Team or owner at the building sign (Home heritage and About hero (spacers))
+- [ ] NEW SHOOT PHOTO-05: One large press, low angle (Home Services and Metal Stamping hero (spacers))
+- [ ] NEW SHOOT PHOTO-06: Coil feeding a press (Metal Stamping gallery (spacer))
+- [ ] NEW SHOOT PHOTO-07: Die set in a press, close up (Capabilities gallery (spacer); Die Striking section when filled)
+- [ ] NEW SHOOT PHOTO-08: Die next to its struck part (Product Development gallery (spacer); Tooling and Who Owns the Die when filled)
+- [ ] NEW SHOOT PHOTO-09: Fresh strike coming off the die (Product Development gallery (spacer); Die Striking section when filled)
+- [ ] NEW SHOOT PHOTO-10: Tray of finished parts (Products hub header when filled)
+- [ ] NEW SHOOT PHOTO-11: Raw brass and sterling stock (Capabilities materials section when filled)
+- [ ] NEW SHOOT PHOTO-12: Polished pieces on dark velvet (leads the Findings and Medallions galleries when filled)
+- [ ] NEW SHOOT PHOTO-13: Precision milling: part on the mill (Precision Milling service tile (not placed on a page yet))
+- [ ] NEW SHOOT PHOTO-14: Packaging: carded or bagged parts ready to ship (Packaging service tile (not placed on a page yet))
 
 ## About (5)
 
