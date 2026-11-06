@@ -6,7 +6,7 @@
 
 import type { Faq } from '../lib/schema';
 import type { PhotoSlotName } from './photos';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine, outsourcedLine, pressesLine, stampingThicknessLine, toleranceLine, tooling, edgeFinishes, bandingWidths, badgeAuthorization, enamel, whoWeSellTo } from './facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine, outsourcedLine, pressesLine, stampingThicknessLine, toleranceLine, tooling, edgeFinishes, bandingWidths, badgeAuthorization, enamel, whoWeSellTo, reproductions, attachments, coinPackaging } from './facts';
 
 export type Spec = { label: string; value?: string; todo?: string };
 export type ProductType = { title: string; body: string; href?: string };
@@ -121,8 +121,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you match an existing finding from a sample?',
-        a: 'Yes. Send the sample or clear photos with dimensions, and we will tell you what new tooling would take.',
-        todo: true,
+        a: `Yes. ${reproductions} Send us the sample and we will tell you what new tooling would take.`,
       },
       {
         q: 'Do you sell stock findings, or only custom work?',
@@ -174,7 +173,7 @@ export const products: Record<string, Product> = {
       { label: 'Process', value: 'Die-struck from steel tooling' },
       { label: 'Metals', value: materialsLine },
       { label: 'Finishes', value: `${finishesLine} ${enamel}.` },
-      { label: 'Attachments', todo: 'e.g. pin & safety catch, clip, wallet mount' },
+      { label: 'Attachments', value: attachments },
       { label: 'Size', value: dieStrikingLine },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
@@ -191,8 +190,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you reproduce a retired badge design?',
-        a: 'Yes. Send photos of the front, back and edge with dimensions, plus the agency authorization, and we will tell you what new tooling involves.',
-        todo: true,
+        a: `Yes. ${reproductions} ${badgeAuthorization}`,
       },
       {
         q: 'Do you make retirement badges?',
@@ -241,7 +239,7 @@ export const products: Record<string, Product> = {
       { label: 'Metals', value: materialsLine },
       { label: 'Finishes', value: finishesLine },
       { label: 'Edge options', value: edgeFinishes },
-      { label: 'Packaging', todo: 'e.g. capsules, velvet boxes' },
+      { label: 'Packaging', value: coinPackaging },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
     ],
@@ -258,6 +256,10 @@ export const products: Record<string, Product> = {
       {
         q: 'Can you add edge lettering or serial numbers?',
         a: `Engraving and numbering are done in-house. ${edgeFinishes}`,
+      },
+      {
+        q: 'Can you reproduce an old medallion from a sample?',
+        a: `Yes. ${reproductions} Send us the sample and we will tell you what new tooling would take.`,
       },
       moqFaq('custom medallions'),
     ],
@@ -298,7 +300,7 @@ export const products: Record<string, Product> = {
       { label: 'Process', value: 'Die-struck from steel tooling' },
       { label: 'Metals', value: materialsLine },
       { label: 'Finishes', value: finishesLine },
-      { label: 'Attachments', todo: 'e.g. clutch back, tie tack, ribbon drape' },
+      { label: 'Attachments', value: attachments },
       { label: 'Minimum order', value: minimumLine },
       { label: 'Lead time', value: leadTimeLine },
     ],

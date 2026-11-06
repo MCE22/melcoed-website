@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import Todo from '../../components/Todo.astro';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering } from '../../data/facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, reproductions, attachments } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import ConfidentialBand from '../../components/ConfidentialBand.astro';
 import { site, quoteHref } from '../../data/site';
@@ -59,8 +59,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'Can you reproduce an old lodge pin or emblem from a sample?',
-    a: 'Yes. Send photos of the front, back and edge with the overall size, or tell us you have a physical sample. We will tell you what it takes to make new tooling that matches the original.',
-    todo: true,
+    a: `Yes. ${reproductions} Send us the sample and we will tell you what it takes to make new tooling that matches the original.`,
   },
   {
     q: 'Can you make emblems that belong to a trademarked fraternal organization?',
@@ -149,7 +148,7 @@ const faqs: Faq[] = [
         <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
         <div><dt>Metals</dt><dd>{materialsLine}</dd></div>
         <div><dt>Finishes</dt><dd>{finishesLine}</dd></div>
-        <div><dt>Attachments</dt><dd><Todo>e.g. clutch back, tie tack, screw back</Todo></dd></div>
+        <div><dt>Attachments</dt><dd>{attachments}</dd></div>
         <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
         <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
       </dl>

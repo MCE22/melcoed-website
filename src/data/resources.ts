@@ -25,6 +25,9 @@ import {
   edgeFinishes,
   bandingWidths,
   badgeAuthorization,
+  america250,
+  heraldry,
+  attachments,
 } from './facts';
 import { confidential } from './confidential';
 
@@ -78,6 +81,7 @@ const R = {
   engraving: { label: 'Engraving & numbering', value: 'Done in-house' },
   assembly: { label: 'Soldering & assembly', value: 'Done in-house' },
   pinPosts: { label: 'Pin posts', value: pinPosts },
+  attachments: { label: 'Attachments', value: attachments },
   die: { label: 'Your die', value: `${tooling.ownership} ${tooling.storage}` },
   toolingCost: { label: 'Tooling cost', value: tooling.billing },
   shortRun: { label: 'Short runs', value: tooling.shortRun },
@@ -668,7 +672,7 @@ export const resources: Resource[] = [
     answer:
       'Mel-Co-Ed strikes custom coins and medallions in Pawtucket, Rhode Island, where we have die struck metal since 1948, and can strike them for 250th anniversary programs from now through 2033. Coins and medallions are struck up to 3.5″ across from dies built in our own tool room.',
     body: [
-      'America’s 250th isn’t one date. The anniversaries of the Revolution run through the Treaty of Paris in 2033, and towns, historical societies, lodges and units mark their own along the way.',
+      `America’s 250th isn’t one date. The anniversaries of the Revolution run through the Treaty of Paris in 2033, and towns, historical societies, lodges and units mark their own along the way. Mel-Co-Ed is ${america250.charAt(0).toLowerCase()}${america250.slice(1)}`,
       `A struck medal with your town seal or your own design is a keepsake that lasts. Tell us the date you need them in hand: our ${ordering.leadTime} lead time includes building the die.`,
     ],
     list: {
@@ -690,7 +694,7 @@ export const resources: Resource[] = [
       R.minimum,
       R.leadTime,
       R.die,
-      { label: 'Official America250 marks', todo: 'are you an official America250 licensee? If not, say so here (customers use their own designs).' },
+      { label: 'America250', value: america250 },
     ],
     steps: strikeSteps(
       'Your seal, design or artwork is prepared for the dies, front and back.',
@@ -704,9 +708,8 @@ export const resources: Resource[] = [
       { q: 'Can 250th coins be numbered as a limited edition?', a: 'Yes. Engraving and numbering are done in-house.' },
       { q: 'Can we order 250th medallions in sterling silver?', a: `Yes. ${ordering.noMinimum}` },
       {
-        q: 'Can you strike the official America250 logo?',
-        a: 'The official America250 marks are licensed. We strike your organization’s own designs; ask us about the official marks.',
-        todo: true,
+        q: 'Is Mel-Co-Ed an official America250 supplier?',
+        a: `No. Mel-Co-Ed is ${america250.charAt(0).toLowerCase()}${america250.slice(1)} We strike your organization’s own designs.`,
       },
     ],
     links: [{ label: 'Medals & Medallions', href: '/medallions/' }],
@@ -1105,7 +1108,7 @@ export const resources: Resource[] = [
       heading: 'Badge work we can take on',
       items: ['Police and sheriff badges', 'Fire and EMS badges', 'Security and corporate badges', 'Secondary operations on badges'],
     },
-    specs: [R.auth, R.dieStrike, R.presses, R.enamel, R.engraving, R.pinPosts, R.metals, R.minimum, R.leadTime],
+    specs: [R.auth, R.dieStrike, R.presses, R.enamel, R.engraving, R.pinPosts, R.attachments, R.metals, R.minimum, R.leadTime],
     steps: strikeSteps(
       'Your badge design is prepared for the dies, with the issuing agency’s authorization verified for law-enforcement badges.',
       'Badges are numbered in-house if needed, enamel-filled and plated by outside finishers, and shipped.',
@@ -1152,8 +1155,8 @@ export const resources: Resource[] = [
       R.minimum,
       R.leadTime,
       R.die,
-      { label: 'Military specification', todo: 'can you strike to Institute of Heraldry (TIOH) specifications, and are you a TIOH-certified manufacturer?' },
-      { label: 'Backs', todo: 'which attachments do you offer (military clutch, pin and catch, screw back)?' },
+      { label: 'Military specification', value: heraldry },
+      R.attachments,
     ],
     steps: strikeSteps(
       'Your wing, insignia or unit artwork is prepared for the dies.',
@@ -1161,9 +1164,8 @@ export const resources: Resource[] = [
     ),
     faqs: [
       {
-        q: 'Do you make official U.S. military insignia?',
-        a: 'Official insignia must be made to Institute of Heraldry specifications by a certified manufacturer. Tell us what you need and we will confirm whether we can supply it.',
-        todo: true,
+        q: 'Are you certified by the Institute of Heraldry?',
+        a: `No. ${heraldry.replace('Not certified by the Institute of Heraldry; we', 'We')}`,
       },
       {
         q: 'Can wings and insignia be made to our unit’s own design?',
@@ -1199,7 +1201,7 @@ export const resources: Resource[] = [
       heading: 'What lodges order',
       items: ['Past Master jewels', 'Officer jewels', 'Lapel pins with lodge name and number', 'Emblems for regalia', 'Anniversary medallions'],
     },
-    specs: [R.dieStrike, R.metals, R.noMinimum, R.enamel, R.pinPosts, R.finishing, R.minimum, R.die, R.leadTime],
+    specs: [R.dieStrike, R.metals, R.noMinimum, R.enamel, R.pinPosts, R.attachments, R.finishing, R.minimum, R.die, R.leadTime],
     steps: strikeSteps(
       'Your lodge seal, an old pin or a sketch is prepared for the dies, with lodge name, number and dates.',
       'Pieces are enamel-filled and plated by outside finishers, fitted, and shipped to the lodge or your supplier.',
@@ -1235,7 +1237,7 @@ export const resources: Resource[] = [
       heading: 'What companies order',
       items: ['Logo lapel pins for employees and teams', 'Years-of-service and recognition pins', 'Event and trade-show pins', 'Emblems for products and packaging'],
     },
-    specs: [R.pinPosts, R.enamel, R.plating, R.metals, R.dieStrike, R.minimum, R.leadTime, R.origin, R.die],
+    specs: [R.pinPosts, R.attachments, R.enamel, R.plating, R.metals, R.dieStrike, R.minimum, R.leadTime, R.origin, R.die],
     steps: strikeSteps(
       'Your logo is prepared for the dies, with brand colors marked.',
       'Pins are enamel-filled and plated by outside finishers, posts fused, and shipped.',

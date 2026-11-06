@@ -1,4 +1,5 @@
 ---
+import { reproductions } from '../../data/facts';
 import { sellSheet } from '../../data/downloads';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -20,9 +21,8 @@ const faqs: Faq[] = [
     a: 'PDF drawings, DXF, DWG, STEP and IGES CAD files, Adobe Illustrator or EPS artwork, and ordinary photos all work. If you only have a physical sample, describe it in the request and we will arrange to see it.',
   },
   {
-    q: 'Can I get a quote for a reproduction of an old badge, emblem or part?',
-    a: 'Yes. Send clear photos of the front, back and edge with the overall dimensions, or tell us you have a sample. We will let you know what reproducing it involves.',
-    todo: true,
+    q: 'Can I get a quote for a reproduction of an old badge, pin or medallion?',
+    a: `Yes. ${reproductions} Tell us about the sample in your request and we will let you know what reproducing it involves.`,
   },
   {
     q: 'Will you sign an NDA before reviewing my drawings?',

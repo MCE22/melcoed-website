@@ -5,7 +5,7 @@
 
 import { site, fullAddress } from './site';
 import type { Faq } from '../lib/schema';
-import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo } from './facts';
+import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo, reproductions, shippingLine } from './facts';
 import { confidentialFaq } from './confidential';
 
 export const generalFaqs: Faq[] = [
@@ -43,6 +43,10 @@ export const generalFaqs: Faq[] = [
   },
   confidentialFaq,
   {
+    q: 'Can you match an existing piece?',
+    a: reproductions,
+  },
+  {
     q: 'What metals do you work with?',
     a: `${materials.join(', ')}. ${materialsNote}`,
   },
@@ -66,13 +70,7 @@ export const orderingFaqs: Faq[] = [
     a: whoWeSellTo,
   },
   {
-    q: 'What are your payment terms?',
-    a: 'Payment terms are confirmed on your quote.',
-    todo: true,
-  },
-  {
     q: 'How do you ship orders?',
-    a: 'Orders ship from Pawtucket, Rhode Island. Tell us your delivery requirements and we will confirm the shipping method in your quote.',
-    todo: true,
+    a: shippingLine,
   },
 ];
