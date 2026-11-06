@@ -231,8 +231,14 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   // Development work is customer work, so none of it is shown.
   'product-development': [close.cuffsEmbossed, ...(shoot.dieAndPart.length ? shoot.dieAndPart : [shop.dieCloseup]), ...shot('struckRelief')],
   industries: [close.finishedGoods],
-  // About gallery: two pictures, the team and the showroom (an office shot can take the team's spot later).
-  about: [close.sign, { src: teamShowroom, alt: 'Members of the Mel-Co-Ed team gathered around a table in the showroom' }, showroom[0], ...shoot.office],
+  // About gallery (2x2): showroom, team, office, second showroom view.
+  about: [
+    close.sign,
+    showroom[0],
+    { src: teamShowroom, alt: 'Members of the Mel-Co-Ed team gathered around a table in the showroom' },
+    ...shoot.office,
+    ...showroom.slice(2, 3),
+  ],
   // Service tiles (not placed on a page today)
   'die-striking': shot('struckRelief'),
   tooling: [shop.diesRack],
