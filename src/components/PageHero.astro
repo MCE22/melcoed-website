@@ -16,7 +16,8 @@ interface Props {
 }
 
 const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = '', variant = 'light', size = 'default' } = Astro.props;
-const withPhoto = photo && hasPhoto(photo);
+const hasCustomMedia = Astro.slots.has('media');
+const withPhoto = hasCustomMedia || (photo && hasPhoto(photo));
 ---
 <section class:list={['page-hero', { 'page-hero--media': withPhoto, dark: variant === 'dark', 'page-hero--question': size === 'question' }]}>
   <div class="wrap">
@@ -40,7 +41,8 @@ const withPhoto = photo && hasPhoto(photo);
         {lead && <p class="lead">{lead}</p>}
         <slot />
       </div>
-      {withPhoto && photo && <MediaSlot slot={photo} aspect="5 / 4" eager sizes="(min-width: 53rem) 48vw, 100vw" todo={photoTodo} class="hero-picture" />}
+      {hasCustomMedia && <slot name="media" />}
+      {!hasCustomMedia && withPhoto && photo && <MediaSlot slot={photo} aspect="5 / 4" eager sizes="(min-width: 53rem) 48vw, 100vw" todo={photoTodo} class="hero-picture" />}
     </div>
   </div>
 </section>

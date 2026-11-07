@@ -1,19 +1,19 @@
 ---
-import { brandAlt } from '../data/brand';
-
+import { Image } from 'astro:assets';
+import { brandAlt, platePng } from '../data/brand';
 interface Props {
   variant?: 'compact' | 'primary';
   width?: number;
   link?: boolean;
   eager?: boolean;
 }
-const { width = 180, link = true, eager = true } = Astro.props;
+const { width = 156, link = true, eager = true } = Astro.props;
 const Tag = link ? 'a' : 'span';
 ---
-<Tag class="logo" href={link ? '/' : undefined} aria-label={link ? 'Mel-Co-Ed home' : undefined}>
-  <img src="/brand/wordmark.svg" width={265} height={50} style={`width:${width}px`} alt={brandAlt} loading={eager ? 'eager' : 'lazy'} />
+<Tag class="logo" href={link ? '/' : undefined} aria-label={link ? 'Mel-Co-Ed home' : undefined} style={`--badge-width:${width}px`}>
+  <Image src={platePng} alt={brandAlt} width={width} widths={[128, 192, 320, 400]} sizes={`(max-width: 40rem) 126px, ${width}px`} format="webp" quality={88} loading={eager ? 'eager' : 'lazy'} />
 </Tag>
 <style>
-  .logo { display: inline-block; vertical-align: middle; flex: none; line-height: 0; }
-  img { display: block; max-width: 100%; height: auto; }
+  .logo { display:inline-block; flex:none; width:var(--badge-width); max-width:100%; line-height:0; vertical-align:middle; }
+  .logo :global(img) { display:block; width:100%; height:auto; border-radius:3px; }
 </style>

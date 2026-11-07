@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import MediaSlot from '../../components/MediaSlot.astro';
 import { site, quoteHref } from '../../data/site';
 import { industries } from '../../data/industries';
 import { isLive } from '../../lib/routes';
@@ -34,9 +35,18 @@ const itemList = {
     title="Industries we serve"
     lead="A jewelry buyer may be matching a texture across a collection. A uniform supplier needs a legible emblem that can be reordered. We start with how the part will be used, displayed or assembled."
     breadcrumbs={breadcrumbs}
-    photo="industries"
-    photoTodo="Industries hero photo: finished work across industries"
-  />
+  >
+    <div slot="media" class="industry-examples">
+      <a href="/findings/">
+        <MediaSlot slot="industries" aspect=".86" sizes="(min-width:53rem) 22vw, 45vw" eager />
+        <span>Jewelry &amp; fashion</span>
+      </a>
+      <a href="/badges/">
+        <MediaSlot slot="badges" index={4} aspect=".86" sizes="(min-width:53rem) 22vw, 45vw" />
+        <span>Uniform insignia</span>
+      </a>
+    </div>
+  </PageHero>
 
   <section class="section">
     <div class="wrap">
@@ -70,6 +80,10 @@ const itemList = {
 </BaseLayout>
 
 <style>
+  .industry-examples { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.6rem,1vw,1rem); align-items:start; }
+  .industry-examples a { color:var(--ink); font-weight:600; text-decoration:none; }
+  .industry-examples a:hover span { text-decoration:underline; }
+  .industry-examples span { display:block; margin-top:.55rem; font-size:.88rem; }
   .inds {
     display: grid;
     gap: 0;

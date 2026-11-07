@@ -83,6 +83,7 @@
   --max: 86rem;
   --radius: 0;
   --radius-lg: 2px;
+  --photo-radius: 8px;
   --header-h: 6.4rem; /* full header with the large plate; condenses on scroll */
   --shadow: 0 1px 0 rgb(27 24 21 / 0.04);
 

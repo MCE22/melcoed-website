@@ -38,7 +38,7 @@ export function organizationNode(): Node {
       addressCountry: site.address.country,
     },
     areaServed: { '@type': 'Country', name: 'United States' },
-    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/wordmark.svg'), width: 265, height: 50 },
+    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/mce-plate.png'), width: 794, height: 316 },
     image: abs('/og-default.png'),
     knowsAbout: [
       'Ornamental metal stamping',

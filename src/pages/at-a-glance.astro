@@ -91,7 +91,7 @@ const capabilities = [
   .pictures, .details { display: grid; gap: .2in; }
   .pictures { grid-template-columns: 1.4fr 1fr; gap: .12in; }
   figure { min-width: 0; }
-  .pictures :global(img) { display: block; width: 100%; height: 1.6in; object-fit: cover; }
+  .pictures :global(img) { border-radius: 8px; display: block; width: 100%; height: 1.6in; object-fit: cover; }
   figcaption { padding-top: .04in; font-size: .78rem; color: #544a3d; }
   .details { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: .24in 0; }
   .details section { border-top: 1px solid #b8ab91; padding-top: .09in; }

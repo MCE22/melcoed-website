@@ -13,7 +13,7 @@ const current = (href: string) => path === href.replace(/\/$/, '') ? 'page' : un
     </div>
   </div>
   <div class="wrap main-bar">
-    <Logo width={196} />
+    <Logo width={158} />
     <nav class="wide-nav" aria-label="Main">
       {nav.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
     </nav>
@@ -51,7 +51,7 @@ const current = (href: string) => path === href.replace(/\/$/, '') ? 'page' : un
   .utility b { color: var(--brass-light); margin: 0 .5rem; }
   .utility a { color: inherit; text-decoration: none; letter-spacing: .055em; }
   .main-bar { display: flex; align-items:center; gap: clamp(.65rem, 2vw, 1.9rem); height: clamp(66px, 7vw, 89px); }
-  .main-bar :global(.logo) { width: clamp(126px, 15vw, 196px); margin-right: auto; }
+  .main-bar :global(.logo) { width: clamp(122px, 12vw, 158px); margin-right: auto; }
   .wide-nav { display: flex; align-items: center; gap: clamp(1rem,1.8vw,2rem); }
   nav a, summary { font: 620 .875rem/1.3 var(--font-body); color: var(--ink); text-decoration: none; }
   nav a:hover, nav a[aria-current], summary:hover { color: var(--oxblood); }

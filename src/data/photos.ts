@@ -40,19 +40,15 @@ import brassCoilsPallet from '../assets/photos/brass-coils-pallet.jpg';
 import pressDelivery from '../assets/photos/press-delivery.jpg';
 import diesRack from '../assets/photos/dies-rack.jpg';
 import dieCloseup from '../assets/photos/die-closeup.jpg';
-import toolRoomEdm from '../assets/photos/tool-room-edm.jpg';
-import toolRoomBandsaw from '../assets/photos/tool-room-bandsaw.jpg';
+import collection from '../assets/illustrations/custom-metalwork-collection.webp';
 import inspectionStation from '../assets/photos/inspection-station.jpg';
 import packingOrders from '../assets/photos/packing-orders.jpg';
-import teamShowroom from '../assets/photos/team-showroom.jpg';
 import calipersPart from '../assets/photos/calipers-part.jpg';
 import benchDieCalipers from '../assets/photos/bench-die-calipers.jpg';
 import showroomBoards from '../assets/photos/showroom-boards.jpg';
 import showroomRoom from '../assets/photos/showroom-room.jpg';
 import showroomTable from '../assets/photos/showroom-table.jpg';
 import officeReception from '../assets/photos/office-reception.jpg';
-import showroomWall from '../assets/photos/showroom-wall.jpg';
-import showroomStands from '../assets/photos/showroom-display-stands.jpg';
 import findingsFloral from '../assets/photos/findings-floral-stampings.jpg';
 import patternDiscs from '../assets/photos/pattern-discs.jpg';
 // Labeled illustrations of styles we strike, cropped from src/assets/illustrations/badge-styles-sheet.png.
@@ -73,7 +69,14 @@ import ilLighthouse from '../assets/illustrations/lodge-style-lighthouse-medalli
 /** `illustration: true` marks a labeled illustration of a style we strike (fictional names,
  *  never a customer piece). It renders with a visible "Illustration" label and the
  *  confidentiality note. Replace with real house-sample photos when available. */
-export type Photo = { src: ImageMetadata; alt: string; illustration?: boolean };
+export type Photo = {
+  src: ImageMetadata;
+  alt: string;
+  illustration?: boolean;
+  caption?: string;
+  position?: string;
+  zoom?: number;
+};
 /** Placeholder for a shot not taken yet. `shot` is the shot-list id, e.g. "PHOTO-05". */
 export type Spacer = { spacer: true; shot: string; label: string };
 export type SlotItem = Photo | Spacer;
@@ -167,23 +170,14 @@ const shop = {
   pressDelivery: { src: pressDelivery, alt: 'A newly purchased stamping press arriving on a flatbed trailer' },
   diesRack: { src: diesRack, alt: 'Steel die sets stored on a rack in the tool room' },
   dieCloseup: { src: dieCloseup, alt: 'A small die set and a hand grinder on the tool room bench' },
-  edm: { src: toolRoomEdm, alt: 'An EDM machine in the Mel-Co-Ed tool room' },
-  bandsaw: { src: toolRoomBandsaw, alt: 'A DoAll band saw in the tool room' },
   inspection: { src: inspectionStation, alt: 'The optical inspection station used to check parts against the print' },
   packing: { src: packingOrders, alt: 'A team member packing finished orders into cartons' },
 } satisfies Record<string, Photo>;
 
-const showroom: Photo[] = shoot.showroom.length
-  ? shoot.showroom
-  : [
-      { src: showroomWall, alt: 'The Mel-Co-Ed showroom: a purple wall of Open Line finding sample boards in gold and silver' },
-      { src: showroomStands, alt: 'Swinging display panels of Open Line stampings in the Mel-Co-Ed showroom' },
-    ];
-
 export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
-  'home-hero': [close.floral],
+  'home-hero': [{ src: collection, alt: 'Three design concepts: an oxblood and brass nameplate, a bronze sailboat medallion and a silver-tone enamel lapel pin', illustration: true }],
   'home-heritage': [close.sign],
-  'home-services': [shop.craftsman],
+  'home-services': [{ ...shoot.dieAndPart[0], position: '36% 57%', zoom: 1.12 }],
   findings: [
     close.floral,
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
@@ -223,18 +217,21 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
   ],
   // Hero/tile = [0]; the gallery shows the next two.
-  'metal-stamping': [shop.pressOperators, shop.coilsShelf, shop.pressDelivery],
-  capabilities: [shop.diesRack, shop.edm, shop.bandsaw],
+  'metal-stamping': [{ ...shop.pressOperators, position: '52% 37%' }, shop.coilsShelf, close.brassBlanks],
+  capabilities: [
+    { ...shoot.calipers[0], position: '10% 22%', zoom: 1.4 },
+    { ...close.brassBlanks, caption: 'Blanking · Brass components cut to shape' },
+    { src: patternStock, alt: 'Embossed brass strips and a formed cuff', caption: 'Forming · A flat pattern carried into a finished cuff' },
+  ],
   // Development work is customer work, so none of it is shown.
   'product-development': [close.cuffsEmbossed, ...(shoot.dieAndPart.length ? shoot.dieAndPart : [shop.dieCloseup]), ...shot('struckRelief')],
   industries: [close.cuffsEmbossed],
-  // About gallery (2x2): showroom, team, office, second showroom view.
   about: [
     close.sign,
-    showroom[0],
-    { src: teamShowroom, alt: 'Members of the Mel-Co-Ed team gathered around a table in the showroom' },
-    ...shoot.office,
-    ...showroom.slice(2, 3),
+    { ...shop.coilsShelf, position: '25% 65%', zoom: 1.42, caption: 'Material stock · Coiled brass strip before stamping' },
+    { ...shop.pressOperators, position: '55% 40%', caption: 'Production · Flywheel presses on the Pawtucket floor' },
+    { ...shop.inspection, position: '61% 39%', zoom: 1.7, caption: 'Inspection · Optical measuring equipment at the shop' },
+    { src: patternDiscs, alt: 'Round brass stampings with several different embossed textures', position: '50% 68%', caption: 'Finished detail · Rounds blanked from embossed stock' },
   ],
   // Service tiles (not placed on a page today)
   'die-striking': shot('struckRelief'),
@@ -243,12 +240,12 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   packaging: [shop.packing],
   // Shows when filled
   products: [{ src: patternDiscs, alt: 'Overlapping rounds blanked from embossed brass pattern stock' }],
-  quality: [...shoot.calipers, shop.inspection],
-  materials: [...shoot.rawStock, shop.coilsPallet],
+  quality: [{ ...shop.inspection, position: '60% 38%', zoom: 1.75 }],
+  materials: [{ ...shop.coilsShelf, position: '15% 70%', zoom: 1.55 }],
   'die-striking-shoot': [...shoot.struckRelief],
   // Capabilities tool & die section: the #8 die close-up (owner pick). The bench photo stays on
   // Product Development and Who Owns the Die.
-  'tooling-shoot': [shop.dieCloseup],
+  'tooling-shoot': [{ ...shoot.dieAndPart[0], position: '30% 42%', zoom: 1.24 }],
   'die-ownership': [...shoot.dieAndPart, shop.dieCloseup],
 };
 
