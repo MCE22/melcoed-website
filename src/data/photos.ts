@@ -40,7 +40,6 @@ import brassCoilsPallet from '../assets/photos/brass-coils-pallet.jpg';
 import pressDelivery from '../assets/photos/press-delivery.jpg';
 import diesRack from '../assets/photos/dies-rack.jpg';
 import dieCloseup from '../assets/photos/die-closeup.jpg';
-import collection from '../assets/illustrations/custom-metalwork-collection.webp';
 import inspectionStation from '../assets/photos/inspection-station.jpg';
 import packingOrders from '../assets/photos/packing-orders.jpg';
 import calipersPart from '../assets/photos/calipers-part.jpg';
@@ -175,7 +174,7 @@ const shop = {
 } satisfies Record<string, Photo>;
 
 export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
-  'home-hero': [{ src: collection, alt: 'Three design concepts: an oxblood and brass nameplate, a bronze sailboat medallion and a silver-tone enamel lapel pin', illustration: true }],
+  'home-hero': [close.cuffsEmbossed],
   'home-heritage': [close.sign],
   'home-services': [{ ...shoot.dieAndPart[0], position: '36% 57%', zoom: 1.12 }],
   findings: [
