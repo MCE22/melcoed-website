@@ -12,6 +12,7 @@ import {
   plating,
   ordering,
   minimumLine,
+  leadTimeLine,
   pressesLine,
   presses,
   stampingThickness,
@@ -70,8 +71,7 @@ const R = {
   dieStrike: { label: 'Die striking', value: 'Up to 3.5″ diameter and .250″ thick' },
   struck: { label: 'Size', value: 'Struck up to 3.5″ in diameter' },
   minimum: { label: 'Minimum order', value: minimumLine },
-  noMinimum: { label: 'Sterling and gold', value: ordering.noMinimum },
-  leadTime: { label: 'Lead time', value: `Typically ${ordering.leadTime}, including building a new die` },
+  leadTime: { label: 'Lead time', value: leadTimeLine },
   finishing: {
     label: 'Finishing',
     value: `${finishes.join(', ')}. Plating in ${plating.map((p) => p.toLowerCase()).join(', ')}. ${outsourcedLine}`,
@@ -85,7 +85,7 @@ const R = {
   die: { label: 'Your die', value: `${tooling.ownership} ${tooling.storage}` },
   toolingCost: { label: 'Tooling cost', value: tooling.billing },
   shortRun: { label: 'Short runs', value: tooling.shortRun },
-  yourDies: { label: 'Your dies or metal', value: "Have dies or metal already? We'll run yours." },
+  yourDies: { label: 'Your dies or metal', value: "Send the die information or stock specifications for a compatibility review." },
   openLine: { label: 'Open Line', value: '30,000+ stock findings, stampings and pattern stock. No tooling cost.' },
   exclusive: { label: 'Confined & Custom', value: 'Your design on your own exclusive die, run only for you' },
   madeHere: { label: 'Made in', value: madeHere },
@@ -104,11 +104,51 @@ const R = {
 const strikeSteps = (artwork: string, finish: string): [Step, Step, Step, Step] => [
   { title: 'Artwork', body: artwork },
   { title: 'Build the dies', body: 'The design is engraved into steel dies in our own tool room. You own the die you pay for.' },
-  { title: 'Strike', body: 'Blanks are struck under heavy pressure, forcing the metal into every line of the design.' },
+  { title: 'Strike', body: 'The press moves metal into the engraved die to reproduce the approved relief.' },
   { title: 'Finish & ship', body: finish },
 ];
 
 export const resources: Resource[] = [
+  {
+    slug: 'ornamental-metal-stamping-repeat-production',
+    group: 'Die striking & coining',
+    h1: 'How do I specify a decorative stamping for repeat production?',
+    metaTitle: 'Ornamental Metal Stamping for Repeat Orders | Mel-Co-Ed',
+    metaDescription: 'A buyer’s guide to specifying a custom metal emblem, pin or decorative component, from relief and attachment to sample approval and repeat quantities.',
+    answer: 'For an ornamental stamping, specify both the face the customer sees and the surfaces that must fit another part. Send Mel-Co-Ed the artwork, finished dimensions, expected first order and likely reorder quantities.',
+    body: [
+      'Take a metal emblem fitted into a recess. Its outline and overall thickness control fit. The relief, edge treatment and finish determine what the customer sees. A front view alone cannot show whether the back must sit flat or clear a locating feature.',
+      'For a pin or charm, show the attachment on a back view and mark its orientation. If a formed component is plated, tell us which dimensions apply after finishing. A physical finish sample helps when words such as “antique brass” could describe several appearances.',
+    ],
+    list: {
+      heading: 'Include with your drawing or sample',
+      items: [
+        'Front, back and side views with overall dimensions and critical interfaces',
+        'Raised and recessed areas, lettering, color fields and visible edges',
+        'Metal or preferred appearance, surface finish and attachment detail',
+        'Quantity per release, estimated annual demand and target delivery date',
+      ],
+    },
+    specs: [R.minimum, R.toolingCost, R.die, R.finishing, R.leadTime],
+    steps: [
+      { title: 'Review the design', body: 'Identify what the part must fit, which areas are cosmetic and what can change for easier production.' },
+      { title: 'Choose the tooling', body: 'Compare existing patterns, a simple tool or a dedicated die against the first order and expected reorders.' },
+      { title: 'Approve the sample', body: 'Check the part in its mating product, then approve the relief, finish and attachment against the agreed reference.' },
+      { title: 'Release production', body: 'Use the approved drawing revision and sample for repeat orders. Flag any changes before the next setup.' },
+    ],
+    faqs: [
+      { q: 'Do I need a finished CAD file to start?', a: 'A dimensioned sketch, artwork or a physical sample can start the conversation. Identify any dimensions that must stay fixed and any finish you need to match.' },
+      { q: 'How does annual volume affect the quote?', a: 'The release quantity affects setup cost per part. Annual volume helps determine whether dedicated tooling or fewer handling steps justify their upfront cost. Include both figures when asking for a quote.' },
+      { q: 'Can the finish change without changing the die?', a: 'Often it can. A plating or polish change may leave the geometry intact. A new logo, deeper relief or revised outline may require a tool change. Send the proposed changes and prior part number for review.' },
+    ],
+    links: [
+      { label: 'Product development', href: '/capabilities/product-development/' },
+      { label: 'Jewelry findings', href: '/findings/' },
+      { label: 'Awards and recognition', href: '/awards/' },
+    ],
+    quoteType: 'other',
+    custom: true,
+  },
   // ============ Stamping & manufacturing ============
   {
     slug: 'custom-metal-stamping-new-england',
@@ -120,8 +160,8 @@ export const resources: Resource[] = [
     answer:
       'Mel-Co-Ed, Inc. is a custom metal stamping company in Pawtucket, Rhode Island, stamping parts for manufacturers in Rhode Island since 1948. We build the die in our own tool room and run progressive, transfer and automatic stamping, coining and die striking under one roof.',
     body: [
-      'Pawtucket is where American manufacturing started, a few minutes from Providence and about an hour from Boston. We are a third-generation, family-owned shop with 20+ presses, from 5 tons in our secondary department to 250 tons in our automatic department.',
-      'Every die is built in-house, so engineering changes and reorders never wait on an outside tool shop. The die you pay for is yours, and we store it free for as long as you need it.',
+      'We are a third-generation, family-owned shop with 20+ presses, from 5 tons in our secondary department to 250 tons in our automatic department.',
+      'Our tool room builds and maintains dies for production and reorders. The die you pay for is yours, and we store it free for as long as you need it.',
     ],
     list: {
       heading: 'What New England manufacturers send us',
@@ -147,7 +187,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Does your lead time include building the die?',
-        a: `Yes. Lead time is typically ${ordering.leadTime}, and that includes building a new die.`,
+        a: tooling.leadTime,
       },
       {
         q: 'What size presses do you run?',
@@ -167,11 +207,11 @@ export const resources: Resource[] = [
     h1: 'Progressive die stamping for small and mid-volume runs',
     metaTitle: 'Progressive Die Stamping for Small & Mid-Volume Runs | Mel-Co-Ed',
     metaDescription:
-      'Progressive die stamping in Rhode Island since 1948. Dies built in-house, automatic presses from 25 to 250 tons, 3-gross minimum, tooling billed separately or in the piece price.',
+      'Progressive die stamping in Rhode Island since 1948. Dies built in-house, automatic presses from 25 to 250 tons, quantities and tooling options reviewed per project.',
     answer:
-      'Mel-Co-Ed runs progressive die stamping for small and mid-volume programs from our shop in Pawtucket, Rhode Island, and has stamped parts since 1948. Our minimum is 3 gross (432 pieces) per item, and the progressive die is built in our own tool room.',
+      'Mel-Co-Ed runs progressive die stamping for small and mid-volume programs from our shop in Pawtucket, Rhode Island, and has stamped parts since 1948. Our tool room reviews the part geometry, release quantities and annual demand before recommending a progressive die.',
     body: [
-      'In a progressive die, strip steps through a row of stations. Each press stroke pierces, blanks or forms one stage, and a finished part leaves the end of the die. Every part comes off the same tool, so parts stay consistent run after run.',
+      'In a progressive die, strip steps through a row of stations. Each station performs its operation on a different position along the strip during the same stroke. Once the stations are filled, parts can be released on successive strokes.',
       'Progressive tooling costs more up front than a simple blanking die, so it pays off as quantities grow. When a program is still small, low-cost short-run tooling is available instead.',
     ],
     list: {
@@ -217,9 +257,9 @@ export const resources: Resource[] = [
     h1: 'Short-run metal stamping and prototypes',
     metaTitle: 'Short-Run Metal Stamping & Prototypes | Mel-Co-Ed, Pawtucket RI',
     metaDescription:
-      'Prototype and short-run metal stamping in Rhode Island since 1948. Low-cost short-run tooling, runs below 432 pieces at a higher price, no minimum on sterling or gold.',
+      'Prototype and short-run metal stamping in Rhode Island since 1948. Compare pilot tooling and production tooling for a first order, a fit check or repeat releases.',
     answer:
-      'Mel-Co-Ed makes prototypes and short runs of stamped parts in Pawtucket, Rhode Island, and has stamped metal since 1948. Low-cost short-run tooling is available, and runs smaller than our 3-gross (432-piece) minimum are available at a higher price.',
+      'Mel-Co-Ed makes prototypes and short runs of stamped parts in Pawtucket, Rhode Island, and has stamped metal since 1948. We compare trial tooling with production tooling based on the features you need to prove, the first order and the expected follow-on volume.',
     body: [
       'A prototype run lets you check fit and function before committing to production tooling. Short-run tooling keeps the up-front cost down, which suits pilot builds and products still finding their market.',
       'When the part is proven, the same print can move to production tooling. Either way, the die you pay for is yours, and we store it free.',
@@ -230,7 +270,7 @@ export const resources: Resource[] = [
         'Prototypes and fit-check samples',
         'Pilot builds before a product launch',
         'Small programs that don’t justify a full progressive die',
-        'Sterling silver and gold parts, which carry no minimum',
+        'Appearance samples for reviewing a finish or relief detail',
       ],
     },
     specs: [R.shortRun, R.minimum, R.leadTime, R.thickness, R.tolerance, R.metals, R.toolingCost, R.die],
@@ -242,8 +282,8 @@ export const resources: Resource[] = [
     ],
     faqs: [
       {
-        q: 'Can I order fewer than 432 pieces?',
-        a: `Yes. ${ordering.smallRuns} ${ordering.noMinimum}`,
+        q: 'How small can a trial run be?',
+        a: minimumLine,
       },
       {
         q: 'How does short-run tooling compare with production tooling?',
@@ -251,7 +291,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'How fast can I get prototype parts?',
-        a: `Lead time is typically ${ordering.leadTime}, including building the die.`,
+        a: leadTimeLine,
       },
     ],
     links: [
@@ -272,8 +312,8 @@ export const resources: Resource[] = [
     answer:
       'Mel-Co-Ed has stamped and die struck brass, copper and nickel silver in Rhode Island since 1948. We run brass 230 and 260 alongside copper and nickel silver, with every die built in our own tool room.',
     body: [
-      'Brass strikes crisply, holds fine detail and takes plating well. Brass 230, red brass, has the warmer color; 260, cartridge brass, is the more formable of the two. Copper brings warmth and conductivity.',
-      'Nickel silver contains no silver: it is copper, nickel and zinc, with a pale color that suits pieces meant to look like silver. All three can be stamped from .010″ to .250″ stock or die struck for relief up to 3.5″ across.',
+      'Brass strikes crisply, holds fine detail and takes plating well. Brass 230 has a redder appearance than brass 260 because it contains more copper. Temper and stock thickness matter when choosing either grade for forming. Copper brings warmth and conductivity.',
+      'Nickel silver contains no silver: it is copper, nickel and zinc, with a pale color that suits pieces meant to look like silver. The workable gauge and relief depend on the alloy, temper and design.',
     ],
     list: {
       heading: 'What we make in these metals',
@@ -286,7 +326,7 @@ export const resources: Resource[] = [
       ],
     },
     specs: [
-      { label: 'Metals', value: 'Brass (230/260), copper, nickel silver. All metals available, or send us yours.' },
+      { label: 'Metals', value: 'Brass (230/260), copper, nickel silver. Send the alloy, temper and gauge when asking about material you already own.' },
       R.thickness,
       R.dieStrike,
       R.tolerance,
@@ -304,7 +344,7 @@ export const resources: Resource[] = [
     faqs: [
       {
         q: 'What is the difference between brass 230 and brass 260?',
-        a: 'Brass 230 (red brass) has more copper and a warmer color. Brass 260 (cartridge brass) has more zinc and is more formable. We stamp both.',
+        a: 'Brass 230 (red brass) has more copper and a warmer color. Brass 260 (cartridge brass) has more zinc and a yellower color. We review temper and thickness for the proposed shape.',
       },
       {
         q: 'Does nickel silver contain silver?',
@@ -312,10 +352,12 @@ export const resources: Resource[] = [
       },
       {
         q: 'Can I send you my own brass or copper strip?',
-        a: "Yes. Have metal already? We'll run yours.",
+        a: "Send the alloy, temper, thickness, width and available quantity so we can check it against the part.",
       },
     ],
     links: [
+      { label: 'Copper Development Association: C23000 red brass', href: 'https://alloys.copper.org/alloy/C23000' },
+      { label: 'Copper Development Association: C26000 cartridge brass', href: 'https://alloys.copper.org/alloy/C26000' },
       { label: 'Metal Stamping', href: '/metal-stamping/' },
       { label: 'Findings', href: '/findings/' },
     ],
@@ -418,7 +460,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Do reorders need a new die?',
-        a: `No. Reorders run on the die you already own. ${tooling.storage}`,
+        a: `For an unchanged part, we normally reuse the die you already own. A drawing change or worn tooling can require additional work. ${tooling.storage}`,
       },
     ],
     links: [
@@ -437,7 +479,7 @@ export const resources: Resource[] = [
     metaDescription:
       'Move existing stamping dies to Mel-Co-Ed in Pawtucket, RI. We run your dies on 20+ presses from 5 to 250 tons, store them free, and use them only for your orders.',
     answer:
-      'Mel-Co-Ed takes on second-source and transferred stamping work in Pawtucket, Rhode Island, and has stamped parts since 1948. Have dies or metal already? We will run yours, on 20+ presses from 5 to 250 tons.',
+      'Mel-Co-Ed takes on second-source and transferred stamping work in Pawtucket, Rhode Island, and has stamped parts since 1948. Before sending a die, share its dimensions, shut height and feed arrangement with the part print. We check that the tooling fits a suitable press and review any repairs or changes needed.',
     body: [
       'Buyers add a second source when one supplier becomes a risk: capacity, lead times, quality or a shop closing. Moving existing tooling is often the fastest route, because the die already makes a proven part.',
       'Once your die is here it is stored free, indefinitely, and run only for your orders. You still own it, so it can move again if you need it to.',
@@ -462,11 +504,11 @@ export const resources: Resource[] = [
     faqs: [
       {
         q: 'Can you run a die another shop built?',
-        a: "Yes. Have dies already? We'll run yours. Send the die details and part print so we can match it to the right press.",
+        a: "We review transferred tooling. Send the part print, die dimensions, shut height, feed direction and prior press requirements to check fit before shipping the tool.",
       },
       {
         q: 'What if my old supplier won’t release the tooling?',
-        a: `Ownership depends on your agreement with that supplier. If the die can’t move, we can build a new one from your print or a sample part. Lead time is typically ${ordering.leadTime}, including the new die.`,
+        a: `Ownership depends on your agreement with that supplier. If the die can’t move, we can build a new one from your print or a sample part. We confirm tool-build and sample timing after reviewing the print.`,
       },
       {
         q: 'Will my parts be made in the USA?',
@@ -489,15 +531,15 @@ export const resources: Resource[] = [
     metaDescription:
       'Die striking presses a blank between engraved steel dies for sharp relief. How it compares with casting and stamping, from Mel-Co-Ed, die striking in Rhode Island since 1948.',
     answer:
-      'Die striking presses a metal blank between two engraved steel dies under heavy pressure, forcing the metal into every detail of the design. Mel-Co-Ed has die struck badges, medallions, emblems and findings in Rhode Island since 1948, up to 3.5″ across and .250″ thick.',
+      'Die striking presses a solid blank against engraved tooling so the metal takes the relief of the die. Mel-Co-Ed has die struck badges, medallions, emblems and findings in Rhode Island since 1948, up to 3.5″ across and .250″ thick.',
     body: [
-      'Die striking is a form of coining: the metal flows to fill the dies, so lettering is sharp, relief is crisp and the piece is dense and heavy. Stamping, more broadly, cuts and bends sheet metal into shape by blanking, piercing and forming.',
-      'Casting pours molten metal into a mold. It handles deep undercuts and fully three-dimensional shapes, but detail is usually softer and the metal less dense than a struck piece. Mel-Co-Ed strikes and stamps; we don’t offer casting.',
+      'Stamping includes cutting an outline, piercing a hole, bending and forming. A struck emblem usually combines operations: the outline must be cut and the face formed. Coining uses pressure to displace metal into controlled details such as a letter, rim or textured field.',
+      'Casting fills a mold with molten metal. Some casting processes allow sculptural shapes that would trap a rigid striking die. For a proposed conversion, send side views as well as the front artwork so we can check the release direction and the shape of the back.',
     ],
     list: {
       heading: 'Which method fits',
       items: [
-        'Die struck: sharp relief and fine lettering in dense metal, for badges, coins, medallions and emblems',
+        'Die struck: relief and lettering on a solid blank, for badges, coins, medallions and emblems',
         'Stamped: flat and formed parts made fast and consistently, for findings and industrial parts',
         'Cast: deep 3D shapes and undercuts, for sculptural pieces',
         'Stamped, then struck: a blank is cut out, then struck for relief',
@@ -510,8 +552,8 @@ export const resources: Resource[] = [
     ),
     faqs: [
       {
-        q: 'Is die struck better than cast?',
-        a: 'For crisp lettering and fine detail, usually yes: a struck piece is denser and sharper. Casting is the better choice for deep, sculptural shapes with undercuts.',
+        q: 'When would I choose a struck part over a casting?',
+        a: 'A face with shallow relief and repeat lettering is a good candidate for striking. Ask about casting if the design wraps behind itself or needs deep three-dimensional features. Detail depends on the design, tooling, material and finish in either process.',
       },
       {
         q: 'What is the largest piece you can die strike?',
@@ -519,10 +561,11 @@ export const resources: Resource[] = [
       },
       {
         q: 'Are die struck and coined the same thing?',
-        a: 'They are closely related. Coining is die striking under enough pressure to fill fine detail on both faces, which is how coins and medallions are made.',
+        a: 'They overlap. Die striking describes how a blank takes an impression from a die. Coining emphasizes the pressure that makes metal flow locally into the tool detail. A coined feature can appear on one face or on both.',
       },
     ],
     links: [
+      { label: 'U.S. Mint guide to coin production', href: 'https://www.usmint.gov/learn/production-process/coin-production' },
       { label: 'Die Striking & Coining', href: '/capabilities/#die-striking' },
       { label: 'Medals & Medallions', href: '/medallions/' },
     ],
@@ -536,11 +579,11 @@ export const resources: Resource[] = [
     h1: 'Custom coining and coins struck in the USA',
     metaTitle: 'Custom Coins Struck in the USA | Coining by Mel-Co-Ed, Pawtucket RI',
     metaDescription:
-      'Custom coins struck in Rhode Island since 1948: up to 3.5″ diameter, dies built in-house, numbering in-house, soft or hard enamel, no minimum on sterling or gold.',
+      'Custom coins struck in Rhode Island since 1948: up to 3.5″ diameter, dies built in-house, numbering in-house, soft or hard enamel and project-specific quantities.',
     answer:
       'Mel-Co-Ed has coined and struck metal in Rhode Island since 1948, and strikes custom coins today from dies built in our own tool room. Coins are struck up to 3.5″ in diameter, in brass, copper, nickel silver, sterling, fine silver, gold and more.',
     body: [
-      'Coining squeezes a blank between two dies so hard that the metal flows into every line of both faces. The result is crisp relief, sharp lettering and the solid, heavy feel people expect from a coin.',
+      'Coining uses compressive force to move metal into engraved recesses in the die. The alloy, blank thickness, relief depth and design on the opposite face affect how well a detail fills.',
       'Numbering and engraving are done in-house, so limited editions can carry a number on every coin. Color comes from soft or hard enamel, applied by our finishing partners.',
     ],
     list: {
@@ -562,7 +605,7 @@ export const resources: Resource[] = [
       { q: 'Can coins be individually numbered?', a: 'Yes. Engraving and numbering are done in-house.' },
       {
         q: 'Can I order coins in sterling silver or gold?',
-        a: `Yes. ${ordering.noMinimum} ${ordering.pricing}`,
+        a: `Yes. ${ordering.pricing} ${minimumLine}`,
       },
     ],
     links: [
@@ -581,10 +624,10 @@ export const resources: Resource[] = [
     metaDescription:
       'Custom die struck medallions, award medallions and recognition pins from Rhode Island since 1948. Struck up to 3.5″, dies built in-house and stored free for every reorder.',
     answer:
-      'Mel-Co-Ed strikes custom medallions and award medallions in Pawtucket, Rhode Island, and has die struck metal since 1948. Medallions are struck up to 3.5″ across from dies built in our own tool room, in any metal on our list or yours.',
+      'Mel-Co-Ed strikes custom medallions and award medallions in Pawtucket, Rhode Island, and has die struck metal since 1948. Medallions are struck up to 3.5″ across from dies built in our own tool room, with alloy and gauge selected for the design.',
     body: [
       'A struck medallion gets its relief from steel dies, not a mold, so lettering and portraits stay sharp and the piece has real weight in the hand. That makes it the standard for awards meant to be kept.',
-      'For recognition programs, the same die strikes every piece in the series. You own the die and we store it free, so next year’s medallions match this year’s.',
+      'For an annual award, agree which details change each year and which stay in the die. Keep an approved physical sample to compare the relief and finish at reorder.',
     ],
     list: {
       heading: 'Medallions and awards we strike',
@@ -652,7 +695,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Soft enamel or hard enamel: which should I choose?',
-        a: 'Soft enamel leaves a textured face with raised metal lines and costs less. Hard enamel is polished flat for a smooth, durable face. We offer both.',
+        a: 'Soft enamel leaves a textured face with raised metal lines and exposes the outlines of each color field. Hard enamel is polished flat for a smooth, durable face. We offer both.',
       },
       { q: 'What is the minimum order for challenge coins?', a: minimumLine },
     ],
@@ -668,12 +711,12 @@ export const resources: Resource[] = [
     h1: 'America 250th commemorative coins & medallions (anniversaries through 2033)',
     metaTitle: 'America 250th Commemorative Coins & Medallions, Struck in the USA',
     metaDescription:
-      'Custom coins and medallions for America’s 250th anniversaries through 2033, die struck in Rhode Island since 1948. Up to 3.5″, numbering in-house, 3–8 week lead time.',
+      'Custom coins and medallions for America’s 250th anniversaries through 2033, die struck in Rhode Island since 1948. Up to 3.5″, in-house numbering and scheduling to an agreed event date.',
     answer:
       'Mel-Co-Ed strikes custom coins and medallions in Pawtucket, Rhode Island. We have die struck metal since 1948 and can strike them for 250th anniversary programs from now through 2033. Coins and medallions are struck up to 3.5″ across from dies built in our own tool room.',
     body: [
       `America’s 250th isn’t one date. The anniversaries of the Revolution run through the Treaty of Paris in 2033, and towns, historical societies, lodges and units mark their own along the way. Mel-Co-Ed is ${america250.charAt(0).toLowerCase()}${america250.slice(1)}`,
-      `A struck medal with your town seal or your own design is a keepsake that lasts. Tell us the date you need them in hand: our ${ordering.leadTime} lead time includes building the die.`,
+      `A struck medal with your town seal or your own design is a keepsake that lasts. Tell us the date you need them in hand: our quote accounts for the die, artwork approval and finishing.`,
     ],
     list: {
       heading: '250th anniversaries ahead',
@@ -690,7 +733,6 @@ export const resources: Resource[] = [
       R.metals,
       R.enamel,
       R.engraving,
-      R.noMinimum,
       R.minimum,
       R.leadTime,
       R.die,
@@ -698,15 +740,15 @@ export const resources: Resource[] = [
     ],
     steps: strikeSteps(
       'Your seal, design or artwork is prepared for the dies, front and back.',
-      'Coins are numbered in-house if needed, finished by our finishing partners, and shipped in time for your date.',
+      'Coins are numbered in-house if needed, finished by our finishing partners, and packed for shipment on the agreed schedule.',
     ),
     faqs: [
       {
         q: 'When should we order 250th coins or medallions?',
-        a: `Lead time is typically ${ordering.leadTime}, including building the die. Add time for your committee to approve the proof, and order well ahead of your event.`,
+        a: `Share the event date and the time your committee needs to approve samples. We work back through shipping, finishing, production and toolmaking to confirm whether the date is practical.`,
       },
       { q: 'Can 250th coins be numbered as a limited edition?', a: 'Yes. Engraving and numbering are done in-house.' },
-      { q: 'Can we order 250th medallions in sterling silver?', a: `Yes. ${ordering.noMinimum}` },
+      { q: 'Can we order 250th medallions in sterling silver?', a: 'Yes. Share the alloy, desired finish and quantity so we can quote your run.' },
       {
         q: 'Is Mel-Co-Ed an official America250 supplier?',
         a: `No. Mel-Co-Ed is ${america250.charAt(0).toLowerCase()}${america250.slice(1)} We strike your organization’s own designs.`,
@@ -770,12 +812,12 @@ export const resources: Resource[] = [
     h1: 'Belt buckle manufacturer in the USA',
     metaTitle: 'Belt Buckle Manufacturer in the USA | Die Struck in Rhode Island',
     metaDescription:
-      'Custom belt buckles die struck and stamped in Rhode Island since 1948. Dies built in-house, soldering and assembly in-house, numbering in-house, no minimum on sterling.',
+      'Custom belt buckles die struck and stamped in Rhode Island since 1948. Dies built in-house, soldering and assembly in-house, numbering in-house and a choice of metals.',
     answer:
       'Mel-Co-Ed makes custom belt buckles in Pawtucket, Rhode Island, and has stamped and die struck metal since 1948. Buckles are struck or stamped from dies built in our own tool room, with soldering and assembly done in-house.',
     body: [
       'A die-struck buckle face carries a logo or design in raised relief, the same way a coin or badge does. Soldering and assembly are done in-house, and numbering too, so a limited run can be numbered on the back.',
-      'Sterling silver carries no minimum order, and brass and nickel silver give a solid, classic buckle at a lower metal cost. Plating, polishing and enamel are done by our finishing partners.',
+      'Compare sterling silver, brass and nickel silver for the intended finish, weight and metal cost. Plating, polishing and enamel are done by our finishing partners.',
     ],
     list: {
       heading: 'Buckles we make',
@@ -788,7 +830,7 @@ export const resources: Resource[] = [
     ),
     faqs: [
       { q: 'How large can a die-struck buckle face be?', a: 'Up to 3.5″ across and .250″ thick.' },
-      { q: 'Can belt buckles be made in sterling silver?', a: `Yes. ${ordering.noMinimum}` },
+      { q: 'Can belt buckles be made in sterling silver?', a: 'Yes. Share the alloy, desired finish and quantity so we can quote your run.' },
       { q: 'Can each buckle be numbered?', a: 'Yes. Engraving and numbering are done in-house.' },
       {
         q: 'Which metals can a buckle be made in?',
@@ -830,7 +872,7 @@ export const resources: Resource[] = [
     specs: [R.madeHere, R.openLine, R.metals, R.minimum, R.sellTo, R.finishing, R.leadTime],
     steps: [
       { title: 'Find the part', body: 'Pick a part number from our Findings & Stampings catalog, or send your own design.' },
-      { title: 'Choose the metal', body: 'Any metal on our list, or send us yours.' },
+      { title: 'Choose the metal', body: 'Specify the alloy and finish, or send details of your existing stock.' },
       { title: 'Strike or stamp', body: 'Findings are struck and stamped in Pawtucket from our own dies.' },
       { title: 'Ship raw or finished', body: 'Plating and polishing go to our finishing partners, or parts ship raw.' },
     ],
@@ -854,14 +896,14 @@ export const resources: Resource[] = [
     slug: 'sterling-silver-findings-manufacturer',
     group: 'Jewelry & findings',
     h1: 'Sterling silver findings manufacturer',
-    metaTitle: 'Sterling Silver Findings Manufacturer | No Minimum | Made in USA',
+    metaTitle: 'Sterling Silver Findings Manufacturer | Made in Rhode Island',
     metaDescription:
-      'Sterling silver findings made in Rhode Island since 1948, with no minimum order on sterling. Priced at order on current metal prices; send us your own silver.',
+      'Sterling silver findings made in Rhode Island since 1948, from catalog tooling or a custom die. Ask about the metal basis, finish and quantity for your run.',
     answer:
-      'Mel-Co-Ed makes sterling silver findings in Pawtucket, Rhode Island, and has made findings since 1948. There is no minimum order on sterling silver, and every finding is made here, not imported.',
+      'Mel-Co-Ed makes sterling silver findings in Pawtucket, Rhode Island, and has made findings since 1948. For a quote, send a catalog number or drawing, the silver alloy, finish and order quantity.',
     body: [
-      'Sterling, 92.5% silver, is the standard for fine silver jewelry. Because it moves with the metal market, sterling is priced at the time of order, based on current metal prices.',
-      "We also work in fine silver, and you can supply your own metal: have metal already? We'll run yours. Your design can go on its own exclusive die, run only for you.",
+      'Sterling silver is 92.5% silver and is distinct from fine silver. Because it moves with the metal market, sterling is priced at the time of order, based on current metal prices.',
+      "We also work in fine silver. Send the alloy, gauge, width and quantity if you plan to supply the metal. Your design can go on its own exclusive die, run only for you.",
     ],
     list: {
       heading: 'Sterling findings we make',
@@ -869,7 +911,7 @@ export const resources: Resource[] = [
     },
     specs: [
       { label: 'Silver', value: 'Sterling silver and fine silver, or your own metal' },
-      R.noMinimum,
+      R.minimum,
       R.pricing,
       R.madeHere,
       R.finishing,
@@ -883,9 +925,9 @@ export const resources: Resource[] = [
       { title: 'Finish & ship', body: 'Polishing and plating go to our finishing partners, or parts ship raw.' },
     ],
     faqs: [
-      { q: 'Is there a minimum order for sterling silver findings?', a: `No. ${ordering.noMinimum}` },
+      { q: 'Is there a minimum order for sterling silver findings?', a: minimumLine },
       { q: 'How is sterling silver priced?', a: ordering.pricing },
-      { q: 'Can I supply my own silver?', a: "Yes. Have metal already? We'll run yours." },
+      { q: 'Can I supply my own silver?', a: "Send the alloy, temper, thickness, width and available quantity so we can check it against the part." },
       {
         q: 'Do you make findings in fine silver as well as sterling?',
         a: 'Yes. We work in fine silver and sterling, and in every other metal on our list: brass, copper, nickel silver, gold and gold filled, stainless steel, aluminum, cold-rolled steel and zinc.',
@@ -906,11 +948,11 @@ export const resources: Resource[] = [
     h1: 'Gold-filled and karat gold findings',
     metaTitle: 'Gold-Filled & Solid 10K, 14K, 18K Gold Findings | Made in USA',
     metaDescription:
-      'Gold-filled, solid 10K/14K/18K and karat-plated findings made in Rhode Island since 1948. No minimum on gold; customer-supplied gold welcome.',
+      'Gold-filled, solid 10K/14K/18K and karat-plated findings made in Rhode Island since 1948. Quantities are reviewed per project. We also evaluate customer-supplied gold.',
     answer:
-      'Mel-Co-Ed makes gold-filled and solid gold findings in Pawtucket, Rhode Island, and has made findings since 1948. We work in gold filled, solid 10K, 14K and 18K gold, karat gold plating and customer-supplied gold, with no minimum order on gold.',
+      'Mel-Co-Ed makes gold-filled and solid gold findings in Pawtucket, Rhode Island, and has made findings since 1948. We work in gold filled, solid 10K, 14K and 18K gold, karat gold plating and customer-supplied gold.',
     body: [
-      'Gold filled carries a thick layer of karat gold bonded to a base metal, so it wears far longer than plating at a fraction of the cost of solid gold. Solid gold findings are karat gold all the way through.',
+      'Gold-filled stock has a layer of karat gold mechanically bonded to a base metal. For a formed finding, specify which surfaces and edges will be visible. Solid gold findings are karat gold all the way through.',
       'Karat gold plating gives gold color over brass or another base metal, applied by our finishing partners. Gold is priced at the time of order, and if you supply your own, we will strike it.',
     ],
     list: {
@@ -922,7 +964,7 @@ export const resources: Resource[] = [
         'Your gold, struck into your design',
       ],
     },
-    specs: [R.gold, R.noMinimum, R.pricing, R.plating, R.madeHere, R.leadTime, R.die],
+    specs: [R.gold, R.minimum, R.pricing, R.plating, R.madeHere, R.leadTime, R.die],
     steps: [
       { title: 'Choose the gold', body: 'Gold filled, 10K, 14K, 18K, karat plating, or gold you supply.' },
       { title: 'Build the die', body: 'Your design on its own die, built in our tool room, or a catalog finding.' },
@@ -932,10 +974,10 @@ export const resources: Resource[] = [
     faqs: [
       {
         q: 'What is the difference between gold filled and gold plated?',
-        a: 'Gold filled has a much thicker layer of karat gold, mechanically bonded to the base metal, so it lasts far longer. Plating is a thin layer applied by electroplating.',
+        a: 'Gold-filled stock has a mechanically bonded gold layer before stamping. Gold plating deposits a surface layer on the part. For a wear-sensitive surface, specify the finish requirement and how the piece will be used.',
       },
       { q: 'Can I send you my own gold?', a: 'Yes. We work with customer-supplied gold.' },
-      { q: 'Do you have a minimum on gold findings?', a: `No. ${ordering.noMinimum}` },
+      { q: 'Do you have a minimum on gold findings?', a: minimumLine },
     ],
     links: [{ label: 'Findings', href: '/findings/' }],
     quoteType: 'findings',
@@ -961,7 +1003,7 @@ export const resources: Resource[] = [
         'Branded charms and tags',
         'Signature connectors and components',
         'Textured pieces cut from our embossed pattern stock',
-        'Your design in sterling or gold, with no minimum',
+        'Sterling or gold findings quoted for the intended run size',
       ],
     },
     specs: [R.exclusive, R.die, R.metals, R.minimum, R.toolingCost, R.leadTime, R.madeHere],
@@ -982,7 +1024,7 @@ export const resources: Resource[] = [
       },
       {
         q: 'Can a custom finding use one of your embossed patterns?',
-        a: 'Yes. Every pattern can be made into pendants, bracelets, earrings or any other shape, including your own design.',
+        a: 'Yes. Send the outline and desired pattern direction so we can check the available stock width, texture and forming operations.',
       },
     ],
     links: [
@@ -1013,14 +1055,14 @@ export const resources: Resource[] = [
         'Cuff bracelets and bracelets',
         'Tie bars, lapel pins and collar stays',
         'Bookmarks, ornaments, money clips and card cases',
-        'Pendants, rounds, tags and bars in any size',
+        'Pendants, rounds, tags and bars to specified dimensions',
         'Architectural and lighting applications',
       ],
     },
     specs: [R.patterns, R.widths, R.metals, R.openLine, { label: 'Your stock', value: 'Bring your flat stock and we’ll emboss it' }, R.minimum, R.leadTime],
     steps: [
       { title: 'Pick a pattern', body: 'Choose from our Pattern & Banding catalog, or design your own.' },
-      { title: 'Choose the metal', body: 'Any metal on our list, or your own flat stock.' },
+      { title: 'Choose the metal', body: 'Specify the alloy, temper and gauge, including for customer-supplied stock.' },
       { title: 'Emboss', body: 'The pattern is pressed into the stock from our dies.' },
       { title: 'Blank & form', body: 'Cut into rounds, tags, bars or your shape, or shipped as stock.' },
     ],
@@ -1034,8 +1076,8 @@ export const resources: Resource[] = [
         a: 'Yes. A custom pattern is cut on your own exclusive die and run only for you.',
       },
       {
-        q: 'Can pattern stock be cut into any shape?',
-        a: 'Yes: rounds in any size, with or without a hole, tags, bars or your own design.',
+        q: 'Which outlines can be cut from pattern stock?',
+        a: 'Rounds, tags and bars are common. Send the proposed outline and dimensions so we can check the stock width, pattern direction and tool.',
       },
     ],
     links: [
@@ -1075,7 +1117,7 @@ export const resources: Resource[] = [
         q: 'Can you put our logo on cufflinks or tie bars?',
         a: 'Yes. Your logo can be struck from your own die, or engraved in-house.',
       },
-      { q: 'Can I order these in sterling silver?', a: `Yes. ${ordering.noMinimum}` },
+      { q: 'Can I order these in sterling silver?', a: 'Yes. Share the alloy, desired finish and quantity so we can quote your run.' },
       { q: 'Are stock cufflinks and tie bars free of tooling cost?', a: 'Yes. Open Line pieces carry no tooling cost.' },
       {
         q: 'Can tie bars and money clips carry a textured pattern?',
@@ -1138,7 +1180,7 @@ export const resources: Resource[] = [
       'Custom die struck pilot wings, unit insignia and emblems from Rhode Island since 1948. Struck up to 3.5″, pin posts fused never soldered, soft or hard enamel.',
     answer: `Mel-Co-Ed die strikes custom pilot wings, unit insignia and emblems in Pawtucket, Rhode Island, and has struck metal since 1948. Pieces are struck up to 3.5″ across from dies built in our own tool room. ${pinPosts}`,
     body: [
-      'Wings and insignia are worn every day, so detail and durability matter: crisp feathering on a wing, sharp lettering, a pin that stays put. Die striking delivers all three.',
+      'For a uniform piece, define the span, relief and attachment position on the drawing. A sample lets you check the lettering at actual size and how the piece sits on the fabric.',
       'Color comes from soft or hard enamel, and plating in gold, silver or imitation rhodium, both from our finishing partners. Numbering is done in-house.',
     ],
     list: {
@@ -1201,7 +1243,7 @@ export const resources: Resource[] = [
       heading: 'What we can make',
       items: ['Past Master jewels', 'Officer jewels', 'Lapel pins with a name and number', 'Emblems for regalia', 'Anniversary medallions'],
     },
-    specs: [R.dieStrike, R.metals, R.noMinimum, R.enamel, R.pinPosts, R.attachments, R.finishing, R.minimum, R.die, R.leadTime],
+    specs: [R.dieStrike, R.metals, R.enamel, R.pinPosts, R.attachments, R.finishing, R.minimum, R.die, R.leadTime],
     steps: strikeSteps(
       'Your seal, an old pin or a sketch is prepared for the dies, with the name, number and dates you want.',
       'Pieces are enamel-filled and plated by our finishing partners, fitted, and shipped to you or your supplier.',
@@ -1212,7 +1254,7 @@ export const resources: Resource[] = [
         q: 'Will reorders match the originals?',
         a: `Yes, if we struck the originals. ${tooling.storage}`,
       },
-      { q: 'Can jewels be made in sterling or gold?', a: `Yes. ${ordering.noMinimum}` },
+      { q: 'Can jewels be made in sterling or gold?', a: 'Yes. Share the alloy, desired finish and quantity so we can quote your run.' },
     ],
     links: [{ label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }],
     quoteType: 'fraternal',
@@ -1231,7 +1273,7 @@ export const resources: Resource[] = [
     answer: `Mel-Co-Ed strikes corporate logo pins and emblems in Pawtucket, Rhode Island, and has die struck metal since 1948. Every pin is made in the USA from a die built in our own tool room. ${pinPosts}`,
     body: [
       'A struck pin carries your logo in real metal relief, which reads as quality on a lapel. Color comes from soft or hard enamel, and plating in gold, karat gold, silver or imitation rhodium, both applied by our finishing partners.',
-      'For service and recognition programs, the same die strikes every year’s pins. You own it, and we store it free, so this year’s pin matches last year’s.',
+      'If the outline and artwork stay the same, existing tooling can often serve the next release. Send the previous order number and note changes to the finish, quantity or packaging.',
     ],
     list: {
       heading: 'What companies order',
@@ -1265,24 +1307,24 @@ export const resources: Resource[] = [
     h1: 'Religious medals and emblems manufacturer',
     metaTitle: 'Religious Medals & Emblems Manufacturer | Die Struck in USA',
     metaDescription:
-      'Religious medals and emblems die struck in Rhode Island since 1948. Up to 3.5″, sterling and gold with no minimum, engraving in-house, dies built in-house.',
+      'Religious medals and emblems die struck in Rhode Island since 1948. Up to 3.5″, sterling and gold options, engraving in-house, dies built in-house.',
     answer:
       'Mel-Co-Ed makes religious medals and emblems in Pawtucket, Rhode Island, and has die struck metal since 1948. Medals are struck up to 3.5″ across from dies built in our own tool room, in sterling, gold, brass, nickel silver and more.',
     body: [
-      'Die striking gives a medal the fine detail it needs: faces, lettering and borders that stay crisp, on a piece dense enough to wear every day.',
-      `${ordering.noMinimum} Engraving and numbering are done in-house; plating, polishing and enamel fill are done by our finishing partners.`,
+      'Send both faces at actual size, with the border, lettering and any hanging loop shown. A designer can then check how much room each detail has after finishing.',
+      `We confirm minimum quantities at quoting. Engraving and numbering are done in-house; plating, polishing and enamel fill are done by our finishing partners.`,
     ],
     list: {
       heading: 'What we strike',
       items: ['Devotional medals', 'Emblems for religious goods suppliers', 'Medals for dedications and special occasions', 'Custom designs on your own exclusive die'],
     },
-    specs: [R.struck, R.metals, R.noMinimum, R.gold, R.engraving, R.finishing, R.leadTime, R.die],
+    specs: [R.struck, R.metals, R.minimum, R.gold, R.engraving, R.finishing, R.leadTime, R.die],
     steps: strikeSteps(
       'Your design or an existing medal is prepared for the dies.',
       'Medals are engraved in-house if needed, finished by our finishing partners, and shipped.',
     ),
     faqs: [
-      { q: 'Can religious medals be made in sterling or gold?', a: `Yes, with no minimum order. ${ordering.pricing}` },
+      { q: 'Can religious medals be made in sterling or gold?', a: `Yes. ${ordering.pricing} ${minimumLine}` },
       { q: 'Who can order religious medals from you?', a: whoWeSellTo },
       { q: 'Can a medal be engraved on the back?', a: 'Yes. Engraving and numbering are done in-house.' },
     ],

@@ -5,13 +5,13 @@
 
 import { site, fullAddress } from './site';
 import type { Faq } from '../lib/schema';
-import { ordering, materials, materialsNote, waysToBuy, tooling, whoWeSellTo, reproductions, shippingLine } from './facts';
+import { ordering, minimumLine, leadTimeLine, materials, materialsNote, waysToBuy, tooling, whoWeSellTo, reproductions, shippingLine } from './facts';
 import { confidentialFaq } from './confidential';
 
 export const generalFaqs: Faq[] = [
   {
     q: 'What does Mel-Co-Ed, Inc. make?',
-    a: 'Mel-Co-Ed (MCE) is a metal stamping and die striking company. We stamp parts to print for every industry, and run three divisions: Raw Stampings & Findings, Finished Goods (die-struck badges, medals, awards and fraternal emblems) and Precision Milling.',
+    a: 'Our specialties are ornamental metal stamping and die striking. We make badges, emblems, medallions, pins, awards, jewelry findings and other decorative components. We also review industrial parts against the print, material and expected run size.',
   },
   {
     q: 'Where is Mel-Co-Ed located?',
@@ -31,7 +31,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: 'What is your minimum order quantity and typical lead time?',
-    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}.`,
+    a: `${minimumLine} ${leadTimeLine}`,
   },
   {
     q: 'How is pricing set?',

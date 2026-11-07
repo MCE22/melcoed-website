@@ -29,18 +29,17 @@ const topics = [
   schema={[faqPageNode(path, [...generalFaqs, ...orderingFaqs])]}
 >
   <PageHero
-    title="Frequently Asked Questions"
-    accent="straight answers"
-    ribbon="FAQ"
+    title="Frequently asked questions"
     lead="What we make, how ordering works, and where to find detailed answers for each product."
     breadcrumbs={breadcrumbs}
-  />
+  >
+    <nav class="topics-nav" aria-label="FAQ topics"><a href="#general-h">Company &amp; products</a><a href="#ordering-h">Ordering &amp; tooling</a><a href="#topics-h">Product-specific questions</a></nav>
+  </PageHero>
 
   <section class="section" aria-labelledby="general-h">
     <div class="wrap faq-wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--navy">About us</span>
-        <h2 id="general-h">General</h2>
+        <h2 id="general-h">The company &amp; its products</h2>
       </div>
       <FaqList faqs={generalFaqs} />
     </div>
@@ -49,7 +48,6 @@ const topics = [
   <section class="section section--cream" aria-labelledby="ordering-h">
     <div class="wrap faq-wrap">
       <div class="section-head">
-        <span class="ribbon">Working with us</span>
         <h2 id="ordering-h">Ordering &amp; tooling</h2>
       </div>
       <FaqList faqs={orderingFaqs} />
@@ -59,7 +57,6 @@ const topics = [
   <section class="section" aria-labelledby="topics-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--navy">By topic</span>
         <h2 id="topics-h">More answers by product</h2>
         <p class="lead">Each product and industry page has its own detailed FAQ.</p>
       </div>
@@ -85,6 +82,8 @@ const topics = [
 </BaseLayout>
 
 <style>
+  .topics-nav { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; margin-top:1.25rem; }
+  .topics-nav a { font-size:.96rem; padding:.3rem 0; }
   .topics {
     display: grid;
     gap: 0.75rem;

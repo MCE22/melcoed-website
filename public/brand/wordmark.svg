@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 50" role="img" aria-label="Mel-Co-Ed">
+  <g fill="#861f28" fill-rule="evenodd" transform="translate(9 3) skewX(-11)">
+    <path d="M0 32V0h9l7 17L23 0h9v32h-8V13l-6 15h-4L8 13v19z"/>
+    <path d="M37 0h26v7H46v5h14v7H46v6h17v7H37z"/>
+    <path d="M68 0h9v25h17v7H68z"/>
+    <path d="M98 13h12v6H98z"/>
+    <path d="M116 6l6-6h19l5 5v5h-9V7h-11l-2 2v14l2 2h11v-3h9v5l-5 5h-19l-6-6z"/>
+    <path d="M151 6l6-6h19l6 6v20l-6 6h-19l-6-6zm9 3v14l2 2h9l2-2V9l-2-2h-9z"/>
+    <path d="M187 13h12v6h-12z"/>
+    <path d="M205 0h25v7h-16v5h14v7h-14v6h17v7h-26z"/>
+    <path d="M236 0h18l7 7v18l-7 7h-18zm9 7v18h6l2-2V9l-2-2z"/>
+    <path d="M0 37h259l-4 3L0 44z"/>
+  </g>
+</svg>

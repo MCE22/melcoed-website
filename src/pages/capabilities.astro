@@ -3,14 +3,13 @@ import ResourceLinks from '../components/ResourceLinks.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
-import Todo from '../components/Todo.astro';
 import GovBuyers from '../components/GovBuyers.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import { hasPhoto } from '../data/photos';
 import { site, quoteHref } from '../data/site';
 import { faqPageNode, type Faq } from '../lib/schema';
-import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, processesLine, ordering, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths, quality, maxPartLine, precisionMilling } from '../data/facts';
+import { process, materials as materialList, materialsNote, finishes, plating, dieStrikingLine, leadTimeLine, minimumLine, pressesLine, stampingThickness, stampingThicknessLine, tolerance, toleranceLine, tooling, bandingWidths, quality, maxPartLine, precisionMilling } from '../data/facts';
 
 const path = '/capabilities/';
 const breadcrumbs = [{ name: 'Capabilities', path }];
@@ -34,9 +33,9 @@ const materialUses: Record<string, string> = {
   'Brass (230/260)': 'Findings, emblems, badges, pattern stock',
   Copper: 'Medallions, findings, emblems',
   'Nickel silver': 'Badges, jewelry components, emblems',
-  'Sterling silver': 'Fine jewelry, medallions, awards (no minimum)',
+  'Sterling silver': 'Fine jewelry, medallions, awards',
   'Fine silver': 'Fine jewelry and keepsakes',
-  'Gold & gold filled': 'Fine jewelry and recognition pieces (no minimum on gold)',
+  'Gold & gold filled': 'Fine jewelry and recognition pieces',
   'Stainless steel': 'Tie bars, money clips, durable components',
   Aluminum: 'Lightweight parts, tags and plates',
   'Cold-rolled steel': 'Parts stamped to print',
@@ -87,10 +86,8 @@ const faqs: Faq[] = [
   schema={[faqPageNode(path, faqs)]}
 >
   <PageHero
-    title="Capabilities"
-    accent="print to finished part"
-    ribbon="Services"
-    lead="Metal stamping, die striking, tooling, finishing and precision milling for manufacturers and brands in every industry, with one supplier in Pawtucket."
+    title="Stamping &amp; tool room capabilities"
+    lead="From relief on an emblem to a pierced feature on a functional part, the geometry determines the tooling. We review the drawing, choose the process and build the dies here in Pawtucket."
     breadcrumbs={breadcrumbs}
   
     photo="capabilities"
@@ -112,7 +109,7 @@ const faqs: Faq[] = [
   <section class="section" aria-labelledby="flow-h">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="flow-h">One supplier, one schedule</h2>
+        <h2 id="flow-h">From design to finished part</h2>
       </div>
       <ol class="steps">
         {
@@ -126,7 +123,7 @@ const faqs: Faq[] = [
         }
       </ol>
       <PhotoSlot
-        slot="capabilities" skip={1}
+        slot="capabilities" skip={1} max={3}
         todo="Photos: press close-ups, tool room / die work, and a finished part on the bench (3–6 images, landscape)."
         class="cap-photos"
       />
@@ -138,8 +135,8 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <h2 id="striking-h">Die striking &amp; coining</h2>
-        <p>A blank is struck between engraved steel dies to raise sharp relief, for badges, medallions, emblems and findings.</p>
-        <p>Progressive, transfer and automatic stamping, blanking and forming: <a href="/metal-stamping/">Metal Stamping &rarr;</a></p>
+        <p>An engraved die presses a design into a metal blank. Metal flows into the recessed areas of the tool, producing raised lettering, borders or relief on the part. For two-sided work, the depth and position of the design on each face affect how the blank fills.</p>
+        <p>For a functional part with cutouts, bends or formed features, see <a href="/metal-stamping/">precision metal stamping</a>.</p>
         {hasPhoto('die-striking-shoot') && <MediaSlot slot="die-striking-shoot" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: die set in a press; fresh strike off the die" class="cap-shot" />}
       </div>
       <dl class="specs">
@@ -147,8 +144,8 @@ const faqs: Faq[] = [
         <div><dt>Max part size</dt><dd>{maxPartLine}</dd></div>
         <div><dt>Presses</dt><dd>{pressesLine}</dd></div>
         <div><dt>Size</dt><dd>{dieStrikingLine}</dd></div>
-        <div><dt>Minimum order</dt><dd>{ordering.minimum}. {ordering.smallRuns} {ordering.noMinimum}</dd></div>
-        <div><dt>Lead time</dt><dd>Typically {ordering.leadTime}</dd></div>
+        <div><dt>Minimum order</dt><dd>{minimumLine}</dd></div>
+        <div><dt>Lead time</dt><dd>{leadTimeLine}</dd></div>
       </dl>
     </div>
   </section>
@@ -158,7 +155,7 @@ const faqs: Faq[] = [
     <div class="wrap split">
       <div>
         <h2 id="tooling-h">In-house tool &amp; die</h2>
-        <p>Every die is designed and built in-house. Engineering changes and maintenance happen on our floor, not in an outside tool shop's queue.</p>
+        <p>Our toolmakers design, build and maintain dies in-house. We review part geometry, stock and expected run sizes before choosing a single-operation or progressive tool.</p>
         {hasPhoto('tooling-shoot') && <MediaSlot slot="tooling-shoot" aspect="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" todo="New shoot: toolmaker at bench; die next to its struck part" class="cap-shot" />}
       </div>
       <dl class="specs specs--light">
@@ -168,7 +165,7 @@ const faqs: Faq[] = [
         <div><dt>Tool storage</dt><dd>{tooling.storage}</dd></div>
         <div><dt>Tooling cost</dt><dd>{tooling.billing}</dd></div>
         <div><dt>Short runs</dt><dd>{tooling.shortRun}</dd></div>
-        <div><dt>Your tooling</dt><dd>Have dies or metal already? We’ll run yours.</dd></div>
+        <div><dt>Your tooling</dt><dd>Send die dimensions and condition, or the alloy, temper and thickness of your stock, for a compatibility review.</dd></div>
       </dl>
     </div>
     <div class="wrap">
@@ -276,13 +273,13 @@ const faqs: Faq[] = [
   <section id="tolerances" class="section cap" aria-labelledby="tol-h">
     <div class="wrap split">
       <div>
-        <h2 id="tol-h">What we hold, and what drives it</h2>
+        <h2 id="tol-h">Dimensional tolerances</h2>
         <p>Tolerance depends on material, thickness, feature size and tooling. Thick stock, tight hole-to-edge distances and formed features all affect it.</p>
         <p>Mark the dimensions that matter on your print. We'll quote to those and tell you up front if any need a different approach.</p>
       </div>
       <dl class="specs specs--light">
         <div><dt>Typical tolerance</dt><dd>{toleranceLine}</dd></div>
-        <div><dt>Your print</dt><dd>We hold the tolerances on your print, verified with micrometers and Micro-Vu optical inspection.</dd></div>
+        <div><dt>Your print</dt><dd>Identify critical dimensions on your drawing. We review feasibility, the inspection method and acceptance requirements during quoting.</dd></div>
       </dl>
     </div>
   </section>
@@ -345,9 +342,7 @@ const faqs: Faq[] = [
 
   /* On-this-page nav: horizontal scroll chips on mobile, sticks under the header */
   .jump {
-    position: sticky;
-    top: var(--header-live, var(--header-h));
-    z-index: 40;
+    position: relative;
     background: var(--cream-50);
     border-bottom: 1px solid var(--cream-200);
   }
@@ -357,24 +352,22 @@ const faqs: Faq[] = [
     margin: 0;
     padding: 0.6rem 0;
     list-style: none;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
   }
   .jump ul::-webkit-scrollbar {
     display: none;
   }
   .jump a {
     display: block;
-    padding: 0.35rem 0.85rem;
-    border: 1px solid var(--chrome);
+    padding: 0.5rem 0.55rem;
+    border: 0;
     border-radius: var(--radius);
-    background: var(--paper);
+    background: transparent;
     color: var(--navy);
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 0.91rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0;
     transition:
       background-color var(--dur-fast) var(--ease),
       color var(--dur-fast) var(--ease),
@@ -429,8 +422,7 @@ const faqs: Faq[] = [
     font-family: var(--font-body);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0;
   }
   .eq thead .mono {
     color: var(--steel);

@@ -1,42 +1,19 @@
 ---
-// Plate logo: the official image (src/assets/brand/mce-plate.png), served as WebP with a PNG fallback.
-import { Picture } from 'astro:assets';
-import { platePng, brandAlt } from '../data/brand';
+import { brandAlt } from '../data/brand';
 
 interface Props {
-  /** Kept for callers; both variants use the same plate image. */
   variant?: 'compact' | 'primary';
-  /** Largest rendered width in px (CSS may show it smaller; height follows proportions). */
   width?: number;
   link?: boolean;
   eager?: boolean;
 }
-const { width = 150, link = true, eager = true } = Astro.props;
-const loading = eager ? 'eager' : 'lazy';
-const widths = [width, width * 2].filter((w) => w <= platePng.width);
+const { width = 180, link = true, eager = true } = Astro.props;
+const Tag = link ? 'a' : 'span';
 ---
-
-{
-  link ? (
-    <a href="/" class="logo">
-      <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={widths} sizes={`${width}px`} alt={`${brandAlt} (home)`} loading={loading} />
-    </a>
-  ) : (
-    <span class="logo">
-      <Picture src={platePng} formats={['webp']} fallbackFormat="png" widths={widths} sizes={`${width}px`} alt={brandAlt} loading={loading} />
-    </span>
-  )
-}
+<Tag class="logo" href={link ? '/' : undefined} aria-label={link ? 'Mel-Co-Ed home' : undefined}>
+  <img src="/brand/wordmark.svg" width={265} height={50} style={`width:${width}px`} alt={brandAlt} loading={eager ? 'eager' : 'lazy'} />
+</Tag>
 <style>
-  .logo {
-    display: inline-block;
-    flex: none;
-    line-height: 0;
-  }
-  .logo :global(img) {
-    display: block;
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 2px 3px rgb(27 24 21 / 0.25));
-  }
+  .logo { display: inline-block; vertical-align: middle; flex: none; line-height: 0; }
+  img { display: block; max-width: 100%; height: auto; }
 </style>

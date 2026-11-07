@@ -1,5 +1,5 @@
 // Services: what the shop does, independent of product or industry. Drives the
-// Services menu and the Home "Services" tiles. Metal Stamping is the lead service.
+// Services menu and the Home "Services" tiles. Ornamental work leads.
 
 import type { PhotoSlotName } from './photos';
 
@@ -15,12 +15,6 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    label: 'Metal Stamping',
-    href: '/metal-stamping/',
-    summary: 'Progressive, transfer and automatic stamping, blanking and forming, built to print.',
-    photo: { slot: 'metal-stamping' },
-  },
-  {
     label: 'Die Striking & Coining',
     href: '/capabilities/#die-striking',
     summary: 'Sharp relief struck between engraved steel dies, up to 3.5″ across.',
@@ -31,6 +25,12 @@ export const services: Service[] = [
     href: '/capabilities/#tooling',
     summary: 'Dies designed, built and maintained in our own tool room.',
     photo: { slot: 'tooling' },
+  },
+  {
+    label: 'Metal Stamping',
+    href: '/metal-stamping/',
+    summary: 'Progressive, transfer and automatic stamping, blanking and forming, built to print.',
+    photo: { slot: 'metal-stamping' },
   },
   {
     label: 'Finishing',

@@ -1,4 +1,4 @@
-// Industries served: metal stamping for every industry. Used by the Industries page and
+// Buyer groups for ornamental and industrial stamping. Used by the Industries page and
 // the Home industries strip. `href` is the best page for that audience: a dedicated
 // industry page where one exists, otherwise the closest service or product page.
 
@@ -15,24 +15,6 @@ export type Industry = {
 };
 
 export const industries: Industry[] = [
-  {
-    name: 'OEM & Industrial',
-    icon: 'gear',
-    summary: 'Parts stamped to print for manufacturers and contract assemblers.',
-    href: '/metal-stamping/',
-  },
-  {
-    name: 'Hardware',
-    icon: 'hex',
-    summary: 'Stamped parts built to print for hardware makers.',
-    href: '/metal-stamping/',
-  },
-  {
-    name: 'Electrical',
-    icon: 'bolt',
-    summary: 'Stamped parts built to print for electrical products.',
-    href: '/metal-stamping/',
-  },
   {
     name: 'Jewelry & Fashion',
     icon: 'gem',
@@ -59,6 +41,12 @@ export const industries: Industry[] = [
     dedicated: true,
   },
   {
+    name: 'Product brands & packaging',
+    icon: 'tag',
+    summary: 'Raised metal emblems and nameplates for mounting on packaging, accessories and finished goods.',
+    href: '/resources/custom-die-struck-emblems-nameplates/',
+  },
+  {
     name: 'Corporate & Promotional',
     icon: 'tag',
     summary: 'Challenge coins, emblems and pins for companies, programs and events.',
@@ -75,5 +63,23 @@ export const industries: Industry[] = [
     icon: 'golf',
     summary: 'Ball markers, divot tools, money clips and team and event pieces.',
     href: '/products/',
+  },
+  {
+    name: 'OEM & Industrial',
+    icon: 'gear',
+    summary: 'Parts stamped to print for manufacturers and contract assemblers.',
+    href: '/metal-stamping/',
+  },
+  {
+    name: 'Hardware',
+    icon: 'hex',
+    summary: 'Stamped parts built to print for hardware makers.',
+    href: '/metal-stamping/',
+  },
+  {
+    name: 'Electrical',
+    icon: 'bolt',
+    summary: 'Stamped parts built to print for electrical products.',
+    href: '/metal-stamping/',
   },
 ];

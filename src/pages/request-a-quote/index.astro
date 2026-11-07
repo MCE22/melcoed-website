@@ -17,6 +17,10 @@ const faqs: Faq[] = [
     a: 'The quantity (or several price breaks), material and thickness, finish, the date you need parts, and a drawing, CAD file, sketch or photo of the part. If you have existing tooling or a sample, tell us. The more we know up front, the faster and more accurate the quote.',
   },
   {
+    q: 'Is there a minimum quantity for a quote?',
+    a: 'Minimum quantities are evaluated during quoting. Tell us the size of your first order and any expected reorders. Existing tooling, setup time, material and finish all affect the practical run size.',
+  },
+  {
     q: 'What file formats can I send?',
     a: 'PDF drawings, DXF, DWG, STEP and IGES CAD files, Adobe Illustrator or EPS artwork, and ordinary photos all work. If you only have a physical sample, describe it in the request and we will arrange to see it.',
   },
@@ -41,9 +45,7 @@ const faqs: Faq[] = [
 >
   <PageHero
     title="Request a Quote"
-    accent="tell us what to strike"
-    ribbon="Custom stamping"
-    lead="Badges, medallions, emblems, findings or parts built to print. Give us the basics and we'll come back with pricing, tooling and any questions about your design."
+    lead="Tell us what you want to make, your first order quantity and any repeat demand. A print, sketch or sample helps us review tooling, finish and piece price."
     breadcrumbs={breadcrumbs}
   />
 
@@ -63,7 +65,7 @@ const faqs: Faq[] = [
           </ol>
         </div>
 
-        <div class="aside-block sign sign--rivets aside-call">
+        <div class="aside-block aside-call">
           <h2 class="aside-h">Rather talk it through?</h2>
           <p><a class="aside-phone" href={`tel:${site.phone.e164}`}>{site.phone.display}</a></p>
           {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
@@ -78,7 +80,7 @@ const faqs: Faq[] = [
           atAGlance && (
             <div class="aside-block">
               <h2 class="aside-h">Mel-Co-Ed at a Glance</h2>
-              <p>Shop, materials, finishes, minimums and lead times on two pages.</p>
+              <p>Download a printable overview of the shop and its capabilities.</p>
               <p>
                 <a href={atAGlance.href} download>
                   Mel-Co-Ed at a Glance (PDF) <span style="white-space: nowrap">&middot; {atAGlance.sizeMb} MB</span>
@@ -129,10 +131,7 @@ const faqs: Faq[] = [
       grid-template-columns: minmax(0, 1fr) 20rem;
       gap: 3rem;
     }
-    .quote__aside {
-      position: sticky;
-      top: calc(var(--header-live, var(--header-h)) + 2rem);
-    }
+
   }
   .quote__aside {
     display: grid;
@@ -143,14 +142,12 @@ const faqs: Faq[] = [
     padding-top: var(--space-3);
     border-top: 1px solid var(--rule);
   }
-  /* restore the sign's navy enamel (the .aside-block cream background would otherwise win) */
+
   .aside-call {
     padding: 1.75rem 1.5rem;
     border: 0;
     border-radius: var(--radius-lg);
-    background:
-      linear-gradient(165deg, rgb(255 255 255 / 0.09) 0%, rgb(255 255 255 / 0) 38%),
-      var(--navy);
+    background: var(--navy);
     color: var(--cream-200);
   }
   .aside-call a {

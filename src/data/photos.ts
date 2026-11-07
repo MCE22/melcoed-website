@@ -31,9 +31,7 @@ import cufflinksFootball from '../assets/photos/cufflinks-football.jpg';
 import cufflinksWorn from '../assets/photos/cufflinks-worn.jpg';
 import flagPinFront from '../assets/photos/flag-pin-front.jpg';
 import flagPinAngle from '../assets/photos/flag-pin-angle.jpg';
-import finishedGoods from '../assets/photos/finished-goods-assortment.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
-import libertasObverse from '../assets/photos/libertas-americana-obverse.jpg';
 import buildingSign from '../assets/photos/building-sign.jpg';
 import craftsmanBench from '../assets/photos/craftsman-bench.jpg';
 import pressOperators from '../assets/photos/press-operators-pair.jpg';
@@ -104,7 +102,7 @@ export type ShootKey = (typeof newShoot)[number]['key'];
 export const shoot: Record<ShootKey, Photo[]> = {
   calipers: [{ src: calipersPart, alt: 'Mitutoyo dial caliper beside a stamped brass bezel finding on a maple workbench' }],
   dieAndPart: [{ src: benchDieCalipers, alt: 'Bench tooling and a dial caliper on a workbench in the Mel-Co-Ed tool room' }],
-  struckRelief: [],
+  struckRelief: [{ illustration: true, src: ilEdge, alt: 'Fictional medallion with raised leaves, a recessed field and a polished rim' }],
   finishedTray: [],
   rawStock: [],
   velvet: [],
@@ -155,12 +153,8 @@ export type PhotoSlotName =
 // Close-ups reused across pages.
 const close = {
   brassBlanks: { src: brassBlanks, alt: 'A pile of brass stamped blanks catching warm light' },
-  finishedGoods: {
-    src: finishedGoods,
-    alt: 'Finished pieces built from stamped components: cuffs, bangles, bracelets, cufflinks, tie bars and flag pins',
-  },
+  floral: { src: findingsFloral, alt: 'Gold-toned Open Line stampings shaped as leaves, an iris and flowers, with raised veins and curled petals' },
   cuffsEmbossed: { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
-  libertasObverse: { src: libertasObverse, alt: 'Antique-silver Libertas Americana medal reading "Tribute to 1783, Princeton, NJ, 2008"' },
   sign: { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
 } satisfies Record<string, Photo>;
 
@@ -187,13 +181,12 @@ const showroom: Photo[] = shoot.showroom.length
     ];
 
 export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
-  'home-hero': [close.brassBlanks],
+  'home-hero': [close.floral],
   'home-heritage': [close.sign],
   'home-services': [shop.craftsman],
   findings: [
-    ...shoot.velvet,
+    close.floral,
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
-    { src: findingsFloral, alt: 'Die-struck floral findings in gold: leaves, an iris and a cluster of flowers on a dark background' },
     { src: cuffsTextured, alt: 'Three stamped cuff bracelets with textured and hammered patterns in a silver finish' },
     close.cuffsEmbossed,
     { src: tieBars, alt: 'Stamped tie bars in gold, silver, gunmetal and antique brass finishes' },
@@ -220,7 +213,11 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { illustration: true, src: ilTorch, alt: 'Illustration of a diamond-shaped pin with a torch and laurel on red enamel' },
     { illustration: true, src: ilLighthouse, alt: 'Illustration of a bronze medallion with a lighthouse scene, ringed by the words Guidance, Service, Community' },
   ],
-  medallions: [...shoot.velvet, close.libertasObverse],
+  medallions: [
+    { illustration: true, src: ilLighthouse, alt: 'Fictional bronze lighthouse medallion with lettering around its rim' },
+    { illustration: true, src: ilEdge, alt: 'Fictional medallion detail with raised oak leaves and a polished rim' },
+    { illustration: true, src: ilTree, alt: 'Fictional tree medallion with raised lettering' },
+  ],
   awards: [
     { src: flagPinFront, alt: 'An enameled American flag lapel pin' },
     { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
@@ -230,7 +227,7 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   capabilities: [shop.diesRack, shop.edm, shop.bandsaw],
   // Development work is customer work, so none of it is shown.
   'product-development': [close.cuffsEmbossed, ...(shoot.dieAndPart.length ? shoot.dieAndPart : [shop.dieCloseup]), ...shot('struckRelief')],
-  industries: [close.finishedGoods],
+  industries: [close.cuffsEmbossed],
   // About gallery (2x2): showroom, team, office, second showroom view.
   about: [
     close.sign,
@@ -242,10 +239,10 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   // Service tiles (not placed on a page today)
   'die-striking': shot('struckRelief'),
   tooling: [shop.diesRack],
-  'precision-milling': shot('milledSurface'),
+  'precision-milling': [shop.diesRack],
   packaging: [shop.packing],
   // Shows when filled
-  products: shoot.finishedTray.length ? [...shoot.finishedTray] : [shoot.showroom[1]],
+  products: [{ src: patternDiscs, alt: 'Overlapping rounds blanked from embossed brass pattern stock' }],
   quality: [...shoot.calipers, shop.inspection],
   materials: [...shoot.rawStock, shop.coilsPallet],
   'die-striking-shoot': [...shoot.struckRelief],

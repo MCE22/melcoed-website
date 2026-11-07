@@ -5,6 +5,7 @@ import { site, fullAddress, productLinks } from '../data/site';
 import { services } from '../data/services';
 import { industries } from '../data/industries';
 import { resources, resourceGroups, resourceHref } from '../data/resources';
+import { minimumLine, leadTimeLine } from '../data/facts';
 import { madeIn } from '../data/brand';
 import { isLive } from '../lib/routes';
 
@@ -22,6 +23,8 @@ export const GET: APIRoute = () => {
 - Origin: ${madeIn.primary} (${madeIn.secondary})
 - Address: ${fullAddress}
 - Phone: ${site.phone.display}${site.email ? `\n- Email: ${site.email}` : ''}
+- Order quantities: ${minimumLine}
+- Lead time: ${leadTimeLine}
 - Quotes: ${abs('/request-a-quote/')}
 
 ## Services
@@ -34,13 +37,13 @@ ${links(productLinks)}
 
 ## Industries
 
-Metal stamping for every industry: ${industries.map((i) => i.name).join(', ')}.
+Typical buyers and applications: ${industries.map((i) => i.name).join(', ')}.
 
 ${links([{ label: 'All industries', href: '/industries/' }, { label: 'Fraternal & Lodge', href: '/industries/fraternal-lodge/' }])}
 
 ## Buyer guides
 
-${resourceGroups.map((g) => `### ${g}\n\n` + resources.filter((r) => r.group === g).map((r) => `- [${r.h1}](${abs(resourceHref(r))}): ${r.answer.split('. ')[0]}.`).join('\n')).join('\n\n')}
+${resourceGroups.map((g) => `### ${g}\n\n` + resources.filter((r) => r.group === g).map((r) => `- [${r.h1}](${abs(resourceHref(r))}): ${r.metaDescription}`).join('\n')).join('\n\n')}
 
 ## Company
 

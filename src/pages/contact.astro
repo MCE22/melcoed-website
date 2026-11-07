@@ -1,27 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import Todo from '../components/Todo.astro';
+import { Image } from 'astro:assets';
+import building from '../assets/photos/building-sign.jpg';
 import { shipping } from '../data/facts';
 import { site, quoteHref, fullAddress, mapsUrl } from '../data/site';
 
 const path = '/contact/';
 const breadcrumbs = [{ name: 'Contact', path }];
-// Keyless Google Maps embed; loads lazily so it doesn't slow the page.
-const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.name}, ${fullAddress}`)}&output=embed`;
 ---
 
 <BaseLayout
-  title="Contact Us: Mel-Co-Ed, Inc., Pawtucket, RI"
+  title="Contact Our Pawtucket Shop"
   description={`Contact Mel-Co-Ed, Inc. at ${fullAddress}. Call ${site.phone.display} or request a quote for custom metal stamping, badges, medallions and emblems.`}
   pageType="ContactPage"
   breadcrumbs={breadcrumbs}
 >
   <PageHero
     title="Contact Us"
-    accent="come see the shop"
     ribbon="Pawtucket, R.I."
-    lead="Call, email or stop by. For pricing, the quote form gets your request to the right person fastest."
+    lead="Call the shop with a production question, email a drawing for review, or get directions for a pickup or visit."
     breadcrumbs={breadcrumbs}
   >
     <div class="btn-row hero-cta">
@@ -74,13 +72,8 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.nam
       </div>
 
       <figure class="map">
-        <iframe
-          src={mapEmbed}
-          title={`Map: ${site.name}, ${fullAddress}`}
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen></iframe>
-        <figcaption>{fullAddress}</figcaption>
+        <Image src={building} alt="Mel-Co-Ed’s sign on the front of its Pawtucket building" widths={[400, 680, 960]} sizes="(min-width: 56rem) 50vw, 90vw" width={900} format="webp" loading="lazy" />
+        <figcaption><a href={mapsUrl}>Directions to {fullAddress} &rarr;</a></figcaption>
       </figure>
     </div>
   </section>
@@ -146,25 +139,25 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(`${site.nam
     font-size: 0.95rem;
   }
 
-  /* Map in a chrome-rimmed frame */
+
   .map {
     margin: 0;
-    padding: 6px;
+    padding: 0;
     border-radius: var(--radius-lg);
     background: var(--paper);
     border: 1px solid var(--chrome);
     box-shadow: var(--shadow);
   }
-  .map iframe {
+  .map img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: auto;
     border: 0;
     border-radius: var(--radius);
     background: var(--cream-100);
   }
   .map figcaption {
-    padding: 0.6rem 0.5rem 0.3rem;
+    padding: 1rem;
     font-size: 0.85rem;
     color: var(--ink-600);
   }

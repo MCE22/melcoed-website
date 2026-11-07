@@ -1,147 +1,67 @@
 ---
-// Interior page header: breadcrumbs, brass eyebrow, uppercase block-sans title with an
-// oxblood second line, lead, optional actions (slot), and an optional hard-edged photo. `variant="dark"` is the charcoal version (About page).
 import MediaSlot from './MediaSlot.astro';
 import type { Crumb } from '../lib/schema';
-import type { PhotoSlotName } from '../data/photos';
+import { hasPhoto, type PhotoSlotName } from '../data/photos';
 
 interface Props {
   title: string;
-  /** Second headline line, set in oxblood. */
   accent?: string;
-  /** Brass eyebrow above the title. (Named `ribbon` for compatibility with earlier pages.) */
   ribbon?: string;
   lead?: string;
   breadcrumbs?: Crumb[];
   photo?: PhotoSlotName;
   photoTodo?: string;
   variant?: 'light' | 'dark';
-  /** Smaller headline for long titles (e.g. buyer-question pages). */
   size?: 'default' | 'question';
 }
-const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = 'Hero photo: dark, moody product shot', variant = 'light', size = 'default' } = Astro.props;
-const accentText = accent ? accent.replace(/[.!?]?$/, '.') : undefined;
-// Never break the company name across lines (U+2011 non-breaking hyphen).
-const nb = (s: string) => s.replace(/Mel-Co-Ed/g, 'Mel\u2011Co\u2011Ed');
-const titleText = nb(title);
----
 
-<section class:list={['page-hero', `page-hero--${variant}`, `page-hero--${size}`, { 'page-hero--media': photo, dark: variant === 'dark' }]}>
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__text">
-      {
-        breadcrumbs.length > 0 && (
-          <nav class="crumbs" aria-label="Breadcrumb">
-            <ol>
-              <li><a href="/">Home</a></li>
-              {breadcrumbs.map((c, i) =>
-                i === breadcrumbs.length - 1 ? (
-                  <li aria-current="page">{c.name}</li>
-                ) : (
-                  <li><a href={c.path}>{c.name}</a></li>
-                ),
-              )}
-            </ol>
-          </nav>
-        )
-      }
-      {ribbon && <p class="eyebrow">{ribbon}</p>}
-      <h1>
-        {titleText}
-        {accentText && <em class="page-hero__accent">{accentText}</em>}
-      </h1>
-      {lead && <p class="lead">{lead}</p>}
-      <slot />
+const { title, accent, ribbon, lead, breadcrumbs = [], photo, photoTodo = '', variant = 'light', size = 'default' } = Astro.props;
+const withPhoto = photo && hasPhoto(photo);
+---
+<section class:list={['page-hero', { 'page-hero--media': withPhoto, dark: variant === 'dark', 'page-hero--question': size === 'question' }]}>
+  <div class="wrap">
+    {breadcrumbs.length > 0 && (
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          {breadcrumbs.map((c, i) => (
+            <li>
+              <span aria-hidden="true">/</span>
+              {i === breadcrumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.path}>{c.name}</a>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    <div class="hero-layout">
+      <div class="hero-copy">
+        {ribbon && <p class="eyebrow">{ribbon}</p>}
+        <h1>{title}{accent && <> <em>{accent}</em></>}</h1>
+        {lead && <p class="lead">{lead}</p>}
+        <slot />
+      </div>
+      {withPhoto && photo && <MediaSlot slot={photo} aspect="5 / 4" eager sizes="(min-width: 53rem) 48vw, 100vw" todo={photoTodo} class="hero-picture" />}
     </div>
-    {
-      photo && (
-        <MediaSlot
-          slot={photo}
-          aspect="4 / 3"
-          eager
-          sizes="(min-width: 64rem) 50vw, 100vw"
-          todo={photoTodo}
-          tone={variant === 'dark' ? 'cream' : 'charcoal'}
-          class="page-hero__media"
-        />
-      )
-    }
   </div>
 </section>
 
 <style>
-  .page-hero {
-    padding-block: 2rem 3rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  .page-hero--dark {
-    background: var(--char);
-    border-bottom-color: var(--brass);
-  }
-  .page-hero__grid {
-    display: grid;
-    gap: 2rem;
-    align-items: center;
-  }
-  @media (min-width: 64rem) {
-    .page-hero {
-      padding-block: 3rem 4.5rem;
-    }
-    .page-hero--media .page-hero__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .page-hero--media :global(.page-hero__media) {
-      margin-right: calc(var(--gutter) * -1);
-    }
-  }
-  .page-hero h1 {
-    max-width: 18ch;
-    font-size: var(--fs-h1);
-    margin-bottom: 1.25rem;
-  }
-  .page-hero--question h1 {
-    max-width: 24ch;
-    font-size: clamp(1.75rem, 5.4vw, 3rem);
-    line-height: 1.05;
-  }
-  .page-hero__accent {
-    display: block;
-  }
-  .page-hero .lead {
-    margin-bottom: 0;
-  }
-  .page-hero--dark .lead {
-    color: var(--cream-200);
-  }
-
-  .crumbs ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 0.6rem;
-    list-style: none;
-    margin: 0 0 2rem;
-    padding: 0;
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-400);
-  }
-  .crumbs li + li::before {
-    content: '/';
-    margin-right: 0.6rem;
-    color: var(--brass);
-  }
-  .crumbs a {
-    color: var(--ink-600);
-    text-decoration: none;
-  }
-  .crumbs a:hover {
-    color: var(--oxblood);
-  }
-  .page-hero--dark .crumbs,
-  .page-hero--dark .crumbs a {
-    color: var(--cream-200);
-  }
+  .page-hero { padding: 1.2rem 0 clamp(2.4rem, 5vw, 5.2rem); border-bottom: 1px solid var(--rule); }
+  .page-hero.dark { background: var(--navy); color: var(--cream); }
+  .crumbs ol { display: flex; flex-wrap: wrap; list-style: none; align-items: baseline; gap: .2rem .6rem; margin: 0 0 clamp(1.8rem,3vw,3.4rem); padding: 0; color: var(--ink-600); font-size: .84rem; }
+  .crumbs li { display: inline; }
+  .crumbs [aria-hidden] { margin-right: .6rem; opacity: .65; }
+  .crumbs a { color: inherit; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .dark .crumbs ol, .dark .lead { color: var(--cream-200); }
+  .dark h1 { color: var(--cream); }
+  .hero-layout { display: grid; gap: clamp(1.6rem,4vw,4.25rem); align-items: center; }
+  .hero-copy { min-width: 0; }
+  .hero-copy h1 { max-width: 23ch; margin: 0 0 1.25rem; font-size: clamp(2.45rem,6.3vw,5.2rem); line-height: 1.02; text-transform: none; letter-spacing: -.047em; overflow-wrap: break-word; }
+  .page-hero--media h1 { font-size: clamp(2.45rem,4.95vw,4.8rem); }
+  .page-hero--question h1 { font-size: clamp(2.15rem,4.6vw,4.2rem); max-width: 28ch; }
+  .hero-copy .lead { margin: 0; max-width: 66ch; font-size: clamp(1.08rem,1.4vw,1.28rem); line-height: 1.55; }
+  .page-hero--media .lead { max-width: 48ch; }
+  .hero-copy .eyebrow { margin-bottom: .8rem; }
+  @media(min-width: 53rem) { .page-hero--media .hero-layout { grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); } }
 </style>

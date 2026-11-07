@@ -11,7 +11,7 @@ export const site = {
   url: 'https://www.melcoed.com', // canonical host; keep in sync with `site` in astro.config.mjs
   tagline: 'Coined. Die struck. Stamped. Since 1948.',
   description:
-    'Mel-Co-Ed, Inc. is a third-generation, family-owned metal stamping and die striking company in Pawtucket, Rhode Island, founded in Warwick, Rhode Island, in 1948 and on Roosevelt Avenue in Pawtucket since 1964. We run progressive, transfer and automatic stamping, coining and die striking for every industry, from parts stamped to print to jewelry findings, badges, medals and emblems, with tooling built in our own tool room and soldering, assembly, engraving and numbering in-house. Our products are made in Rhode Island, USA.',
+    'Mel-Co-Ed, Inc. is a third-generation metal stamping manufacturer in Pawtucket, Rhode Island. Founded in 1948, the company specializes in ornamental stamping and die striking for badges, emblems, medallions, awards and jewelry findings, with in-house tooling and industrial stamping to print.',
   foundingYear: 1948,
   generation: 'third-generation',
   phone: {
@@ -102,10 +102,11 @@ export const industryLinks = [
 export const serviceLinks = services.map((s) => ({ label: s.label, href: s.href }));
 
 export const nav: NavItem[] = [
-  { label: 'Services', href: '/capabilities/', children: [...serviceLinks, { label: 'All Capabilities', href: '/capabilities/' }] },
-  { label: 'Products', href: '/products/', children: [{ label: 'All Products', href: '/products/' }, ...productLinks] },
+  { label: 'Products', href: '/products/' },
+  { label: 'Capabilities', href: '/capabilities/' },
   { label: 'Industries', href: '/industries/' },
-  { label: 'About', href: '/about/' },
+  { label: 'Buyer guides', href: '/resources/' },
+  { label: 'Company', href: '/about/' },
 ];
 
 export const quoteHref = '/request-a-quote/';

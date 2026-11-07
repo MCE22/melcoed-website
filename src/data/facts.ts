@@ -15,7 +15,7 @@ export const materials = [
   'Cold-rolled steel',
   'Zinc',
 ];
-export const materialsNote = 'All metals available, or send us yours.';
+export const materialsNote = 'Specify the alloy, temper and thickness. We review customer-supplied stock for compatibility.';
 export const materialsLine = `${materials.join(', ')}. ${materialsNote}`;
 
 export const finishes = ['High polish', 'Satin', 'Sandblast', 'Antique', 'Color fill'];
@@ -26,15 +26,14 @@ export const dieStriking = { maxDiameter: '3.5″', maxThickness: '.250″' };
 export const dieStrikingLine = `Die striking up to ${dieStriking.maxDiameter} diameter and up to ${dieStriking.maxThickness} thick`;
 
 export const ordering = {
-  minimum: '3 gross (432 pieces) per item',
-  smallRuns: 'Smaller runs are available at a higher price.',
-  noMinimum: 'No minimums on sterling silver or gold.',
+  minimum: 'project-specific and confirmed at quoting',
+  smallRuns: 'Share the first-run quantity and expected reorders so we can compare tooling options.',
   leadTime: '3–8 weeks',
   pricing: 'Pricing is quoted at the time of order, based on current metal prices.',
   custom: 'Custom work is quoted per job.',
 };
-export const minimumLine = `${ordering.minimum}. ${ordering.smallRuns} ${ordering.noMinimum}`;
-export const leadTimeLine = `Typically ${ordering.leadTime}`;
+export const minimumLine = 'Minimum quantities depend on the project. We review the part, tooling, material and run size when quoting.';
+export const leadTimeLine = `Typically ${ordering.leadTime}. We confirm timing for tooling, samples, finishing and production in the quote.`;
 
 export const waysToBuy = [
   {
@@ -43,7 +42,7 @@ export const waysToBuy = [
   },
   {
     name: 'Confined & Custom',
-    summary: 'Your design on your own exclusive die, run only for you. Have dies or metal already? We’ll run yours.',
+    summary: 'Your design on your own exclusive die, run only for you. Have dies or metal already? Send the specifications so we can review them.',
   },
 ];
 
@@ -55,7 +54,7 @@ export const process = [
     title: 'Coin, Strike & Stamp',
     body: 'Coining, die striking, and progressive, transfer and automatic stamping.',
   },
-  { n: '04', title: 'Finish & Ship', body: 'Polished, plated, assembled, packed and shipped from Pawtucket.' },
+  { n: '04', title: 'Finish & Ship', body: 'Finishing partners handle plating and polishing. We assemble, pack and ship from Pawtucket.' },
 ];
 
 export const processesLine =
@@ -90,8 +89,8 @@ export const packaging = {
 export const pinPosts = 'Pin posts are fused, never soldered.';
 export const enamel = 'Soft and hard enamel';
 
-export const madeHere = 'Every finding is made in Pawtucket. Nothing is imported.';
-export const whoWeSellTo = 'We sell to businesses and small designers. Minimums apply.';
+export const madeHere = 'Our metal findings are stamped in Pawtucket, Rhode Island.';
+export const whoWeSellTo = 'We sell to businesses and independent designers. We confirm the minimum quantity for each project.';
 export const gold = ['Gold filled', 'Solid 10K, 14K and 18K gold', 'Karat gold plating', 'Customer-supplied gold'];
 export const goldLine = `${gold.join('; ')}.`;
 
@@ -99,8 +98,8 @@ export const tooling = {
   ownership: 'You own the die you pay for, and you can take it anywhere.',
   storage: 'We store your die free, indefinitely.',
   billing: 'Tooling is billed separately or built into the piece price, your choice.',
-  leadTime: 'The 3–8 week lead time includes building a new die.',
-  shortRun: 'Prototypes and low-cost short-run tooling are available.',
+  leadTime: 'We allow for new tooling when quoting the schedule. The first run also depends on material, approvals and finishing.',
+  shortRun: 'We review prototypes and short-run tooling when the part and anticipated volume suit that approach.',
 };
 
 export const edgeFinishes = 'Ask us about edge finishes.';

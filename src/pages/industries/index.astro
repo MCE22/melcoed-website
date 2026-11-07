@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { site, quoteHref } from '../../data/site';
-import Icon from '../../components/Icon.astro';
 import { industries } from '../../data/industries';
 import { isLive } from '../../lib/routes';
 
@@ -24,18 +23,16 @@ const itemList = {
 ---
 
 <BaseLayout
-  title="Metal Stamping for Every Industry: OEM, Hardware, Electrical, Jewelry & More"
-  description="Mel-Co-Ed provides metal stamping and die striking for OEM and industrial, hardware, electrical, jewelry, awards, public safety, fraternal, corporate, religious and sports customers. made in Rhode Island since 1948."
+  title="Metal Stamping for Product Brands, Award Programs &amp; Manufacturers"
+  description="Explore die-struck products and stamped components for jewelry brands, uniform suppliers, award programs and industrial manufacturers. Made in Pawtucket, Rhode Island."
   pageType="CollectionPage"
   breadcrumbs={breadcrumbs}
   schema={[itemList]}
   hideFooterCta
 >
   <PageHero
-    title="Metal stamping"
-    accent="for every industry"
-    ribbon="Industries"
-    lead="Manufacturers, jewelers and agencies come to us for the same thing: parts stamped right, from tooling we build in-house."
+    title="Industries we serve"
+    lead="A jewelry buyer may be matching a texture across a collection. A uniform supplier needs a legible emblem that can be reordered. We start with how the part will be used, displayed or assembled."
     breadcrumbs={breadcrumbs}
     photo="industries"
     photoTodo="Industries hero photo: finished work across industries"
@@ -47,7 +44,6 @@ const itemList = {
         {
           industries.map((i) => (
             <li class="ind">
-              <Icon name={i.icon} size={32} />
               <h2 class="ind__h">{isLive(i.href) ? <a href={i.href}>{i.name}</a> : i.name}</h2>
               <p>{i.summary}</p>
               {i.related && isLive(i.related.href) && (
@@ -65,8 +61,8 @@ const itemList = {
   <section class="section section--cream">
     <div class="wrap not-listed">
       <div>
-        <h2>Not listed? <em>If it's stamped metal, ask.</em></h2>
-        <p class="lead">Send a print, a sketch or a sample and we'll tell you whether it's a fit.</p>
+        <h2>Planning a repeat production order?</h2>
+        <p class="lead">Send the part reference, first-order quantity and expected reorder schedule. We’ll review tooling, material and the size of each release with you.</p>
       </div>
       <a class="btn btn--primary" href={quoteHref}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
     </div>
@@ -90,7 +86,7 @@ const itemList = {
   }
   .ind {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: minmax(0, 1fr);
     column-gap: 1.25rem;
     align-content: start;
     padding: 1.75rem 0;

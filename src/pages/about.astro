@@ -1,326 +1,77 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import Seal from '../components/Seal.astro';
-import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
-import { site, divisions, quoteHref } from '../data/site';
-import { liveLinks } from '../lib/routes';
+import { site, quoteHref } from '../data/site';
 
 const path = '/about/';
 const breadcrumbs = [{ name: 'About', path }];
-const years = new Date().getFullYear() - site.foundingYear;
 
 // Milestones: from the company history on the previous melcoed.com About page.
-const milestones: { year: string; text?: string; todo?: string }[] = [
+const milestones = [
   { year: String(site.foundingYear), text: 'Ed Sowa and his partners Mel and Cosmo start Mel-Co-Ed in a garage in Warwick, Rhode Island.' },
   { year: '1950s', text: 'The company begins making ornamental jewelry findings for women’s jewelry and men’s accessories.' },
   { year: '1964', text: 'Mel-Co-Ed moves to 381 Roosevelt Avenue in Pawtucket, where it still works today.' },
   { year: '1985', text: 'Ed’s son takes over, building up the tooling and the American-made custom and Open Line products.' },
-  { year: '2022', text: 'Phil Sowa, Ed’s grandson, becomes owner and President: the third generation.' },
+  { year: '2022', text: 'Phil Sowa, Ed’s grandson, becomes the third generation to own and lead the company.' },
 ];
 
-// People: only what the owner confirmed. Add names and roles to the leadership TODO below.
-const people = [
-  {
-    name: 'Phil Sowa',
-    role: 'President · third generation',
-    body: 'Phil started at Mel-Co-Ed in 2005 in shipping and receiving, ran sales and customer service from 2008, became Vice President in 2015 and President in 2022. He knows the business from the shipping dock to the tool room.',
-  },
-  {
-    name: 'John Augustine',
-    role: 'With Mel-Co-Ed since 1977',
-    body: 'John knows tooling, sales and our customers inside and out. He is the person customers have counted on for decades.',
-  },
-  {
-    name: 'The tool room',
-    body: 'Toolmakers with 20 to 30+ years here, building and maintaining the dies your parts are struck from.',
-  },
-  {
-    name: 'The office',
-    body: 'Long-tenured staff who know your account and your history.',
-  },
-];
-
-const principles = [
-  {
-    title: 'Tooling in-house',
-    body: 'We build our own dies in our own tool room. Changes, repairs and reorders happen on our floor, on our schedule.',
-  },
-  {
-    title: 'One supplier, one schedule',
-    body: 'Tooling, stamping, finishing and milling are managed through our Pawtucket shop, so there is one company accountable for your parts.',
-  },
-  {
-    title: 'Family-owned, long-term',
-    body: `Three generations and ${years}+ years in Rhode Island. We plan in decades, and so do our customers' programs.`,
-  },
-];
 ---
-
 <BaseLayout
-  title={`About Us: Family-Owned Metal Stamping in Rhode Island Since ${site.foundingYear}`}
-  description={`Mel-Co-Ed, Inc. is a third-generation, family-owned precision metal stamping company founded in Warwick, Rhode Island in ${site.foundingYear} and based in Pawtucket since 1964. Our history, divisions and how we work.`}
+  title="About Mel-Co-Ed · A Rhode Island metal stamping shop since 1948"
+  description="From a garage in Warwick to a stamping shop in Pawtucket, three generations of the Sowa family have made ornamental metalwork in Rhode Island."
   pageType="AboutPage"
   breadcrumbs={breadcrumbs}
 >
-  <PageHero
-    title="About Mel-Co-Ed"
-    accent={`since ${site.foundingYear}`}
-    ribbon="Family-owned · Third generation"
-    lead={`A family-owned metal stamping company in Pawtucket, Rhode Island, striking badges, medals, emblems and findings, and stamping parts to print. Made in Rhode Island since ${site.foundingYear}.`}
-    breadcrumbs={breadcrumbs}
-    photo="about"
-    photoTodo="About hero photo: the shop, the sign or the family at work"
-    variant="dark"
-  />
+  <PageHero title="Three generations in Rhode Island" lead="Mel-Co-Ed is a family-owned manufacturer of ornamental stampings, die-struck metalwork and precision components. Our tool room and presses share a roof on Roosevelt Avenue in Pawtucket." breadcrumbs={breadcrumbs} photo="about" variant="dark" />
 
-  <!-- Story -->
-  <section class="section story" aria-labelledby="story-h">
-    <div class="wrap split">
+  <section class="section">
+    <div class="wrap story">
       <div>
-        <span class="ribbon ribbon--navy">Our story</span>
-        <h2 id="story-h">Three generations on Roosevelt Avenue</h2>
-        <p class="lead">
-          Mel-Co-Ed has been stamping metal in Rhode Island since {site.foundingYear}, in a state that built its name on
-          jewelry and metalworking. Today the company is run by the third generation of the same family.
-        </p>
-        <p>
-          Ed Sowa started the company in {site.foundingYear} with two partners, Mel and Cosmo, in a garage in Warwick.
-          The name comes from the three of them: Mel, Co, Ed. By the 1950s the shop was making ornamental jewelry
-          findings for women’s jewelry and men’s accessories, and in 1964 it moved to 381 Roosevelt Avenue in Pawtucket.
-        </p>
-        <p>
-          Ed’s son took over in 1985 and built up the tool room and the American-made custom and Open Line products.
-          In 2022 Phil Sowa, Ed’s grandson, became owner. He still works directly with customers on every new design.
-        </p>
+        <h2>Mel, Cosmo and Ed</h2>
+        <p class="lead">The name on the building comes from the three men who started the shop.</p>
+        <p>Ed Sowa and his partners Mel and Cosmo began working out of a Warwick garage in 1948. By the 1950s they were stamping ornamental findings for Rhode Island’s jewelry trade. In 1964, they moved the presses to the Pawtucket building we use today.</p>
       </div>
-      <div class="story-seal">
-        <Seal />
-      </div>
-    </div>
-  </section>
-
-  <!-- People -->
-  <section class="section" aria-labelledby="people-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="people-h">The people behind your parts</h2>
-        <p class="lead">Most of our people have been here for decades. When you call, you talk to someone who knows your part.</p>
-      </div>
-      <ul class="people">
-        {
-          people.map((p) => (
-            <li>
-              <h3>{p.name}</h3>
-              {p.role && <p class="people__role">{p.role}</p>}
-              <p>{p.body}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <!-- Timeline -->
-  <section class="section section--cream" aria-labelledby="timeline-h">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="ribbon">Milestones</span>
-        <h2 id="timeline-h">{years}+ years in Rhode Island</h2>
-      </div>
-      <ol class="milestones">
-        {
-          milestones.map((m) => (
-            <li>
-              <span class="milestones__year">{m.year}</span>
-              <span class="milestones__text">{m.text ?? <Todo>{m.todo}</Todo>}</span>
-            </li>
-          ))
-        }
+      <ol class="timeline" aria-label="Company history">
+        {milestones.map(m => <li><strong>{m.year}</strong><span>{m.text}</span></li>)}
       </ol>
     </div>
   </section>
 
-  <!-- Place -->
-  <section class="section section--navy" aria-labelledby="place-h">
-    <div class="wrap split">
-      <div>
-        <span class="ribbon ribbon--cream">Pawtucket, R.I.</span>
-        <h2 id="place-h">Made where American manufacturing started</h2>
+  <section class="section section--cream">
+    <div class="wrap">
+      <div class="story">
+        <div>
+          <h2>The shop today</h2>
+          <p>Phil Sowa joined the business in shipping and receiving in 2005. He later led sales and customer service, became vice president in 2015 and took over from his father in 2022. John Augustine has worked with the company's tooling and customers since 1977.</p>
+        </div>
+        <div>
+          <h3>From sample to reorder</h3>
+          <p>Product development, die making and stamping work together here. For a repeat order, the shop starts with the existing tooling and approved part, then reviews any changes to material, finish or fit.</p>
+          <a class="text-link" href="/capabilities/product-development/">How we develop a part &rarr;</a>
+        </div>
       </div>
-      <div>
-        <p>
-          Pawtucket's Slater Mill, a few minutes from our shop, opened in 1793 and is often called the birthplace of the
-          American Industrial Revolution. Rhode Island went on to become a center of American jewelry and metalworking.
-        </p>
-        <p>
-          Mel-Co-Ed is part of that tradition: die-struck findings, emblems and badges, and the tooling skill to make
-          them, still made here.
-        </p>
-      </div>
+      <div class="photos"><PhotoSlot slot="about" skip={1} max={3} todo="" /></div>
     </div>
   </section>
-
-  <!-- How we work -->
-  <section class="section" aria-labelledby="how-h">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="ribbon ribbon--navy">How we work</span>
-        <h2 id="how-h">What hasn't changed since {site.foundingYear}</h2>
+  <section class="section">
+    <div class="wrap story">
+      <div>
+        <h2>Work with our Pawtucket shop</h2>
+        <p>Explore <a href="/findings/">stock jewelry findings</a>, <a href="/products/">custom ornamental products</a> and <a href="/metal-stamping/">industrial parts stamped to print</a>.</p>
       </div>
-      <div class="grid grid--3">
-        {
-          principles.map((p) => (
-            <article class="card">
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-            </article>
-          ))
-        }
-      </div>
-      <div class="photo">
-        <PhotoSlot slot="about" skip={1} max={4} todo="Photos: the vintage sign, the shop floor, and the family/team (2–4 images, min. 1600px wide)." />
-      </div>
-    </div>
-  </section>
-
-  <!-- Divisions -->
-  <section class="section section--cream" aria-labelledby="div-h">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="ribbon">Our divisions</span>
-        <h2 id="div-h">What we do today</h2>
-      </div>
-      <div class="grid grid--2">
-        {
-          divisions.map((d) => (
-            <article class="card">
-              <h3>{d.name}</h3>
-              <p>{d.summary}</p>
-              <p class="div-links">
-                {liveLinks(d.links).map((l, i) => (
-                  <>
-                    {i > 0 && ' · '}
-                    <a href={l.href}>{l.label}</a>
-                  </>
-                ))}
-              </p>
-            </article>
-          ))
-        }
-      </div>
-      <div class="btn-row cta-row">
-        <a class="btn btn--primary" href={quoteHref}>Request a quote</a>
-        <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
+      <div>
+        <p>Send a drawing, artwork or a sample description, along with the quantity you need and any reorder plans.</p>
+        <div class="btn-row"><a class="btn btn--primary" href={quoteHref}>Request a quote</a><a class="text-link" href="/contact/">Contact the shop</a></div>
       </div>
     </div>
   </section>
 </BaseLayout>
-
 <style>
-  /* Story and People share the cream background: no double padding between them */
-  .story {
-    padding-bottom: 0;
-  }
-  .story-seal {
-    width: min(16rem, 70vw);
-    justify-self: center;
-    align-self: center;
-  }
-  @media (min-width: 56rem) {
-    .story-seal {
-      width: min(20rem, 100%);
-    }
-  }
-
-  .milestones {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-left: 2px solid var(--chrome);
-    max-width: 48rem;
-  }
-  .milestones li {
-    position: relative;
-    display: grid;
-    grid-template-columns: 5rem 1fr;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 1rem 0 1rem 1.5rem;
-    border-bottom: 1px solid var(--chrome-light);
-  }
-  .milestones li::before {
-    content: '';
-    position: absolute;
-    left: -0.55rem;
-    top: 1.35rem;
-    width: 0.9rem;
-    height: 0.9rem;
-    border-radius: 50%;
-    background: var(--cherry);
-    box-shadow:
-      0 0 0 2px var(--cream-100),
-      0 0 0 3px var(--chrome);
-  }
-  .milestones__year {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--navy);
-  }
-  .milestones__text {
-    color: var(--ink-600);
-  }
-
-  .section--navy p {
-    color: var(--cream-200);
-  }
-
-  .photo {
-    margin: 2rem 0 0;
-  }
-  .div-links {
-    margin: auto 0 0;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--chrome-light);
-    font-weight: 650;
-  }
-  .div-links a {
-    text-decoration: none;
-  }
-  .div-links a:hover {
-    text-decoration: underline;
-  }
-  .cta-row {
-    margin-top: 2.5rem;
-  }
-  .people {
-    display: grid;
-    gap: 2rem 3rem;
-    margin: 2rem 0;
-    padding: 0;
-    list-style: none;
-  }
-  @media (min-width: 48rem) {
-    .people {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  .people li {
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--rule);
-  }
-  .people h3 {
-    margin-bottom: 0.2rem;
-  }
-  .people__role {
-    margin: 0 0 0.6rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--brass-text);
-  }
+  .story { display:grid; gap:clamp(2rem,6vw,6rem); align-items:start; }
+  .timeline { list-style:none; margin:0; padding:0; border-top:2px solid var(--brass); }
+  .timeline li { display:grid; grid-template-columns:4.2rem minmax(0,1fr); gap:1rem; padding:.95rem 0; border-bottom:1px solid var(--rule); }
+  .timeline strong { color:var(--oxblood); font-variant-numeric:tabular-nums; }
+  .photos { margin-top:2.4rem; }
+  @media(min-width:50rem){ .story { grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); } }
 </style>

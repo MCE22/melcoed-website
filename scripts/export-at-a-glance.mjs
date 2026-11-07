@@ -1,4 +1,4 @@
-// Export /at-a-glance/ to public/downloads/mel-co-ed-at-a-glance.pdf (2 pages, US Letter).
+// Export /at-a-glance/ to public/downloads/mel-co-ed-at-a-glance.pdf (US Letter buyer sheet).
 // Usage: npm run at-a-glance  (builds the site first, then prints the page with Playwright's Chromium)
 // Needs Playwright: `npm i -D playwright && npx playwright install chromium` if it isn't already available.
 // pdf-lib (a devDependency) sets the PDF title and metadata.

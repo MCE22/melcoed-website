@@ -1,133 +1,62 @@
 ---
-// One photo from a slot in src/data/photos.ts, cropped to a fixed aspect ratio, hard-edged.
-// A spacer (shot not taken yet) renders as a solid brand-tone panel with the small seal
-// centered and no text, tagged data-shot="PHOTO-xx" with its shot-list id.
 import { Image } from 'astro:assets';
-import Seal from './Seal.astro';
 import { photos, isSpacer, type PhotoSlotName } from '../data/photos';
-import { confidential } from '../data/confidential';
 
 interface Props {
   slot: PhotoSlotName;
   index?: number;
-  /** CSS aspect-ratio, e.g. "4 / 5". Omit to fill the parent's height. */
   aspect?: string;
   sizes?: string;
   eager?: boolean;
-  /** Fade the photo into the background on this side. */
-  fade?: 'left' | 'bottom' | 'none';
-  /** Short note shown on the placeholder while the slot is empty. */
-  todo: string;
   class?: string;
-  /** Skip the overlaid illustration label when the caller shows the label itself (small tiles). */
+  /** Accepted for existing callers; captions always appear inside the figure. */
   labelOutside?: boolean;
-  /** Spacer panel colour: charcoal (default) or cream, for dark backgrounds. */
+  fade?: 'left' | 'bottom' | 'none';
+  todo?: string;
   tone?: 'charcoal' | 'cream';
 }
-const { labelOutside = false, slot, index = 0, aspect, sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, fade = 'none', tone = 'charcoal', todo, class: className } = Astro.props;
+
+const {
+  slot,
+  index = 0,
+  aspect,
+  sizes = '(min-width: 64rem) 50vw, 100vw',
+  eager = false,
+  class: className,
+} = Astro.props;
 const item = photos[slot]?.[index];
-const spacer = isSpacer(item) ? item : undefined;
 const photo = isSpacer(item) ? undefined : item;
-const widths = [480, 800, 1200, 1600, 2000];
+const widths = [360, 600, 900, 1280, 1600, 2000];
 ---
 
-{spacer ? (
-<figure class:list={['media', 'spacer', `spacer--${tone}`, className]} style={aspect ? `aspect-ratio:${aspect}` : undefined} data-shot={spacer.shot} data-shot-label={spacer.label} aria-hidden="true">
-  <Seal size={160} class="spacer__seal" />
-</figure>
-) : (
-<figure class:list={['media', `media--fade-${fade}`, { 'media--empty': !photo }, className]} style={aspect ? `aspect-ratio:${aspect}` : undefined}>
-  {
-    photo ? (
-      <Image
-        src={photo.src}
-        alt={photo.alt}
-        widths={widths.filter((w) => w <= photo.src.width)}
-        sizes={sizes}
-        format="webp"
-        quality={80}
-        loading={eager ? 'eager' : 'lazy'}
-        fetchpriority={eager ? 'high' : undefined}
-      />
-    ) : null
-  }
-  {
-    photo?.illustration && !labelOutside && (
-      <figcaption class="media__illus">
-        <strong>Illustration</strong>{confidential.illustrationLabel.replace(/^Illustration/, '')}
-      </figcaption>
-    )
-  }
-</figure>
+{photo && (
+  <figure class:list={['media', className]} style={aspect ? `aspect-ratio: ${aspect}` : undefined}>
+    <Image
+      src={photo.src}
+      alt={photo.alt}
+      widths={widths.filter((w) => w < photo.src.width).concat(Math.min(photo.src.width, 2040))}
+      sizes={sizes}
+      format="webp"
+      quality={81}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+    />
+    {photo.illustration && <figcaption>Fictional design concept</figcaption>}
+  </figure>
 )}
 
 <style>
-  .media {
-    position: relative;
-    margin: 0;
-    overflow: hidden;
-    background: #14110e;
-  }
-  /* Empty slot: a clean dark frame until the photo arrives (listed in the content checklist) */
-  .media--empty {
-    background: linear-gradient(160deg, #1d1915 0%, #14110e 100%);
-  }
-  /* Spacer: same footprint as the photo, solid panel, small seal centered */
-  .spacer {
-    display: grid;
-    place-items: center;
-    min-height: 12rem;
-  }
-  .spacer--charcoal {
-    background: #1f1b17;
-    box-shadow: inset 0 0 0 1px rgb(205 178 122 / 0.28);
-  }
-  .spacer--cream {
-    background: var(--cream-200);
-    box-shadow: inset 0 0 0 1px rgb(168 132 70 / 0.45);
-  }
-  .spacer :global(picture.spacer__seal) {
-    width: clamp(4.5rem, 22%, 8.5rem);
-    opacity: 0.92;
-  }
-  .spacer :global(picture.spacer__seal img) {
-    height: auto !important;
-    object-fit: contain;
-  }
-  .media :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .media--fade-left {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%);
-    mask-image: linear-gradient(to right, transparent 0, #000 22%);
-  }
-  .media--fade-bottom {
-    -webkit-mask-image: linear-gradient(to top, transparent 0, #000 22%);
-    mask-image: linear-gradient(to top, transparent 0, #000 22%);
-  }
-  /* Visible label on illustrations, kept inside the un-faded part of the frame */
-  .media__illus {
+  .media { position: relative; margin: 0; overflow: hidden; background: #211d19; }
+  .media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  figcaption {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 22%;
-    padding: 0.7rem 0.9rem;
-    background: rgb(20 17 14 / 0.84);
-    border-top: 1px solid var(--brass);
-    font-size: 0.72rem;
-    line-height: 1.45;
-    color: var(--cream-200);
-  }
-  .media__illus strong {
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-  }
-  .media--fade-none .media__illus {
-    left: 0;
+    inset: auto auto .65rem .65rem;
+    max-width: calc(100% - 1.3rem);
+    padding: .28rem .58rem;
+    background: #201d1a;
+    color: #faf6ee;
+    font: 500 .78rem/1.4 var(--font-body, system-ui);
+    letter-spacing: .02em;
+    overflow-wrap: anywhere;
   }
 </style>

@@ -38,10 +38,12 @@ export function organizationNode(): Node {
       addressCountry: site.address.country,
     },
     areaServed: { '@type': 'Country', name: 'United States' },
-    // Official plate logo (public copy of src/assets/brand/mce-plate.png for a stable URL)
-    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/mce-plate.png'), width: 794, height: 316 },
+    logo: { '@type': 'ImageObject', '@id': ids.logo, url: abs('/brand/wordmark.svg'), width: 265, height: 50 },
     image: abs('/og-default.png'),
     knowsAbout: [
+      'Ornamental metal stamping',
+      'Custom badges and decorative emblems',
+      'Award pins',
       'Metal stamping',
       'Progressive die stamping',
       'Transfer stamping',
@@ -144,7 +146,7 @@ export function productNode(opts: {
     url: abs(opts.path),
     brand: { '@id': ids.organization },
     manufacturer: { '@id': ids.organization },
-    countryOfOrigin: 'US',
+    countryOfOrigin: { '@type': 'Country', name: 'United States' },
     ...(opts.material?.length ? { material: opts.material.join(', ') } : {}),
     ...(opts.image ? { image: abs(opts.image) } : {}),
   };

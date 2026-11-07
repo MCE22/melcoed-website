@@ -1,339 +1,61 @@
 ---
 import Logo from './Logo.astro';
-import Seal from './Seal.astro';
-import { site, serviceLinks, productLinks, industryLinks, quoteHref, mapsUrl } from '../data/site';
-import { madeIn } from '../data/brand';
-import { liveLinks } from '../lib/routes';
-import CatalogLinks from './CatalogLinks.astro';
+import { site, nav, quoteHref, mapsUrl } from '../data/site';
+import { catalogs } from '../data/catalogs';
 import { atAGlance } from '../data/downloads';
-
-interface Props {
-  /** Hide the quote call-to-action band (e.g. on the quote page itself). */
-  hideCta?: boolean;
-}
+interface Props { hideCta?: boolean; }
 const { hideCta = false } = Astro.props;
-const year = new Date().getFullYear();
-const products = liveLinks([{ label: 'All Products', href: '/products/' }, ...productLinks]);
-// Industries without their own page link to the page that serves that buyer.
-const industries = liveLinks([
-  { label: 'All Industries', href: '/industries/' },
-  { label: 'Government & Public Safety', href: '/badges/' },
-  { label: 'Jewelry & Fashion', href: '/findings/' },
-  { label: 'Awards & Recognition', href: '/awards/' },
-  ...industryLinks,
-]);
-const company = liveLinks([
-  { label: 'Capabilities', href: '/capabilities/' },
-  { label: 'About Us', href: '/about/' },
-  { label: 'FAQ', href: '/faq/' },
-  { label: 'Buyer Guides', href: '/resources/' },
-  { label: 'Request a Quote', href: quoteHref },
-  { label: 'Contact', href: '/contact/' },
-  { label: 'Search', href: '/search/' },
-]);
-const servicesList = liveLinks(serviceLinks);
 ---
-
-<footer class="site-footer">
-  {
-    !hideCta && (
-      <div class="footer-cta">
-        <div class="wrap footer-cta__inner">
-          <div>
-            <p class="footer-cta__h">
-              Got a print, a sketch <em>or a sample?</em>
-            </p>
-            <p class="footer-cta__sub">Send it over. We'll tell you what it takes to stamp it.</p>
-          </div>
-          <div class="btn-row">
-            <a class="btn btn--primary" href={quoteHref}>
-              Request a quote <span class="arr" aria-hidden="true">→</span>
-            </a>
-            <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
-          </div>
+<footer>
+  {!hideCta && (
+    <section class="callout">
+      <div class="wrap callout-inner">
+        <div>
+          <h2>Have a part in mind?</h2>
+          <p>Send a print, a sketch or a photo. Tell us the first quantity you need and what you expect to reorder.</p>
         </div>
+        <a href={quoteHref} class="btn btn--primary">Request a quote <span aria-hidden="true">↗</span></a>
       </div>
-    )
-  }
-
-  <div class="footer-main dark">
-    <div class="wrap footer-grid">
-      <div class="footer-brand">
-        <Logo variant="primary" width={240} eager={false} />
-        <p class="footer-tag">{site.tagline}</p>
-        <address class="footer-nap">
-          <strong>{site.name}</strong><br />
-          {site.address.street}<br />
-          {site.address.city}, {site.address.region} {site.address.postalCode}<br />
+    </section>
+  )}
+  <div class="base">
+    <div class="wrap">
+      <div class="columns">
+        <div>
+          <Logo width={192} eager={false} />
+          <address><a href={mapsUrl}>{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.postalCode}</a></address>
           <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a><br />
-          {site.hoursText.map((h, i) => (
-            <>
-              {i > 0 && <br />}
-              {h}
-            </>
-          ))}
-          {site.email && (
-            <>
-              <br />
-              <a href={`mailto:${site.email}`}>{site.email}</a>
-            </>
-          )}
-        </address>
-        <a class="footer-map" href={mapsUrl} rel="noopener" target="_blank">Get directions &rarr;</a>
-        {
-          site.googleReviewUrl && (
-            <p class="footer-review">
-              <a href={site.googleReviewUrl} rel="noopener" target="_blank">Leave us a Google review &rarr;</a>
-            </p>
-          )
-        }
-        <div class="footer-catalogs"><CatalogLinks variant="links" /></div>
-        {
-          atAGlance && (
-            <p class="footer-glance">
-              <a href={atAGlance.href} download>Mel-Co-Ed at a Glance (PDF)</a>
-            </p>
-          )
-        }
+          {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
+        </div>
+        <nav aria-label="Explore"><h2>Explore</h2>{nav.map(item => <a href={item.href}>{item.label}</a>)}</nav>
+        <nav aria-label="Buyer support">
+          <h2>Buyer support</h2>
+          <a href="/request-a-quote/">Request a quote</a><a href="/faq/">Ordering FAQ</a><a href="/contact/">Contact &amp; hours</a><a href="/search/">Search the site</a>
+        </nav>
+        <nav aria-label="Catalogs"><h2>From the shop</h2>
+          {catalogs.map(c => <a href={c.href}>{c.label}</a>)}
+          {atAGlance && <a href={atAGlance.href}>At a Glance (PDF)</a>}
+        </nav>
       </div>
-
-      <div class="footer-col">
-        <h2 class="footer-h">Services</h2>
-        <ul>{servicesList.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
-        {
-          products.length > 0 && (
-            <nav aria-label="Products">
-              <h2 class="footer-h footer-h--spaced">Products</h2>
-              <ul>{products.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
-            </nav>
-          )
-        }
-      </div>
-
-      {
-        industries.length > 0 && (
-          <nav class="footer-col" aria-label="Industries">
-            <h2 class="footer-h">Industries</h2>
-            <ul>{industries.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
-          </nav>
-        )
-      }
-
-      <nav class="footer-col" aria-label="Company">
-        <h2 class="footer-h">Company</h2>
-        <ul>{company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
-      </nav>
-    </div>
-
-    <div class="wrap footer-marks">
-      <div class="footer-seals">
-        <Seal size={96} />
-        <Seal mark="madeIn" size={96} />
-      </div>
-      <p class="footer-made">
-        <span class="footer-made__primary">{madeIn.primary}</span>
-        <span class="footer-made__secondary">{madeIn.secondary}</span>
-      </p>
-    </div>
-  </div>
-
-  <div class="footer-base">
-    <div class="wrap footer-base__inner">
-      <span>&copy; {year} {site.name} All rights reserved. <a href="/privacy/">Privacy Policy</a></span>
-      <span>Made in Rhode Island since {site.foundingYear}</span>
+      <div class="legal"><span>© {new Date().getFullYear()} {site.name}</span><a href="/privacy/">Privacy policy</a></div>
     </div>
   </div>
 </footer>
-
 <style>
-  .site-footer a {
-    text-decoration: none;
-  }
-
-  /* CTA band on cream */
-  .footer-cta {
-    border-top: 1px solid var(--rule);
-  }
-  .footer-cta__inner {
-    display: grid;
-    gap: 1.75rem;
-    padding-block: var(--space-7);
-  }
-  .footer-cta__h {
-    margin: 0 0 0.6rem;
-    font-family: var(--font-display);
-    font-size: var(--fs-h2);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-    color: var(--ink);
-  }
-  .footer-cta__h em {
-    font-style: normal;
-    color: var(--oxblood);
-  }
-  .footer-cta__sub {
-    margin: 0;
-    color: var(--ink-600);
-  }
-  @media (min-width: 56rem) {
-    .footer-cta__inner {
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 3rem;
-      padding-block: var(--space-8);
-    }
-  }
-
-  /* Main footer: charcoal with brass hairlines */
-  .footer-main {
-    padding-block: 3.5rem 2rem;
-    background: var(--char);
-    color: var(--cream-200);
-    border-top: 1px solid var(--brass);
-  }
-  .footer-main a {
-    color: var(--cream);
-  }
-  .footer-main a:hover {
-    color: var(--brass-light);
-    text-decoration: underline;
-  }
-  .footer-grid {
-    display: grid;
-    gap: 2.25rem;
-  }
-  @media (min-width: 40rem) {
-    .footer-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .footer-brand {
-      grid-column: 1 / -1;
-    }
-  }
-  @media (min-width: 64rem) {
-    .footer-grid {
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 3rem;
-    }
-    .footer-brand {
-      grid-column: auto;
-    }
-  }
-  .footer-brand :global(.logo) {
-    width: 210px;
-  }
-  .footer-tag {
-    margin: 1.25rem 0 1rem;
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-  }
-  .footer-nap {
-    font-style: normal;
-    line-height: 1.75;
-    margin-bottom: 0.5rem;
-  }
-  .footer-map {
-    font-size: 0.9rem;
-  }
-  .footer-catalogs {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
-  .footer-review {
-    margin: 0.4rem 0 0;
-    font-size: 0.9rem;
-  }
-  .footer-glance {
-    margin: 0.3rem 0 0;
-    font-size: 0.9rem;
-  }
-  .footer-main .footer-glance a {
-    color: var(--brass-light);
-    text-decoration: underline;
-  }
-  .footer-h {
-    margin: 0 0 1rem;
-    padding-bottom: 0.7rem;
-    border-bottom: 1px solid var(--rule-dark);
-    font-family: var(--font-body);
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-  }
-  .footer-h--spaced {
-    margin-top: 1.75rem;
-  }
-  .footer-col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .footer-col li {
-    padding: 0.3rem 0;
-    font-size: 0.95rem;
-  }
-
-  .footer-marks {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.25rem 2rem;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--rule-dark);
-  }
-  .footer-seals {
-    display: flex;
-    gap: 1rem;
-  }
-  .footer-seals :global(.seal) {
-    width: 84px;
-  }
-  .footer-made {
-    display: grid;
-    gap: 0.35rem;
-    margin: 0;
-  }
-  .footer-made__primary {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--paper);
-  }
-  .footer-made__secondary {
-    font-size: 0.64rem;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-  }
-
-  .footer-base {
-    background: var(--char);
-    border-top: 1px solid var(--rule-dark);
-    font-size: 0.78rem;
-    color: var(--steel);
-  }
-  .footer-base a {
-    margin-left: 0.75rem;
-    color: var(--cream-200);
-  }
-  .footer-base a:hover {
-    color: var(--brass-light);
-  }
-  .footer-base__inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem 1rem;
-    padding-block: 1.25rem;
-  }
+  .callout { background:var(--bone); border-top:1px solid var(--rule); }
+  .callout-inner { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:1.5rem 3rem; padding-block:clamp(3rem,6vw,6rem); }
+  .callout h2 { font-family:var(--font-serif); font-weight:500; }
+  .callout p { color:var(--ink-600); margin:0; max-width:52ch; }
+  .base { background:var(--navy); color:var(--cream); font-size:.94rem; }
+  .base a { color:inherit; text-decoration:none; }
+  .base a:hover { text-decoration:underline; }
+  .base :global(.logo img) { filter:brightness(0) invert(.95); }
+  .base :focus-visible { outline-color:var(--brass-light); }
+  .columns { display:grid; grid-template-columns:1.35fr .8fr .9fr 1.1fr; gap:2rem; padding-block:clamp(3rem,6vw,5.5rem); }
+  address { margin:1.4rem 0 .8rem; font-style:normal; }
+  nav a { display:block; padding:.28rem 0; }
+  nav h2 { color:var(--brass-light); font:650 .75rem/1.5 var(--font-body); letter-spacing:.1em; text-transform:uppercase; margin:0 0 .9rem; }
+  .legal { display:flex; align-items:center; justify-content:space-between; border-top:1px solid #52606b; padding-block:1.1rem; font-size:.8rem; }
+  @media(max-width:52rem) { .columns { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:35rem) { .columns { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.8rem 1rem; } .columns > :first-child,.columns > :last-child { grid-column:1/-1; } }
 </style>

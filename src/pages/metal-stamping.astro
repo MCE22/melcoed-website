@@ -4,20 +4,19 @@ import ResourceLinks from '../components/ResourceLinks.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
-import Todo from '../components/Todo.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import { site, quoteHref } from '../data/site';
 import { industries } from '../data/industries';
 import { faqPageNode, serviceNode, type Faq } from '../lib/schema';
-import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, ordering, presses, stampingThickness, toleranceLine, tooling, quality, maxPartLine } from '../data/facts';
+import { materials, materialsNote, materialsLine, dieStrikingLine, minimumLine, leadTimeLine, presses, stampingThickness, toleranceLine, tooling, quality, maxPartLine } from '../data/facts';
 
 const path = '/metal-stamping/';
 const breadcrumbs = [{ name: 'Metal Stamping', path }];
 const quote = `${quoteHref}?type=stamping`;
-const description = `Progressive, transfer and automatic metal stamping, blanking, forming, coining and die striking, with dies built in-house. Any metal, any industry. made in Rhode Island since ${site.foundingYear}.`;
+const description = `Precision metal stamping for manufacturers. Progressive and single-operation tooling, blanking, piercing and forming in Pawtucket, Rhode Island, since ${site.foundingYear}.`;
 
 const processes = [
-  { title: 'Progressive stamping', body: 'Strip feeds through a series of stations, one operation each, for high-volume parts.' },
+  { title: 'Progressive stamping', body: 'A strip advances through a series of stations. Each press stroke works on multiple positions along the strip before the finished part is separated.' },
   { title: 'Transfer stamping', body: 'Parts move station to station off the strip, for larger or deeper-formed work.' },
   { title: 'Automatic stamping', body: 'Coil-fed, automated press runs for consistent parts at production speed.' },
   { title: 'Blanking & piercing', body: 'Flat shapes and holes cut cleanly from sheet and strip.' },
@@ -36,15 +35,15 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the minimum order for stamped parts?',
-    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum}`,
+    a: minimumLine,
   },
   {
     q: 'What is the lead time for metal stamping?',
-    a: `Typically ${ordering.leadTime}, depending on tooling and quantity. We confirm the schedule in your quote.`,
+    a: leadTimeLine,
   },
   {
     q: 'Can you run dies or metal we supply?',
-    a: "Yes. Have dies or metal already? We'll run yours.",
+    a: "We review existing tooling for press compatibility, condition and any changes needed. For supplied metal, include the alloy, temper, thickness and stock dimensions.",
   },
 ];
 ---
@@ -59,10 +58,8 @@ const faqs: Faq[] = [
   ]}
 >
   <PageHero
-    title="Metal Stamping"
-    accent="built to print"
-    ribbon="Services"
-    lead="Progressive, transfer and automatic stamping, blanking and forming for manufacturers in every industry, in any metal, with dies built in our own tool room."
+    title="Precision metal stamping"
+    lead="For buyers sourcing a repeat component, send the print, material and expected order sizes. We review fit against our presses and tooling, including the features and tolerances that drive the process."
     breadcrumbs={breadcrumbs}
     photo="metal-stamping"
     photoTodo="Metal stamping hero photo: presses running"
@@ -95,7 +92,7 @@ const faqs: Faq[] = [
   <!-- Photos -->
   <section class="section section--cream" aria-label="Our press floor">
     <div class="wrap">
-      <PhotoSlot slot="metal-stamping" skip={1} todo="Photos: presses running, strip and coil, finished stamped parts (3–6 images, landscape)." />
+      <PhotoSlot slot="metal-stamping" skip={1} max={3} todo="Photos: presses running, strip and coil, finished stamped parts (3–6 images, landscape)." />
     </div>
   </section>
 
@@ -140,7 +137,7 @@ const faqs: Faq[] = [
   <!-- Industries -->
   <section class="section section--ink" aria-labelledby="ind-h">
     <div class="wrap">
-      <h2 id="ind-h">Stamped for <em>every industry</em></h2>
+      <h2 id="ind-h">Applications for stamped components</h2>
       <ul class="ind-list">{industries.map((i) => <li>{i.name}</li>)}</ul>
       <a class="btn btn--ghost" href="/industries/">See industries <span class="arr" aria-hidden="true">→</span></a>
     </div>

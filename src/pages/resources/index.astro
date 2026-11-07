@@ -7,6 +7,7 @@ import { site, quoteHref } from '../../data/site';
 
 const path = '/resources/';
 const breadcrumbs = [{ name: 'Resources', path }];
+const groupId = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const itemList = {
   '@type': 'ItemList',
   name: 'Mel-Co-Ed buyer guides',
@@ -29,24 +30,24 @@ const itemList = {
 >
   <PageHero
     title="Buyer guides"
-    accent="straight answers"
-    ribbon="Resources"
-    lead="The questions buyers ask us about stamping, tooling, findings and emblems, answered with our real specs."
+    lead="Use these guides to compare stamping processes, understand tooling costs and prepare a part for quoting. Choose a topic below."
     breadcrumbs={breadcrumbs}
-  />
+  >
+    <nav class="subjects" aria-label="Guide topics">{resourceGroups.map(group => <a href={`#${groupId(group)}`}>{group}</a>)}</nav>
+  </PageHero>
 
   <section class="section">
     <div class="wrap groups">
       {
         resourceGroups.map((g) => (
-          <section class="group" aria-label={g}>
+          <section id={groupId(g)} class="group" aria-label={g}>
             <h2 class="group__h">{g}</h2>
             <ul class="group__list">
               {resources
                 .filter((r) => r.group === g)
                 .map((r) => (
                   <li>
-                    <a href={resourceHref(r)}>{r.h1} &rarr;</a>
+                    <a href={resourceHref(r)}>{r.h1}<span aria-hidden="true">↗</span></a>
                   </li>
                 ))}
             </ul>
@@ -58,46 +59,25 @@ const itemList = {
 
   <section class="section section--cream">
     <div class="wrap not-answered">
-      <h2>Question not here? <em>Ask us.</em></h2>
+      <h2>Discuss your part with the shop</h2>
       <a class="btn btn--primary" href={quoteHref}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .groups {
-    display: grid;
-    gap: 3rem;
-  }
-  @media (min-width: 56rem) {
-    .groups {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 4rem;
-    }
-  }
-  .group__h {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
-  .group__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--rule);
-  }
-  .group__list li {
-    border-bottom: 1px solid var(--rule);
-  }
-  .group__list a {
-    display: block;
-    padding: 0.85rem 0;
-    color: var(--ink);
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .group__list a:hover {
-    color: var(--oxblood);
-  }
+  .subjects { display:flex; flex-wrap:wrap; gap:.4rem 1.25rem; margin-top:1.45rem; }
+  .subjects a { font-size:.96rem; padding:.3rem 0; }
+  .groups { display:grid; gap:clamp(2.4rem,5vw,4.6rem); }
+  .group { border-top:2px solid var(--navy); padding-top:1.2rem; display:grid; align-items:start; gap:1rem; }
+  .group__h { font-size:clamp(1.55rem,2.7vw,2.45rem); }
+  .group__list { margin:0; list-style:none; padding:0; }
+  .group__list li { border-bottom:1px solid var(--rule); }
+  .group__list a { display:flex; justify-content:space-between; gap:1rem; align-items:baseline; padding:.9rem 0; color:var(--ink); text-decoration:none; }
+  .group__list li:first-child a { padding-top:.3rem; }
+  .group__list span { color:var(--oxblood); }
+  .group__list a:hover { color:var(--oxblood); text-decoration:underline; }
+  @media(min-width:52rem){ .group { grid-template-columns:minmax(0,1fr) minmax(0,1.7fr); gap:clamp(2rem,6vw,6rem); } }
   .not-answered {
     display: flex;
     flex-wrap: wrap;

@@ -3,8 +3,7 @@ import ResourceLinks from '../../components/ResourceLinks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
-import Todo from '../../components/Todo.astro';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, reproductions, attachments } from '../../data/facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, reproductions, attachments } from '../../data/facts';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import ConfidentialBand from '../../components/ConfidentialBand.astro';
 import { site, quoteHref } from '../../data/site';
@@ -54,7 +53,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the difference between die-struck and die-cast pins?',
-    a: 'Die-struck pins are stamped from sheet metal under a press, which gives crisp, sharp detail and fine lettering. Die-cast pins are made by pouring molten metal into a mold, which suits pieces with deep 3D shapes or open cut-outs. For most lodge emblems with lettering and fine lines, die-struck gives the cleaner result.',
+    a: 'Striking presses the design into solid metal using a steel die. Die casting forces molten metal into a mold. For a lodge pin, the height of the relief, the letter size and the shape of the back help determine whether striking will suit the design.',
   },
   {
     q: 'Can you reproduce an old lodge pin or emblem from a sample?',
@@ -66,7 +65,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the minimum order for lodge pins?',
-    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}.`,
+    a: minimumLine,
   },
   {
     q: 'Can you work with regalia companies and distributors?',
@@ -84,8 +83,6 @@ const faqs: Faq[] = [
 >
   <PageHero
     title="Fraternal & Lodge Emblems"
-    accent="made to your design"
-    ribbon="Masonic · Pins · Insignia"
     lead="Lapel pins, emblems, jewels and anniversary medallions of the kind fraternal organizations use, die-struck in Pawtucket, Rhode Island."
     breadcrumbs={breadcrumbs}
   
@@ -102,8 +99,7 @@ const faqs: Faq[] = [
   <section class="section" aria-labelledby="make-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">What we make</span>
-        <h2 id="make-h">Emblems that outlast the meeting</h2>
+        <h2 id="make-h">Pins, jewels and regalia components</h2>
         <p class="lead">
           Fraternal pieces get worn for decades and handed down. They're struck from steel dies, so the square and
           compasses, lodge number and lettering stay crisp.
@@ -120,7 +116,7 @@ const faqs: Faq[] = [
         }
       </div>
       <div class="ind-photos">
-        <PhotoSlot slot="industries-fraternal" skip={1} todo="Photos: lodge lapel pins, emblems and anniversary medallions MCE has made (3–6 images; get the lodge’s OK before showing its emblem)." />
+        <PhotoSlot slot="industries-fraternal" skip={1} max={3} todo="Photos: lodge lapel pins, emblems and anniversary medallions MCE has made (3–6 images; get the lodge’s OK before showing its emblem)." />
       </div>
     </div>
   </section>
@@ -131,8 +127,7 @@ const faqs: Faq[] = [
   <section class="section section--ink" aria-labelledby="specs-h">
     <div class="wrap split">
       <div>
-        <span class="ribbon ribbon--cream">Who we work with</span>
-        <h2 id="specs-h">What we can make</h2>
+        <h2 id="specs-h">Design specifications</h2>
         <ul class="audience">
           {audiences.map((a) => <li>{a}</li>)}
         </ul>

@@ -8,21 +8,21 @@
 
 :root {
   /* Palette */
-  --cream: #f4efe6; /* page */
-  --paper: #faf7f1; /* cards, inputs */
+  --cream: #f6f2e9; /* page */
+  --paper: #fcfaf5; /* cards, inputs */
   --bone: #ebe4d7; /* alternate sections */
   --ink: #1b1815; /* near-black text */
   --ink-600: #4a443e;
   --ink-400: #7a7168;
-  --char: #181512; /* dark sections */
+  --char: #182733; /* dark sections */
   --char-700: #24201c;
-  --oxblood: #7a1f1f;
+  --oxblood: #861f28;
   --oxblood-700: #631818;
   --oxblood-300: #a6413a;
   --brass: #a8843f; /* rules, icons, decorative */
   --brass-light: #cdb27a; /* brass on dark */
   --brass-text: #7d6028; /* brass for small text on cream (AA) */
-  --navy: #1c2533; /* rare accent */
+  --navy: #182c3a; /* rare accent */
   --steel: #8e9399;
   --steel-light: #cfccc5;
   --rule: #dcd2c1; /* hairlines on cream */
@@ -52,7 +52,7 @@
   --chrome-dark: var(--steel);
   --steel-dim: var(--rule-dark);
 
-  --font-serif: var(--font-body); /* Lora removed: anything still pointing here gets Inter */
+  --font-serif: Georgia, "Times New Roman", serif;
   --gold: #9a7636; /* catalog gold, deep enough for large text on cream (AA large) */
   --font-display: 'Archivo Variable', Archivo, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -74,14 +74,14 @@
   --space-4: 2rem;
   --space-5: 3rem;
   --space-6: 4.5rem;
-  --space-7: 6rem;
-  --space-8: 9.75rem;
+  --space-7: clamp(3.25rem, 6.2vw, 5.5rem);
+  --space-8: clamp(4.25rem, 7.4vw, 7rem);
 
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; /* TODO boxes only */
 
-  --gutter: 1rem;
-  --max: 76rem;
-  --radius: 2px;
+  --gutter: clamp(1.1rem, 4.5vw, 2rem);
+  --max: 86rem;
+  --radius: 0;
   --radius-lg: 2px;
   --header-h: 6.4rem; /* full header with the large plate; condenses on scroll */
   --shadow: 0 1px 0 rgb(27 24 21 / 0.04);
@@ -115,7 +115,7 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--header-live, var(--header-h)) + 1rem);
+  scroll-padding-top: 1rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -178,7 +178,7 @@ h4 {
 h1 {
   font-size: var(--fs-h1);
   line-height: 1.05;
-  text-transform: uppercase;
+  letter-spacing: -0.045em;
 }
 h2 {
   font-size: var(--fs-h2);

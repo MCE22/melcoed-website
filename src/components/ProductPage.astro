@@ -23,7 +23,7 @@ interface Props {
 const { product: p } = Astro.props;
 
 const path = `/${p.slug}/`;
-const breadcrumbs = [{ name: p.name, path }];
+const breadcrumbs = [{ name: 'Products', path: '/products/' }, { name: p.name, path }];
 const quote = `${quoteHref}?type=${p.quoteType}`;
 
 // Only confirmed materials go into structured data.
@@ -59,14 +59,13 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
 >
   <PageHero
     title={p.h1}
-    accent={p.accent}
     lead={p.lead}
     breadcrumbs={breadcrumbs}
     photo={p.slug as PhotoSlotName}
     photoTodo={`${p.name} hero photo: dark, moody product shot`}
   >
     <div class="btn-row hero-cta">
-      <a class="btn btn--primary" href={quote}>Quote {p.name.toLowerCase()} <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn btn--primary" href={quote}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
       <a class="text-link" href={`tel:${site.phone.e164}`}>or call {site.phone.display}</a>
     </div>
     {p.catalog && <div class="hero-catalog"><CatalogLinks only={p.catalog} variant="links" todo /></div>}
@@ -74,12 +73,13 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
 
   <!-- Intro + at a glance -->
   <section class="section" aria-labelledby="glance-h">
-    <div class="wrap split">
+    <div class="wrap split product-detail">
       <div class="intro">
+        <h2>Design &amp; production</h2>
         {p.intro.map((para, i) => <p class:list={{ lead: i === 0 }}>{para}</p>)}
       </div>
       <div class="glance">
-        <h2 id="glance-h" class="glance__h">At a glance</h2>
+        <h2 id="glance-h" class="glance__h">Specifications</h2>
         <dl class="specs">
           {
             p.specs.filter((s) => s.value || showTodos).map((s) => (
@@ -102,17 +102,17 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
       </div>
       {p.typesTodo && <Todo block>{p.typesTodo}</Todo>}
       {p.types.length > 0 && (
-      <div class="grid grid--3">
+      <div class="type-list">
         {
           p.types.map((t) =>
             t.href && isLive(t.href) ? (
-              <a class="card card--link type" href={t.href}>
+              <a class="type type-link" href={t.href}>
                 <h3>{t.title}</h3>
                 <p>{t.body}</p>
-                <span class="card__more">Learn more &rarr;</span>
+                <span class="card__more">Explore {t.title.toLowerCase()} &rarr;</span>
               </a>
             ) : (
-              <article class="card type">
+              <article class="type">
                 <h3>{t.title}</h3>
                 <p>{t.body}</p>
               </article>
@@ -182,6 +182,14 @@ const related = p.related.filter(isLive).map((href) => ({ href, label: labels[hr
 </BaseLayout>
 
 <style>
+  .product-detail { align-items: start; }
+  .type-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:1.5rem clamp(1.5rem,4vw,3rem); }
+  .type { border-top:1px solid var(--brass); padding-top:1.05rem; }
+  .type p { margin:0; color:var(--ink-600); }
+  .type-link { text-decoration:none; }
+  .type-link:hover h3 { color:var(--oxblood); }
+  .glance { background:var(--paper); border-top:3px solid var(--navy); padding:clamp(1.15rem,2.8vw,2.1rem); min-width:0; }
+
   .hero-catalog {
     margin-top: 1rem;
   }

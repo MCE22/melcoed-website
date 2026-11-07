@@ -10,7 +10,7 @@ import PhotoSlot from '../../components/PhotoSlot.astro';
 import ConfidentialBand from '../../components/ConfidentialBand.astro';
 import { site, quoteHref } from '../../data/site';
 import { faqPageNode, serviceNode, type Faq } from '../../lib/schema';
-import { waysToBuy, ordering, materialsLine, finishesLine, dieStrikingLine, minimumLine, leadTimeLine } from '../../data/facts';
+import { waysToBuy, materialsLine, finishesLine, dieStrikingLine, minimumLine, leadTimeLine } from '../../data/facts';
 
 const path = '/capabilities/product-development/';
 const breadcrumbs = [
@@ -21,7 +21,7 @@ const quote = `${quoteHref}?type=custom`;
 const confined = waysToBuy.find((w) => w.name === 'Confined & Custom')!;
 
 const description =
-  'Custom product development for jewelry manufacturers: send a sketch, drawing or sample and Mel-Co-Ed engineers it, builds the die in-house and strikes it on an exclusive die in Pawtucket, RI.';
+  'Develop a custom metal emblem, finding or component from a sketch, drawing or sample. Mel-Co-Ed builds dies and strikes approval samples in Pawtucket, Rhode Island.';
 
 const starts = [
   {
@@ -61,7 +61,7 @@ const faqs: Faq[] = [
   },
   {
     q: 'How long does custom product development take?',
-    a: `Lead time is typically ${ordering.leadTime}, depending on the piece, the tooling and the quantity. We confirm the schedule in your quote.`,
+    a: leadTimeLine,
   },
   {
     q: 'Do I approve samples before production?',
@@ -73,13 +73,13 @@ const faqs: Faq[] = [
   },
   {
     q: 'What is the minimum order for a custom product?',
-    a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum}`,
+    a: minimumLine,
   },
 ];
 ---
 
 <BaseLayout
-  title="Custom Product Development for Jewelry Manufacturers"
+  title="Custom Product Development for Metal Emblems, Findings &amp; Components"
   description={description}
   breadcrumbs={breadcrumbs}
   schema={[
@@ -87,17 +87,15 @@ const faqs: Faq[] = [
       path,
       name: 'Custom product development',
       description,
-      serviceType: 'Custom jewelry component and metal stamping product development',
-      audience: 'Jewelry manufacturers and designers',
+      serviceType: 'Custom stamped metal product development',
+      audience: 'Product brands, designers and manufacturers',
     }),
     faqPageNode(path, faqs),
   ]}
 >
   <PageHero
-    title="Custom Product Development"
-    accent="for jewelry manufacturers"
-    ribbon="Capabilities · Confined & Custom"
-    lead="Custom findings and stamped components for jewelry manufacturers and designers, taken from your sketch, drawing or sample to a production die that is yours alone."
+    title="Custom product development"
+    lead="Bring an emblem, jewelry finding or decorative component from an initial sketch to an approved metal sample. The tool room works out how to strike the detail and repeat it in production."
     breadcrumbs={breadcrumbs}
     photo="product-development"
     photoTodo="Product development hero photo: tool room or die on the bench"
@@ -112,9 +110,8 @@ const faqs: Faq[] = [
   <section class="section" aria-labelledby="start-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon ribbon--ink">Start with what you have</span>
-        <h2 id="start-h">From a napkin to a production die</h2>
-        <p class="lead">Since {site.foundingYear} we've turned ideas into findings and stamped components, with the tool room in the same building as the presses.</p>
+        <h2 id="start-h">What to send for a first review</h2>
+        <p class="lead">Start with the reference that best explains the part. Include overall dimensions, the intended finish and the surface your customer will see.</p>
       </div>
       <div class="grid grid--3">
         {
@@ -133,8 +130,7 @@ const faqs: Faq[] = [
   <section class="section section--cream" aria-labelledby="process-h">
     <div class="wrap">
       <div class="section-head">
-        <span class="ribbon">How it works</span>
-        <h2 id="process-h">Five steps, one supplier</h2>
+        <h2 id="process-h">How development works</h2>
       </div>
       <ol class="steps pd-steps">
         {
@@ -148,7 +144,7 @@ const faqs: Faq[] = [
         }
       </ol>
       <div class="pd-photos">
-        <PhotoSlot slot="product-development" skip={1} todo="Photos: tool room, die work and sample strikes (3–6 images, landscape)." />
+        <PhotoSlot slot="product-development" skip={1} max={3} todo="Photos: tool room, die work and sample strikes (3–6 images, landscape)." />
       </div>
     </div>
   </section>

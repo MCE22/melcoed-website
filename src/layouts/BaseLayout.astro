@@ -83,7 +83,7 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN as string | u
     <link rel="icon" href={favicon32.src} type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href={appleIcon.src} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#f4efe6" />
+    <meta name="theme-color" content="#f6f2e9" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -113,8 +113,6 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN as string | u
       <slot />
     </main>
     <Footer hideCta={hideFooterCta} />
-    <script>
-      import '../scripts/reveal';
-    </script>
+
   </body>
 </html>

@@ -2,21 +2,20 @@
 // Quote request form, delivered by Web3Forms (https://web3forms.com) to the inbox
 // the access key was registered with (sales@melcoed.com).
 //
-// - With JS: submits via fetch and shows an inline success message.
+// - With a key: confirmed API success opens the thank-you page.
+// - Without a key: prepare a reviewable email draft locally, or use the direct email link.
 // - Without JS: posts directly to Web3Forms, which redirects to /request-a-quote/thank-you/.
 // - Spam: Web3Forms `botcheck` honeypot (hidden checkbox; bots tick it, people never see it).
 // - File uploads are a Web3Forms Pro feature; the field only renders when
 //   PUBLIC_WEB3FORMS_FILE_UPLOADS=true. Otherwise visitors are told to email drawings.
-import Todo from './Todo.astro';
-import { showTodos } from '../lib/todos';
 import { site } from '../data/site';
 
-const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? '';
-const uploadsEnabled = import.meta.env.PUBLIC_WEB3FORMS_FILE_UPLOADS === 'true';
-// TODO: confirm the per-submission attachment limit on the Web3Forms plan you buy; 10 MB assumed.
-const maxUploadMb = 10;
-const redirect = new URL('/request-a-quote/thank-you/', Astro.site ?? site.url).toString();
-
+const accessKey = (import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? '').trim();
+const uploadsEnabled = Boolean(accessKey) && import.meta.env.PUBLIC_WEB3FORMS_FILE_UPLOADS === 'true';
+const maxUploadMb = 5;
+// The native POST also returns a staging visitor to their preview.
+const redirect = new URL('/request-a-quote/thank-you/', process.env.CF_PAGES_URL || Astro.site || site.url).href;
+const email = site.email!;
 // `key` lets other pages preselect a type: /request-a-quote/?type=fraternal
 const productTypes = [
   { key: 'stamping', label: 'Metal stamping (parts to print)' },
@@ -32,41 +31,33 @@ const productTypes = [
 ];
 ---
 
-{
-  !accessKey &&
-    (showTodos ? (
-      <Todo block>
-        Set <code>PUBLIC_WEB3FORMS_ACCESS_KEY</code> in Cloudflare Pages (Settings &rarr; Environment variables) and
-        redeploy. Until then this form cannot send.
-      </Todo>
-    ) : (
-      // Safety net if a build ever ships without the key: buyers get a way to reach us, never "TODO".
-      <p class="qf-offline" role="status">
-        Our online form is offline for a moment. Email <a href={`mailto:${site.email}`}>{site.email}</a> or call{' '}
-        <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a> and we'll reply within one business day.
-      </p>
-    ))
-}
+{!accessKey && (
+  <div class="qf__intro">
+    <p>Use the form to prepare an email with your project details, or write directly to <a href={`mailto:${email}`}>{email}</a>. You can attach drawings before you send.</p>
+  </div>
+)}
 
 <form
   id="quote-form"
   class="qf"
-  action="https://api.web3forms.com/submit"
-  method="POST"
-  enctype="multipart/form-data"
+  action={accessKey ? 'https://api.web3forms.com/submit' : `mailto:${email}`}
+  method="post"
+  enctype={accessKey ? 'multipart/form-data' : 'text/plain'}
   data-max-mb={maxUploadMb}
+  data-email={email}
+  data-delivery={accessKey ? 'direct' : 'draft'}
+  hidden={!accessKey}
 >
-  <input type="hidden" name="access_key" value={accessKey} />
-  <!-- Subject and replyto are filled from the visitor's answers on submit (see script below), so the
-       notification reads "Quote request — Name — Company" and hitting Reply goes to the customer. -->
-  <input type="hidden" name="subject" value="Quote request — melcoed.com" />
-  <input type="hidden" name="from_name" value="melcoed.com quote form" />
-  <input type="hidden" name="redirect" value={redirect} />
-  <!-- Honeypot: hidden from people, irresistible to bots. Web3Forms rejects submissions where it's checked. -->
-  <input type="checkbox" name="botcheck" class="qf__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  {accessKey && <>
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="subject" value="Quote request — melcoed.com" />
+    <input type="hidden" name="from_name" value="melcoed.com quote form" />
+    <input type="hidden" name="redirect" value={redirect} />
+    <input type="checkbox" name="botcheck" class="qf__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  </>}
 
   <fieldset class="qf__group">
-    <legend>Your details</legend>
+    <legend>Contact information</legend>
     <div class="qf__row">
       <div class="qf__field">
         <label for="qf-name">Name <span class="qf__req" aria-hidden="true">*</span></label>
@@ -90,11 +81,11 @@ const productTypes = [
   </fieldset>
 
   <fieldset class="qf__group">
-    <legend>Your parts</legend>
+    <legend>Project details</legend>
     <div class="qf__field">
       <label for="qf-type">What do you need?</label>
       <select id="qf-type" name="product_type">
-        <option value="">Select one (optional)</option>
+        <option value="">Select project type</option>
         {productTypes.map((t) => <option data-key={t.key}>{t.label}</option>)}
       </select>
     </div>
@@ -120,6 +111,11 @@ const productTypes = [
       </div>
     </div>
 
+    <div class="qf__field">
+      <label for="qf-repeat">Reorder plans <small>(optional)</small></label>
+      <input id="qf-repeat" name="repeat_orders" placeholder="e.g. 2,000 initially, then 500 each quarter" />
+    </div>
+
     {
       uploadsEnabled ? (
         <div class="qf__field">
@@ -136,7 +132,7 @@ const productTypes = [
             PDF, DXF, DWG, STEP, IGES, AI/EPS, images or ZIP. Up to {maxUploadMb} MB total.
           </small>
         </div>
-      ) : (
+      ) : accessKey && (
         <p class="qf__note">
           <strong>Have a drawing, CAD file or photo?</strong> After you submit, email it to{' '}
           {site.email ? <a href={`mailto:${site.email}`}>{site.email}</a> : 'us'} with your name or company in the
@@ -157,97 +153,102 @@ const productTypes = [
   </fieldset>
 
   <div class="qf__actions">
-    <button class="btn btn--primary qf__submit" type="submit">Send quote request</button>
-    <p class="qf__fine"><span aria-hidden="true">*</span> Required. We use your details only to respond to this request. See our <a href="/privacy/">Privacy Policy</a>.</p>
+    <button class="btn btn--primary qf__submit" type="submit">{accessKey ? 'Send quote request' : 'Prepare quote email'}</button>
+    <p class="qf__fine"><span aria-hidden="true">*</span> Required. See how we handle your information in our <a href="/privacy/">Privacy Policy</a>.</p>
   </div>
 
-  <p class="qf__status" role="alert" aria-live="assertive" hidden></p>
+  <p class="qf__status" role="alert" hidden></p>
+  <button type="button" class="qf__rescue text-link" hidden>Prepare an email with these details</button>
 </form>
 
-<div id="quote-success" class="qf-success" tabindex="-1" hidden>
-  <span class="ribbon">Received</span>
-  <h2>Thanks, we've got it.</h2>
-  <p>
-    Your request is in our quote inbox. You'll get an automatic first reply with Mel-Co-Ed at a Glance and our catalogs. Your quote,
-    pricing and order details are reviewed by a person before we send them.
-  </p>
-  <p>We reply within one business day.</p>
-  <p>Need to add something or in a hurry? Call <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>.</p>
-</div>
+<section id="quote-draft" class="qf__draft" tabindex="-1" hidden>
+  <h2>Your email is ready to send</h2>
+  <p>Open the draft in your email app, attach any drawings, then send. For webmail, copy the details below into a message to <a href={`mailto:${email}`}>{email}</a>.</p>
+  <a id="qf-mailto" class="btn btn--primary">Open email draft</a>
+  <label for="qf-summary">Project details to copy</label>
+  <textarea id="qf-summary" rows="8" readonly></textarea>
+</section>
 
 <script>
   const form = document.querySelector<HTMLFormElement>('#quote-form');
-  const success = document.querySelector<HTMLElement>('#quote-success');
+  const draft = document.querySelector<HTMLElement>('#quote-draft');
 
-  if (form && success) {
+  if (form && draft) {
     const status = form.querySelector<HTMLElement>('.qf__status')!;
+    const rescue = form.querySelector<HTMLButtonElement>('.qf__rescue')!;
     const submit = form.querySelector<HTMLButtonElement>('.qf__submit')!;
-    const deadline = form.querySelector<HTMLInputElement>('#qf-deadline');
+    const deadline = form.querySelector<HTMLInputElement>('#qf-deadline')!;
     const files = form.querySelector<HTMLInputElement>('#qf-files');
+    const email = form.dataset.email!;
     const maxBytes = Number(form.dataset.maxMb) * 1024 * 1024;
-    const phone = '(401) 724-2160';
 
-    // Preselect product type from ?type=<key>
-    const type = new URLSearchParams(location.search).get('type');
-    const option = type && form.querySelector<HTMLOptionElement>(`#qf-type option[data-key="${CSS.escape(type)}"]`);
+    const requestedType = new URLSearchParams(location.search).get('type');
+    const options = form.querySelectorAll<HTMLOptionElement>('#qf-type option[data-key]');
+    const option = Array.from(options).find((item) => item.dataset.key === requestedType);
     if (option) option.selected = true;
 
-    // Deadlines can't be in the past
-    if (deadline) deadline.min = new Date().toISOString().slice(0, 10);
-
-    const showError = (msg: string) => {
-      status.textContent = msg;
-      status.hidden = false;
-    };
+    const today = new Date();
+    const pad = (value: number) => String(value).padStart(2, '0');
+    deadline.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+    form.hidden = false;
 
     files?.addEventListener('change', () => {
-      const total = [...(files.files ?? [])].reduce((n, f) => n + f.size, 0);
-      files.setCustomValidity(
-        total > maxBytes ? `Files total ${(total / 1048576).toFixed(1)} MB; the limit is ${form.dataset.maxMb} MB.` : '',
-      );
+      const total = Array.from(files.files ?? []).reduce((sum, file) => sum + file.size, 0);
+      files.setCustomValidity(total > maxBytes ? `Use up to ${form.dataset.maxMb} MB in total, or email the files separately.` : '');
       files.reportValidity();
     });
 
-    // The submit event only fires once native validation (required, type=email) has passed.
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      status.hidden = true;
+    function prepareEmail() {
+      if (!form!.reportValidity()) return;
+      const data = new FormData(form!);
+      const labels = [
+        ['name', 'Name'], ['company', 'Company'], ['email', 'Email'], ['phone', 'Phone'],
+        ['product_type', 'Project type'], ['material', 'Material'], ['quantity', 'Quantity'],
+        ['finish', 'Finish'], ['deadline', 'Needed by'], ['repeat_orders', 'Reorder plans'], ['message', 'Project notes'],
+      ];
+      const summary = labels
+        .filter(([key]) => String(data.get(key) ?? '').trim())
+        .map(([key, label]) => `${label}: ${String(data.get(key)).trim()}`)
+        .join('\n');
+      const subject = ['Quote request', data.get('company') || data.get('name')].filter(Boolean).join(' — ');
+      const link = draft!.querySelector<HTMLAnchorElement>('#qf-mailto')!;
+      link.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary)}`;
+      draft!.querySelector<HTMLTextAreaElement>('#qf-summary')!.value = summary;
+      draft!.hidden = false;
+      draft!.focus();
+    }
+    form.addEventListener('input', () => { draft.hidden = true; });
+    rescue.addEventListener('click', prepareEmail);
 
-      const data = new FormData(form);
-      if (data.get('botcheck')) return; // bot: drop silently
-      if (!data.get('access_key')) {
-        showError(`The quote form isn't connected yet. Please call us at ${phone}.`);
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submit.disabled) return;
+      status.hidden = true;
+      rescue.hidden = true;
+      if (form.dataset.delivery === 'draft') {
+        prepareEmail();
         return;
       }
-      data.delete('redirect'); // JSON response for fetch; redirect is only for the no-JS path
-      const field = (k: string) => String(data.get(k) ?? '').trim();
-      data.set('replyto', field('email'));
-      data.set('subject', ['Quote request', field('name'), field('company')].filter(Boolean).join(' — '));
 
-      const label = submit.textContent;
+      const data = new FormData(form);
+      if (data.get('botcheck')) return;
+      data.delete('redirect');
+      data.set('replyto', String(data.get('email') ?? '').trim());
+      data.set('subject', ['Quote request', data.get('name'), data.get('company')].filter(Boolean).join(' — '));
       submit.disabled = true;
       submit.textContent = 'Sending…';
-
       try {
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        const json = await res.json().catch(() => ({}));
-        if (!res.ok || !json.success) throw new Error(json.message || `HTTP ${res.status}`);
-
-        form.reset();
-        form.hidden = true;
-        success.hidden = false;
-        // Conversion tracking. Cloudflare Web Analytics has no custom events, so a sent quote is
-        // recorded as a page view of the thank-you URL (the beacon runs with spa: true); the
-        // no-JavaScript path lands on that page too. Zaraz, if ever enabled, also gets an event.
-        history.pushState(null, '', '/request-a-quote/thank-you/');
-        (window as unknown as { zaraz?: { track?: (e: string) => void } }).zaraz?.track?.('quote_submitted');
-        success.focus();
-        success.scrollIntoView({ block: 'start' });
+        const response = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error('Delivery unconfirmed');
+        (window as unknown as { zaraz?: { track?: (event: string) => void } }).zaraz?.track?.('quote_submitted');
+        window.location.assign('/request-a-quote/thank-you/');
       } catch {
-        showError(`Sorry, your request didn't go through. Please try again, or call us at ${phone}.`);
-      } finally {
+        status.textContent = 'We could not confirm delivery. Your details are still here. You can email the same request to our team.';
+        status.hidden = false;
+        rescue.hidden = false;
         submit.disabled = false;
-        submit.textContent = label;
+        submit.textContent = 'Send quote request';
       }
     });
   }
@@ -384,20 +385,11 @@ const productTypes = [
     color: var(--red-900);
     font-weight: 600;
   }
-  .qf-success {
-    padding: 2rem 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--chrome);
-    background: var(--paper);
-    box-shadow:
-      inset 0 0 0 6px var(--paper),
-      inset 0 0 0 7px var(--chrome-light),
-      var(--shadow);
-  }
-  .qf-success:focus {
-    outline: none;
-  }
-  .qf-success p:last-child {
-    margin-bottom: 0;
-  }
+  .qf[hidden], .qf__draft[hidden], .qf__rescue[hidden] { display: none; }
+  .qf__intro { margin-bottom: 1.25rem; }
+  .qf__rescue { justify-self: start; cursor: pointer; }
+  .qf__draft { margin-top: 1.5rem; padding: 1.5rem; border: 1px solid var(--rule); background: var(--cream); scroll-margin: 1rem; }
+  .qf__draft h2 { font-size: 1.5rem; }
+  .qf__draft label { display: block; margin: 1.25rem 0 .35rem; }
+  .qf__field small { font-weight: 400; }
 </style>

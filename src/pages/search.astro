@@ -7,10 +7,11 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout title="Search" description="Search the Mel-Co-Ed, Inc. website." noindex hideFooterCta>
-  <PageHero title="Search" ribbon="Find it fast" lead="Products, capabilities, industries and answers." />
+  <PageHero title="Search the site" lead="Look up a product, a manufacturing process or an answer to a buying question." />
   <section class="section search-section">
     <div class="wrap">
       <div id="search"></div>
+      <p class="browse">Browse <a href="/products/">products</a>, <a href="/capabilities/">capabilities</a> or <a href="/resources/">buyer guides</a>.</p>
       <noscript>
         <p>Search needs JavaScript. You can also call us at <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>.</p>
       </noscript>
@@ -31,6 +32,7 @@ import { site } from '../data/site';
     padding-top: 2.5rem;
     min-height: 50vh;
   }
+  .browse { margin-top: 1.5rem; }
   #search {
     --pagefind-ui-scale: 1;
     --pagefind-ui-primary: var(--oxblood);

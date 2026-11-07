@@ -6,7 +6,7 @@
 
 import type { Faq } from '../lib/schema';
 import type { PhotoSlotName } from './photos';
-import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, ordering, processesLine, outsourcedLine, pressesLine, stampingThicknessLine, toleranceLine, tooling, edgeFinishes, bandingWidths, badgeAuthorization, enamel, whoWeSellTo, reproductions, attachments, coinPackaging } from './facts';
+import { materialsLine, finishesLine, minimumLine, leadTimeLine, dieStrikingLine, outsourcedLine, stampingThicknessLine, edgeFinishes, bandingWidths, badgeAuthorization, enamel, reproductions, attachments, coinPackaging } from './facts';
 
 export type Spec = { label: string; value?: string; todo?: string };
 export type ProductType = { title: string; body: string; href?: string };
@@ -46,7 +46,7 @@ export type Product = {
 
 const moqFaq = (thing: string): Faq => ({
   q: `What is the minimum order for ${thing}?`,
-  a: `Our minimum is ${ordering.minimum}; smaller runs are available at a higher price. ${ordering.noMinimum} Lead time is typically ${ordering.leadTime}, and pricing is quoted at the time of order based on current metal prices.`,
+  a: minimumLine,
 });
 
 export const products: Record<string, Product> = {
@@ -62,8 +62,8 @@ export const products: Record<string, Product> = {
     accent: 'stamped in Pawtucket',
     lead: 'Jewelry findings and raw stampings for brands, designers and finishers: 30,000+ stock findings on our Open Line, or your design on your own exclusive die.',
     intro: [
-      "Rhode Island built America's jewelry industry, and we've stamped findings here since 1948.",
-      'Every finding is struck from steel dies we build in-house, so parts match run after run and tooling stays ready for reorders. Supplied raw or finished.',
+      "Start with a catalog number for an existing finding, or send a sketch and the finished dimensions for a new design.",
+      'For repeat production, identify the face that will show, any attachment points and your finish reference. We can supply raw stampings for your finisher or coordinate finishing.',
     ],
     typesHeading: 'Findings & stampings we make',
     types: [
@@ -149,7 +149,7 @@ export const products: Record<string, Product> = {
     lead: 'Die-struck badges for police, fire, EMS, government and security, and secondary badge work for the companies that make them.',
     intro: [
       'We strike badges from steel dies built in our own tool room, and our presses can take on full badge production from design to finished piece. We also reproduce old or retired badges from a sample.',
-      'Die striking presses the design into solid metal under heavy pressure: crisp lettering and deep relief that hold up to years of daily wear.',
+      'Die striking presses the design into solid metal under heavy pressure: the raised edges and recessed fields give lettering definition. Tell us how the badge will attach and what finish it needs.',
     ],
     typesHeading: 'Badges we strike',
     types: [],
@@ -175,7 +175,7 @@ export const products: Record<string, Product> = {
     faqs: [
       {
         q: 'What is a die-struck badge?',
-        a: 'A die-struck badge is made by stamping a blank of solid metal between hardened steel dies under heavy pressure. The process produces deep relief and sharp lettering, and a badge that is dense and durable enough for daily duty wear.',
+        a: 'A die-struck badge is made by stamping a blank of solid metal between hardened steel dies under heavy pressure. The relief and lettering are formed in the metal. We review the scale of the artwork, attachment and finish for the intended use.',
       },
       {
         q: 'Do you need authorization to make police or government badges?',
@@ -198,12 +198,12 @@ export const products: Record<string, Product> = {
     quoteType: 'medallions',
     metaTitle: 'Custom Struck Medals, Medallions & Challenge Coins',
     metaDescription:
-      'Custom die-struck medals, medallions and challenge coins from Mel-Co-Ed in Pawtucket, RI. Any type of medal, struck from your design with relief on both sides.',
+      'Custom die-struck medals, medallions and challenge coins from Mel-Co-Ed in Pawtucket, RI. Custom artwork, relief on one or both faces and in-house tooling for repeat programs.',
     h1: 'Custom Medals & Medallions',
-    accent: 'any type of medal',
-    lead: 'Die-struck medals, medallions and challenge coins of any type, struck on both sides from your design, for organizations, units and award programs.',
+    accent: 'struck in Rhode Island',
+    lead: 'Custom medals, medallions and challenge coins for organizations and award programs. Your design can carry relief on one face or both.',
     intro: [
-      'Struck between two steel dies, a medallion gets sharp relief on both faces and a solid, heavy feel that cast or printed pieces can’t match.',
+      'Specify the diameter, edge and artwork for each face. Raised borders, recessed lettering and fields for color all affect the design of the dies.',
       'We cut the dies and strike every piece in Pawtucket.',
     ],
     typesHeading: 'Medallions we strike',
@@ -212,7 +212,6 @@ export const products: Record<string, Product> = {
       { title: 'Race & finisher medals', body: 'Medals for races, runs and events, struck from your design.' },
       { title: 'Commemorative & award medals', body: 'Medals that mark an occasion or honor an achievement.' },
       { title: 'Recognition & service medallions', body: 'Medallions for recognition and years-of-service programs.' },
-      { title: 'Any type of medal', body: 'Tell us what it’s for. If it can be struck in metal, we’ll make it.' },
     ],
     audienceHeading: 'Who orders medallions',
     audience: [
@@ -221,7 +220,7 @@ export const products: Record<string, Product> = {
       'Companies and award programs',
     ],
     specs: [
-      { label: 'Process', value: 'Die-struck from steel tooling, two-sided relief' },
+      { label: 'Process', value: 'Die-struck from steel tooling, with relief on one or both faces' },
       { label: 'Size', value: dieStrikingLine },
       { label: 'Metals', value: materialsLine },
       { label: 'Finishes', value: finishesLine },
@@ -234,11 +233,11 @@ export const products: Record<string, Product> = {
     faqs: [
       {
         q: 'What is the difference between a struck and a cast medallion?',
-        a: 'A struck medallion is stamped from a solid metal blank between steel dies, giving sharp detail and a dense, heavy piece. A cast medallion is poured into a mold, which suits very deep or undercut designs but typically shows softer detail.',
+        a: 'A struck medallion starts as a solid blank. Pressure moves metal into the engraved die to form detail. A cast medallion begins as molten metal in a mold. Deep sculptural forms and features that would trap a rigid striking die are reasons to consider casting.',
       },
       {
         q: 'What is the difference between a medallion and a challenge coin?',
-        a: 'Both are struck metal pieces with relief on both sides. Medallions are usually larger presentation or keepsake pieces. Challenge coins are typically coin-sized, carried by members, and given to mark service or membership.',
+        a: 'Either can be made by die striking. Medallions are usually larger presentation or keepsake pieces. Challenge coins are typically coin-sized, carried by members, and given to mark service or membership.',
       },
       {
         q: 'Can you add edge lettering or serial numbers?',
@@ -266,14 +265,13 @@ export const products: Record<string, Product> = {
     accent: 'made to be kept',
     lead: 'Years-of-service pins, recognition medals and struck plaque and trophy components for companies, agencies, associations and award suppliers.',
     intro: [
-      'Award programs run for decades, and every pin has to match the last. We keep your tooling in our own tool room, so this year’s 5-year pin matches the one before.',
+      'For a service award series, decide what stays the same across the years and what changes. A shared outline and attachment can simplify reorders while the finish, numeral or emblem distinguishes each award.',
     ],
     typesHeading: 'Award pieces we make',
     types: [
       { title: 'Lapel pins', body: 'Struck award and recognition pins.' },
       { title: 'Medals', body: 'Struck award medals.' },
       { title: 'Plaque & trophy emblems', body: 'Struck emblems for plaques and trophies.' },
-      { title: 'Custom award pieces', body: 'And custom award pieces of almost any kind.' },
     ],
     audienceHeading: 'Who orders awards',
     audience: [
@@ -294,7 +292,7 @@ export const products: Record<string, Product> = {
     faqs: [
       {
         q: 'Can you match pins we have ordered in previous years?',
-        a: `If we made the original die, we still have it: ${tooling.storage.toLowerCase()} If another supplier made them, send a sample and we will tell you what matching it involves.`,
+        a: `Share the prior part number and an approved sample. We can check the original tooling and compare the finish. If another supplier made the pins, we review the sample and quote new tooling as needed.`,
       },
       {
         q: 'Do you work with award and trophy companies?',
@@ -318,7 +316,7 @@ export const products: Record<string, Product> = {
     accent: 'texture by the strip',
     lead: 'Embossed pattern stock and banding for jewelry, recognition, gift and lighting makers: several hundred patterns, from floral and hammered to stone.',
     intro: [
-      'Pattern stock textures findings, cuffs, tie bars and recognition pieces without engraving each part. Or bring your own flat stock and we’ll emboss it.',
+      'Pattern stock textures findings, cuffs, tie bars and recognition pieces without engraving each part. We can also assess your own flat stock for embossing.',
       'Stock patterns are on our Open Line, with no tooling cost. Want one no one else has? We cut it on your own exclusive die.',
     ],
     typesHeading: 'Made from pattern stock',
@@ -328,8 +326,8 @@ export const products: Record<string, Product> = {
       { title: 'Gifts & keepsakes', body: 'Bookmarks, ornaments, money clips, card cases, letter openers and paper weights.' },
       { title: 'Architectural & lighting', body: 'Embossed metal for architectural applications and the lighting industry.' },
       {
-        title: 'Any shape',
-        body: 'Every pattern can be made into pendants, bracelets, earrings or any other shape: rounds in any size, with or without a hole, tags, bars or your own design.',
+        title: 'Cut blanks',
+        body: 'Patterned stock can be cut into rounds, tags, bars or custom outlines. Send the part width, hole locations and pattern direction to check fit.',
       },
     ],
     audienceHeading: 'Who uses pattern stock',
@@ -351,7 +349,7 @@ export const products: Record<string, Product> = {
       },
       {
         q: 'Can you emboss my own flat stock?',
-        a: 'Yes. Bring your flat stock and we will emboss it with one of our patterns. Have dies or metal already? We’ll run yours.',
+        a: 'We can review your flat stock for embossing with a catalog pattern. Send the alloy, temper, thickness and width so we can check compatibility.',
       },
       {
         q: 'How do I order a pattern or banding?',
@@ -394,7 +392,7 @@ export const productIndex: { title: string; href: string; slot: PhotoSlotName; b
     title: 'Medals & Medallions',
     slot: 'medallions',
     href: '/medallions/',
-    body: 'Any type of medal, medallion or challenge coin, struck on both sides.',
+    body: 'Medals and challenge coins with custom relief, finishes and numbering options.',
   },
   {
     title: 'Awards',
