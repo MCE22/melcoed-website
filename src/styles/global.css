@@ -3,7 +3,7 @@
    "Manufacturer, but smooth and modern": strong but calm. Two fonts only: Archivo 700 for
    headings (H1 uppercase, H2–H4 sentence case), Inter for everything else. Accent words in
    headings change color only. One type scale and one spacing scale below, used everywhere.
-   Plain columns with thin rules over boxed cards. Square corners, generous space.
+   Plain columns with thin rules over boxed cards. Softly rounded surfaces, generous space.
    Mobile-first: base styles target phones; min-width queries scale up. */
 
 :root {
@@ -81,9 +81,9 @@
 
   --gutter: clamp(1.1rem, 4.5vw, 2rem);
   --max: 86rem;
-  --radius: 0;
-  --radius-lg: 2px;
-  --photo-radius: 8px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --photo-radius: var(--radius-lg);
   --header-h: 6.4rem; /* full header with the large plate; condenses on scroll */
   --shadow: 0 1px 0 rgb(27 24 21 / 0.04);
 
@@ -139,6 +139,9 @@ video {
   display: block;
   max-width: 100%;
   height: auto;
+}
+img, video {
+  border-radius: var(--photo-radius);
 }
 a {
   color: var(--oxblood);
@@ -481,6 +484,7 @@ h4 {
 .ph {
   position: relative;
   display: grid;
+  border-radius: var(--photo-radius);
   place-items: end start;
   width: 100%;
   height: 100%;
@@ -489,6 +493,19 @@ h4 {
   background:
     radial-gradient(120% 90% at 70% 30%, #3a332b 0%, #1d1915 55%, #110f0d 100%);
   color: var(--cream-200);
+}
+
+/* Visible on illustrative examples in both feature images and galleries. */
+.concept-label {
+  position: absolute;
+  inset: auto auto .5rem .5rem;
+  max-width: calc(100% - 1rem);
+  padding: .15rem .38rem;
+  border-radius: .25rem;
+  background: #201d1a;
+  color: #faf6ee;
+  font: 500 .7rem/1.3 var(--font-body);
+  overflow-wrap: anywhere;
 }
 
 /* ---------- Spec list ---------- */
@@ -641,7 +658,7 @@ h4 {
   display: inline;
   padding: 0.05em 0.35em;
   border: 1px dashed #c47a00;
-  border-radius: 2px;
+  border-radius: var(--radius);
   background: #fff4d6;
   color: #6b4100;
   font-family: var(--font-mono);
@@ -674,6 +691,7 @@ h4 {
   position: absolute;
   left: 1rem;
   top: -100px;
+  border-radius: var(--radius);
   z-index: 100;
   padding: 0.75rem 1rem;
   background: var(--ink);

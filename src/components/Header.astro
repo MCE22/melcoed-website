@@ -62,7 +62,7 @@ const current = (href: string) => path === href.replace(/\/$/, '') ? 'page' : un
   summary { min-height: 44px; display:flex; list-style: none; gap:.55rem; align-items:center; cursor:pointer; }
   summary::-webkit-details-marker { display:none; }
   .menu::details-content { transition: none; }
-  .menu nav { position:absolute; top:100%; left:0; right:0; background: var(--paper); border-bottom: 2px solid var(--navy); padding: .7rem var(--gutter) 1rem; box-shadow: 0 18px 22px -20px #0c1724; }
+  .menu nav { border-radius: 0 0 var(--radius-lg) var(--radius-lg); position:absolute; top:100%; left:0; right:0; background: var(--paper); border-bottom: 2px solid var(--navy); padding: .7rem var(--gutter) 1rem; box-shadow: 0 18px 22px -20px #0c1724; }
   .menu nav a { display:block; padding:.75rem .25rem; border-bottom:1px solid var(--rule); }
   @media (max-width:62rem) { .menu { display:block; } .wide-nav,.search-link {display:none;} }
   @media (max-width:32rem) { .main-bar { gap:.8rem; } .quote { padding:.65rem .75rem; font-size:.78rem; min-height:40px; } .quote span {display:none;} }

@@ -8,8 +8,7 @@ export const confidential = {
   accent: 'for your design.',
   body: "Customer dies are used only for that customer's orders. We never show or sell customer work without written permission, and we'll sign an NDA on request.",
   /** Visible label on every illustration. */
-  illustrationLabel:
-    'Illustration · Fictional product concept.',
+  illustrationLabel: 'Design concept',
   /** Line under each illustration gallery. */
   galleryLine: 'These concepts illustrate relief, shapes and finishes. Customer designs are private.',
 };

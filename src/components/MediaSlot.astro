@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { confidential } from '../data/confidential';
 import { photos, isSpacer, type PhotoSlotName } from '../data/photos';
 
 interface Props {
@@ -41,22 +42,11 @@ const widths = [360, 600, 900, 1280, 1600, 2000];
       loading={eager ? 'eager' : 'lazy'}
       fetchpriority={eager ? 'high' : undefined}
     />
-    {photo.illustration && <figcaption>Fictional design concept</figcaption>}
+    {photo.illustration && <figcaption class="concept-label">{confidential.illustrationLabel}</figcaption>}
   </figure>
 )}
 
 <style>
   .media { position: relative; margin: 0; overflow: hidden; border-radius: var(--photo-radius); background: #211d19; }
   .media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, center); transform: scale(var(--photo-zoom, 1)); transform-origin: var(--focus, center); }
-  figcaption {
-    position: absolute;
-    inset: auto auto .65rem .65rem;
-    max-width: calc(100% - 1.3rem);
-    padding: .28rem .58rem;
-    background: #201d1a;
-    color: #faf6ee;
-    font: 500 .78rem/1.4 var(--font-body, system-ui);
-    letter-spacing: .02em;
-    overflow-wrap: anywhere;
-  }
 </style>

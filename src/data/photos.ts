@@ -66,7 +66,7 @@ import ilTorch from '../assets/illustrations/lodge-style-torch-diamond.jpg';
 import ilLighthouse from '../assets/illustrations/lodge-style-lighthouse-medallion.jpg';
 
 /** `illustration: true` marks a labeled illustration of a style we strike (fictional names,
- *  never a customer piece). It renders with a visible "Illustration" label and the
+ *  never a customer piece). It renders with a visible "Design concept" label and the
  *  confidentiality note. Replace with real house-sample photos when available. */
 export type Photo = {
   src: ImageMetadata;
@@ -104,7 +104,7 @@ export type ShootKey = (typeof newShoot)[number]['key'];
 export const shoot: Record<ShootKey, Photo[]> = {
   calipers: [{ src: calipersPart, alt: 'Mitutoyo dial caliper beside a stamped brass bezel finding on a maple workbench' }],
   dieAndPart: [{ src: benchDieCalipers, alt: 'Bench tooling and a dial caliper on a workbench in the Mel-Co-Ed tool room' }],
-  struckRelief: [{ illustration: true, src: ilEdge, alt: 'Fictional medallion with raised leaves, a recessed field and a polished rim' }],
+  struckRelief: [{ illustration: true, src: ilEdge, alt: 'Medallion with raised leaves, a recessed field and a polished rim' }],
   finishedTray: [],
   rawStock: [],
   velvet: [],
@@ -191,7 +191,7 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { src: patternDiscs, alt: 'Brass discs cut from embossed pattern stock, overlapping on a dark background' },
   ],
   badges: [
-    { illustration: true, src: ilPolice, alt: 'Illustration of a gold police badge with an eagle crest, star center and laurel border, for a fictional department' },
+    { illustration: true, src: ilPolice, alt: 'Illustration of a gold police badge with an eagle crest, star center and laurel border' },
     { illustration: true, src: ilFireCross, alt: 'Illustration of a fire department badge in a Maltese cross shape with red enamel and firefighting tools' },
     { illustration: true, src: ilSheriff, alt: 'Illustration of a six-point sheriff star with ball tips and engraved scrollwork' },
     { illustration: true, src: ilSecurity, alt: 'Illustration of a silver security badge with an eagle crest and a shield center' },
@@ -200,16 +200,16 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { illustration: true, src: ilEdge, alt: 'Illustration of a close-up of a struck medallion edge, showing raised oak-leaf relief and a polished rim' },
   ],
   'industries-fraternal': [
-    { illustration: true, src: ilLodge, alt: 'Illustration of a round lodge emblem with a square and compasses, navy enamel and a laurel border, for a fictional lodge' },
+    { illustration: true, src: ilLodge, alt: 'Illustration of a round lodge emblem with a square and compasses, navy enamel and a laurel border' },
     { illustration: true, src: ilTree, alt: 'Illustration of a bronze medallion with a tree of life, ringed by the words Service, Character, Unity' },
     { illustration: true, src: ilCross, alt: 'Illustration of a fraternal cross emblem in navy enamel with a laurel wreath and gold rays' },
     { illustration: true, src: ilTorch, alt: 'Illustration of a diamond-shaped pin with a torch and laurel on red enamel' },
     { illustration: true, src: ilLighthouse, alt: 'Illustration of a bronze medallion with a lighthouse scene, ringed by the words Guidance, Service, Community' },
   ],
   medallions: [
-    { illustration: true, src: ilLighthouse, alt: 'Fictional bronze lighthouse medallion with lettering around its rim' },
-    { illustration: true, src: ilEdge, alt: 'Fictional medallion detail with raised oak leaves and a polished rim' },
-    { illustration: true, src: ilTree, alt: 'Fictional tree medallion with raised lettering' },
+    { illustration: true, src: ilLighthouse, alt: 'Bronze lighthouse medallion with lettering around its rim' },
+    { illustration: true, src: ilEdge, alt: 'Medallion detail with raised oak leaves and a polished rim' },
+    { illustration: true, src: ilTree, alt: 'Tree medallion with raised lettering' },
   ],
   awards: [
     { src: flagPinFront, alt: 'An enameled American flag lapel pin' },

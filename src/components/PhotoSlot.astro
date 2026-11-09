@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { confidential } from '../data/confidential';
 import { photos, isSpacer, type Photo, type PhotoSlotName } from '../data/photos';
 
 interface Props {
@@ -33,7 +34,7 @@ const sizes = gallery ? '(min-width: 40rem) 44vw, 100vw' : '(min-width: 72rem) 7
           loading={eager && i === 0 ? 'eager' : 'lazy'}
           fetchpriority={eager && i === 0 ? 'high' : undefined}
         />
-        {photo.illustration && <span class="concept">Fictional design concept</span>}
+        {photo.illustration && <span class="concept-label">{confidential.illustrationLabel}</span>}
         </div>
         {photo.caption && <figcaption>{photo.caption}</figcaption>}
       </figure>
@@ -51,14 +52,4 @@ const sizes = gallery ? '(min-width: 40rem) 44vw, 100vw' : '(min-width: 72rem) 7
   figure :global(img) { display: block; width: 100%; height: auto; object-position: var(--focus, center); transform: scale(var(--photo-zoom, 1)); transform-origin: var(--focus, center); }
   .photo-slot--gallery :global(img) { aspect-ratio: 4 / 3; object-fit: cover; }
   figcaption { margin-top: .6rem; color: var(--ink-600); font-size: .88rem; line-height: 1.45; }
-  .concept {
-    position: absolute;
-    inset: auto auto .65rem .65rem;
-    padding: .28rem .58rem;
-    max-width: calc(100% - 1.3rem);
-    color: #faf6ee;
-    background: #201d1a;
-    font: 500 .78rem/1.4 var(--font-body, system-ui);
-    letter-spacing: .02em;
-  }
 </style>

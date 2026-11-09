@@ -111,7 +111,7 @@ const specs = r.specs.filter((row) => 'value' in row || showTodos);
 </BaseLayout>
 
 <style>
-  .spec-panel { border-top:3px solid var(--navy); background:var(--paper); padding:clamp(1rem,2.7vw,2.2rem); min-width:0; }
+  .spec-panel { border-radius:var(--radius-lg); border-top:3px solid var(--navy); background:var(--paper); padding:clamp(1rem,2.7vw,2.2rem); min-width:0; }
 
   .res {
     align-items: start;
@@ -177,6 +177,7 @@ const specs = r.specs.filter((row) => 'value' in row || showTodos);
     }
   }
   .res-conf {
+    border-radius: var(--radius-lg);
     max-width: 44rem;
     margin: 0 0 1.25rem;
     padding: 1rem 1.25rem;
