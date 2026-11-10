@@ -38,11 +38,11 @@ const itemList = {
   >
     <div slot="media" class="industry-examples">
       <a href="/findings/">
-        <MediaSlot slot="industries" aspect=".86" sizes="(min-width:53rem) 22vw, 45vw" eager />
+        <MediaSlot slot="industries" aspect="4 / 3" sizes="(min-width:53rem) 23vw, (min-width:35rem) 46vw, 100vw" eager />
         <span>Jewelry &amp; fashion</span>
       </a>
       <a href="/badges/">
-        <MediaSlot slot="badges" index={4} aspect=".86" sizes="(min-width:53rem) 22vw, 45vw" />
+        <MediaSlot slot="badges" index={4} aspect="4 / 3" sizes="(min-width:53rem) 23vw, (min-width:35rem) 46vw, 100vw" />
         <span>Uniform insignia</span>
       </a>
     </div>
@@ -81,6 +81,7 @@ const itemList = {
 
 <style>
   .industry-examples { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.6rem,1vw,1rem); align-items:start; }
+  @media(max-width:34.99rem) { .industry-examples { grid-template-columns: 1fr; gap: 1.25rem; } }
   .industry-examples a { color:var(--ink); font-weight:600; text-decoration:none; }
   .industry-examples a:hover span { text-decoration:underline; }
   .industry-examples span { display:block; margin-top:.55rem; font-size:.88rem; }

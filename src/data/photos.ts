@@ -29,7 +29,7 @@ import cuffsEmbossed from '../assets/photos/cuffs-embossed.jpg';
 import tieBars from '../assets/photos/tie-bars.jpg';
 import cufflinksFootball from '../assets/photos/cufflinks-football.jpg';
 import cufflinksWorn from '../assets/photos/cufflinks-worn.jpg';
-import flagPinFront from '../assets/photos/flag-pin-front.jpg';
+import nameplateCollection from '../assets/illustrations/custom-metalwork-collection.webp';
 import flagPinAngle from '../assets/photos/flag-pin-angle.jpg';
 import patternStock from '../assets/photos/pattern-stock.jpg';
 import buildingSign from '../assets/photos/building-sign.jpg';
@@ -74,7 +74,8 @@ export type Photo = {
   illustration?: boolean;
   caption?: string;
   position?: string;
-  zoom?: number;
+  /** Show the entire subject on this matching background, regardless of frame shape. */
+  matte?: string;
 };
 /** Placeholder for a shot not taken yet. `shot` is the shot-list id, e.g. "PHOTO-05". */
 export type Spacer = { spacer: true; shot: string; label: string };
@@ -102,8 +103,8 @@ export const newShoot = [
 export type ShootKey = (typeof newShoot)[number]['key'];
 
 export const shoot: Record<ShootKey, Photo[]> = {
-  calipers: [{ src: calipersPart, alt: 'Mitutoyo dial caliper beside a stamped brass bezel finding on a maple workbench' }],
-  dieAndPart: [{ src: benchDieCalipers, alt: 'Bench tooling and a dial caliper on a workbench in the Mel-Co-Ed tool room' }],
+  calipers: [{ src: calipersPart, alt: 'Dial caliper alongside a small rectangular brass component on a wooden bench' }],
+  dieAndPart: [{ src: benchDieCalipers, alt: 'Bench press and dial caliper on a wooden workbench in the Mel-Co-Ed tool room' }],
   struckRelief: [{ illustration: true, src: ilEdge, alt: 'Medallion with raised leaves, a recessed field and a polished rim' }],
   finishedTray: [],
   rawStock: [],
@@ -130,6 +131,7 @@ export type PhotoSlotName =
   | 'home-services'
   | 'findings'
   | 'pattern-stock'
+  | 'nameplates'
   | 'badges'
   | 'medallions'
   | 'awards'
@@ -156,6 +158,8 @@ export type PhotoSlotName =
 const close = {
   brassBlanks: { src: brassBlanks, alt: 'A pile of brass stamped blanks catching warm light' },
   floral: { src: findingsFloral, alt: 'Gold-toned Open Line stampings shaped as leaves, an iris and flowers, with raised veins and curled petals' },
+  patternStock: { src: patternStock, matte: '#fff', alt: 'Embossed strips laid beside formed cuffs and narrow lengths of patterned metal' },
+  patternDiscs: { src: patternDiscs, alt: 'Overlapping round brass stampings with several embossed textures and pierced holes', position: '50% 57%' },
   cuffsEmbossed: { src: cuffsEmbossed, alt: 'Two embossed cuff bracelets, one in antique brass and one in satin silver' },
   sign: { src: buildingSign, alt: 'The Mel-Co-Ed, Inc. building in Pawtucket, Rhode Island, with the company name in script across the facade' },
 } satisfies Record<string, Photo>;
@@ -163,12 +167,12 @@ const close = {
 // Shop photos approved one by one by the owner (old-site pull, Nov 2026).
 const shop = {
   craftsman: { src: craftsmanBench, alt: 'A longtime Mel-Co-Ed craftsman working on a part at his bench' },
-  pressOperators: { src: pressOperators, alt: 'Two operators running large flywheel stamping presses' },
-  coilsShelf: { src: brassCoilsShelf, alt: 'Coils of brass strip stock on a storage rack' },
+  pressOperators: { src: pressOperators, alt: 'An operator standing between two flywheel presses on the Pawtucket shop floor' },
+  coilsShelf: { src: brassCoilsShelf, alt: 'Coiled metal strip on the material storage rack' },
   coilsPallet: { src: brassCoilsPallet, alt: 'Shrink-wrapped coils of brass strip stacked on a pallet' },
   pressDelivery: { src: pressDelivery, alt: 'A newly purchased stamping press arriving on a flatbed trailer' },
   diesRack: { src: diesRack, alt: 'Steel die sets stored on a rack in the tool room' },
-  dieCloseup: { src: dieCloseup, alt: 'A small die set and a hand grinder on the tool room bench' },
+  dieCloseup: { src: dieCloseup, alt: 'Compact steel die set on its side on the tool room bench' },
   inspection: { src: inspectionStation, alt: 'The optical inspection station used to check parts against the print' },
   packing: { src: packingOrders, alt: 'A team member packing finished orders into cartons' },
 } satisfies Record<string, Photo>;
@@ -176,7 +180,7 @@ const shop = {
 export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   'home-hero': [close.cuffsEmbossed],
   'home-heritage': [close.sign],
-  'home-services': [{ ...shoot.dieAndPart[0], position: '36% 57%', zoom: 1.12 }],
+  'home-services': shoot.calipers,
   findings: [
     close.floral,
     { src: findingsBoards, alt: 'Sample boards covered with hundreds of stamped jewelry findings, mounted on purple and teal panels' },
@@ -187,15 +191,16 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { src: cufflinksWorn, alt: 'A square cufflink fastened on a French cuff under a navy suit jacket' },
   ],
   'pattern-stock': [
-    { src: patternStock, alt: 'Strips of embossed brass pattern stock with a finished cuff made from it' },
-    { src: patternDiscs, alt: 'Brass discs cut from embossed pattern stock, overlapping on a dark background' },
+    close.patternStock,
+    { ...close.patternDiscs, caption: 'Round blanks cut from embossed pattern stock' },
   ],
+  nameplates: [{ src: nameplateCollection, illustration: true, alt: 'Raised Mel-Co-Ed lettering in a framed metal nameplate beside a sailboat medallion and a swallow pin' }],
   badges: [
     { illustration: true, src: ilPolice, alt: 'Illustration of a gold police badge with an eagle crest, star center and laurel border' },
     { illustration: true, src: ilFireCross, alt: 'Illustration of a fire department badge in a Maltese cross shape with red enamel and firefighting tools' },
     { illustration: true, src: ilSheriff, alt: 'Illustration of a six-point sheriff star with ball tips and engraved scrollwork' },
     { illustration: true, src: ilSecurity, alt: 'Illustration of a silver security badge with an eagle crest and a shield center' },
-    { illustration: true, src: ilWings, alt: 'Illustration of a pair of silver pilot wings with a navy enamel shield and star' },
+    { illustration: true, src: ilWings, alt: 'Silver-tone pilot wings with a raised star in a central shield' },
     { illustration: true, src: ilFireRound, alt: 'Illustration of a round fire rescue badge with a red enamel ring and a Maltese cross center' },
     { illustration: true, src: ilEdge, alt: 'Illustration of a close-up of a struck medallion edge, showing raised oak-leaf relief and a polished rim' },
   ],
@@ -212,25 +217,30 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
     { illustration: true, src: ilTree, alt: 'Tree medallion with raised lettering' },
   ],
   awards: [
-    { src: flagPinFront, alt: 'An enameled American flag lapel pin' },
-    { src: flagPinAngle, alt: 'An American flag lapel pin shown at an angle with its clutch back' },
+    { src: ilTorch, illustration: true, alt: 'Diamond-shaped recognition pin with a raised torch and laurel on red enamel' },
+    { src: ilTree, illustration: true, alt: 'Bronze recognition medallion with a tree motif and raised lettering', caption: 'Medallion face with a raised border and lettering' },
+    { src: flagPinAngle, alt: 'American flag lapel pin angled to show its clasp', caption: 'Lapel pin attachment viewed from the side' },
   ],
   // Hero/tile = [0]; the gallery shows the next two.
   'metal-stamping': [{ ...shop.pressOperators, position: '52% 37%' }, shop.coilsShelf, close.brassBlanks],
   capabilities: [
-    { ...shoot.calipers[0], position: '10% 22%', zoom: 1.4 },
+    shoot.calipers[0],
     { ...close.brassBlanks, caption: 'Blanking · Brass components cut to shape' },
-    { src: patternStock, alt: 'Embossed brass strips and a formed cuff', caption: 'Forming · A flat pattern carried into a finished cuff' },
+    { ...close.patternStock, caption: 'Forming · Embossed strip and formed cuffs' },
   ],
   // Development work is customer work, so none of it is shown.
-  'product-development': [close.cuffsEmbossed, ...(shoot.dieAndPart.length ? shoot.dieAndPart : [shop.dieCloseup]), ...shot('struckRelief')],
+  'product-development': [
+    { ...shop.craftsman, position: '48% 47%' },
+    { ...shop.dieCloseup, position: '50% 2%', caption: 'Tooling · A compact die set in the tool room' },
+    { ...shoot.calipers[0], caption: 'Inspection · A stamped component beside a dial caliper' },
+  ],
   industries: [close.cuffsEmbossed],
   about: [
     close.sign,
-    { ...shop.coilsShelf, position: '25% 65%', zoom: 1.42, caption: 'Material stock · Coiled brass strip before stamping' },
+    { ...shop.coilsShelf, caption: 'Material stock · Coiled strip before stamping' },
     { ...shop.pressOperators, position: '55% 40%', caption: 'Production · Flywheel presses on the Pawtucket floor' },
-    { ...shop.inspection, position: '61% 39%', zoom: 1.7, caption: 'Inspection · Optical measuring equipment at the shop' },
-    { src: patternDiscs, alt: 'Round brass stampings with several different embossed textures', position: '50% 68%', caption: 'Finished detail · Rounds blanked from embossed stock' },
+    { ...shop.inspection, caption: 'Inspection · Optical measuring equipment at the shop' },
+    { ...close.patternDiscs, caption: 'Finished detail · Rounds blanked from embossed stock' },
   ],
   // Service tiles (not placed on a page today)
   'die-striking': shot('struckRelief'),
@@ -238,14 +248,12 @@ export const photos: Partial<Record<PhotoSlotName, SlotItem[]>> = {
   'precision-milling': [shop.diesRack],
   packaging: [shop.packing],
   // Shows when filled
-  products: [{ src: patternDiscs, alt: 'Overlapping rounds blanked from embossed brass pattern stock' }],
-  quality: [{ ...shop.inspection, position: '60% 38%', zoom: 1.75 }],
-  materials: [{ ...shop.coilsShelf, position: '15% 70%', zoom: 1.55 }],
+  products: [close.patternDiscs],
+  quality: [shop.inspection],
+  materials: [shop.coilsShelf],
   'die-striking-shoot': [...shoot.struckRelief],
-  // Capabilities tool & die section: the #8 die close-up (owner pick). The bench photo stays on
-  // Product Development and Who Owns the Die.
-  'tooling-shoot': [{ ...shoot.dieAndPart[0], position: '30% 42%', zoom: 1.24 }],
-  'die-ownership': [...shoot.dieAndPart, shop.dieCloseup],
+  'tooling-shoot': [{ ...shop.dieCloseup, position: '50% 2%' }],
+  'die-ownership': [{ ...shop.dieCloseup, position: '50% 2%' }],
 };
 
 /** True when a slot has something to show, photo or spacer (for positions that only show when filled). */

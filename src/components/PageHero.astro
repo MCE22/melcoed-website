@@ -42,7 +42,7 @@ const withPhoto = hasCustomMedia || (photo && hasPhoto(photo));
         <slot />
       </div>
       {hasCustomMedia && <slot name="media" />}
-      {!hasCustomMedia && withPhoto && photo && <MediaSlot slot={photo} aspect="5 / 4" eager sizes="(min-width: 53rem) 48vw, 100vw" todo={photoTodo} class="hero-picture" />}
+      {!hasCustomMedia && withPhoto && photo && <MediaSlot slot={photo} aspect="4 / 3" eager sizes="(min-width: 53rem) 48vw, 100vw" todo={photoTodo} class="hero-picture" />}
     </div>
   </div>
 </section>

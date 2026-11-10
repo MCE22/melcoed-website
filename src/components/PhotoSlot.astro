@@ -16,14 +16,17 @@ const { slot, eager = false, skip = 0, max = 2, class: className } = Astro.props
 const list = (photos[slot] ?? []).filter((item): item is Photo => !isSpacer(item)).slice(skip, skip + max);
 const gallery = list.length > 1;
 const widths = [360, 600, 900, 1280, 1600];
-const sizes = gallery ? '(min-width: 40rem) 44vw, 100vw' : '(min-width: 72rem) 70rem, 100vw';
+const three = list.length === 3;
+const sizes = three
+  ? '(min-width: 54rem) 32vw, (min-width: 40rem) 48vw, 100vw'
+  : gallery ? '(min-width: 40rem) 48vw, 100vw' : '(min-width: 44rem) 42rem, 100vw';
 ---
 
 {list.length > 0 && (
-  <div class:list={['photo-slot', {'photo-slot--gallery': gallery}, className]}>
+  <div class:list={['photo-slot', {'photo-slot--single': !gallery, 'photo-slot--three': three}, className]}>
     {list.map((photo, i) => (
       <figure>
-        <div class="photo-frame" style={{ '--focus': photo.position, '--photo-zoom': photo.zoom }}>
+        <div class="photo-frame" style={{ '--focus': photo.position, '--matte': photo.matte, '--fit': photo.matte ? 'contain' : undefined }}>
         <Image
           src={photo.src}
           alt={photo.alt}
@@ -43,13 +46,18 @@ const sizes = gallery ? '(min-width: 40rem) 44vw, 100vw' : '(min-width: 72rem) 7
 )}
 
 <style>
-  .photo-slot { display: grid; gap: clamp(.75rem, 2vw, 1.5rem); }
+  .photo-slot { display: grid; align-items: start; gap: clamp(.75rem, 2vw, 1.5rem); }
+  .photo-slot--single { max-width: 42rem; margin-inline: auto; }
   @media (min-width: 40rem) {
-    .photo-slot--gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .photo-slot:not(.photo-slot--single) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .photo-slot--three > :last-child { grid-column: 1 / -1; width: calc((100% - clamp(.75rem, 2vw, 1.5rem)) / 2); justify-self: center; }
+  }
+  @media (min-width: 54rem) {
+    .photo-slot.photo-slot--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .photo-slot--three > :last-child { grid-column: auto; width: 100%; }
   }
   figure { position: relative; margin: 0; }
-  .photo-frame { position: relative; border-radius: var(--photo-radius); overflow: hidden; }
-  figure :global(img) { display: block; width: 100%; height: auto; object-position: var(--focus, center); transform: scale(var(--photo-zoom, 1)); transform-origin: var(--focus, center); }
-  .photo-slot--gallery :global(img) { aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo-frame { position: relative; aspect-ratio: 4 / 3; background: var(--matte, #211d19); border-radius: var(--photo-radius); overflow: hidden; }
+  figure :global(img) { display: block; width: 100%; height: 100%; object-fit: var(--fit, cover); object-position: var(--focus, center); }
   figcaption { margin-top: .6rem; color: var(--ink-600); font-size: .88rem; line-height: 1.45; }
 </style>

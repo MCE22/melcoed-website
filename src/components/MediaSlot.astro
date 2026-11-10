@@ -31,7 +31,7 @@ const widths = [360, 600, 900, 1280, 1600, 2000];
 ---
 
 {photo && (
-  <figure class:list={['media', className]} style={{ aspectRatio: aspect, '--focus': photo.position, '--photo-zoom': photo.zoom }}>
+  <figure class:list={['media', className]} style={{ aspectRatio: aspect, '--focus': photo.position, '--matte': photo.matte, '--fit': photo.matte ? 'contain' : undefined }}>
     <Image
       src={photo.src}
       alt={photo.alt}
@@ -47,6 +47,6 @@ const widths = [360, 600, 900, 1280, 1600, 2000];
 )}
 
 <style>
-  .media { position: relative; margin: 0; overflow: hidden; border-radius: var(--photo-radius); background: #211d19; }
-  .media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, center); transform: scale(var(--photo-zoom, 1)); transform-origin: var(--focus, center); }
+  .media { position: relative; margin: 0; overflow: hidden; border-radius: var(--photo-radius); background: var(--matte, #211d19); }
+  .media :global(img) { display: block; width: 100%; height: 100%; object-fit: var(--fit, cover); object-position: var(--focus, center); }
 </style>

@@ -57,7 +57,7 @@ export type Resource = {
   custom?: boolean;
   /** Shows the confidentiality line. */
   confidential?: boolean;
-  /** A labeled illustration only (never customer work). */
+  /** Approved photo or labeled design concept for this subject. */
   image?: { slot: PhotoSlotName; index: number };
 };
 
@@ -803,7 +803,7 @@ export const resources: Resource[] = [
     ],
     quoteType: 'other',
     custom: true,
-    image: { slot: 'industries-fraternal', index: 2 },
+    image: { slot: 'nameplates', index: 0 },
   },
 
   {

@@ -109,7 +109,12 @@ const capabilities = [
     .qr { display: none; }
     .origin { font-size: .78rem; }
   }
-  @media screen { main { border-radius: 8px; } }
+  @media screen {
+    main { border-radius: 8px; }
+    .pictures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pictures :global(img) { height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; }
+    .pictures figure:first-child :global(img) { background: #201d18; }
+  }
   @page { size: letter; margin: 0; }
   @media print {
     :global(body) { background: #faf7ef; font: 10.5pt/1.43 Arial, sans-serif; }
